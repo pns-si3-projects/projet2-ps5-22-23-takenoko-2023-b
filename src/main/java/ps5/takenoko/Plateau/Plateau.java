@@ -29,7 +29,7 @@ public class Plateau {
         ArrayList<Position> posables = new ArrayList<>();
         for(int i=0; i<TAILLE; i++) {
             for(int j=0; i<TAILLE; j++) {
-                if(isPosable(i,j)) {
+                if(isPosable(new Position(i,j))) {
                     posables.add(new Position(i,j));
                 }
             }
@@ -37,7 +37,9 @@ public class Plateau {
         return posables;
     }
 
-    public Boolean isPosable(int x, int y) {
+    public Boolean isPosable(Position p) {
+        int x = p.getX();
+        int y = p.getY();
         if(plateau[x][y] instanceof Parcelle) {
             return false;
         }
@@ -71,7 +73,6 @@ public class Plateau {
                 cpt++;
             }
         }
-
         return cpt > 1;
     }
 }
