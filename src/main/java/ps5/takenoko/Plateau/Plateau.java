@@ -46,30 +46,38 @@ public class Plateau {
         int cpt =0;
 
         if(plateau[x-1][y] instanceof Parcelle) {
+            if(((Parcelle) plateau[x-1][y]).isDebut()) return true;
             cpt++;
         }
         if(plateau[x+1][y] instanceof Parcelle) {
+            if(((Parcelle) plateau[x+1][y]).isDebut()) return true;
             cpt++;
         }
         if(plateau[x][y-1] instanceof Parcelle) {
+            if(((Parcelle) plateau[x][y-1]).isDebut()) return true;
             cpt++;
         }
         if(plateau[x][y+1] instanceof Parcelle) {
+            if(((Parcelle) plateau[x][y+1]).isDebut()) return true;
             cpt++;
         }
 
         if(y % 2 == 0) {
             if(plateau[x+1][y+1] instanceof Parcelle) {
+                if(((Parcelle) plateau[x+1][y+1]).isDebut()) return true;
                 cpt++;
             }
             if(plateau[x+1][y-1] instanceof Parcelle) {
+                if(((Parcelle) plateau[x+1][y-1]).isDebut()) return true;
                 cpt++;
             }
         } else {
             if(plateau[x-1][y-1] instanceof Parcelle) {
+                if(((Parcelle) plateau[x-1][y-1]).isDebut()) return true;
                 cpt++;
             }
             if(plateau[x-1][y+1] instanceof Parcelle) {
+                if(((Parcelle) plateau[x-1][y+1]).isDebut()) return true;
                 cpt++;
             }
         }
