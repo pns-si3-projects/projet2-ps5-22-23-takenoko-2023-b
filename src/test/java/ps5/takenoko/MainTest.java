@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package ps5.takenoko;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
