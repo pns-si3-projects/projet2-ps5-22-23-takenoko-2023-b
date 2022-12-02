@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Plateau {
     private ParcelleInactive[][] plateau;
-    private static final int TAILLE = 20;
+    private static final int TAILLE = 31;
 
     public Plateau() {
         this.plateau = new Parcelle[TAILLE][TAILLE];
@@ -13,6 +13,9 @@ public class Plateau {
                 plateau[i][j] = new ParcelleInactive();
             }
         }
+        Parcelle centre = new Parcelle();
+        centre.setDebut(true);
+        plateau[15][15] = centre;
     }
 
     public void addParcelle(Parcelle p, int x, int y) throws IllegalAccessException {
@@ -22,10 +25,53 @@ public class Plateau {
         this.plateau[x][y] = p;
     }
 
-    public ArrayList<ParcelleInactive> EndroitsPosables() {
-        ArrayList<ParcelleInactive> posables = new ArrayList<>();
+    public ArrayList<Position> EndroitsPosables() {
+        ArrayList<Position> posables = new ArrayList<>();
+        for(int i=0; i<TAILLE; i++) {
+            for(int j=0; i<TAILLE; j++) {
+                if(isPosable(i,j)) {
+                    posables.add(new Position(i,j));
+                }
+            }
+        }
         return posables;
     }
 
+    public Boolean isPosable(int x, int y) {
+        if(plateau[x][y] instanceof Parcelle) {
+            return false;
+        }
+        int cpt =0;
 
+        if(plateau[x-1][y] instanceof Parcelle) {
+            cpt++;
+        }
+        if(plateau[x+1][y] instanceof Parcelle) {
+            cpt++;
+        }
+        if(plateau[x][y-1] instanceof Parcelle) {
+            cpt++;
+        }
+        if(plateau[x][y+1] instanceof Parcelle) {
+            cpt++;
+        }
+
+        if(y % 2 == 0) {
+            if(plateau[x+1][y+1] instanceof Parcelle) {
+                cpt++;
+            }
+            if(plateau[x+1][y-1] instanceof Parcelle) {
+                cpt++;
+            }
+        } else {
+            if(plateau[x-1][y-1] instanceof Parcelle) {
+                cpt++;
+            }
+            if(plateau[x-1][y+1] instanceof Parcelle) {
+                cpt++;
+            }
+        }
+
+        return cpt > 1;
+    }
 }
