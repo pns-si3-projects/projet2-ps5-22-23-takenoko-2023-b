@@ -18,7 +18,9 @@ public class Plateau {
         plateau[15][15] = centre;
     }
 
-    public void addParcelle(Parcelle p, int x, int y) throws IllegalAccessException {
+    public void addParcelle(Parcelle p, Position pos) throws IllegalAccessException {
+        int x = pos.getX();
+        int y = pos.getY();
         if(plateau[x][y] instanceof Parcelle) {
             throw new IllegalAccessException("On ne peux pas ajouter une parcelle ici");
         }
