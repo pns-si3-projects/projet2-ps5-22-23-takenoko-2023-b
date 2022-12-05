@@ -9,16 +9,16 @@ package ps5.takenoko.Plateau;
  * Ouest   ■■            ■■  Est
  *         ■■            ■■
  *           ■■        ■■
-  SudOuest     ■■    ■■    SudEst
+ SudOuest     ■■    ■■    SudEst
  *                ■■
  */
 public enum Direction {
-    NordEst,
-    Est,
-    SudEst,
-    SudOuest,
-    Ouest,
-    NordOuest;
+    NORD_EST,
+    EST,
+    SUD_EST,
+    SUD_OUEST,
+    OUEST,
+    NORD_OUEST;
 
     /**
      * 0-> return NordEst
@@ -32,6 +32,7 @@ public enum Direction {
         }
         return Direction.values()[i];
     }
+
 
     /**
      * NordEst -> return 0

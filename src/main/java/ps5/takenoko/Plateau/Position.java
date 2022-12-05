@@ -25,33 +25,51 @@ public class Position {
         this.y = y;
     }
 
-    public Position getAdjacente (Direction d, Position p){
-            return switch(d){
-                case NordEst -> new Position((p.getY()%2==0 ? x+1 : x ),y-1);
-                case Est -> new Position(x+1,y);
-                case SudEst -> new Position((p.getY()%2==0 ? x+1 : x ),y+1);
-                case SudOuest -> new Position((p.getY()%2==0 ? x : x-1 ),y+1);
-                case Ouest -> new Position(x-1,y);
-                case NordOuest -> new Position((p.getY()%2==0 ? x : x-1 ),y-1);
-                default -> null;
-            };
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Position){
-            return (this.x == ((Position)obj).getX() && this.y == ((Position)obj).getY());
-        }
-        return false;
-    }
-
-    public boolean estAdjacente (Position p){
-        for(Direction d: Direction.values()){
-            if(p.equals(this.getAdjacente(d,p))){
-                return true;
+    public Position getPositionByDirection(Direction d) {
+        if(this.y % 2 == 0) {
+            switch (d) {
+                case NORD_EST -> {
+                    return new Position(this.x+1,this.y-1);
+                }
+                case EST -> {
+                    return new Position(this.x+1,this.y);
+                }
+                case SUD_EST -> {
+                    return new Position(this.x+1,this.y+1);
+                }
+                case SUD_OUEST -> {
+                    return new Position(this.x,this.y+1);
+                }
+                case OUEST -> {
+                    return new Position(this.x-1,this.y);
+                }
+                case NORD_OUEST -> {
+                    return new Position(this.x-1,this.y);
+                }
+                default -> throw new IllegalArgumentException();
+            }
+        } else {
+            switch (d) {
+                case NORD_EST -> {
+                    return new Position(this.x,this.y-1);
+                }
+                case EST -> {
+                    return new Position(this.x+1,this.y);
+                }
+                case SUD_EST -> {
+                    return new Position(this.x,this.y+1);
+                }
+                case SUD_OUEST -> {
+                    return new Position(this.x-1,this.y+1);
+                }
+                case OUEST -> {
+                    return new Position(this.x-1,this.y);
+                }
+                case NORD_OUEST -> {
+                    return new Position(this.x-1,this.y-1);
+                }
+                default -> throw new IllegalArgumentException();
             }
         }
-        return false;
     }
-
 }
