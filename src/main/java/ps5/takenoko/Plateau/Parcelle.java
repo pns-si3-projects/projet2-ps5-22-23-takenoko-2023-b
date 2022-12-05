@@ -27,4 +27,12 @@ public class Parcelle {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Parcelle){
+            return (this.getPosition().equals(((Parcelle) obj).getPosition()));
+        }
+        return false;
+    }
 }
