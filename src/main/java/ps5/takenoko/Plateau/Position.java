@@ -26,7 +26,7 @@ public class Position {
     }
 
     public Position getPositionByDirection(Direction d) {
-        if(p.getY() % 2 == 0) {
+        if(this.y % 2 == 0) {
             switch (d) {
                 case NORD_EST -> {
                     return new Position(this.x+1,this.y-1);
