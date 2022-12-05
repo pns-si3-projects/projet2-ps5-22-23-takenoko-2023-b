@@ -33,7 +33,7 @@ public enum Direction {
         return Direction.values()[i];
     }
 
-    public Position getPositionByDirection(Position p, Direction d) {
+    public static Position getPositionByDirection(Position p, Direction d) {
         if(p.getY() % 2 == 0) {
             switch (d) {
                 case NORD_EST -> {

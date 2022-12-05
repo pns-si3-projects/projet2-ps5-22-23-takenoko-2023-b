@@ -13,8 +13,7 @@ public class Plateau {
                 plateau[i][j] = new ParcelleInactive();
             }
         }
-        Parcelle centre = new Parcelle();
-        centre.setDebut(true);
+        ParcelleOriginelle centre = new ParcelleOriginelle();
         plateau[15][15] = centre;
     }
 
@@ -39,47 +38,21 @@ public class Plateau {
         return posables;
     }
 
+    public ParcelleInactive getParcelle(Position p) {
+        return this.plateau[p.getX()][p.getY()];
+    }
+
     public Boolean isPosable(Position p) {
-        int x = p.getX();
-        int y = p.getY();
-        if(plateau[x][y] instanceof Parcelle) {
+        if(this.getParcelle(p) instanceof Parcelle) {
             return false;
         }
         int cpt =0;
 
-        if(plateau[x-1][y] instanceof Parcelle) {
-            if(((Parcelle) plateau[x-1][y]).isDebut()) return true;
-            cpt++;
-        }
-        if(plateau[x+1][y] instanceof Parcelle) {
-            if(((Parcelle) plateau[x+1][y]).isDebut()) return true;
-            cpt++;
-        }
-        if(plateau[x][y-1] instanceof Parcelle) {
-            if(((Parcelle) plateau[x][y-1]).isDebut()) return true;
-            cpt++;
-        }
-        if(plateau[x][y+1] instanceof Parcelle) {
-            if(((Parcelle) plateau[x][y+1]).isDebut()) return true;
-            cpt++;
-        }
-
-        if(y % 2 == 0) {
-            if(plateau[x+1][y+1] instanceof Parcelle) {
-                if(((Parcelle) plateau[x+1][y+1]).isDebut()) return true;
-                cpt++;
+        for(Direction d : Direction.values()) {
+            if(this.getParcelle(Direction.getPositionByDirection(p,d)) instanceof ParcelleOriginelle) {
+                return true;
             }
-            if(plateau[x+1][y-1] instanceof Parcelle) {
-                if(((Parcelle) plateau[x+1][y-1]).isDebut()) return true;
-                cpt++;
-            }
-        } else {
-            if(plateau[x-1][y-1] instanceof Parcelle) {
-                if(((Parcelle) plateau[x-1][y-1]).isDebut()) return true;
-                cpt++;
-            }
-            if(plateau[x-1][y+1] instanceof Parcelle) {
-                if(((Parcelle) plateau[x-1][y+1]).isDebut()) return true;
+            if(this.getParcelle(Direction.getPositionByDirection(p,d)) instanceof Parcelle) {
                 cpt++;
             }
         }

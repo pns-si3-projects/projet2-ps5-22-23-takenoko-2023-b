@@ -2,7 +2,6 @@ package ps5.takenoko.Plateau;
 
 public class Parcelle extends ParcelleInactive{
     private Color couleur;
-    private Boolean debut = false;
 
     public Parcelle() {
     }
@@ -19,11 +18,4 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = couleur;
     }
 
-    public Boolean isDebut() {
-        return debut;
-    }
-
-    public void setDebut(Boolean debut) {
-        this.debut = debut;
-    }
 }
