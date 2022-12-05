@@ -49,10 +49,10 @@ public class Plateau {
         int cpt =0;
 
         for(Direction d : Direction.values()) {
-            if(this.getParcelle(Direction.getPositionByDirection(p,d)) instanceof ParcelleOriginelle) {
+            if(this.getParcelle(p.getPositionByDirection(d)) instanceof ParcelleOriginelle) {
                 return true;
             }
-            if(this.getParcelle(Direction.getPositionByDirection(p,d)) instanceof Parcelle) {
+            if(this.getParcelle(p.getPositionByDirection(d)) instanceof Parcelle) {
                 cpt++;
             }
         }
