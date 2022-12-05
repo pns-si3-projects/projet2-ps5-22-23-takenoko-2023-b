@@ -29,47 +29,76 @@ public class Position {
         if(this.y % 2 == 0) {
             switch (d) {
                 case NORD_EST -> {
-                    return new Position(this.x+1,this.y-1);
+                    if(this.x<30 && this.y > 0) {
+                        return new Position(this.x + 1, this.y - 1);
+                    }
                 }
                 case EST -> {
-                    return new Position(this.x+1,this.y);
+                    if(this.x<30) {
+                        return new Position(this.x + 1, this.y);
+                    }
                 }
                 case SUD_EST -> {
-                    return new Position(this.x+1,this.y+1);
+                    if(this.x<30 && this.y < 30) {
+                        return new Position(this.x + 1, this.y + 1);
+                    }
                 }
                 case SUD_OUEST -> {
-                    return new Position(this.x,this.y+1);
+                    if(this.y < 30) {
+                        return new Position(this.x, this.y + 1);
+                    }
                 }
                 case OUEST -> {
-                    return new Position(this.x-1,this.y);
+                    if(this.x>0) {
+                        return new Position(this.x - 1, this.y);
+                    }
                 }
                 case NORD_OUEST -> {
-                    return new Position(this.x-1,this.y);
+                    if(this.x>0) {
+                        return new Position(this.x, this.y -1);
+                    }
                 }
-                default -> throw new IllegalArgumentException();
+                default -> {
+                    return null;
+                }
             }
         } else {
             switch (d) {
                 case NORD_EST -> {
-                    return new Position(this.x,this.y-1);
+                    if(this.y > 0) {
+                        return new Position(this.x, this.y - 1);
+                    }
                 }
                 case EST -> {
-                    return new Position(this.x+1,this.y);
+                    if(this.x<30) {
+                        return new Position(this.x + 1, this.y);
+                    }
                 }
                 case SUD_EST -> {
-                    return new Position(this.x,this.y+1);
+                    if(this.y < 30) {
+                        return new Position(this.x, this.y + 1);
+                    }
                 }
                 case SUD_OUEST -> {
-                    return new Position(this.x-1,this.y+1);
+                    if(this.x>0 && this.y < 30) {
+                        return new Position(this.x - 1, this.y + 1);
+                    }
                 }
                 case OUEST -> {
-                    return new Position(this.x-1,this.y);
+                    if(this.x > 0) {
+                        return new Position(this.x - 1, this.y);
+                    }
                 }
                 case NORD_OUEST -> {
-                    return new Position(this.x-1,this.y-1);
+                    if(this.x > 0 && this.y > 0) {
+                        return new Position(this.x - 1, this.y - 1);
+                    }
                 }
-                default -> throw new IllegalArgumentException();
+                default -> {
+                    return null;
+                }
             }
         }
+        return null;
     }
 }
