@@ -33,7 +33,21 @@ class PlateauTest {
 
     @Test
     void getParcelle() {
-        assertTrue(1 == 1);
+        Position pos = new Position(5,5);
+        Position posorigine = new Position(15,15);
+        Parcelle par1 = new Parcelle();
+        par1.setCouleur(Color.JAUNE);
+
+        assertTrue(plateau.getParcelle(pos) instanceof ParcelleInactive);
+        assertTrue(plateau.getParcelle(posorigine) instanceof ParcelleOriginelle);
+
+        try {
+            plateau.addParcelle(par1, pos);
+        } catch (IllegalAccessException e) {
+        }
+
+        assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
+        assertTrue(((Parcelle) plateau.getParcelle(pos)).getCouleur() == Color.JAUNE);
     }
 
     @Test
