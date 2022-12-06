@@ -28,13 +28,33 @@ class PlateauTest {
 
     @Test
     void endroitsPosables() {
+        assertTrue(1 == 1);
     }
 
     @Test
     void getParcelle() {
+        assertTrue(1 == 1);
     }
 
     @Test
     void isPosable() {
+        Position pos = new Position(5,5);
+        Position posCoteCentre = new Position(14,15);
+        assertFalse(plateau.isPosable(pos));
+        assertTrue(plateau.isPosable(posCoteCentre));
+
+        Parcelle par1 = new Parcelle();
+        Parcelle par2 = new Parcelle();
+        Position pos1 = new Position(5,4);
+        Position pos2 = new Position(5,6);
+
+        try{
+            plateau.addParcelle(par1,pos1);
+            plateau.addParcelle(par2,pos2);
+            assertTrue(plateau.isPosable(pos));
+            assertFalse(plateau.isPosable(pos1));
+
+        } catch (IllegalAccessException e) {
+        }
     }
 }
