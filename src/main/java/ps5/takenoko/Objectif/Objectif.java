@@ -11,7 +11,7 @@ public abstract class Objectif {
     public Objectif(int point) {
         this.point = point;
     }
-    public int claim(){
-        return point;
+    public boolean checkConditions(){
+        return false;
     }
 }
