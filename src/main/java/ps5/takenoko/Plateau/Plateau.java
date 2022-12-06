@@ -9,7 +9,7 @@ public class Plateau {
     public Plateau() {
         this.plateau = new ParcelleInactive[TAILLE][TAILLE];
         for(int i=0; i<TAILLE; i++) {
-            for(int j=0; i<TAILLE; j++) {
+            for(int j=0; j<TAILLE; j++) {
                 plateau[i][j] = new ParcelleInactive();
             }
         }
