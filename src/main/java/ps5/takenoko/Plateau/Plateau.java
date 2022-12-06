@@ -7,7 +7,7 @@ public class Plateau {
     private static final int TAILLE = 31;
 
     public Plateau() {
-        this.plateau = new Parcelle[TAILLE][TAILLE];
+        this.plateau = new ParcelleInactive[TAILLE][TAILLE];
         for(int i=0; i<TAILLE; i++) {
             for(int j=0; i<TAILLE; j++) {
                 plateau[i][j] = new ParcelleInactive();
