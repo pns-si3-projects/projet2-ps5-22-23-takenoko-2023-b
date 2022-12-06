@@ -101,4 +101,12 @@ public class Position {
         }
         return null;
     }
+
+    @Override
+    public boolean equals(Object p) {
+        if(p instanceof Position) {
+            return (((Position) p).getX() == this.x && ((Position) p).getY() == this.y);
+        }
+        return false;
+    }
 }

@@ -3,6 +3,8 @@ package ps5.takenoko.Plateau;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlateauTest {
@@ -28,7 +30,17 @@ class PlateauTest {
 
     @Test
     void endroitsPosables() {
-        assertTrue(1 == 1);
+        ArrayList<Position> endroitsPosables = plateau.getEndroitsPosables();
+
+        for(int i=0; i<31; i++) {
+            for(int j=0; j<31; j++) {
+                if(endroitsPosables.contains(new Position(i,j))) {
+                    assertTrue(plateau.isPosable(new Position(i,j)));
+                } else {
+                    assertFalse(plateau.isPosable(new Position(i,j)));
+                }
+            }
+        }
     }
 
     @Test
