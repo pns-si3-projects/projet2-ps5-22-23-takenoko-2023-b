@@ -29,10 +29,25 @@ public class Plateau {
 
     public ArrayList<Position> getEndroitsPosables() {
         ArrayList<Position> posables = new ArrayList<>();
-        for(int i=0; i<TAILLE; i++) {
-            for(int j=0; j<TAILLE; j++) {
-                if(isPosable(new Position(i,j))) {
-                    posables.add(new Position(i,j));
+        int cpt=1;
+        for(int k=1; k<TAILLE/2-1 && cpt>0; k++,cpt=0) {
+            for(int i=-k; i<=k; i++) {
+                if(i==k || i==-k){
+                    for(int j=-k; j<=k; j++) {
+                        if (isPosable(new Position(TAILLE/2+i,TAILLE/2+j))) {
+                            posables.add(new Position(TAILLE/2+i,TAILLE/2+j));
+                        }
+                        if(plateau[TAILLE/2+i][TAILLE/2+j] instanceof Parcelle) cpt++;
+                    }
+                }else{
+                    if (isPosable(new Position(TAILLE/2+i,TAILLE/2+k))) {
+                        posables.add(new Position(TAILLE/2+i,TAILLE/2+k));
+                    }
+                    if(plateau[TAILLE/2+i][TAILLE/2+k] instanceof Parcelle) cpt++;
+                    if (isPosable(new Position(TAILLE/2+i,TAILLE/2-k))) {
+                        posables.add(new Position(TAILLE/2+i,TAILLE/2-k));
+                    }
+                    if(plateau[TAILLE/2+i][TAILLE/2-k] instanceof Parcelle) cpt++;
                 }
             }
         }

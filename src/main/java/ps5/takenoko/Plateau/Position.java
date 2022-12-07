@@ -26,80 +26,15 @@ public class Position {
     }
 
     public Position getPositionByDirection(Direction d) {
-        if(this.y % 2 == 0) {
-            switch (d) {
-                case NORD_EST -> {
-                    if(this.x<30 && this.y > 0) {
-                        return new Position(this.x + 1, this.y - 1);
-                    }
-                }
-                case EST -> {
-                    if(this.x<30) {
-                        return new Position(this.x + 1, this.y);
-                    }
-                }
-                case SUD_EST -> {
-                    if(this.x<30 && this.y < 30) {
-                        return new Position(this.x + 1, this.y + 1);
-                    }
-                }
-                case SUD_OUEST -> {
-                    if(this.y < 30) {
-                        return new Position(this.x, this.y + 1);
-                    }
-                }
-                case OUEST -> {
-                    if(this.x>0) {
-                        return new Position(this.x - 1, this.y);
-                    }
-                }
-                case NORD_OUEST -> {
-                    if(this.x>0) {
-                        return new Position(this.x, this.y -1);
-                    }
-                }
-                default -> {
-                    return null;
-                }
-            }
-        } else {
-            switch (d) {
-                case NORD_EST -> {
-                    if(this.y > 0) {
-                        return new Position(this.x, this.y - 1);
-                    }
-                }
-                case EST -> {
-                    if(this.x<30) {
-                        return new Position(this.x + 1, this.y);
-                    }
-                }
-                case SUD_EST -> {
-                    if(this.y < 30) {
-                        return new Position(this.x, this.y + 1);
-                    }
-                }
-                case SUD_OUEST -> {
-                    if(this.x>0 && this.y < 30) {
-                        return new Position(this.x - 1, this.y + 1);
-                    }
-                }
-                case OUEST -> {
-                    if(this.x > 0) {
-                        return new Position(this.x - 1, this.y);
-                    }
-                }
-                case NORD_OUEST -> {
-                    if(this.x > 0 && this.y > 0) {
-                        return new Position(this.x - 1, this.y - 1);
-                    }
-                }
-                default -> {
-                    return null;
-                }
-            }
-        }
-        return null;
+        return switch(d){
+            case NORD_EST -> new Position((getY() %2 == 0 ? x+1 : x), y-1);
+            case EST -> new Position(x+1,y);
+            case SUD_EST -> new Position((getY()%2==0 ? x+1:x), y+1);
+            case SUD_OUEST -> new Position((getY()%2==0 ? x:x-1),y+1);
+            case OUEST -> new Position(x-1,y);
+            case NORD_OUEST -> new Position((getY()%2==0 ? x : x-1),y-1);
+            default -> null;
+        };
     }
 
     @Override
