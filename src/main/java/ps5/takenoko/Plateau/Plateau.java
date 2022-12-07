@@ -1,5 +1,6 @@
 package ps5.takenoko.Plateau;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Plateau {
@@ -20,7 +21,7 @@ public class Plateau {
     public void addParcelle(Parcelle p, Position pos) throws IllegalAccessException {
         int x = pos.getX();
         int y = pos.getY();
-        if(plateau[x][y] instanceof Parcelle) {
+        if(plateau[x][y] instanceof Parcelle || x < 0 || y < 0 || x > 30 || y > 30) {
             throw new IllegalAccessException("On ne peux pas ajouter une parcelle ici");
         }
         this.plateau[x][y] = p;
@@ -54,21 +55,33 @@ public class Plateau {
     }
 
     public ParcelleInactive getParcelle(Position p) {
+        if(p == null) {
+            return null;
+        }
+        if(p.getX() < 0 || p.getY() < 0 || p.getX() > 30 || p.getY() > 30) {
+            return null;
+        }
         return this.plateau[p.getX()][p.getY()];
     }
 
     public Boolean isPosable(Position p) {
+        if(p == null) {
+            return false;
+        }
         if(this.getParcelle(p) instanceof Parcelle) {
             return false;
         }
         int cpt =0;
 
         for(Direction d : Direction.values()) {
-            if(this.getParcelle(p.getPositionByDirection(d)) instanceof ParcelleOriginelle) {
-                return true;
-            }
-            if(this.getParcelle(p.getPositionByDirection(d)) instanceof Parcelle) {
-                cpt++;
+            if (this.getParcelle(p.getPositionByDirection(d)) == null) {
+            } else {
+                if (this.getParcelle(p.getPositionByDirection(d)) instanceof ParcelleOriginelle) {
+                    return true;
+                }
+                if (this.getParcelle(p.getPositionByDirection(d)) instanceof Parcelle) {
+                    cpt++;
+                }
             }
         }
         return cpt > 1;
