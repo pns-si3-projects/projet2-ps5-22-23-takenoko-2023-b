@@ -28,8 +28,8 @@ public class Plateau {
 
     public ArrayList<Position> getEndroitsPosables() {
         ArrayList<Position> posables = new ArrayList<>();
-        for(int i=0; i<TAILLE; i++) {
-            for(int j=0; j<TAILLE; j++) {
+        for(int i=1; i<TAILLE-1; i++) {
+            for(int j=1; j<TAILLE-1; j++) {
                 if(isPosable(new Position(i,j))) {
                     posables.add(new Position(i,j));
                 }
