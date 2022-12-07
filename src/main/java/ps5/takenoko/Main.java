@@ -14,10 +14,10 @@ public class Main {
     public static void main(String... args) throws IllegalAccessException {
         System.out.println(hello());
         Plateau plateau = new Plateau();
-        for(Position p: plateau.EndroitsPosables()){
+        for(Position p: plateau.getEndroitsPosables()){
             plateau.addParcelle(new Parcelle(),p);
         }
-        System.out.println(plateau.EndroitsPosables());
+        System.out.println(plateau.getEndroitsPosables());
     }
 
 }
