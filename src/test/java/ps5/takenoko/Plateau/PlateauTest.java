@@ -64,15 +64,15 @@ class PlateauTest {
 
     @Test
     void isPosable() {
-        Position pos = new Position(5,5);
+        Position pos = new Position(0,0);
         Position posCoteCentre = new Position(14,15);
         assertFalse(plateau.isPosable(pos));
         assertTrue(plateau.isPosable(posCoteCentre));
 
         Parcelle par1 = new Parcelle();
         Parcelle par2 = new Parcelle();
-        Position pos1 = new Position(5,4);
-        Position pos2 = new Position(5,6);
+        Position pos1 = new Position(1,0);
+        Position pos2 = new Position(0,1);
 
         try{
             plateau.addParcelle(par1,pos1);
