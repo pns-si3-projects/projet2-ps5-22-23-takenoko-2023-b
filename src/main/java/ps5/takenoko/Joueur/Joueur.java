@@ -1,9 +1,7 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Element.AmenagementType;
 import ps5.takenoko.Element.Bamboo;
-import ps5.takenoko.Jeu.Jeu;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Plateau.Parcelle;
@@ -13,12 +11,11 @@ import ps5.takenoko.Plateau.Position;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Joueur {
+public abstract class Joueur {
     private final int MAX_OBJECTIFS = 5 ;
     
     private final int MAX_PARCELLES =12;
     private final String nom;
-
     private Plateau plateau;
     private ArrayList<Parcelle> parcelles = new ArrayList<Parcelle>(MAX_PARCELLES);
     private ArrayList<Objectif> objectifs = new ArrayList<Objectif>(MAX_OBJECTIFS);
@@ -49,6 +46,10 @@ public class Joueur {
 
     public String getNom() {
         return nom;
+    }
+
+    public int getNbIrrigations() {
+        return nbIrrigations;
     }
 
     public int calculPoint(){
@@ -90,9 +91,9 @@ public class Joueur {
         objectifsObtenus.add(obj);
     }
     
-    public void verifierObjectifs(){
+    public void validerObjectifs(){
         for(Objectif o: objectifs){
-            if(o.verifier()){
+            if(o.verifierValidite()){
                 completerObjectif(o);
             }
         }
@@ -102,28 +103,12 @@ public class Joueur {
         nbIrrigations++;
     }
 
-    public Action choisirAction(){
-        return null;
-    }
-    public void placerIrrigation(){
-    }
-
-    public void ajouteParcelle(Parcelle p) {
-        this.parcelles.add(p);
-    }
-
     public Parcelle donnerParcelle() {
         Parcelle res=this.parcelles.get(0);
         this.parcelles.remove(0);
         return res;
     }
 
-    public Position poserParcelle(Parcelle p){
-        for(Position pos: plateau.getEndroitsPosables()){
-            return pos;
-        }
-        return null;
-    }
 
     public int getScore() {
         int score=0;
@@ -132,4 +117,27 @@ public class Joueur {
         }
         return score;
     }
+
+    public abstract Position poserParcelle(Parcelle p);
+
+    /***
+     *
+     * @return 1 Parcelle choisi
+     */
+    public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
+
+
+    //TODO:
+    public Action choisirAction(){
+
+        return null;
+    }
+
+    public void placerIrrigation(){
+
+    }
+
+
+
+
 }
