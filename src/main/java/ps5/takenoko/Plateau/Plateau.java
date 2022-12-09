@@ -2,10 +2,14 @@ package ps5.takenoko.Plateau;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Plateau {
     private ParcelleInactive[][] plateau;
     private static final int TAILLE = 31;
+
+    private Set<Position> parcellePosee = new HashSet<Position>();
 
     public Plateau() {
         this.plateau = new ParcelleInactive[TAILLE][TAILLE];
@@ -25,6 +29,7 @@ public class Plateau {
             throw new IllegalAccessException("On ne peux pas ajouter une parcelle ici");
         }
         this.plateau[x][y] = p;
+        parcellePosee.add(pos);
     }
 
     public ArrayList<Position> getEndroitsPosables() {
