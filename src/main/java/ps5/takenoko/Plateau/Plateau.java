@@ -41,6 +41,8 @@ public class Plateau {
         int x = pos.getX();
         int y = pos.getY();
         if(plateau[x][y] instanceof Parcelle || x < 0 || y < 0 || x > 30 || y > 30) {
+            System.out.println(x+" "+y);
+            System.out.println(this.parcelleDisponible.size());
             throw new IllegalAccessException("On ne peux pas ajouter une parcelle ici");
         }
         this.plateau[x][y] = p;
