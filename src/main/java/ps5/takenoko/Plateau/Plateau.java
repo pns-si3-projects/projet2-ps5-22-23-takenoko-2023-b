@@ -89,4 +89,5 @@ public class Plateau {
         }
         return cpt > 1;
     }
+    public static int getTaille(){return TAILLE;}
 }
