@@ -25,12 +25,12 @@ public class ObjectifParcelle extends Objectif implements ObjectifInterf {
         //Pour chaque position du tableau avec une parcelle dessus
         for (Position pos : plateau.getParcellePosee()) {
             Parcelle parcelle = (Parcelle) plateau.getParcelle(pos);
-            boolean valide = true;
             //En fonction de la figure demande sur la carte objectif
             switch (figure) {
                 //Si c'est une carte objectif losange
                 case LOSANGE: //On doit verifie que le losange n'est pas retourne
                     for(Direction[] formes: figure.getDirections()){
+                        boolean valide = true;
                         //Si il est retourne on inverse les couleurs de la carte objectif
                         Couleur notreCouleur;//Couleur de la case actuel et d'une autre case
                         Couleur autreCouleur;//Couleur des deux autre cases du losange
@@ -69,7 +69,6 @@ public class ObjectifParcelle extends Objectif implements ObjectifInterf {
                     }
                     break;
             }
-            if (valide) return true;
 
         }
         return false;
