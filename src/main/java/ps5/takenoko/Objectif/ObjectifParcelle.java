@@ -61,13 +61,10 @@ public class ObjectifParcelle extends Objectif implements ObjectifInterf {
                 default:
                     //pour chaque pattern
                     for(Direction[] formes : figure.getDirections()){
-                        if(!testCouleurOfPos(plateau, pos, principale))continue;
-                        valide = true;
-                        //On regarde chacune de ses directions
-                        for(Direction dirs : formes){
-                            valide = valide && testCouleurOfPos(plateau, pos.getPositionByDirection(dirs), principale);
-                        }
-                        if(valide) return valide;
+                        if(testCouleurOfPos(plateau, pos, principale)
+                            && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[0]), principale)
+                            && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[1]), principale)
+                        )return true;
 
                     }
                     break;
