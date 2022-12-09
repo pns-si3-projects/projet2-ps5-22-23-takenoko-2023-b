@@ -54,6 +54,9 @@ public class Plateau {
         return posables;
     }
 
+    public ParcelleInactive getParcelle(int x,int y) {
+        return getParcelle(new Position(x, y));
+    }
     public ParcelleInactive getParcelle(Position p) {
         if(p == null) {
             return null;

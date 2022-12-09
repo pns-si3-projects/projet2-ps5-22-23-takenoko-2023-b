@@ -15,33 +15,33 @@ public enum Shape {
         switch (ordinal()){
             case 0:
                 composition = new Direction[][]{
-                    {Direction.SudOuest, Direction.NordEst}, // LIGNE_SO_NE
-                    {Direction.NordOuest, Direction.SudEst}, // LIGNE_NO_SE
-                    {Direction.Ouest, Direction.Est} // LIGNE_O_E
+                    {Direction.SUD_OUEST, Direction.NORD_EST}, // LIGNE_SO_NE
+                    {Direction.NORD_OUEST, Direction.SUD_EST}, // LIGNE_NO_SE
+                    {Direction.OUEST, Direction.EST} // LIGNE_O_E
                 };
 
                 break;
             case 1:
                 composition = new Direction[][]{
-                    {Direction.NordEst, Direction.Ouest}, // COURBE_NO
-                    {Direction.NordOuest, Direction.Est}, // COURBE_NE
-                    {Direction.NordEst, Direction.SudEst}, // COURBE_E
-                    {Direction.SudOuest, Direction.Est}, // COURBE_SE
-                    {Direction.SudEst, Direction.Ouest}, // COURBE_SO
-                    {Direction.NordOuest, Direction.SudOuest}// COURBE_O
+                    {Direction.NORD_EST, Direction.OUEST}, // COURBE_NO
+                    {Direction.NORD_OUEST, Direction.EST}, // COURBE_NE
+                    {Direction.NORD_EST, Direction.SUD_EST}, // COURBE_E
+                    {Direction.SUD_OUEST, Direction.EST}, // COURBE_SE
+                    {Direction.SUD_EST, Direction.OUEST}, // COURBE_SO
+                    {Direction.NORD_OUEST, Direction.SUD_OUEST}// COURBE_O
                 };
                 break;
             case 2:
                 composition = new Direction[][]{
-                        {Direction.SudOuest, Direction.SudEst}, // TRIANGLE_UP
-                        {Direction.NordOuest, Direction.NordEst} // TRIANGLE_DOWN
+                        {Direction.SUD_OUEST, Direction.SUD_EST}, // TRIANGLE_UP
+                        {Direction.NORD_OUEST, Direction.NORD_EST} // TRIANGLE_DOWN
                 };
                 break;
             case 3:
                 composition = new Direction[][]{
-                        {Direction.NordEst, Direction.Est, Direction.Ouest, Direction.Est}, // LOSANGE_SO_NE
-                        {Direction.Ouest, Direction.Est, Direction.Ouest, Direction.Est}, // LOSANGE_SE_NO
-                        {Direction.Ouest, Direction.Est, Direction.Ouest, Direction.Est} // LOSANGE_E_O
+                        {Direction.NORD_EST, Direction.EST, Direction.OUEST, Direction.EST}, // LOSANGE_SO_NE
+                        {Direction.OUEST, Direction.EST, Direction.OUEST, Direction.EST}, // LOSANGE_SE_NO
+                        {Direction.OUEST, Direction.EST, Direction.OUEST, Direction.EST} // LOSANGE_E_O
                 };
                 break;
         }
