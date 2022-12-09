@@ -6,8 +6,13 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class Plateau {
+
     private ParcelleInactive[][] plateau;
     private static final int TAILLE = 31;
+
+    public ParcelleInactive[][] getPlateau() {
+        return plateau;
+    }
 
     private Set<Position> parcellePosee = new HashSet<Position>();
 
@@ -20,6 +25,10 @@ public class Plateau {
         }
         ParcelleOriginelle centre = new ParcelleOriginelle();
         plateau[15][15] = centre;
+    }
+
+    public Set<Position> getParcellePosee() {
+        return parcellePosee;
     }
 
     public void addParcelle(Parcelle p, Position pos) throws IllegalAccessException {
