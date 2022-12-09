@@ -2,6 +2,7 @@ package ps5.takenoko.Jeu;
 
 import ps5.takenoko.Joueur.Action;
 import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Objectif.ObjectifParcelle;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.ParcelleInactive;
 import ps5.takenoko.Plateau.Plateau;
@@ -15,32 +16,36 @@ public class Jeu {
 
     }
 
-    private void drawParcelles(Joueur j){
-        j.addParcelle(new Parcelle());
+    private void piocherParcelles(Joueur j){
+        j.ajouteParcelle(new Parcelle());
     }
 
-    private void putParcelles(Joueur j){
-        j.putParcelle();
+    private void poserParcelles(Joueur j){
+        j.poserParcelle(j.donnerParcelle());
     }
 
-    private void drawObjectifs(Joueur j) {
-        j.addObjectifs();
+    private void piocherObjectifs(Joueur j) {
+        j.addObjectif(new ObjectifParcelle(2));
     }
 
     public void run(){
         Plateau plateau = new Plateau();
-        Joueur j1 = new Joueur("joueur 1");
+        Joueur j1 = new Joueur("joueur 1",plateau);
         int score_p1=0;
-        Joueur winner =null;
-        while(winner==null){
-            switch(j1.chooseAction()){
-                case Action.DRAW_PARCELLES -> this.drawParcelles(j1);
-                case Action.OBJECTIFS -> this.drawObjectifs(j1);
-                case Action.PUT_PARCELLES -> this.putParcelles(j1);
+        boolean game = true;
+        while(game){
+            switch(j1.choisirAction()){
+                case PIOCHE_PARCELLES -> this.piocherParcelles(j1);
+                case OBJECTIFS -> this.piocherObjectifs(j1);
+                case POSE_PARCELLES -> this.poserParcelles(j1);
             };
-            score_p1+=j1.checkObjectifs();
-            if(score_p1>=1)winner=j1;
+            j1.verifierObjectifs();
+            if(j1.getNombreObjectifsObtenus()>0){
+                game=false;
+            }
         }
-
+        System.out.println(j1.getNom()+" a accompli un objectif, Fin du jeu.");
+        System.out.println("Score:");
+        System.out.println(j1.getNom()+":"+j1.getScore());
     }
 }
