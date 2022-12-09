@@ -1,20 +1,20 @@
 package ps5.takenoko.Plateau;
 
 public class Parcelle extends ParcelleInactive{
-    private Color couleur;
+    private Couleur couleur;
 
     public Parcelle() {
     }
 
-    public Parcelle(Color c) {
+    public Parcelle(Couleur c) {
         this.couleur = c;
     }
 
-    public Color getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 
-    public void setCouleur(Color couleur) {
+    public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
 
