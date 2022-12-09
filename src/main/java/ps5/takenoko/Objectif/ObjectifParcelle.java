@@ -22,27 +22,41 @@ public class ObjectifParcelle extends Objectif implements ObjectifInterf {
 
     public boolean verifie(Plateau plateau) {
 
-
+        //Pour chaque position du tableau avec une parcelle dessus
         for (Position pos : plateau.getParcellePosee()) {
             Parcelle parcelle = (Parcelle) plateau.getParcelle(pos);
             boolean valide = true;
-
+            //En fonction de la figure demande sur la carte objectif
             switch (figure) {
-                case LOSANGE:
-
+                //Si c'est une carte objectif losange
+                case LOSANGE: //On doit verifie que le losange n'est pas retourne
                     for(Direction[] formes: figure.getDirections()){
-                        if(testCouleurOfPos(plateau,pos,secondaire)){
-                            Couleur tmp = principale;
-                            principale = secondaire;
-                            secondaire = tmp;
-                        }
-                        valide = valide && testCouleurOfPos(plateau,pos,principale)
-                            && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),principale)
-                            && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),secondaire)
-                            && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),secondaire);
+                        //Si il est retourne on inverse les couleurs de la carte objectif
+                        Couleur notreCouleur;//Couleur de la case actuel et d'une autre case
+                        Couleur autreCouleur;//Couleur des deux autre cases du losange
+                        if(testCouleurOfPos(plateau,pos,principale)){
+                            notreCouleur = principale;
+                            autreCouleur = secondaire;
+                        }else if (testCouleurOfPos(plateau,pos,secondaire)){
+                            notreCouleur = secondaire;
+                            autreCouleur = principale;
+                        }else break;
+
+                        valide = testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
+                            && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
+                            && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),notreCouleur);
+
+                        valide = valide || testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),notreCouleur)
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur);
+
+                        valide = valide || testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),notreCouleur)
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur);
+                        if(valide) return true;
                     }
 
-                    break;
+                    break; // End of Losange
 
                 default:
                     //pour chaque pattern
