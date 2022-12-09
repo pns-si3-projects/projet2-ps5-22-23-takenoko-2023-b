@@ -11,7 +11,14 @@ public abstract class Objectif {
     public Objectif(int point) {
         this.point = point;
     }
+<<<<<<< HEAD
     public int claim(){
         return point;
     }
+=======
+    public boolean checkConditions(){
+
+    }
+    public void claim(){}
+>>>>>>> e24a0cda5a4497b81d68758a954662819aa17a74
 }
