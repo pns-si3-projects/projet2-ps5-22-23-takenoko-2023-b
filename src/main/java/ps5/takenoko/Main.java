@@ -12,12 +12,23 @@ public class Main {
     }
 
     public static void main(String... args) throws IllegalAccessException {
-        System.out.println(hello());
-        Plateau plateau = new Plateau();
-        for(Position p: plateau.getEndroitsPosables()){
-            plateau.addParcelle(new Parcelle(),p);
+
+        long startTime = System.nanoTime();
+        for(int i=0; i<1000; i++){
+            Plateau plateau = new Plateau();
+            System.out.println(plateau.isPosable(new Position(14,14)));
+            for(Position p: plateau.getEndroitsPosables()){
+                plateau.addParcelle(new Parcelle(),p);
+                plateau.getEndroitsPosables();
+                plateau.getEndroitsPosables();
+                plateau.getEndroitsPosables();
+                plateau.getEndroitsPosables();
+                plateau.getEndroitsPosables();
+                break;
+            }
         }
-        System.out.println(plateau.getEndroitsPosables());
+        long elapsedTime = System.nanoTime()-startTime;
+        System.out.println(elapsedTime/10000);
     }
 
 }

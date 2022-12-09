@@ -58,9 +58,9 @@ public class Plateau {
         }
     }
 
-    public HashSet<Position> getEndroitsPosables() {
-        HashSet<Position> posables = new HashSet<Position>(this.parcelleDisponible);
-        return posables;
+    public Set<Position> getEndroitsPosables() {
+        Set<Position> posables = new HashSet<Position>(this.parcelleDisponible);
+        return this.parcelleDisponible;
 
     }
 
