@@ -13,7 +13,7 @@ public enum Shape {
 
     Shape(){
         switch (ordinal()){
-            case 0:
+            case 0: // LINE
                 composition = new Direction[][]{
                     {Direction.SUD_OUEST, Direction.NORD_EST}, // LIGNE_SO_NE
                     {Direction.NORD_OUEST, Direction.SUD_EST}, // LIGNE_NO_SE
@@ -21,7 +21,7 @@ public enum Shape {
                 };
 
                 break;
-            case 1:
+            case 1: // COURBE
                 composition = new Direction[][]{
                     {Direction.NORD_EST, Direction.OUEST}, // COURBE_NO
                     {Direction.NORD_OUEST, Direction.EST}, // COURBE_NE
@@ -31,17 +31,17 @@ public enum Shape {
                     {Direction.NORD_OUEST, Direction.SUD_OUEST}// COURBE_O
                 };
                 break;
-            case 2:
+            case 2: // TRIANGLE
                 composition = new Direction[][]{
                         {Direction.SUD_OUEST, Direction.SUD_EST}, // TRIANGLE_UP
                         {Direction.NORD_OUEST, Direction.NORD_EST} // TRIANGLE_DOWN
                 };
                 break;
-            case 3:
+            case 3: // LOSANGE
                 composition = new Direction[][]{
-                        {Direction.NORD_EST, Direction.EST, Direction.OUEST, Direction.EST}, // LOSANGE_SO_NE
-                        {Direction.OUEST, Direction.EST, Direction.OUEST, Direction.EST}, // LOSANGE_SE_NO
-                        {Direction.OUEST, Direction.EST, Direction.OUEST, Direction.EST} // LOSANGE_E_O
+                        {Direction.SUD_OUEST, Direction.SUD_EST, Direction.EST}, // LOSANGE_SO_NE
+                        {Direction.OUEST, Direction.SUD_OUEST, Direction.SUD_EST}, // LOSANGE_SE_NO
+                        {Direction.NORD_EST, Direction.EST, Direction.SUD_OUEST} // LOSANGE_S_N
                 };
                 break;
         }
