@@ -1,5 +1,6 @@
 package ps5.takenoko;
 
+import ps5.takenoko.Jeu.Jeu;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
@@ -12,12 +13,8 @@ public class Main {
     }
 
     public static void main(String... args) throws IllegalAccessException {
-        System.out.println(hello());
-        Plateau plateau = new Plateau();
-        for(Position p: plateau.getEndroitsPosables()){
-            plateau.addParcelle(new Parcelle(),p);
-        }
-        System.out.println(plateau.getEndroitsPosables());
-    }
+        Jeu j = new Jeu();
+        j.run();
 
+    }
 }
