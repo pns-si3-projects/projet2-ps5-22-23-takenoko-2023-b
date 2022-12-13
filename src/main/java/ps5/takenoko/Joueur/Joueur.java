@@ -1,36 +1,55 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Element.AmenagementType;
 import ps5.takenoko.Element.Bamboo;
-import ps5.takenoko.Jeu.Jeu;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifPanda;
+import ps5.takenoko.Plateau.Parcelle;
+import ps5.takenoko.Plateau.Plateau;
+import ps5.takenoko.Plateau.Position;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Joueur {
+public abstract class Joueur {
     private final int MAX_OBJECTIFS = 5 ;
+    
+    private final int MAX_PARCELLES =12;
     private final String nom;
-    private final Jeu jeu;
+    private Plateau plateau;
+    private ArrayList<Parcelle> parcelles = new ArrayList<Parcelle>(MAX_PARCELLES);
     private ArrayList<Objectif> objectifs = new ArrayList<Objectif>(MAX_OBJECTIFS);
     private ArrayList<Objectif> objectifsObtenus= new ArrayList<Objectif>();
 
     private ArrayList<Amenagement> amenagements= new ArrayList<Amenagement>();
     private ArrayList<Bamboo> bamboosObtenus = new ArrayList<Bamboo>();
     private int nbIrrigations;
+
+    public int getNombreObjectifsObtenus() {
+        return objectifsObtenus.size();
+    }
+
     //TODO: Carte Empereur = Objectif with 2 points?-> just put in objectifObtenus
     //private boolean estDerniere (est le dernier qui valide le dernier object->avoir empereur)
-
-    //TODO: fix later
-    public Joueur(String nom, Jeu jeu, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, ArrayList<Bamboo> bamboosObtenus, int nbIrrigations) {
+    public Joueur(String nom,Plateau plateau){
         this.nom = nom;
-        this.jeu = jeu;
+        this.plateau=plateau;
+    }
+    //TODO: fix later
+    public Joueur(String nom, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, ArrayList<Bamboo> bamboosObtenus, int nbIrrigations) {
+        this.nom = nom;
         this.objectifs = objectifs;
         this.objectifsObtenus = objectifsObtenus;
         this.bamboosObtenus = bamboosObtenus;
         this.nbIrrigations = nbIrrigations;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getNbIrrigations() {
+        return nbIrrigations;
     }
 
     public int calculPoint(){
@@ -71,13 +90,54 @@ public class Joueur {
         objectifs.remove(obj);
         objectifsObtenus.add(obj);
     }
+    
+    public void validerObjectifs(){
+        for(Objectif o: objectifs){
+            if(o.verifierValidite()){
+                completerObjectif(o);
+            }
+        }
+    }
 
     public void ajouteIrrigation(){
         nbIrrigations++;
     }
 
+    public Parcelle donnerParcelle() {
+        Parcelle res=this.parcelles.get(0);
+        this.parcelles.remove(0);
+        return res;
+    }
+
+
+    public int getScore() {
+        int score=0;
+        for(Objectif o:objectifsObtenus){
+            score+=o.getPoint();
+        }
+        return score;
+    }
+
+    public abstract Position poserParcelle(Parcelle p);
+
+    /***
+     *
+     * @return 1 Parcelle choisi
+     */
+    public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
+
+
+    //TODO:
+    public Action choisirAction(){
+
+        return null;
+    }
+
     public void placerIrrigation(){
 
     }
+
+
+
 
 }

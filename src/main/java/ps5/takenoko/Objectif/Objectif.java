@@ -9,4 +9,8 @@ public abstract class Objectif {
     public Objectif(int point) {
         this.point = point;
     }
+
+    public boolean verifierValidite(){
+        return false;
+    }
 }
