@@ -2,10 +2,21 @@ package ps5.takenoko.Plateau;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Plateau {
+
     private ParcelleInactive[][] plateau;
     private static final int TAILLE = 31;
+
+    public ParcelleInactive[][] getPlateau() {
+        return plateau;
+    }
+
+    private Set<Position> parcellePosee = new HashSet<Position>();
+
+    private Set<Position> parcelleDisponible = new HashSet<Position>();
 
     public Plateau() {
         this.plateau = new ParcelleInactive[TAILLE][TAILLE];
@@ -14,8 +25,16 @@ public class Plateau {
                 plateau[i][j] = new ParcelleInactive();
             }
         }
-        ParcelleOriginelle centre = new ParcelleOriginelle();
-        plateau[15][15] = centre;
+        ParcelleOriginelle etang = new ParcelleOriginelle();
+        Position centre = new Position(TAILLE/2,TAILLE/2);
+        plateau[centre.getX()][centre.getY()] = etang;
+        for(Direction d : Direction.values()) {
+            parcelleDisponible.add(centre.getPositionByDirection(d));
+        }
+    }
+
+    public Set<Position> getParcellePosee() {
+        return parcellePosee;
     }
 
     public void addParcelle(Parcelle p, Position pos) throws IllegalAccessException {
@@ -25,33 +44,23 @@ public class Plateau {
             throw new IllegalAccessException("On ne peux pas ajouter une parcelle ici");
         }
         this.plateau[x][y] = p;
+        parcellePosee.add(pos);
+        miseAJourParcellePosable(pos);
     }
 
-    public ArrayList<Position> getEndroitsPosables() {
-        ArrayList<Position> posables = new ArrayList<>();
-        int cpt = 1;
-        for (int k = 1; k < TAILLE / 2 - 1 && cpt > 0; k++, cpt = 0) {
-            for (int i = -k; i <= k; i++) {
-                if (i == k || i == -k) {
-                    for (int j = -k; j <= k; j++) {
-                        if (isPosable(new Position(TAILLE / 2 + i, TAILLE / 2 + j))) {
-                            posables.add(new Position(TAILLE / 2 + i, TAILLE / 2 + j));
-                        }
-                        if (plateau[TAILLE / 2 + i][TAILLE / 2 + j] instanceof Parcelle) cpt++;
-                    }
-                } else {
-                    if (isPosable(new Position(TAILLE / 2 + i, TAILLE / 2 + k))) {
-                        posables.add(new Position(TAILLE / 2 + i, TAILLE / 2 + k));
-                    }
-                    if (plateau[TAILLE / 2 + i][TAILLE / 2 + k] instanceof Parcelle) cpt++;
-                    if (isPosable(new Position(TAILLE / 2 + i, TAILLE / 2 - k))) {
-                        posables.add(new Position(TAILLE / 2 + i, TAILLE / 2 - k));
-                    }
-                    if (plateau[TAILLE / 2 + i][TAILLE / 2 - k] instanceof Parcelle) cpt++;
-                }
+    public void miseAJourParcellePosable(Position pos){
+        parcelleDisponible.remove(pos);
+        for(Direction d : Direction.values()) {
+            if(isPosable(pos.getPositionByDirection(d))) {
+                parcelleDisponible.add(pos.getPositionByDirection(d));
             }
         }
-        return posables;
+    }
+
+    public Set<Position> getEndroitsPosables() {
+        Set<Position> posables = new HashSet<Position>(this.parcelleDisponible);
+        return this.parcelleDisponible;
+
     }
 
     public ParcelleInactive getParcelle(Position p) {

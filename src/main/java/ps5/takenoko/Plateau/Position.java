@@ -1,5 +1,7 @@
 package ps5.takenoko.Plateau;
 
+import java.util.Objects;
+
 public class Position {
     private int x;
     private int y;
@@ -38,10 +40,14 @@ public class Position {
     }
 
     @Override
-    public boolean equals(Object p) {
-        if(p instanceof Position) {
-            return (((Position) p).getX() == this.x && ((Position) p).getY() == this.y);
+    public boolean equals(Object obj) {
+        if(obj instanceof Position){
+            return (this.x == ((Position)obj).getX() && this.y == ((Position)obj).getY());
         }
         return false;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
