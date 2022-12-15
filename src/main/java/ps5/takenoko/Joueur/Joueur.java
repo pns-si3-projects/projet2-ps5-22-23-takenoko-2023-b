@@ -2,6 +2,7 @@ package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
 import ps5.takenoko.Element.Bamboo;
+import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Plateau.Parcelle;
@@ -11,11 +12,11 @@ import ps5.takenoko.Plateau.Position;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Joueur {
+public abstract class Joueur implements Comparable<Joueur>{
     private final int MAX_OBJECTIFS = 5 ;
     
     private final int MAX_PARCELLES =12;
-    private final String nom;
+    private final int id;
     private Plateau plateau;
     private ArrayList<Parcelle> parcelles = new ArrayList<Parcelle>(MAX_PARCELLES);
     private ArrayList<Objectif> objectifs = new ArrayList<Objectif>(MAX_OBJECTIFS);
@@ -31,26 +32,24 @@ public abstract class Joueur {
 
     //TODO: Carte Empereur = Objectif with 2 points?-> just put in objectifObtenus
     //private boolean estDerniere (est le dernier qui valide le dernier object->avoir empereur)
-    public Joueur(String nom,Plateau plateau){
-        this.nom = nom;
-        this.plateau=plateau;
+    public Joueur(int id){
+        this.id=id;
     }
     //TODO: fix later
-    public Joueur(String nom, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, ArrayList<Bamboo> bamboosObtenus, int nbIrrigations) {
-        this.nom = nom;
+    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, ArrayList<Bamboo> bamboosObtenus, int nbIrrigations) {
+        this.id=id;
         this.objectifs = objectifs;
         this.objectifsObtenus = objectifsObtenus;
         this.bamboosObtenus = bamboosObtenus;
         this.nbIrrigations = nbIrrigations;
     }
 
-    public String getNom() {
-        return nom;
-    }
 
     public int getNbIrrigations() {
         return nbIrrigations;
     }
+    public int getId() {return id;}
+    public ArrayList<Objectif> getObjectifsObtenus() {return objectifsObtenus;}
 
     public int calculPoint(){
         int res=0;
@@ -84,11 +83,17 @@ public abstract class Joueur {
      */
     public void completerObjectif(Objectif obj){
         Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL");
-        if(!objectifs.contains(obj)){ //TODO: Check if not bug
-            throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
+        if(!(obj instanceof Empereur)){
+            if(!(objectifs.contains(obj))){ //TODO: Check if not bug
+                throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
+            }
+            objectifs.remove(obj);
+            objectifsObtenus.add(obj);
         }
-        objectifs.remove(obj);
-        objectifsObtenus.add(obj);
+        else{
+            objectifsObtenus.add(obj);
+        }
+
     }
     
     public void validerObjectifs(){
@@ -109,15 +114,6 @@ public abstract class Joueur {
         return res;
     }
 
-
-    public int getScore() {
-        int score=0;
-        for(Objectif o:objectifsObtenus){
-            score+=o.getPoint();
-        }
-        return score;
-    }
-
     public abstract Position poserParcelle(Parcelle p);
 
     /***
@@ -126,17 +122,24 @@ public abstract class Joueur {
      */
     public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
 
+    @Override
+    public int compareTo(Joueur j2) {
+        if(calculPoint()!=j2.calculPoint()){
+            return calculPoint()-j2.calculPoint();
+        }
+        else{
+            return calculPointPanda()-j2.calculPointPanda();
+        }
+    }
+
+    public abstract Action jouer(ArrayList<Action> actionsPossibles);
+
 
     //TODO:
-    public Action choisirAction(){
-
-        return null;
-    }
 
     public void placerIrrigation(){
 
     }
-
 
 
 
