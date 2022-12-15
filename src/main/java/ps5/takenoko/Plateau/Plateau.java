@@ -199,4 +199,6 @@ public class Plateau {
     public static final String CSL_VIOLET = "\u001B[35m";
     public static final String CSL_CYAN = "\u001B[36m";
     public static final String CSL_BLANC = "\u001B[37m";
+
+    public static int getTaille(){return TAILLE;}
 }
