@@ -15,7 +15,7 @@ class PlateauTest {
         plateau = new Plateau();
     }
 
-    @Test
+    /*@Test
     void addParcelle() {
         Parcelle par = new Parcelle();
         Position pos = new Position(5,5);
@@ -59,7 +59,7 @@ class PlateauTest {
         }
 
         assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
-        assertTrue(((Parcelle) plateau.getParcelle(pos)).getCouleur() == Color.JAUNE);
+        assertTrue(((Parcelle) plateau.getParcelle(pos)).getCouleur() == Couleur.JAUNE);
     }
 
     @Test
@@ -82,5 +82,26 @@ class PlateauTest {
 
         } catch (IllegalAccessException e) {
         }
+    }*/
+
+    @Test
+    void affichePlateau() {
+        try{
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,13));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(14,14));
+            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(15,14));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(14,15));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(16,15));
+            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(14,16));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,16));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,17));
+
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(13,14));
+
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
+
+        }catch(Exception e){System.out.println(e);}
+        plateau.affichePlateau();
+
     }
 }
