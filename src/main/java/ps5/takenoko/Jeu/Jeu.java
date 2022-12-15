@@ -36,41 +36,34 @@ public class Jeu {
         int score_p1 = 0;
         while (!estTermine()) {
             //TODO: Implementation of Meteo here (except the first round)
-
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
-                j.validerObjectifs();
             }
         }
 
-//        System.out.println("Joueur"+ j1.getI() + " a accompli un objectif, Fin du jeu.");
-//        System.out.println("Score:");
-//        System.out.println(j1.getNom() + ":" + j1.getScore());
     }
 
     private boolean tourJoueur(Joueur j, int nbActions){
         ArrayList<Action> actionsPossibles = getActionsPossibles();
-        boolean stop=false;
+        boolean stop=false; //for later with more complicated stuff
         if(actionsPossibles.isEmpty()){
             return false;
         }
         Action actionChoisi = j.jouer(actionsPossibles);
         while(nbActions>0 && !stop){
             switch(actionChoisi){
-                case PIOCHER_PARCELLES: 
-                    this.piocherParcelles(j);
-
+                case PIOCHER_PARCELLES:
+                    Parcelle parellePioche = this.piocherParcelles(j);
+                    j.poserParcelle(parellePioche);
                     break;
                 case OBJECTIFS:
                     this.piocherObjectifs(j);
-
-                    break;
-                case POSER_PARCELLES:
-                    this.poserParcelles(j);
-
                     break;
             }
+            nbActions--;
         }
+        j.validerObjectifs();
+        return true;
 
 
     }
@@ -94,7 +87,18 @@ public class Jeu {
                 break loopGagnant;
             }
         }
+        afficheResultat();
         return gagnants;
+    }
+
+    private void afficheResultat(){
+        ArrayList<Joueur> gagnants = calculGagnants();
+        if(gagnants.size()>0){
+            //TODO
+        }
+        else{
+            System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
+        }
     }
 
     //TODO: Good idea to do both at da same time like so?
@@ -125,10 +129,11 @@ public class Jeu {
     }
 
 
-    private void piocherParcelles(Joueur j) {
+    private Parcelle piocherParcelles(Joueur j) {
         ArrayList<Parcelle> parcelles = parcellesList.getRandomParcelles(3);
         Parcelle p = j.piocherParcelle(parcelles);
         parcellesList.removeParcelle(p);
+        return p;
     }
 
     private void poserParcelles(Joueur j) {

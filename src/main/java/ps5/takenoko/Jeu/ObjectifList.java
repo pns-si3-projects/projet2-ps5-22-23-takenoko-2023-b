@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ObjectifList {
-    ArrayList<Objectif> objectifs;
+    ArrayList<Objectif> objectifs = new ArrayList<Objectif>();
 
 
     public ObjectifList() {

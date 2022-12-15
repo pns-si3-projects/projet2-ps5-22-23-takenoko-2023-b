@@ -50,6 +50,11 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
     public int getId() {return id;}
     public ArrayList<Objectif> getObjectifsObtenus() {return objectifsObtenus;}
+    public ArrayList<Parcelle> getParcelles() {return parcelles;}
+
+    public void setParcelles(ArrayList<Parcelle> parcelles) {this.parcelles = parcelles;}
+
+    public Plateau getPlateau() {return plateau;}
 
     public int calculPoint(){
         int res=0;
@@ -114,7 +119,7 @@ public abstract class Joueur implements Comparable<Joueur>{
         return res;
     }
 
-    public abstract Position poserParcelle(Parcelle p);
+    public abstract void poserParcelle(Parcelle p);
 
     /***
      *
