@@ -107,7 +107,7 @@ public class Plateau {
             String lignes[] = ligneToString(y);
             if(!lignes[0].matches("^\s+$")) System.out.println(lignes[0]);
             if(!lignes[1].matches("^\s+$")) System.out.println(lignes[1]);
-            
+
 
         }
     }
