@@ -2,7 +2,7 @@ package ps5.takenoko.Objectif;
 
 import ps5.takenoko.Plateau.*;
 
-public class ObjectifParcelle extends Objectif implements ObjectifInterf {
+public class ObjectifParcelle extends Objectif {
     private Shape figure;
     private Couleur principale;
     private Couleur secondaire;
@@ -46,13 +46,13 @@ public class ObjectifParcelle extends Objectif implements ObjectifInterf {
                             && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
                             && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),notreCouleur);
 
-                        valide = valide || testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
+                        valide = valide || (testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
                                 && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),notreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur);
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur));
 
-                        valide = valide || testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),notreCouleur)
+                        valide = valide || (testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),notreCouleur)
                                 && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur);
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur));
                         if(valide) return true;
                     }
 

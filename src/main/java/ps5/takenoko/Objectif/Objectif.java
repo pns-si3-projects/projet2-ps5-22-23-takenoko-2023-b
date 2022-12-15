@@ -1,6 +1,8 @@
 package ps5.takenoko.Objectif;
 
 
+import ps5.takenoko.Plateau.Plateau;
+
 import java.util.ArrayList;
 
 public abstract class Objectif {
@@ -13,4 +15,5 @@ public abstract class Objectif {
     public int getPoint() {
         return point;
     }
+    public abstract boolean verifie(Plateau board);
 }

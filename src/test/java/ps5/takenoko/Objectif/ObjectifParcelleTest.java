@@ -126,7 +126,7 @@ class ObjectifParcelleTest {
         assertFalse(objLosangeJ.verifie(boardCourbe));
         assertFalse(objLosangeR.verifie(boardCourbe));
         //assertFalse(objLosangeV.verifie(boardCourbe)); //Car il est present dans le plateau
-        
+
         assertFalse(objLosangeJ.verifie(boardTriangle));
         assertFalse(objLosangeR.verifie(boardTriangle));
         assertFalse(objLosangeV.verifie(boardTriangle));

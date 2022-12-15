@@ -68,8 +68,14 @@ public class Joueur {
         if(!objectifs.contains(obj)){ //TODO: Check if not bug
             throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
         }
+
         objectifs.remove(obj);
         objectifsObtenus.add(obj);
+    }
+    public void verifieObjectifs(){
+        for (Objectif obj : this.objectifs){
+            if (obj.verifie(jeu.getPlateau())) completerObjectif(obj);
+        }
     }
 
     public void ajouteIrrigation(){
