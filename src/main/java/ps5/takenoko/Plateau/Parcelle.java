@@ -11,6 +11,8 @@ public class Parcelle extends ParcelleInactive{
     public Parcelle() {
     }
 
+
+
     public Parcelle(Couleur c) {
         this.couleur = c;
     }

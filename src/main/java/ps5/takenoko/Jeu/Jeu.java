@@ -146,5 +146,7 @@ public class Jeu {
         objectifList.removeObjectif(o);
     }
 
-
+    public Plateau getPlateau() {
+        return plateau;
+    }
 }
