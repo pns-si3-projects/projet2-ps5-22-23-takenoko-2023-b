@@ -1,4 +1,10 @@
 package ps5.takenoko.Element;
 
-public class Meteo {
+public enum Meteo {
+    SOLEIL,
+    PLUIE,
+    VENT,
+    ORAGE,
+    NUAGES,
+    CHOIX_LIBRE
 }

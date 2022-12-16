@@ -4,6 +4,8 @@ import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class JoueurRandom extends Joueur{
 
@@ -12,8 +14,9 @@ public class JoueurRandom extends Joueur{
     }
 
     @Override
-    public Position poserParcelle(Parcelle p) {
-        return null;
+    public void poserParcelle(Parcelle p) {
+        Position position = getPlateau().getEndroitsPosables().iterator().next(); //interator is already random by itself
+        getPlateau().addParcelle(p, position);
     }
 
     /***
@@ -23,6 +26,13 @@ public class JoueurRandom extends Joueur{
      */
     @Override
     public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
-        return null;
+        Collections.shuffle(parcelles);
+        return parcelles.get(0);
+    }
+
+    @Override
+    public Action jouer(ArrayList<Action> actionsPossibles) {
+        Collections.shuffle(actionsPossibles);
+        return actionsPossibles.get(0);
     }
 }
