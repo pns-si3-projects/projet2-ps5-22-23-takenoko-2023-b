@@ -14,8 +14,6 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = Couleur.values()[R.nextInt(3)];
     }
 
-
-
     public Parcelle(Couleur c) {
         this.couleur = c;
     }
@@ -28,14 +26,33 @@ public class Parcelle extends ParcelleInactive{
     public Couleur getCouleur() {
         return couleur;
     }
+    public int getNbBamboo() {return nbBamboo;}
 
     public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
 
-    @Override
-    public String toString() {
-        return ""; //TODO
+
+    public boolean augmenteBamboo(){
+        if(nbBamboo<MAX_BAMBOU && estIrrigue()){
+            nbBamboo++;
+            return true;
+        }
+        //TODO: Grow double bamboos when there is ENGRAS and nbBamboo<MAX_BAMBOU
+        return false;
+    }
+
+    public boolean mangerBambou(){
+        if(nbBamboo==0){
+            return false;
+        }
+        nbBamboo--;
+        return true;
+    }
+
+    public boolean estIrrigue(){
+        //TODO
+        return true;
     }
 
 

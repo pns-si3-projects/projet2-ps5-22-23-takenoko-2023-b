@@ -29,6 +29,10 @@ public class Jeu {
 
     }
 
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
     public void lancer() {
         for(Joueur j: this.joueurs){
             j.setPlateau(this.plateau);
@@ -145,7 +149,8 @@ public class Jeu {
         objectifList.removeObjectif(o);
     }
 
-    public Plateau getPlateau() {
-        return plateau;
+    private void mangerBamboo (Parcelle p, Joueur j){
+        j.ajouteBambou(p.getCouleur());
+        p.mangerBambou();
     }
 }
