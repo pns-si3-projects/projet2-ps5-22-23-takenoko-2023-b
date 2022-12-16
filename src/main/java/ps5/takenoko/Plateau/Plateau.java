@@ -30,6 +30,7 @@ public class Plateau {
         ParcelleOriginelle etang = new ParcelleOriginelle();
         Position centre = new Position(TAILLE/2,TAILLE/2);//(15,15)
         plateau[centre.getX()][centre.getY()] = etang;
+        parcellePosee.add(centre);
         for(Direction d : Direction.values()) {
             parcelleDisponible.add(centre.getPositionByDirection(d));
         }

@@ -30,9 +30,9 @@ public class Jeu {
     }
 
     public void lancer() {
-        Joueur j1 = new JoueurRandom(1);
-        Joueur j2 = new JoueurRandom(2);
-        int score_p1 = 0;
+        for(Joueur j: this.joueurs){
+            j.setPlateau(this.plateau);
+        }
         while (!estTermine()) {
             //TODO: Implementation of Meteo here (except the first round)
             for(Joueur j: joueurs){
@@ -113,13 +113,13 @@ public class Jeu {
     private void setNbObjectifFin(){
         switch(joueurs.size()){
             case 2:
-                nbObjectifFin=9;
+                nbObjectifFin=1;
                 break;
             case 3:
-                nbObjectifFin=8;
+                nbObjectifFin=1;
                 break;
             case 4:
-                nbObjectifFin=7;
+                nbObjectifFin=1;
                 break;
             default:
                 throw new IllegalArgumentException("Le nombre de Joueur doit etre entre 2 et 4");

@@ -24,7 +24,7 @@ public class ObjectifParcelle extends Objectif {
 
         //Pour chaque position du tableau avec une parcelle dessus
         for (Position pos : plateau.getParcellePosee()) {
-            Parcelle parcelle = (Parcelle) plateau.getParcelle(pos);
+            ParcelleInactive parcelle = plateau.getParcelle(pos);
             //En fonction de la figure demande sur la carte objectif
             switch (figure) {
                 //Si c'est une carte objectif losange

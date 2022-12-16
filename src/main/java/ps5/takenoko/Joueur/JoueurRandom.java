@@ -1,10 +1,10 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Plateau.Parcelle;
+import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class JoueurRandom extends Joueur{
@@ -17,6 +17,8 @@ public class JoueurRandom extends Joueur{
     public void poserParcelle(Parcelle p) {
         Position position = getPlateau().getEndroitsPosables().iterator().next(); //interator is already random by itself
         getPlateau().addParcelle(p, position);
+        System.out.println("------------------------------");
+        getPlateau().affichePlateau();
     }
 
     /***

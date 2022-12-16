@@ -42,6 +42,9 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.nbIrrigations = nbIrrigations;
     }
 
+    public void setPlateau(Plateau plateau) {
+        this.plateau = plateau;
+    }
 
     public int getNbIrrigations() {
         return nbIrrigations;
@@ -95,9 +98,10 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
     
     public void validerObjectifs(){
-        for(Objectif o: objectifs){
-            if(o.verifie(plateau)){
-                completerObjectif(o);
+        for(int i=0;i<objectifs.size();i++){
+            if(objectifs.get(i).verifie(plateau)){
+                completerObjectif(objectifs.get(i));
+                i--;
             }
         }
     }

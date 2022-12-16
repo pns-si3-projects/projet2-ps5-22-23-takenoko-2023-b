@@ -12,7 +12,7 @@ public class ParcelleList {
     ArrayList<Parcelle> parcelles = new ArrayList<Parcelle>();
 
     public ParcelleList() {
-        init(28);
+        init(27);
     }
     //TODO: init all types of Parcelle
     public void init( int nb){

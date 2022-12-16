@@ -1,6 +1,7 @@
 package ps5.takenoko.Plateau;
 
 import ps5.takenoko.Element.Amenagement;
+import java.util.Random;
 
 public class Parcelle extends ParcelleInactive{
     private static final int maxNbBamboo = 4;
@@ -9,6 +10,8 @@ public class Parcelle extends ParcelleInactive{
     private int nbBamboo = 0;
 
     public Parcelle() {
+        Random R = new Random();
+        this.couleur = Couleur.values()[R.nextInt(3)];
     }
 
 

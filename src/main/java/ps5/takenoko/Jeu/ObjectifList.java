@@ -13,7 +13,7 @@ public class ObjectifList {
 
 
     public ObjectifList() {
-        init(7);
+        init(46);
     }
 
     //TODO: In the future, will do 3 types of Objectifs -> no need for nb
