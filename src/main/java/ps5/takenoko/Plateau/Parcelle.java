@@ -4,7 +4,7 @@ import ps5.takenoko.Element.Amenagement;
 import java.util.Random;
 
 public class Parcelle extends ParcelleInactive{
-    private static final int maxNbBamboo = 4;
+    private static final int MAX_BAMBOU = 4;
     private Couleur couleur;
     private Amenagement amenagement = null;
     private int nbBamboo = 0;
@@ -37,4 +37,6 @@ public class Parcelle extends ParcelleInactive{
     public String toString() {
         return ""; //TODO
     }
+
+
 }

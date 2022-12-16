@@ -1,7 +1,6 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Element.Bamboo;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Plateau.Parcelle;

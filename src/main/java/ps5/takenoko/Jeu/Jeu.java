@@ -104,6 +104,7 @@ public class Jeu {
     private boolean estTermine(){
         for(Joueur j: joueurs){
             if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
+                //TODO: Put Emperor objectif to j here
                 return true;
             }
         }
