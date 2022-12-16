@@ -15,13 +15,28 @@ public class ObjectifJardinier extends Objectif{
 
     @Override
     public boolean verifie(Plateau board) {
-        for(Position pos : board.getParcellePosee() ){
-            if(!(board.getParcelle(pos)instanceof Parcelle))continue;
-            Parcelle parcelle = (Parcelle) board.getParcelle(pos);
-            if (
-                    couleur == parcelle.getCouleur()
+        if(type!=TypeObjJardinier.MULTIPLE){
+            for(Position pos : board.getParcellePosee() ){
+                if(!(board.getParcelle(pos)instanceof Parcelle))continue;
+                Parcelle parcelle = (Parcelle) board.getParcelle(pos);
+                if (
+                        couleur == parcelle.getCouleur()
+                        && parcelle.getNbBamboo()==type.getNbBamboo()
+                        //&& parcelle.getAmmenagement()==type.getAmmenagement()
+                )return true;
+            }
+        }else{
+            int restant = 4;
+            for(Position pos : board.getParcellePosee() ){
+                if(!(board.getParcelle(pos)instanceof Parcelle))continue;
+                Parcelle parcelle = (Parcelle) board.getParcelle(pos);
+                if (
+                        couleur == parcelle.getCouleur()
+                        && parcelle.getNbBamboo()==type.getNbBamboo()
 
-            )return true;
+                )if(--restant==4)return true;
+            }
+
         }
         return false;
     }

@@ -100,19 +100,20 @@ public class Plateau {
         }
         return cpt > 1;
     }
-    public void affichePlateau(){
+    public String affichePlateau(){
         int ParcelleGauche=0;
+        String result="";
+
         for(int x=1;x<15 && ParcelleGauche==0;x++) for(int y=1;y<TAILLE-1 && ParcelleGauche==0;y++){
             if(plateau[x][y] instanceof Parcelle)ParcelleGauche=x;
-        }if(ParcelleGauche==0)ParcelleGauche=15;
+        }if(ParcelleGauche==0) ParcelleGauche=15;
 
         for(int y=0;y<TAILLE-1;y++) {
             String lignes[] = ligneToString(y);
-            if(!lignes[0].matches("^\s+$")) System.out.println(lignes[0]);
-            if(!lignes[1].matches("^\s+$")) System.out.println(lignes[1]);
-
-
+            if(!lignes[0].matches("^\s+$")) result+=lignes[0]+"\n";
+            if(!lignes[1].matches("^\s+$")) result+=lignes[1]+"\n";
         }
+        return result;
     }
 
     private String[] ligneToString(int y){
@@ -136,13 +137,13 @@ public class Plateau {
             // get nbBambou + Couleur
             switch(parcelle.getCouleur()){
                 case ROSE :
-                    content=CSL_ROUGE+"x"+CSL_RESET;
+                    content=CSL_ROUGE+parcelle.getNbBamboo()+CSL_RESET;
                     break;
                 case VERT :
-                    content=CSL_VERT+"x"+CSL_RESET;
+                    content=CSL_VERT+parcelle.getNbBamboo()+CSL_RESET;
                     break;
                 case JAUNE:
-                    content=CSL_JAUNE+"x"+CSL_RESET;
+                    content=CSL_JAUNE+parcelle.getNbBamboo()+CSL_RESET;
                     break;
             }
             // get Ammenagement
@@ -158,7 +159,7 @@ public class Plateau {
             content=" "+content+" ";
             content = afficheBordure(pos,Direction.OUEST) + content + afficheBordure(pos,Direction.EST);
         }else if(current.estParcelleOriginnelle())content = CSL_BLEU+"| E "+CSL_RESET;
-        String ligneBas = " "+afficheBordure(pos,Direction.SUD_OUEST) + " " + afficheBordure(pos,Direction.SUD_EST);
+        String ligneBas = afficheJardinier(pos)+afficheBordure(pos,Direction.SUD_OUEST) + affichePanda(pos) + afficheBordure(pos,Direction.SUD_EST);
         return new String[]{content, ligneBas};
     }
 
@@ -191,6 +192,18 @@ public class Plateau {
             ) return CSL_BLEU+border+CSL_RESET;
             else return border;
 
+    }
+
+    private String afficheJardinier(Position pos){
+        //if(pos.getPositionByDirection(Direction.SUD_OUEST)==jeu.getJardinier().getPosition()) return "J"
+        //TODO
+
+        return " ";
+    }
+
+    private String affichePanda(Position pos){
+        //if(pos==jeu.getPanda.getPosition()) return "P";
+        return " ";
     }
     public static final String CSL_RESET = "\u001B[0m";
     public static final String CSL_ROUGE = "\u001B[31m";
