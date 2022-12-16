@@ -16,7 +16,7 @@ public class Deplacable {
         for(Direction d : Direction.values()) {
             Position temp = this.position.getPositionByDirection(d);
             while(plateau.getParcelle(temp) != null && plateau.getParcelle(temp).estOccupe()) {
-                positionsPosables.add(temp.getPositionByDirection(d));
+                positionsPosables.add(temp);
                 temp = temp.getPositionByDirection(d);
             }
         }

@@ -20,6 +20,8 @@ class DeplacableTest {
             plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(15,14));
             plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(14,15));
             plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(16,15));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(17,15));
+
             plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(14,16));
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,16));
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,17));
@@ -38,8 +40,11 @@ class DeplacableTest {
         Deplacable deplacable = new Deplacable();
         Set<Position> endroitsDeplacable = deplacable.posPossibles(plateau);
         for(Direction d : Direction.values()) {
-            System.out.println(endroitsDeplacable);
+            System.out.println(d);
             assertTrue(endroitsDeplacable.contains(deplacable.getPosition().getPositionByDirection(d)));
         }
+        assertTrue(endroitsDeplacable.contains(new Position(17,15)));
+        assertFalse(endroitsDeplacable.contains(new Position(17,17)));
+
     }
 }
