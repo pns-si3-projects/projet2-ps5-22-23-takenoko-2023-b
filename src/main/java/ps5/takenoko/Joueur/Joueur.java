@@ -1,13 +1,14 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Element.Bamboo;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifPanda;
+import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public abstract class Joueur implements Comparable<Joueur>{
@@ -21,8 +22,8 @@ public abstract class Joueur implements Comparable<Joueur>{
     private ArrayList<Objectif> objectifsObtenus= new ArrayList<Objectif>();
 
     private ArrayList<Amenagement> amenagements= new ArrayList<Amenagement>();
-    private ArrayList<Bamboo> bamboosObtenus = new ArrayList<Bamboo>();
     private int nbIrrigations;
+    private int[] bambousObtenus = new int[]{0,0,0};
 
     public int getNombreObjectifsObtenus() {
         return objectifsObtenus.size();
@@ -34,11 +35,10 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.id=id;
     }
     //TODO: fix later
-    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, ArrayList<Bamboo> bamboosObtenus, int nbIrrigations) {
+    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, int nbIrrigations) {
         this.id=id;
         this.objectifs = objectifs;
         this.objectifsObtenus = objectifsObtenus;
-        this.bamboosObtenus = bamboosObtenus;
         this.nbIrrigations = nbIrrigations;
     }
 
@@ -52,6 +52,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public int getId() {return id;}
     public ArrayList<Objectif> getObjectifsObtenus() {return objectifsObtenus;}
     public ArrayList<Parcelle> getParcelles() {return parcelles;}
+    public int[] getBambousObtenus() {return bambousObtenus;}
 
     public void setParcelles(ArrayList<Parcelle> parcelles) {this.parcelles = parcelles;}
 
@@ -117,6 +118,13 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
 
     public abstract void poserParcelle(Parcelle p);
+    public void ajouteBambou(Couleur c){
+        bambousObtenus[c.ordinal()]++;
+    }
+    public void enleverBambous(int nb, Couleur c){
+        bambousObtenus[c.ordinal()]-=nb;
+    }
+
 
     /***
      *
