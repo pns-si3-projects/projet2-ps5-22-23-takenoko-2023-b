@@ -125,6 +125,10 @@ public abstract class Joueur implements Comparable<Joueur>{
         bambousObtenus[c.ordinal()]-=nb;
     }
 
+    public int nbBambousParCouleur(Couleur c){
+        return bambousObtenus[c.ordinal()];
+    }
+
 
     /***
      *
