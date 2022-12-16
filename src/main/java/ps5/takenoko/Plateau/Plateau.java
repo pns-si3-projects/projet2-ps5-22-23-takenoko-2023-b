@@ -39,10 +39,6 @@ public class Plateau {
         return parcellePosee;
     }
 
-    public Set<Position> getParcellePosee() {
-        return parcellePosee;
-    }
-
     public void addParcelle(Parcelle p, Position pos) {
         int x = pos.getX();
         int y = pos.getY();

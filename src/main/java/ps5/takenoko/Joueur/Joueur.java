@@ -2,12 +2,10 @@ package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
 import ps5.takenoko.Element.Bamboo;
-import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
-import ps5.takenoko.Plateau.Position;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -88,22 +86,17 @@ public abstract class Joueur implements Comparable<Joueur>{
      */
     public void completerObjectif(Objectif obj){
         Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL");
-        if(!(obj instanceof Empereur)){
             if(!(objectifs.contains(obj))){ //TODO: Check if not bug
                 throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
             }
             objectifs.remove(obj);
             objectifsObtenus.add(obj);
-        }
-        else{
-            objectifsObtenus.add(obj);
-        }
 
     }
     
     public void validerObjectifs(){
         for(Objectif o: objectifs){
-            if(o.verifierValidite()){
+            if(o.verifie(plateau)){
                 completerObjectif(o);
             }
         }

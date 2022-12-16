@@ -3,7 +3,6 @@ package ps5.takenoko.Jeu;
 import ps5.takenoko.Joueur.Action;
 import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Joueur.JoueurRandom;
-import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifParcelle;
 import ps5.takenoko.Plateau.Parcelle;
@@ -105,7 +104,6 @@ public class Jeu {
     private boolean estTermine(){
         for(Joueur j: joueurs){
             if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
-                j.completerObjectif(new Empereur(2));
                 return true;
             }
         }
@@ -142,7 +140,7 @@ public class Jeu {
 
     private void piocherObjectifs(Joueur j) {
         Objectif o = objectifList.randomObjectif();
-        j.addObjectif(new ObjectifParcelle(2));
+        j.addObjectif(o);
         objectifList.removeObjectif(o);
     }
 
