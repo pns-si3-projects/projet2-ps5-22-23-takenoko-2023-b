@@ -163,7 +163,7 @@ public class Plateau {
         return new String[]{content, ligneBas};
     }
 
-    private String afficheBordure(Position pos,Direction dir){
+    private String afficheBordure(Position pos,Direction dir) throws IllegalArgumentException {
         ParcelleInactive parcelle = getParcelle(pos);
         ParcelleInactive autreParcelle = getParcelle(pos.getPositionByDirection(dir));
         if( //si les deux passerelle sont des parcelleinactive alors on retourne " "
@@ -184,6 +184,7 @@ public class Plateau {
             case SUD_EST :
                 border="/";
                 break;
+            default : throw new IllegalArgumentException();
 
         }
             if(
