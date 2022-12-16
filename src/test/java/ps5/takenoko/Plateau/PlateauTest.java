@@ -18,17 +18,13 @@ class PlateauTest {
         plateau = new Plateau();
     }
 
-    /*@Test
+    @Test
     void addParcelle() {
         Parcelle par = new Parcelle();
         Position pos = new Position(5,5);
-        try {
-            assertFalse(plateau.getParcelle(pos) instanceof Parcelle);
-            plateau.addParcelle(par,pos);
-            assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
-        } catch (IllegalAccessException e) {
-            System.out.println("Out of bound exeption");
-        }
+        assertFalse(plateau.getParcelle(pos) instanceof Parcelle);
+        plateau.addParcelle(par,pos);
+        assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
     }
 
     @Test
@@ -55,10 +51,7 @@ class PlateauTest {
         assertTrue(plateau.getParcelle(pos) instanceof ParcelleInactive);
         assertTrue(plateau.getParcelle(posorigine) instanceof ParcelleOriginelle);
 
-        try {
-            plateau.addParcelle(par1, pos);
-        } catch (IllegalAccessException e) {
-        }
+        plateau.addParcelle(par1, pos);
 
         assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
         assertTrue(((Parcelle) plateau.getParcelle(pos)).getCouleur() == Couleur.JAUNE);
@@ -75,16 +68,11 @@ class PlateauTest {
         Parcelle par2 = new Parcelle();
         Position pos1 = new Position(1,0);
         Position pos2 = new Position(0,1);
-
-        try{
-            plateau.addParcelle(par1,pos1);
-            plateau.addParcelle(par2,pos2);
-            assertTrue(plateau.isPosable(pos));
-            assertFalse(plateau.isPosable(pos1));
-
-        } catch (IllegalAccessException e) {
-        }
-    }*/
+        plateau.addParcelle(par1,pos1);
+        plateau.addParcelle(par2,pos2);
+        assertTrue(plateau.isPosable(pos));
+        assertFalse(plateau.isPosable(pos1));
+    }
 
     @Test
     void affichePlateau() {
