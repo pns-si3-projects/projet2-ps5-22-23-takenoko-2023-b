@@ -12,8 +12,8 @@ public abstract class Deplacable {
     public ArrayList<Position> posPossibles(Plateau plateau) {
         ArrayList<Position> positionsPosables = new ArrayList<>();
         for(Direction d : Direction.values()) {
-            Position temp = position;
-            while(plateau.getParcelle(position.getPositionByDirection(d)).estOccupe()) {
+            Position temp = position.getPositionByDirection(d);
+            while(!plateau.getParcelle(temp).equals(null) && plateau.getParcelle(temp).estOccupe()) {
                 positionsPosables.add(position.getPositionByDirection(d));
                 position = position.getPositionByDirection(d);
             }
