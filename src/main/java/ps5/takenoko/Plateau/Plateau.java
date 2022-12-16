@@ -82,6 +82,9 @@ public class Plateau {
         if (this.getParcelle(p) instanceof Parcelle) {
             return false;
         }
+        if (this.getParcelle(p) instanceof ParcelleOriginelle) {
+            return false;
+        }
         int cpt = 0;
 
         for (Direction d : Direction.values()) {
