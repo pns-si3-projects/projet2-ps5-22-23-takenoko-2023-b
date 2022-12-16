@@ -1,12 +1,12 @@
 package ps5.takenoko.Plateau;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Element.AmenagementType;
-import ps5.takenoko.Element.Bamboo;
 
 public class Parcelle extends ParcelleInactive{
+    private static final int maxNbBamboo = 4;
     private Couleur couleur;
-    private Amenagement amenagement;
+    private Amenagement amenagement = null;
+    private int nbBamboo = 0;
 
     public Parcelle() {
     }
@@ -17,6 +17,11 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = c;
     }
 
+    public Parcelle(Couleur couleur, Amenagement amenagement) {
+        this.couleur = couleur;
+        this.amenagement = amenagement;
+    }
+
     public Couleur getCouleur() {
         return couleur;
     }
@@ -25,5 +30,8 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = couleur;
     }
 
-
+    @Override
+    public String toString() {
+        return ""; //TODO
+    }
 }

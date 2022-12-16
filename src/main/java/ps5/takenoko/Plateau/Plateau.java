@@ -39,11 +39,15 @@ public class Plateau {
         return parcellePosee;
     }
 
-    public void addParcelle(Parcelle p, Position pos) throws IllegalAccessException {
+    public Set<Position> getParcellePosee() {
+        return parcellePosee;
+    }
+
+    public void addParcelle(Parcelle p, Position pos) {
         int x = pos.getX();
         int y = pos.getY();
         if (plateau[x][y] instanceof Parcelle || x < 0 || y < 0 || x > 30 || y > 30) {
-            throw new IllegalAccessException("On ne peux pas ajouter une parcelle ici");
+            throw new IllegalArgumentException("On ne peux pas ajouter une parcelle ici");
         }
         this.plateau[x][y] = p;
         parcellePosee.add(pos);
@@ -62,7 +66,6 @@ public class Plateau {
     public Set<Position> getEndroitsPosables() {
         Set<Position> posables = new HashSet<Position>(this.parcelleDisponible);
         return this.parcelleDisponible;
-
     }
 
     public ParcelleInactive getParcelle(Position p) {

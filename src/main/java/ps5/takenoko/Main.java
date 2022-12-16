@@ -1,23 +1,21 @@
 package ps5.takenoko;
 
+import ps5.takenoko.Jeu.Jeu;
+import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Joueur.JoueurRandom;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
 
+import java.util.ArrayList;
+
 public class Main {
-
-
-    public static String hello() {
-        return "Hello World!";
-    }
-
     public static void main(String... args) throws IllegalAccessException {
-        System.out.println(hello());
-        Plateau plateau = new Plateau();
-        for(Position p: plateau.getEndroitsPosables()){
-            plateau.addParcelle(new Parcelle(),p);
-        }
-        System.out.println(plateau.getEndroitsPosables());
-    }
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        joueurs.add(new JoueurRandom(1));
+        joueurs.add(new JoueurRandom(2));
+        Jeu j = new Jeu(joueurs);
+        j.lancer();
 
+    }
 }

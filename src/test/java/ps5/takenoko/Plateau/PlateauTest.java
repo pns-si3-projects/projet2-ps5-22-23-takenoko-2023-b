@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,8 +33,7 @@ class PlateauTest {
 
     @Test
     void endroitsPosables() {
-        ArrayList<Position> endroitsPosables = plateau.getEndroitsPosables();
-
+        Set<Position> endroitsPosables = plateau.getEndroitsPosables();
         for(int i=0; i<31; i++) {
             for(int j=0; j<31; j++) {
                 if(endroitsPosables.contains(new Position(i,j))) {
@@ -48,7 +50,7 @@ class PlateauTest {
         Position pos = new Position(5,5);
         Position posorigine = new Position(15,15);
         Parcelle par1 = new Parcelle();
-        par1.setCouleur(Color.JAUNE);
+        par1.setCouleur(Couleur.JAUNE);
 
         assertTrue(plateau.getParcelle(pos) instanceof ParcelleInactive);
         assertTrue(plateau.getParcelle(posorigine) instanceof ParcelleOriginelle);
