@@ -4,6 +4,7 @@ package ps5.takenoko.Objectif;
 import ps5.takenoko.Plateau.Plateau;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Objectif {
     private final int point;
