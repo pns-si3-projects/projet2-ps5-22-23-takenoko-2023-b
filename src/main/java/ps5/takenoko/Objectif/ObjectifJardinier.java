@@ -17,8 +17,7 @@ public class ObjectifJardinier extends Objectif{
     public boolean verifie(Plateau board) {
         if(type!=TypeObjJardinier.MULTIPLE){
             for(Position pos : board.getParcellePosee() ){
-                if(!(board.getParcelle(pos)instanceof Parcelle))continue;
-                Parcelle parcelle = (Parcelle) board.getParcelle(pos);
+                if(!(board.getParcelle(pos) instanceof Parcelle parcelle))continue;
                 if (
                         couleur == parcelle.getCouleur()
                         && parcelle.getNbBamboo()==type.getNbBamboo()
@@ -28,8 +27,7 @@ public class ObjectifJardinier extends Objectif{
         }else{
             int restant = 4;
             for(Position pos : board.getParcellePosee() ){
-                if(!(board.getParcelle(pos)instanceof Parcelle))continue;
-                Parcelle parcelle = (Parcelle) board.getParcelle(pos);
+                if(!(board.getParcelle(pos) instanceof Parcelle parcelle))continue;
                 if (
                         couleur == parcelle.getCouleur()
                         && parcelle.getNbBamboo()==type.getNbBamboo()

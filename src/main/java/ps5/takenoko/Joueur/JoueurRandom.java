@@ -24,8 +24,6 @@ public class JoueurRandom extends Joueur{
             R--;
         }
         getPlateau().addParcelle(p, position);
-        System.out.println("------------------------------");
-        getPlateau().affichePlateau();
     }
 
     /***

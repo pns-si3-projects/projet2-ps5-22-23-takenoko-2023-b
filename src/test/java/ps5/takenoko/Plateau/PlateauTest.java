@@ -74,24 +74,4 @@ class PlateauTest {
         assertFalse(plateau.isPosable(pos1));
     }
 
-    @Test
-    void affichePlateau() {
-        try{
-            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,13));
-            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(14,14));
-            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(15,14));
-            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(14,15));
-            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(16,15));
-            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(14,16));
-            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,16));
-            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,17));
-
-            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(13,14));
-
-            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
-
-        }catch(Exception e){System.out.println(e);}
-        plateau.affichePlateau();
-
-    }
 }

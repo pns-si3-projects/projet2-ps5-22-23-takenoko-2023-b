@@ -18,6 +18,12 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = c;
     }
 
+    // For test purpose
+    public Parcelle(Couleur c,int nbBamboo) {
+        this.couleur = c;
+        this.nbBamboo = nbBamboo;
+    }
+
     public Parcelle(Couleur couleur, Amenagement amenagement) {
         this.couleur = couleur;
         this.amenagement = amenagement;
