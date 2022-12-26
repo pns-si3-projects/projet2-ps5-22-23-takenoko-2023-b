@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeplacableTest {
+class JardinierTest {
 
     Plateau plateau;
     @BeforeEach
@@ -37,7 +37,7 @@ class DeplacableTest {
 
     @Test
     void endroitsDeplacable() {
-        Deplacable deplacable = new Deplacable();
+        Jardinier deplacable = new Jardinier(new Position(15,15));
         Set<Position> endroitsDeplacable = deplacable.posPossibles(plateau);
         for(Direction d : Direction.values()) {
             System.out.println(d);
@@ -45,6 +45,15 @@ class DeplacableTest {
         }
         assertTrue(endroitsDeplacable.contains(new Position(17,15)));
         assertFalse(endroitsDeplacable.contains(new Position(17,17)));
+    }
 
+    @Test
+    void deplacer() {
+        Jardinier deplacable = new Jardinier(new Position(15,15));
+        deplacable.deplacer(new Position(14,14),plateau);
+        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(14,14))).getNbBamboo());
+        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(13,14))).getNbBamboo());
+        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(15,13))).getNbBamboo());
+        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(14,13))).getNbBamboo());
     }
 }
