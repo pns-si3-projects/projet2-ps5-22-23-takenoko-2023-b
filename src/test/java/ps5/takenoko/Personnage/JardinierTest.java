@@ -51,9 +51,11 @@ class JardinierTest {
     void deplacer() {
         Jardinier deplacable = new Jardinier(new Position(15,15));
         deplacable.deplacer(new Position(14,14),plateau);
+
         assertEquals(1,((Parcelle)plateau.getParcelle(new Position(14,14))).getNbBamboo());
         assertEquals(1,((Parcelle)plateau.getParcelle(new Position(13,14))).getNbBamboo());
         assertEquals(1,((Parcelle)plateau.getParcelle(new Position(15,13))).getNbBamboo());
-        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(14,13))).getNbBamboo());
+        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,14))).getNbBamboo());
+        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,16))).getNbBamboo());
     }
 }
