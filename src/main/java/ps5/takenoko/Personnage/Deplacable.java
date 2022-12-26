@@ -8,8 +8,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Deplacable {
+public abstract class Deplacable {
     private Position position = new Position(15,15);
+
+    public Deplacable(Position position) {
+        this.position = position;
+    }
 
     public Set<Position> posPossibles(Plateau plateau) {
         Set<Position> positionsPosables = new HashSet<>();
