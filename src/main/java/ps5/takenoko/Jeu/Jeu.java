@@ -29,6 +29,10 @@ public class Jeu {
 
     }
 
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
     public void lancer() {
         for(Joueur j: this.joueurs){
             j.setPlateau(this.plateau);
@@ -104,6 +108,7 @@ public class Jeu {
     private boolean estTermine(){
         for(Joueur j: joueurs){
             if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
+                //TODO: Put Emperor objectif to j here
                 return true;
             }
         }
@@ -144,7 +149,8 @@ public class Jeu {
         objectifList.removeObjectif(o);
     }
 
-    public Plateau getPlateau() {
-        return plateau;
+    private void mangerBamboo (Parcelle p, Joueur j){
+        j.ajouteBambou(p.getCouleur());
+        p.mangerBambou();
     }
 }
