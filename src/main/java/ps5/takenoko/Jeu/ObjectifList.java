@@ -11,6 +11,7 @@ import java.util.Random;
 public class ObjectifList {
     ArrayList<Objectif> objectifs = new ArrayList<Objectif>();
 
+
     public ObjectifList() {
         init(46);
     }
