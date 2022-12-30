@@ -15,6 +15,10 @@ public abstract class Deplacable {
         this.position = position;
     }
 
+    public Deplacable() {
+        this.position = new Position(15,15);
+    }
+
     public Set<Position> posPossibles(Plateau plateau) {
         Set<Position> positionsPosables = new HashSet<>();
         for(Direction d : Direction.values()) {
@@ -26,6 +30,8 @@ public abstract class Deplacable {
         }
         return positionsPosables;
     }
+
+    public abstract void deplacer(Position position, Plateau plateau);
 
     public Position getPosition() {
         return position;

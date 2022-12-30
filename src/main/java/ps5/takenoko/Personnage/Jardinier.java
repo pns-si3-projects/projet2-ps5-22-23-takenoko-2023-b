@@ -12,15 +12,21 @@ public class Jardinier extends Deplacable {
     public Jardinier(Position position) {
         super(position);
     }
+    public Jardinier(){super();}
 
     public void deplacer(Position position, Plateau plateau) {
-        this.setPosition(position);
-        ArrayList<Position> positions = plateau.getConnectedParcelleSameColor(position);
+        if(posPossibles(plateau).contains(position)){
+            this.setPosition(position);
+            ArrayList<Position> positions = plateau.getConnectedParcelleSameColor(position);
             for(Position p : positions) {
                 Parcelle temp = (Parcelle) plateau.getParcelle(p);
                 if (temp.estIrrigue()) {
                     temp.augmenteBamboo();
                 }
             }
+        }
+        else{
+            throw new IllegalArgumentException("Position impossible a poser");
+        }
     }
 }

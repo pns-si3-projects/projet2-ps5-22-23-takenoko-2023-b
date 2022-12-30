@@ -5,6 +5,8 @@ import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Joueur.JoueurRandom;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifParcelle;
+import ps5.takenoko.Personnage.Jardinier;
+import ps5.takenoko.Personnage.Panda;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
@@ -18,8 +20,9 @@ public class Jeu {
     private int nbObjectifFin;
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
     private Plateau plateau= new Plateau();
-    private Position positionJardinier = new Position(15,15);
-    private Position positionPanda = new Position(15,15);
+    private Jardinier jardinier = new Jardinier();
+    private Panda panda = new Panda();
+
     private ObjectifList objectifList = new ObjectifList();
     ParcelleList parcellesList = new ParcelleList();
 
@@ -61,6 +64,9 @@ public class Jeu {
                     break;
                 case OBJECTIFS:
                     this.piocherObjectifs(j);
+                    break;
+                case JARDINIER:
+                    jardinier.deplacer(j.deplacerJardinier(jardinier.posPossibles(plateau)),plateau);
                     break;
             }
             nbActions--;

@@ -3,10 +3,7 @@ package ps5.takenoko.Joueur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 public class JoueurRandom extends Joueur{
 
@@ -37,6 +34,22 @@ public class JoueurRandom extends Joueur{
     public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
         Collections.shuffle(parcelles);
         return parcelles.get(0);
+    }
+
+    @Override
+    public Position deplacerJardinier(Set<Position> positionsPossibles) {
+        int rand = new Random().nextInt(positionsPossibles.size());
+        int index=0;
+        Position res = null;
+        Iterator<Position> iterator = positionsPossibles.iterator();
+        while(iterator.hasNext()){
+            res = iterator.next();
+            if(index==rand){
+                return res;
+            }
+            index++;
+        }
+        return res;
     }
 
     @Override

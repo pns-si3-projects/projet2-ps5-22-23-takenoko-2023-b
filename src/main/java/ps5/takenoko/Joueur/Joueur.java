@@ -6,10 +6,12 @@ import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
+import ps5.takenoko.Plateau.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
 
 public abstract class Joueur implements Comparable<Joueur>{
     private final int MAX_OBJECTIFS = 5 ;
@@ -135,7 +137,7 @@ public abstract class Joueur implements Comparable<Joueur>{
      * @return 1 Parcelle choisi
      */
     public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
-
+    public abstract Position deplacerJardinier(Set<Position> positionsPossibles);
     @Override
     public int compareTo(Joueur j2) {
         if(calculPoint()!=j2.calculPoint()){
@@ -147,6 +149,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
 
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
+
 
 
     //TODO:
