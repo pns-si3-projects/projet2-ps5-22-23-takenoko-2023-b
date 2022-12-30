@@ -91,6 +91,7 @@ public abstract class Joueur implements Comparable<Joueur>{
      * Depacer objectif de ArrayList objectifs -> ArrayList objectifs obtenus
      */
     public void completerObjectif(Objectif obj){
+        //TODO: if obj Empereur  -> add direct ans no need to remove from objectifs
         Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL");
             if(!(objectifs.contains(obj))){ //TODO: Check if not bug
                 throw new IllegalArgumentException("Joueur n'a pas de cet objectif");

@@ -123,14 +123,15 @@ public class Jeu {
 
     private void setNbObjectifFin(){
         switch(joueurs.size()){
+            //TODO: Put back the original nbObjectifFin
             case 2:
-                nbObjectifFin=1;
+                nbObjectifFin=1; //9
                 break;
             case 3:
-                nbObjectifFin=1;
+                nbObjectifFin=1; //8
                 break;
             case 4:
-                nbObjectifFin=1;
+                nbObjectifFin=1; //7
                 break;
             default:
                 throw new IllegalArgumentException("Le nombre de Joueur doit etre entre 2 et 4");
