@@ -1,5 +1,7 @@
 package ps5.takenoko.Plateau;
 
+import ps5.takenoko.Element.AmenagementType;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -26,8 +28,9 @@ public class Plateau {
             }
         }
         ParcelleOriginelle etang = new ParcelleOriginelle();
-        Position centre = new Position(TAILLE/2,TAILLE/2);
+        Position centre = new Position(TAILLE/2,TAILLE/2);//(15,15)
         plateau[centre.getX()][centre.getY()] = etang;
+        parcellePosee.add(centre);
         for(Direction d : Direction.values()) {
             parcelleDisponible.add(centre.getPositionByDirection(d));
         }
@@ -79,6 +82,9 @@ public class Plateau {
         if (this.getParcelle(p) instanceof Parcelle) {
             return false;
         }
+        if (this.getParcelle(p) instanceof ParcelleOriginelle) {
+            return false;
+        }
         int cpt = 0;
 
         for (Direction d : Direction.values()) {
@@ -94,4 +100,141 @@ public class Plateau {
         }
         return cpt > 1;
     }
+
+
+    // return an array of all the positions of the parcelles that are adjacent to the parcelle at the given position
+    public ArrayList<Position> getConnectedParcelleSameColor(Position p) {
+        Set<Position> connectedParcelle = new HashSet<Position>();
+        Parcelle parcelle;
+        Couleur couleur;
+        if(!(this.getParcelle(p) instanceof Parcelle)) {
+            return new ArrayList<Position>();
+        } else {
+            parcelle = (Parcelle) this.getParcelle(p);
+            couleur = parcelle.getCouleur();
+        }
+        connectedParcelle.add(p);
+        int size;
+        do {
+            size = connectedParcelle.size();
+            for (Position pos : connectedParcelle) {
+                for (Direction d : Direction.values()) {
+                    ParcelleInactive tmp = this.getParcelle(pos.getPositionByDirection(d));
+                    if (tmp != null) {
+                        if (tmp instanceof Parcelle) {
+                            if(((Parcelle) tmp).getCouleur() == couleur) {
+                                connectedParcelle.add(pos.getPositionByDirection(d));
+                            }
+                        }
+                    }
+                }
+            }
+        } while (size < connectedParcelle.size());
+        return new ArrayList<Position>(connectedParcelle);
+    }
+
+    public void affichePlateau(){
+        int ParcelleGauche=0;
+        for(int x=1;x<15 && ParcelleGauche==0;x++) for(int y=1;y<TAILLE-1 && ParcelleGauche==0;y++){
+            if(plateau[x][y] instanceof Parcelle)ParcelleGauche=x;
+        }if(ParcelleGauche==0)ParcelleGauche=15;
+
+        for(int y=0;y<TAILLE-1;y++) {
+            String lignes[] = ligneToString(y);
+            if(!lignes[0].matches("^\s+$")) System.out.println(lignes[0]);
+            if(!lignes[1].matches("^\s+$")) System.out.println(lignes[1]);
+
+
+        }
+    }
+
+    private String[] ligneToString(int y){
+        String result[] = {"",""};
+        if(y%2==0)result= new String[]{"  ", "  "};
+
+        for(int x=1;x<TAILLE-1;x++) {
+            String retour[] = parcelleToString(new Position(x, y));
+            result[0]+=retour[0]; result[1]+=retour[1];
+        }
+        return result;
+    }
+
+    private String[] parcelleToString(Position pos){
+        ParcelleInactive current = getParcelle(pos);
+
+        String content = "    ";
+        if(current instanceof Parcelle) {
+            Parcelle parcelle = (Parcelle) getParcelle(pos);
+            //Creation du contenu de la parcelle
+            // get nbBambou + Couleur
+            switch(parcelle.getCouleur()){
+                case ROSE :
+                    content=CSL_ROUGE+"x"+CSL_RESET;
+                    break;
+                case VERT :
+                    content=CSL_VERT+"x"+CSL_RESET;
+                    break;
+                case JAUNE:
+                    content=CSL_JAUNE+"x"+CSL_RESET;
+                    break;
+            }
+            // get Ammenagement
+
+            /*
+            switch(parcelle.getAmmenagement()){
+                case ENCLOS: content+="Ec"; break;
+                case ENGRAIS: content+="Eg"; break;
+                case BASSIN: content+="Ba"; break;
+                default:content = content+" ";
+            }
+             */
+            content=" "+content+" ";
+            content = afficheBordure(pos,Direction.OUEST) + content + afficheBordure(pos,Direction.EST);
+        }else if(current.estParcelleOriginnelle())content = CSL_BLEU+"| E "+CSL_RESET;
+        String ligneBas = " "+afficheBordure(pos,Direction.SUD_OUEST) + " " + afficheBordure(pos,Direction.SUD_EST);
+        return new String[]{content, ligneBas};
+    }
+
+    private String afficheBordure(Position pos,Direction dir){
+        ParcelleInactive parcelle = getParcelle(pos);
+        ParcelleInactive autreParcelle = getParcelle(pos.getPositionByDirection(dir));
+        if( //si les deux passerelle sont des parcelleinactive alors on retourne " "
+                !parcelle.estOccupe() && !autreParcelle.estOccupe()
+        )return " ";
+        String border="";
+        switch(dir){
+            case OUEST:
+                border = "|";
+                break;
+            case EST:
+                if(autreParcelle.estOccupe())border = "";
+                else border =  "|";
+                break;
+            case SUD_OUEST :
+                border="\\";
+                break;
+            case SUD_EST :
+                border="/";
+                break;
+
+        }
+            if(
+                parcelle.estParcelleOriginnelle()
+                || autreParcelle.estParcelleOriginnelle()
+            ) return CSL_BLEU+border+CSL_RESET;
+            else return border;
+
+    }
+    public static final String CSL_RESET = "\u001B[0m";
+    public static final String CSL_ROUGE = "\u001B[31m";
+    public static final String CSL_VERT = "\u001B[32m";
+    public static final String CSL_JAUNE = "\u001B[33m";
+    public static final String CSL_BLEU = "\u001B[34m";
+
+    public static final String CSL_NOIR = "\u001B[30m";
+    public static final String CSL_VIOLET = "\u001B[35m";
+    public static final String CSL_CYAN = "\u001B[36m";
+    public static final String CSL_BLANC = "\u001B[37m";
+
+    public static int getTaille(){return TAILLE;}
 }

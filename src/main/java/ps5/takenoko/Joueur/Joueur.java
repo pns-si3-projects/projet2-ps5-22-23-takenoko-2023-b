@@ -1,16 +1,17 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Element.Bamboo;
-import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifPanda;
+import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
 
 public abstract class Joueur implements Comparable<Joueur>{
     private final int MAX_OBJECTIFS = 5 ;
@@ -23,8 +24,8 @@ public abstract class Joueur implements Comparable<Joueur>{
     private ArrayList<Objectif> objectifsObtenus= new ArrayList<Objectif>();
 
     private ArrayList<Amenagement> amenagements= new ArrayList<Amenagement>();
-    private ArrayList<Bamboo> bamboosObtenus = new ArrayList<Bamboo>();
     private int nbIrrigations;
+    private int[] bambousObtenus = new int[]{0,0,0};
 
     public int getNombreObjectifsObtenus() {
         return objectifsObtenus.size();
@@ -36,14 +37,16 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.id=id;
     }
     //TODO: fix later
-    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, ArrayList<Bamboo> bamboosObtenus, int nbIrrigations) {
+    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, int nbIrrigations) {
         this.id=id;
         this.objectifs = objectifs;
         this.objectifsObtenus = objectifsObtenus;
-        this.bamboosObtenus = bamboosObtenus;
         this.nbIrrigations = nbIrrigations;
     }
 
+    public void setPlateau(Plateau plateau) {
+        this.plateau = plateau;
+    }
 
     public int getNbIrrigations() {
         return nbIrrigations;
@@ -51,6 +54,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public int getId() {return id;}
     public ArrayList<Objectif> getObjectifsObtenus() {return objectifsObtenus;}
     public ArrayList<Parcelle> getParcelles() {return parcelles;}
+    public int[] getBambousObtenus() {return bambousObtenus;}
 
     public void setParcelles(ArrayList<Parcelle> parcelles) {this.parcelles = parcelles;}
 
@@ -87,24 +91,21 @@ public abstract class Joueur implements Comparable<Joueur>{
      * Depacer objectif de ArrayList objectifs -> ArrayList objectifs obtenus
      */
     public void completerObjectif(Objectif obj){
+        //TODO: if obj Empereur  -> add direct ans no need to remove from objectifs
         Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL");
-        if(!(obj instanceof Empereur)){
             if(!(objectifs.contains(obj))){ //TODO: Check if not bug
                 throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
             }
             objectifs.remove(obj);
             objectifsObtenus.add(obj);
-        }
-        else{
-            objectifsObtenus.add(obj);
-        }
 
     }
     
     public void validerObjectifs(){
-        for(Objectif o: objectifs){
-            if(o.verifierValidite()){
-                completerObjectif(o);
+        for(int i=0;i<objectifs.size();i++){
+            if(objectifs.get(i).verifie(plateau)){
+                completerObjectif(objectifs.get(i));
+                i--;
             }
         }
     }
@@ -120,13 +121,24 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
 
     public abstract void poserParcelle(Parcelle p);
+    public void ajouteBambou(Couleur c){
+        bambousObtenus[c.ordinal()]++;
+    }
+    public void enleverBambous(int nb, Couleur c){
+        bambousObtenus[c.ordinal()]-=nb;
+    }
+
+    public int nbBambousParCouleur(Couleur c){
+        return bambousObtenus[c.ordinal()];
+    }
+
 
     /***
      *
      * @return 1 Parcelle choisi
      */
     public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
-
+    public abstract Position deplacerJardinier(Set<Position> positionsPossibles);
     @Override
     public int compareTo(Joueur j2) {
         if(calculPoint()!=j2.calculPoint()){
@@ -138,6 +150,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
 
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
+
 
 
     //TODO:

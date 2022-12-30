@@ -3,9 +3,7 @@ package ps5.takenoko.Joueur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 public class JoueurRandom extends Joueur{
 
@@ -15,8 +13,16 @@ public class JoueurRandom extends Joueur{
 
     @Override
     public void poserParcelle(Parcelle p) {
-        Position position = getPlateau().getEndroitsPosables().iterator().next(); //interator is already random by itself
+        int R = new Random().nextInt(getPlateau().getEndroitsPosables().size());
+        Iterator<Position> iterator = getPlateau().getEndroitsPosables().iterator(); //iterator is already random by itself
+        Position position = iterator.next();
+        while(R>0){
+            position = iterator.next();
+            R--;
+        }
         getPlateau().addParcelle(p, position);
+        System.out.println("------------------------------");
+        getPlateau().affichePlateau();
     }
 
     /***
@@ -28,6 +34,22 @@ public class JoueurRandom extends Joueur{
     public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
         Collections.shuffle(parcelles);
         return parcelles.get(0);
+    }
+
+    @Override
+    public Position deplacerJardinier(Set<Position> positionsPossibles) {
+        int rand = new Random().nextInt(positionsPossibles.size());
+        int index=0;
+        Position res = null;
+        Iterator<Position> iterator = positionsPossibles.iterator();
+        while(iterator.hasNext()){
+            res = iterator.next();
+            if(index==rand){
+                return res;
+            }
+            index++;
+        }
+        return res;
     }
 
     @Override

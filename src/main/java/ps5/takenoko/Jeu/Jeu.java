@@ -3,9 +3,10 @@ package ps5.takenoko.Jeu;
 import ps5.takenoko.Joueur.Action;
 import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Joueur.JoueurRandom;
-import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifParcelle;
+import ps5.takenoko.Personnage.Jardinier;
+import ps5.takenoko.Personnage.Panda;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
@@ -19,8 +20,9 @@ public class Jeu {
     private int nbObjectifFin;
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
     private Plateau plateau= new Plateau();
-    private Position positionJardinier = new Position(15,15);
-    private Position positionPanda = new Position(15,15);
+    private Jardinier jardinier = new Jardinier();
+    private Panda panda = new Panda();
+
     private ObjectifList objectifList = new ObjectifList();
     ParcelleList parcellesList = new ParcelleList();
 
@@ -30,10 +32,14 @@ public class Jeu {
 
     }
 
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
     public void lancer() {
-        Joueur j1 = new JoueurRandom(1);
-        Joueur j2 = new JoueurRandom(2);
-        int score_p1 = 0;
+        for(Joueur j: this.joueurs){
+            j.setPlateau(this.plateau);
+        }
         while (!estTermine()) {
             //TODO: Implementation of Meteo here (except the first round)
             for(Joueur j: joueurs){
@@ -58,6 +64,9 @@ public class Jeu {
                     break;
                 case OBJECTIFS:
                     this.piocherObjectifs(j);
+                    break;
+                case JARDINIER:
+                    jardinier.deplacer(j.deplacerJardinier(jardinier.posPossibles(plateau)),plateau);
                     break;
             }
             nbActions--;
@@ -105,7 +114,7 @@ public class Jeu {
     private boolean estTermine(){
         for(Joueur j: joueurs){
             if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
-                j.completerObjectif(new Empereur(2));
+                //TODO: Put Emperor objectif to j here
                 return true;
             }
         }
@@ -114,14 +123,15 @@ public class Jeu {
 
     private void setNbObjectifFin(){
         switch(joueurs.size()){
+            //TODO: Put back the original nbObjectifFin
             case 2:
-                nbObjectifFin=9;
+                nbObjectifFin=1; //9
                 break;
             case 3:
-                nbObjectifFin=8;
+                nbObjectifFin=1; //8
                 break;
             case 4:
-                nbObjectifFin=7;
+                nbObjectifFin=1; //7
                 break;
             default:
                 throw new IllegalArgumentException("Le nombre de Joueur doit etre entre 2 et 4");
@@ -142,9 +152,12 @@ public class Jeu {
 
     private void piocherObjectifs(Joueur j) {
         Objectif o = objectifList.randomObjectif();
-        j.addObjectif(new ObjectifParcelle(2));
+        j.addObjectif(o);
         objectifList.removeObjectif(o);
     }
 
-
+    private void mangerBamboo (Parcelle p, Joueur j){
+        j.ajouteBambou(p.getCouleur());
+        p.mangerBambou();
+    }
 }
