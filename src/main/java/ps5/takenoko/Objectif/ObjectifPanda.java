@@ -15,7 +15,7 @@ public class ObjectifPanda extends Objectif{
     @Override
     public boolean verifie(Joueur j) {
         for(int i=0; i<couleurs.length;i++){
-            if(j.nbBambousParCouleur(couleurs[i])<nbBambous){
+            if(j.nbBambousParCouleur(couleurs[i]) < nbBambous){
                 return false;
             }
         }

@@ -11,6 +11,7 @@ public class Parcelle extends ParcelleInactive{
     private Amenagement amenagement = new Amenagement();
     private int nbBamboo = 0;
 
+
     public Parcelle() {
         Random R = new Random();
         this.couleur = Couleur.values()[R.nextInt(3)];
@@ -37,18 +38,18 @@ public class Parcelle extends ParcelleInactive{
 
     public boolean augmenteBamboo(){
         if(nbBamboo<MAX_BAMBOU && estIrrigue()){
-            nbBamboo=nbBamboo+amenagement.getNbBambou()>MAX_BAMBOU ? MAX_BAMBOU : nbBamboo+amenagement.getNbBambou();
+            nbBamboo=nbBamboo+amenagement.getNbBambouAPousser()>MAX_BAMBOU ? MAX_BAMBOU : nbBamboo+amenagement.getNbBambouAPousser();
             return true;
         }
         return false;
     }
 
     public boolean mangerBambou(){
-        if(nbBamboo==0 || amenagement.getNbBambou()==0){
-            return false;
+        if(nbBamboo>0 && estIrrigue() && amenagement.getNbBambouAManger()>0){
+            nbBamboo= nbBamboo-amenagement.getNbBambouAManger()<0 ? 0 : nbBamboo-amenagement.getNbBambouAManger();
+            return true;
         }
-        nbBamboo--;
-        return true;
+        return false;
     }
 
     public boolean estIrrigue(){

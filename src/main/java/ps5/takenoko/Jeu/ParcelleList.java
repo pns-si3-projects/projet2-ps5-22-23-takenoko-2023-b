@@ -13,7 +13,7 @@ import java.util.Collections;
 //TODO: Class Super for ParcelleList and ObjectifList
 public class ParcelleList extends ListDuJeu<Parcelle> {
     public ParcelleList() {
-        init();
+        super();
     }
 
     @Override

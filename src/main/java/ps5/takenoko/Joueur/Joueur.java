@@ -10,10 +10,7 @@ import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Joueur implements Comparable<Joueur>{
     private final int MAX_OBJECTIFS = 5 ;
@@ -105,10 +102,14 @@ public abstract class Joueur implements Comparable<Joueur>{
         else if (obj instanceof ObjectifPanda) {
             for (int i = 0; i < obj.getCouleurs().length; i++) {
                 enleverBambous(((ObjectifPanda) obj).getNbBambous(),obj.getCouleurs()[i]);
+                System.out.println("panda");
             }
         }
         else if (obj instanceof ObjectifParcelle) {
             //TODO
+        }
+        else{
+            throw new IllegalArgumentException("Type d'objectif inconnu");
         }
         objectifs.remove(obj);
         objectifsObtenus.add(obj);
@@ -116,7 +117,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     
     public void validerObjectifs(){
         for(int i=0;i<objectifs.size();i++){
-            if(objectifs.get(i).verifie(this)){
+            if(objectifs.get(i).verifie(this)) {
                 completerObjectif(objectifs.get(i));
                 i--;
             }
