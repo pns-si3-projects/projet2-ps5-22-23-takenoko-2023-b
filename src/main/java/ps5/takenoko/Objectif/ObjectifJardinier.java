@@ -1,21 +1,21 @@
 package ps5.takenoko.Objectif;
 
 import ps5.takenoko.Element.AmenagementType;
+import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Plateau;
 
 public class ObjectifJardinier extends Objectif{
     private AmenagementType amenagementType;
-    private Couleur couleur;
+    private int nbBambous;
 
-    public ObjectifJardinier(int point, AmenagementType amenagementType, Couleur couleur) {
-        super(point);
+    public ObjectifJardinier(String description, int point, Couleur[] couleurs, AmenagementType amenagementType) {
+        super(description, point, couleurs);
         this.amenagementType = amenagementType;
-        this.couleur = couleur;
     }
 
     @Override
-    public boolean verifie(Plateau board) {
+    public boolean verifie(Joueur j) {
         return false;
     }
 }

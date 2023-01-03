@@ -2,7 +2,9 @@ package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
 import ps5.takenoko.Objectif.Objectif;
+import ps5.takenoko.Objectif.ObjectifJardinier;
 import ps5.takenoko.Objectif.ObjectifPanda;
+import ps5.takenoko.Objectif.ObjectifParcelle;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
@@ -26,6 +28,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     private ArrayList<Amenagement> amenagements= new ArrayList<Amenagement>();
     private int nbIrrigations;
     private int[] bambousObtenus = new int[]{0,0,0};
+
 
     public int getNombreObjectifsObtenus() {
         return objectifsObtenus.size();
@@ -93,17 +96,27 @@ public abstract class Joueur implements Comparable<Joueur>{
     public void completerObjectif(Objectif obj){
         //TODO: if obj Empereur  -> add direct ans no need to remove from objectifs
         Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL");
-            if(!(objectifs.contains(obj))){ //TODO: Check if not bug
-                throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
+        if(!(objectifs.contains(obj))){ //TODO: Check if not bug
+            throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
+        }
+        if (obj instanceof ObjectifJardinier){
+            //TODO
+        }
+        else if (obj instanceof ObjectifPanda) {
+            for (int i = 0; i < obj.getCouleurs().length; i++) {
+                enleverBambous(((ObjectifPanda) obj).getNbBambous(),obj.getCouleurs()[i]);
             }
-            objectifs.remove(obj);
-            objectifsObtenus.add(obj);
-
+        }
+        else if (obj instanceof ObjectifParcelle) {
+            //TODO
+        }
+        objectifs.remove(obj);
+        objectifsObtenus.add(obj);
     }
     
     public void validerObjectifs(){
         for(int i=0;i<objectifs.size();i++){
-            if(objectifs.get(i).verifie(plateau)){
+            if(objectifs.get(i).verifie(this)){
                 completerObjectif(objectifs.get(i));
                 i--;
             }
@@ -152,10 +165,7 @@ public abstract class Joueur implements Comparable<Joueur>{
 
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
 
-
-
     //TODO:
-
     public void placerIrrigation(){
 
     }
