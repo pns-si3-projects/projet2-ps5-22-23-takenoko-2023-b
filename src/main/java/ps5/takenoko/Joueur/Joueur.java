@@ -139,6 +139,7 @@ public abstract class Joueur implements Comparable<Joueur>{
      */
     public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
     public abstract Position deplacerJardinier(Set<Position> positionsPossibles);
+    public abstract Position deplacerPanda(Set<Position> positionsPossibles);
     @Override
     public int compareTo(Joueur j2) {
         if(calculPoint()!=j2.calculPoint()){

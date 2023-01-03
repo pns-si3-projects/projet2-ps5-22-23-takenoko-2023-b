@@ -14,7 +14,7 @@ public class Jardinier extends Deplacable {
     }
     public Jardinier(){super();}
 
-    public void deplacer(Position position, Plateau plateau) {
+    public boolean deplacer(Position position, Plateau plateau) {
         if(posPossibles(plateau).contains(position)){
             this.setPosition(position);
             ArrayList<Position> positions = plateau.getConnectedParcelleSameColor(position);
@@ -24,6 +24,7 @@ public class Jardinier extends Deplacable {
                     temp.augmenteBamboo();
                 }
             }
+            return true;
         }
         else{
             throw new IllegalArgumentException("Position impossible a poser");

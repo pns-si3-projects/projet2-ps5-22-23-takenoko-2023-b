@@ -1,6 +1,8 @@
 package ps5.takenoko.Plateau;
 
 import ps5.takenoko.Element.Amenagement;
+import ps5.takenoko.Element.AmenagementType;
+
 import java.util.Random;
 
 public class Parcelle extends ParcelleInactive{
@@ -43,7 +45,7 @@ public class Parcelle extends ParcelleInactive{
     }
 
     public boolean mangerBambou(){
-        if(nbBamboo==0){
+        if(nbBamboo==0 || amenagement.equals(AmenagementType.ENCLOS)){
             return false;
         }
         nbBamboo--;

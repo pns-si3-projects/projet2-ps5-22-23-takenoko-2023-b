@@ -36,8 +36,8 @@ public class JoueurRandom extends Joueur{
         return parcelles.get(0);
     }
 
-    @Override
-    public Position deplacerJardinier(Set<Position> positionsPossibles) {
+
+    public Position deplacerPersonnage(Set<Position> positionsPossibles) {
         int rand = new Random().nextInt(positionsPossibles.size());
         int index=0;
         Position res = null;
@@ -50,6 +50,15 @@ public class JoueurRandom extends Joueur{
             index++;
         }
         return res;
+    }
+
+    @Override
+    public Position deplacerJardinier(Set<Position> positionsPossibles) {
+        return deplacerPersonnage(positionsPossibles);
+    }
+    @Override
+    public Position deplacerPanda(Set<Position> positionsPossibles) {
+        return deplacerPersonnage(positionsPossibles);
     }
 
     @Override
