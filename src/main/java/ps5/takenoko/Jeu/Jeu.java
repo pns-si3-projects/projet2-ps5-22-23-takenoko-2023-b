@@ -84,7 +84,6 @@ public class Jeu {
 
     }
 
-    //TODO: methode getActionsPossible (par ex: si ya que 1 parcelle etang-> peut pas deplacer Panda ni Jardinier) ou si ya plus de Parcelle dans parcellesList-> peut pas piocher Parcelle
     private ArrayList<Action> getActionsPossibles(Joueur j){
         ArrayList<Action> actionsPossibles = new ArrayList<Action>();
         if(plateau.getParcellePosee().size()>1){
@@ -140,15 +139,14 @@ public class Jeu {
 
     private void setNbObjectifFin(){
         switch(joueurs.size()){
-            //TODO: Put back the original nbObjectifFin
             case 2:
-                nbObjectifFin=9; //9
+                nbObjectifFin=9;
                 break;
             case 3:
-                nbObjectifFin=8; //8
+                nbObjectifFin=8;
                 break;
             case 4:
-                nbObjectifFin=7; //7
+                nbObjectifFin=7;
                 break;
             default:
                 throw new IllegalArgumentException("Le nombre de Joueur doit etre entre 2 et 4");
@@ -159,7 +157,7 @@ public class Jeu {
     private Parcelle piocherParcelles(Joueur j) {
         ArrayList<Parcelle> parcelles = parcellesList.getRandomParcelles(3);
         Parcelle p = j.piocherParcelle(parcelles);
-        parcellesList.removeParcelle(p);
+        parcellesList.remove(p);
         return p;
     }
 
@@ -170,7 +168,7 @@ public class Jeu {
     private void piocherObjectifs(Joueur j) {
         Objectif o = objectifList.randomObjectif();
         j.addObjectif(o);
-        objectifList.removeObjectif(o);
+        objectifList.remove(o);
     }
 
 }
