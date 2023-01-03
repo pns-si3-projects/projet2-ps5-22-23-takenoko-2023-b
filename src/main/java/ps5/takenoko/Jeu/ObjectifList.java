@@ -1,10 +1,7 @@
 package ps5.takenoko.Jeu;
 
 import ps5.takenoko.Element.AmenagementType;
-import ps5.takenoko.Objectif.Objectif;
-import ps5.takenoko.Objectif.ObjectifJardinier;
-import ps5.takenoko.Objectif.ObjectifParcelle;
-import ps5.takenoko.Objectif.Shape;
+import ps5.takenoko.Objectif.*;
 import ps5.takenoko.Plateau.Couleur;
 
 import java.util.ArrayList;
@@ -18,25 +15,37 @@ public class ObjectifList extends ListDuJeu<Objectif> {
 
     @Override
     public void init() {
-        //TODO: ObjectifParcelle
+        for(int i=0; i<5;i++){
+            list.add(new ObjectifPanda("Objectif Panda", 3, new Couleur[]{Couleur.VERT}, 2));
+        }
+        for(int i=0; i<4;i++){
+            list.add(new ObjectifPanda("Objectif Panda", 4, new Couleur[]{Couleur.JAUNE}, 2));
+        }
+        for(int i=0; i<5;i++){
+            list.add(new ObjectifPanda("Objectif Panda", 5, new Couleur[]{Couleur.ROSE}, 2));
+            list.add(new ObjectifPanda("Objectif Panda", 6, new Couleur[]{Couleur.ROSE,Couleur.JAUNE,Couleur.VERT}, 1));
+        }
 
-        list.add(new ObjectifJardinier(1, AmenagementType.BASSIN,Couleur.JAUNE));
-        list.add(new ObjectifJardinier(1, AmenagementType.DEFAULT,Couleur.JAUNE));
-        list.add(new ObjectifJardinier(2, AmenagementType.DEFAULT,Couleur.ROSE));
-        list.add(new ObjectifJardinier(3, AmenagementType.DEFAULT,Couleur.JAUNE));
-        list.add(new ObjectifJardinier(4, AmenagementType.DEFAULT,Couleur.VERT));
 
-        list.add(new ObjectifJardinier(1, AmenagementType.ENCLOS,Couleur.VERT));
-        list.add(new ObjectifJardinier(1, AmenagementType.BASSIN,Couleur.VERT));
-        list.add(new ObjectifJardinier(1, AmenagementType.DEFAULT,Couleur.VERT));
-        list.add(new ObjectifJardinier(1, AmenagementType.ENGRAIS,Couleur.JAUNE));
-        list.add(new ObjectifJardinier(1, AmenagementType.ENCLOS,Couleur.JAUNE));
+        //TODO: The whole stuff
 
-        list.add(new ObjectifJardinier(1, AmenagementType.ENGRAIS,Couleur.ROSE));
-        list.add(new ObjectifJardinier(1, AmenagementType.BASSIN,Couleur.ROSE));
-        list.add(new ObjectifJardinier(1, AmenagementType.ENCLOS,Couleur.ROSE));
-        list.add(new ObjectifJardinier(1, AmenagementType.DEFAULT,Couleur.ROSE));
-        list.add(new ObjectifJardinier(1, AmenagementType.ENGRAIS,Couleur.VERT));
+//        list.add(new ObjectifJardinier(1, AmenagementType.BASSIN,Couleur.JAUNE));
+//        list.add(new ObjectifJardinier(1, AmenagementType.DEFAULT,Couleur.JAUNE));
+//        list.add(new ObjectifJardinier(2, AmenagementType.DEFAULT,Couleur.ROSE));
+//        list.add(new ObjectifJardinier(3, AmenagementType.DEFAULT,Couleur.JAUNE));
+//        list.add(new ObjectifJardinier(4, AmenagementType.DEFAULT,Couleur.VERT));
+//
+//        list.add(new ObjectifJardinier(1, AmenagementType.ENCLOS,Couleur.VERT));
+//        list.add(new ObjectifJardinier(1, AmenagementType.BASSIN,Couleur.VERT));
+//        list.add(new ObjectifJardinier(1, AmenagementType.DEFAULT,Couleur.VERT));
+//        list.add(new ObjectifJardinier(1, AmenagementType.ENGRAIS,Couleur.JAUNE));
+//        list.add(new ObjectifJardinier(1, AmenagementType.ENCLOS,Couleur.JAUNE));
+//
+//        list.add(new ObjectifJardinier(1, AmenagementType.ENGRAIS,Couleur.ROSE));
+//        list.add(new ObjectifJardinier(1, AmenagementType.BASSIN,Couleur.ROSE));
+//        list.add(new ObjectifJardinier(1, AmenagementType.ENCLOS,Couleur.ROSE));
+//        list.add(new ObjectifJardinier(1, AmenagementType.DEFAULT,Couleur.ROSE));
+//        list.add(new ObjectifJardinier(1, AmenagementType.ENGRAIS,Couleur.VERT));
 
 
 

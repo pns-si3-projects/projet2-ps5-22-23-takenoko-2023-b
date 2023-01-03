@@ -46,7 +46,7 @@ public class Jeu {
                 tourJoueur(j,nbActions);
             }
         }
-
+        afficheResultat();
     }
 
     private boolean tourJoueur(Joueur j, int nbActions){
@@ -55,13 +55,14 @@ public class Jeu {
         if(actionsPossibles.isEmpty()){
             return false;
         }
-        Action actionChoisi = j.jouer(actionsPossibles);
         while(nbActions>0 && !stop){
-            actionChoisi = j.jouer(getActionsPossibles(j));
+            Action actionChoisi = j.jouer(actionsPossibles);
+            System.out.println(actionChoisi.toString());
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
-                    Parcelle parellePioche = this.piocherParcelles(j);
-                    j.poserParcelle(parellePioche);
+                    Parcelle parcellePioche = this.piocherParcelles(j);
+                    j.poserParcelle(parcellePioche);
+                    parcellesList.remove(parcellePioche);
                     break;
                 case OBJECTIFS:
                     this.piocherObjectifs(j);
@@ -76,12 +77,11 @@ public class Jeu {
                         }
                         break;
             }
+            actionsPossibles = getActionsPossibles(j);
             nbActions--;
         }
         j.validerObjectifs();
         return true;
-
-
     }
 
     private ArrayList<Action> getActionsPossibles(Joueur j){
@@ -112,14 +112,14 @@ public class Jeu {
                 break loopGagnant;
             }
         }
-        afficheResultat();
         return gagnants;
     }
 
     private void afficheResultat(){
         ArrayList<Joueur> gagnants = calculGagnants();
-        if(gagnants.size()>0){
-            //TODO
+        if(gagnants.size()>1){
+            //TODO: implement the case of a draw >=3 joueurs
+            System.out.println("Draw");
         }
         else{
             System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
@@ -159,10 +159,6 @@ public class Jeu {
         Parcelle p = j.piocherParcelle(parcelles);
         parcellesList.remove(p);
         return p;
-    }
-
-    private void poserParcelles(Joueur j) {
-        j.poserParcelle(j.donnerParcelle());
     }
 
     private void piocherObjectifs(Joueur j) {

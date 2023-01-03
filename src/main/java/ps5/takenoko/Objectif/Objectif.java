@@ -1,6 +1,7 @@
 package ps5.takenoko.Objectif;
 
 
+import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Plateau;
 
@@ -9,15 +10,17 @@ import java.util.ArrayList;
 public abstract class Objectif {
     private String description;
     private final int point;
-    private Couleur[] couleurs;
+    Couleur[] couleurs;
 
-
-    public Objectif(int point) {
+    public Objectif(String description, int point, Couleur[] couleurs) {
+        this.description = description;
         this.point = point;
+        this.couleurs = couleurs;
     }
-
+    public Couleur[] getCouleurs() {return couleurs;}
     public int getPoint() {
         return point;
     }
-    public abstract boolean verifie(Plateau board);
+    public abstract boolean verifie(Joueur j);
+
 }
