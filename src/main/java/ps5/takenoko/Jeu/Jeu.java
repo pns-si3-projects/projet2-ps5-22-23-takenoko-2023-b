@@ -68,6 +68,12 @@ public class Jeu {
                 case JARDINIER:
                     jardinier.deplacer(j.deplacerJardinier(jardinier.posPossibles(plateau)),plateau);
                     break;
+                    case PANDA:
+                        Position p = j.deplacerPanda(panda.posPossibles(plateau));
+                        if(panda.deplacer(p,plateau)){
+                            j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
+                        }
+                        break;
             }
             nbActions--;
         }

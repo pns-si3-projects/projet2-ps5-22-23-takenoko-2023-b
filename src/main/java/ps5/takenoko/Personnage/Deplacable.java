@@ -31,7 +31,7 @@ public abstract class Deplacable {
         return positionsPosables;
     }
 
-    public abstract void deplacer(Position position, Plateau plateau);
+    public abstract boolean deplacer(Position position, Plateau plateau);
 
     public Position getPosition() {
         return position;
