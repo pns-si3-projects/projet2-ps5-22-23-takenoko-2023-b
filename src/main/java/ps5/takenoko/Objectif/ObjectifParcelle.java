@@ -21,7 +21,6 @@ public class ObjectifParcelle extends Objectif {
     }
 
     public boolean verifie(Plateau plateau) {
-
         //Pour chaque position du tableau avec une parcelle dessus
         for (Position pos : plateau.getParcellePosee()) {
             ParcelleInactive parcelle = plateau.getParcelle(pos);
