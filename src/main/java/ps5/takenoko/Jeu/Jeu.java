@@ -57,6 +57,7 @@ public class Jeu {
         }
         Action actionChoisi = j.jouer(actionsPossibles);
         while(nbActions>0 && !stop){
+            actionChoisi = j.jouer(getActionsPossibles(j));
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
                     Parcelle parellePioche = this.piocherParcelles(j);
@@ -144,10 +145,10 @@ public class Jeu {
                 nbObjectifFin=9; //9
                 break;
             case 3:
-                nbObjectifFin=1; //8
+                nbObjectifFin=8; //8
                 break;
             case 4:
-                nbObjectifFin=1; //7
+                nbObjectifFin=7; //7
                 break;
             default:
                 throw new IllegalArgumentException("Le nombre de Joueur doit etre entre 2 et 4");
