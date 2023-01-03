@@ -162,8 +162,4 @@ public class Jeu {
         objectifList.removeObjectif(o);
     }
 
-    private void mangerBamboo (Parcelle p, Joueur j){
-        j.ajouteBambou(p.getCouleur());
-        p.mangerBambou();
-    }
 }
