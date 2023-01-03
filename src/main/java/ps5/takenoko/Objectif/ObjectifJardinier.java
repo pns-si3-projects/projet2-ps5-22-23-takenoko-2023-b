@@ -10,6 +10,7 @@ public class ObjectifJardinier extends Objectif{
 
     public ObjectifJardinier(TypeObjJardinier type, Couleur color) {
         super(type.getPoint());
+        this.type = type;
         couleur = color;
     }
 
@@ -32,7 +33,11 @@ public class ObjectifJardinier extends Objectif{
                         couleur == parcelle.getCouleur()
                         && parcelle.getNbBamboo()==type.getNbBamboo()
 
-                )if(--restant==4)return true;
+                ) {
+
+                    System.out.println("restant : "+ --restant);
+                    if (restant == 0) return true;
+                }
             }
 
         }

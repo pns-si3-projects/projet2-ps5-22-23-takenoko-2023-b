@@ -34,6 +34,10 @@ public class Parcelle extends ParcelleInactive{
     }
     public int getNbBamboo() {return nbBamboo;}
 
+    public void setNbBamboo(int nbBamboo) {
+        this.nbBamboo = nbBamboo;
+    }
+
     public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
