@@ -24,7 +24,7 @@ public class Jeu {
     private Panda panda = new Panda();
 
     private ObjectifList objectifList = new ObjectifList();
-    ParcelleList parcellesList = new ParcelleList();
+    private ParcelleList parcellesList = new ParcelleList();
 
     public Jeu(ArrayList<Joueur> joueurs) {
         this.joueurs = joueurs;
@@ -50,7 +50,7 @@ public class Jeu {
     }
 
     private boolean tourJoueur(Joueur j, int nbActions){
-        ArrayList<Action> actionsPossibles = getActionsPossibles();
+        ArrayList<Action> actionsPossibles = getActionsPossibles(j);
         boolean stop=false; //for later with more complicated stuff
         if(actionsPossibles.isEmpty()){
             return false;
@@ -84,10 +84,20 @@ public class Jeu {
     }
 
     //TODO: methode getActionsPossible (par ex: si ya que 1 parcelle etang-> peut pas deplacer Panda ni Jardinier) ou si ya plus de Parcelle dans parcellesList-> peut pas piocher Parcelle
-    private ArrayList<Action> getActionsPossibles(){
-        //TODO: implements conditions
-        ArrayList<Action> res=  new ArrayList<>(Arrays.asList(Action.values()));
-        return res;
+    private ArrayList<Action> getActionsPossibles(Joueur j){
+        ArrayList<Action> actionsPossibles = new ArrayList<Action>();
+        if(plateau.getParcellePosee().size()>1){
+            actionsPossibles.add(Action.PANDA);
+            actionsPossibles.add(Action.JARDINIER);
+        }
+        if(parcellesList.size()>0){
+            actionsPossibles.add(Action.PIOCHER_PARCELLES);
+        }
+        if(objectifList.size()>0 && j.getObjectifs().size()<5){
+            actionsPossibles.add(Action.OBJECTIFS);
+        }
+        //TODO: implements conditions for irrigation
+        return actionsPossibles;
     }
 
     private ArrayList<Joueur> calculGagnants(){

@@ -14,6 +14,9 @@ public class ObjectifList {
     public ObjectifList() {
         init(46);
     }
+    public int size(){
+        return objectifs.size();
+    }
 
     //TODO: In the future, will do 3 types of Objectifs -> no need for nb
     private void init(int nb){

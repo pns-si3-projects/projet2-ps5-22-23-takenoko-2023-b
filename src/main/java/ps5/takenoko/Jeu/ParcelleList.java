@@ -10,7 +10,9 @@ import java.util.Collections;
 //TODO: Class Super for ParcelleList and ObjectifList
 public class ParcelleList {
     ArrayList<Parcelle> parcelles = new ArrayList<Parcelle>();
-
+    public int size(){
+        return parcelles.size();
+    }
     public ParcelleList() {
         init(27);
     }

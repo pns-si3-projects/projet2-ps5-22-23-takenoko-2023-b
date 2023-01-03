@@ -8,7 +8,7 @@ import java.util.Random;
 public class Parcelle extends ParcelleInactive{
     private static final int MAX_BAMBOU = 4;
     private Couleur couleur;
-    private Amenagement amenagement = null;
+    private Amenagement amenagement = new Amenagement();
     private int nbBamboo = 0;
 
     public Parcelle() {
@@ -37,15 +37,14 @@ public class Parcelle extends ParcelleInactive{
 
     public boolean augmenteBamboo(){
         if(nbBamboo<MAX_BAMBOU && estIrrigue()){
-            nbBamboo++;
+            nbBamboo=nbBamboo+amenagement.getNbBambou()>MAX_BAMBOU ? MAX_BAMBOU : nbBamboo+amenagement.getNbBambou();
             return true;
         }
-        //TODO: Grow double bamboos when there is ENGRAS and nbBamboo<MAX_BAMBOU
         return false;
     }
 
     public boolean mangerBambou(){
-        if(nbBamboo==0 || amenagement.equals(AmenagementType.ENCLOS)){
+        if(nbBamboo==0 || amenagement.getNbBambou()==0){
             return false;
         }
         nbBamboo--;
