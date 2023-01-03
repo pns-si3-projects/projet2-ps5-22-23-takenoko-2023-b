@@ -4,6 +4,7 @@ import ps5.takenoko.Element.AmenagementType;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -117,7 +118,9 @@ public class Plateau {
         int size;
         do {
             size = connectedParcelle.size();
-            for (Position pos : connectedParcelle) {
+            // Create a new list from the Set
+            List<Position> tempList = new ArrayList<Position>(connectedParcelle);
+            for (Position pos : tempList) {
                 for (Direction d : Direction.values()) {
                     ParcelleInactive tmp = this.getParcelle(pos.getPositionByDirection(d));
                     if (tmp != null) {

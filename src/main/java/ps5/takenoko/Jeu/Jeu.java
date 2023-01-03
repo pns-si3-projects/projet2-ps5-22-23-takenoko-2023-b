@@ -90,7 +90,7 @@ public class Jeu {
             actionsPossibles.add(Action.PANDA);
             actionsPossibles.add(Action.JARDINIER);
         }
-        if(parcellesList.size()>0){
+        if(parcellesList.size()>=3){
             actionsPossibles.add(Action.PIOCHER_PARCELLES);
         }
         if(objectifList.size()>0 && j.getObjectifs().size()<5){
@@ -141,7 +141,7 @@ public class Jeu {
         switch(joueurs.size()){
             //TODO: Put back the original nbObjectifFin
             case 2:
-                nbObjectifFin=1; //9
+                nbObjectifFin=9; //9
                 break;
             case 3:
                 nbObjectifFin=1; //8
