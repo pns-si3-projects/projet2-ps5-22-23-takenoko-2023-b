@@ -157,7 +157,7 @@ public class Jeu {
     private Parcelle piocherParcelles(Joueur j) {
         ArrayList<Parcelle> parcelles = parcellesList.getRandomParcelles(3);
         Parcelle p = j.piocherParcelle(parcelles);
-        parcellesList.removeParcelle(p);
+        parcellesList.remove(p);
         return p;
     }
 
@@ -168,7 +168,7 @@ public class Jeu {
     private void piocherObjectifs(Joueur j) {
         Objectif o = objectifList.randomObjectif();
         j.addObjectif(o);
-        objectifList.removeObjectif(o);
+        objectifList.remove(o);
     }
 
 }
