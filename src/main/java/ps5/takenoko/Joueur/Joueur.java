@@ -55,7 +55,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public ArrayList<Objectif> getObjectifsObtenus() {return objectifsObtenus;}
     public ArrayList<Parcelle> getParcelles() {return parcelles;}
     public int[] getBambousObtenus() {return bambousObtenus;}
-
+    public ArrayList<Objectif> getObjectifs() {return objectifs;}
     public void setParcelles(ArrayList<Parcelle> parcelles) {this.parcelles = parcelles;}
 
     public Plateau getPlateau() {return plateau;}
