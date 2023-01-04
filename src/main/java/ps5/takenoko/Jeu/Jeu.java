@@ -52,7 +52,7 @@ public class Jeu {
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
-            getPlateau().affichePlateau();
+            this.affichePlateau();
         }
         afficheResultat();
         System.out.println(joueurs.get(0).getObjectifsObtenus());
