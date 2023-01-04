@@ -14,12 +14,15 @@ public class Amenagement {
         switch (type){
             case ENCLOS:
                 this.nbBambouAManger = 0;
+                this.nbBambouAPousser = 1;
                 break;
             case ENGRAIS:
                 this.nbBambouAPousser = 2;
+                this.nbBambouAManger = 1;
                 break;
             case DEFAULT:
                 this.nbBambouAManger = 1;
+                this.nbBambouAPousser = 1;
                 break;
         }
     }

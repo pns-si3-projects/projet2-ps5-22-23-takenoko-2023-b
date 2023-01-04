@@ -17,6 +17,12 @@ public abstract class Objectif {
         this.point = point;
         this.couleurs = couleurs;
     }
+
+    public Objectif(String description, int point) {
+        this.description = description;
+        this.point = point;
+    }
+
     public Couleur[] getCouleurs() {return couleurs;}
     public int getPoint() {
         return point;
