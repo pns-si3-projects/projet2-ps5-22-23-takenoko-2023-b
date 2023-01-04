@@ -1,8 +1,7 @@
 package ps5.takenoko.Plateau;
 
-import ps5.takenoko.Element.AmenagementType;
+import ps5.takenoko.Element.Irrigation;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +19,7 @@ public class Plateau {
     private Set<Position> parcellePosee = new HashSet<Position>();
 
     private Set<Position> parcelleDisponible = new HashSet<Position>();
+    ArrayList<Irrigation> irrigations = new ArrayList<Irrigation>();
 
     public Plateau() {
         this.plateau = new ParcelleInactive[TAILLE][TAILLE];
@@ -55,7 +55,7 @@ public class Plateau {
     public void miseAJourParcellePosable(Position pos){
         parcelleDisponible.remove(pos);
         for(Direction d : Direction.values()) {
-            if(isPosable(pos.getPositionByDirection(d))) {
+            if(positionPosable(pos.getPositionByDirection(d))) {
                 parcelleDisponible.add(pos.getPositionByDirection(d));
             }
         }
@@ -76,7 +76,7 @@ public class Plateau {
         return this.plateau[p.getX()][p.getY()];
     }
 
-    public Boolean isPosable(Position p) {
+    public Boolean positionPosable(Position p) {
         if (p == null) {
             return false;
         }
@@ -100,6 +100,30 @@ public class Plateau {
             }
         }
         return cpt > 1;
+    }
+
+    public Boolean irrigationPosable(Irrigation i){
+        if (i == null) {
+            return false;
+        }
+        //Etang ne peut pas avoir d'irrigation
+        if(i.getPremier().equals(new Position(TAILLE/2,TAILLE/2)) || i.getDeuxieme().equals(new Position(TAILLE/2,TAILLE/2))){
+            return false;
+        }
+        else if (parcellePosee.contains(i.getPremier()) && parcellePosee.contains(i.getDeuxieme())) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean poserIrrigation(Irrigation i){
+        if (irrigationPosable(i)) {
+            //TODO
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 
@@ -135,7 +159,6 @@ public class Plateau {
         } while (size < connectedParcelle.size());
         return new ArrayList<Position>(connectedParcelle);
     }
-
 
     public static int getTaille(){return TAILLE;}
 }

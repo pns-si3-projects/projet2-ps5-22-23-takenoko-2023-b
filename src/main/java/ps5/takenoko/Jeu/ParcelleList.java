@@ -10,7 +10,7 @@ import ps5.takenoko.Plateau.Parcelle;
 import java.util.ArrayList;
 import java.util.Collections;
 //TODO: Le rendre un STack (es 2 non choisis vont a l'arriere)
-//TODO: Class Super for ParcelleList and ObjectifList
+
 public class ParcelleList extends ListDuJeu<Parcelle> {
     public ParcelleList() {
         super();
