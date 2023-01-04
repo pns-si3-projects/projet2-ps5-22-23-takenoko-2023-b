@@ -292,13 +292,13 @@ public class Jeu {
     }
 
     private String afficheJardinier(Position pos){
-        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier)) return CSL_VIOLET+"J"+CSL_RESET;
+        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier.getPosition())) return CSL_VIOLET+"J"+CSL_RESET;
         return " ";
     }
 
 
     private String affichePanda(Position pos){
-        if(pos.equals(panda)) return CSL_VIOLET+"P"+CSL_RESET;
+        if(pos.equals(panda.getPosition())) return CSL_VIOLET+"P"+CSL_RESET;
         return " ";
     }
     public static final String CSL_RESET = "\u001B[0m";
