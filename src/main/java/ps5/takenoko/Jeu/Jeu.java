@@ -92,7 +92,7 @@ public class Jeu {
                         break;
             }
             System.out.println(msg);
-            actionsPossibles = getActionsPossibles(j);
+            actionsPossibles = getActionsPossibles(j,actionChoisis);
 
             nbActions--;
             j.validerObjectifs();
