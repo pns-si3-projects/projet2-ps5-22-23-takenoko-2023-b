@@ -58,5 +58,7 @@ public class Parcelle extends ParcelleInactive{
         return true;
     }
 
-
+    public String toString(){
+        return "parcelle de couleur "+couleur;
+    }
 }
