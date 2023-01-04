@@ -52,7 +52,7 @@ public class Jeu {
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
-            this.affichePlateau();
+            System.out.println(this.affichePlateau());
         }
         afficheResultat();
         System.out.println(joueurs.get(0).getObjectifsObtenus());
@@ -76,7 +76,7 @@ public class Jeu {
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
                     Parcelle parcellePioche = this.piocherParcelles(j);
-                    msg += " et a pioché une " + parcellePioche + "puis l'a placé sur le plateau";
+                    msg += " et a pioché une " + parcellePioche + " puis l'a placé sur le plateau";
                     j.poserParcelle(parcellePioche);
                     parcellesList.remove(parcellePioche);
                     //affichage plateau
