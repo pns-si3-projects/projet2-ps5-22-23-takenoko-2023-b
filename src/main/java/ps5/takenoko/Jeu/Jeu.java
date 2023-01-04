@@ -64,6 +64,7 @@ public class Jeu {
         }
         while(nbActions>0 && !stop){
             Action actionChoisi = j.jouer(actionsPossibles);
+            actionChoisis.add(actionChoisi);
             String msg = "Joueur "+j.getId()+" a choisi action " + actionChoisi.toString();
 
             switch(actionChoisi){
@@ -93,7 +94,6 @@ public class Jeu {
             }
             System.out.println(msg);
             actionsPossibles = getActionsPossibles(j,actionChoisis);
-
             nbActions--;
             j.validerObjectifs();
         }
