@@ -4,6 +4,7 @@ import ps5.takenoko.Element.AmenagementType;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -100,6 +101,41 @@ public class Plateau {
         }
         return cpt > 1;
     }
+
+
+    // return an array of all the positions of the parcelles that are adjacent to the parcelle at the given position
+    public ArrayList<Position> getConnectedParcelleSameColor(Position p) {
+        Set<Position> connectedParcelle = new HashSet<Position>();
+        Parcelle parcelle;
+        Couleur couleur;
+        if(!(this.getParcelle(p) instanceof Parcelle)) {
+            return new ArrayList<Position>();
+        } else {
+            parcelle = (Parcelle) this.getParcelle(p);
+            couleur = parcelle.getCouleur();
+        }
+        connectedParcelle.add(p);
+        int size;
+        do {
+            size = connectedParcelle.size();
+            // Create a new list from the Set
+            List<Position> tempList = new ArrayList<Position>(connectedParcelle);
+            for (Position pos : tempList) {
+                for (Direction d : Direction.values()) {
+                    ParcelleInactive tmp = this.getParcelle(pos.getPositionByDirection(d));
+                    if (tmp != null) {
+                        if (tmp instanceof Parcelle) {
+                            if(((Parcelle) tmp).getCouleur() == couleur) {
+                                connectedParcelle.add(pos.getPositionByDirection(d));
+                            }
+                        }
+                    }
+                }
+            }
+        } while (size < connectedParcelle.size());
+        return new ArrayList<Position>(connectedParcelle);
+    }
+
     public void affichePlateau(){
         int ParcelleGauche=0;
         for(int x=1;x<15 && ParcelleGauche==0;x++) for(int y=1;y<TAILLE-1 && ParcelleGauche==0;y++){
@@ -190,8 +226,8 @@ public class Plateau {
                 || autreParcelle.estParcelleOriginnelle()
             ) return CSL_BLEU+border+CSL_RESET;
             else return border;
-
     }
+
     public static final String CSL_RESET = "\u001B[0m";
     public static final String CSL_ROUGE = "\u001B[31m";
     public static final String CSL_VERT = "\u001B[32m";

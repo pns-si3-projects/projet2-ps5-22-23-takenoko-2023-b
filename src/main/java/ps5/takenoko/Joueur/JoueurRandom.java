@@ -3,10 +3,7 @@ package ps5.takenoko.Joueur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 public class JoueurRandom extends Joueur{
 
@@ -16,16 +13,19 @@ public class JoueurRandom extends Joueur{
 
     @Override
     public void poserParcelle(Parcelle p) {
-        int R = new Random().nextInt(getPlateau().getEndroitsPosables().size());
-        Iterator<Position> iterator = getPlateau().getEndroitsPosables().iterator(); //iterator is already random by itself
+        getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
+        System.out.println("------------------------------");
+        getPlateau().affichePlateau();
+    }
+    public Position getRandomPosition(Set<Position> positions){
+        int R = new Random().nextInt(positions.size());
+        Iterator<Position> iterator = positions.iterator(); //iterator is already random by itself
         Position position = iterator.next();
         while(R>0){
             position = iterator.next();
             R--;
         }
-        getPlateau().addParcelle(p, position);
-        System.out.println("------------------------------");
-        getPlateau().affichePlateau();
+        return position;
     }
 
     /***
@@ -37,6 +37,20 @@ public class JoueurRandom extends Joueur{
     public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
         Collections.shuffle(parcelles);
         return parcelles.get(0);
+    }
+
+
+    public Position deplacerPersonnage(Set<Position> positionsPossibles) {
+        return getRandomPosition(positionsPossibles);
+    }
+
+    @Override
+    public Position deplacerJardinier(Set<Position> positionsPossibles) {
+        return deplacerPersonnage(positionsPossibles);
+    }
+    @Override
+    public Position deplacerPanda(Set<Position> positionsPossibles) {
+        return deplacerPersonnage(positionsPossibles);
     }
 
     @Override

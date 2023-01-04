@@ -1,5 +1,6 @@
 package ps5.takenoko.Objectif;
 
+import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Plateau.*;
 
 public class ObjectifParcelle extends Objectif {
@@ -7,22 +8,19 @@ public class ObjectifParcelle extends Objectif {
     private Couleur principale;
     private Couleur secondaire;
 
-    public ObjectifParcelle(int point, Shape forme, Couleur couleur) {
-        super(point);
-        figure = forme;
-        principale = couleur;
+    public ObjectifParcelle(String description, int point, Couleur[] couleurs, Shape figure) {
+        super(description, point, couleurs);
+        this.figure = figure;
+        principale=couleurs[0];
+        if(couleurs.length>1){
+            secondaire=couleurs[1];
+        }
     }
 
-    public ObjectifParcelle(int point, Shape forme, Couleur couleurP, Couleur couleurS) {
-        super(point);
-        figure = forme;
-        principale = couleurP;
-        secondaire = couleurS;
-    }
-
-    public boolean verifie(Plateau plateau) {
-
-        //Pour chaque position du tableau avec une parcelle dessus
+    @Override
+    public boolean verifie(Joueur j) {
+        Plateau plateau = j.getPlateau();
+            //Pour chaque position du tableau avec une parcelle dessus
         for (Position pos : plateau.getParcellePosee()) {
             ParcelleInactive parcelle = plateau.getParcelle(pos);
             //En fonction de la figure demande sur la carte objectif
@@ -43,8 +41,8 @@ public class ObjectifParcelle extends Objectif {
                         }else break;
 
                         valide = testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
-                            && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
-                            && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),notreCouleur);
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
+                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),notreCouleur);
 
                         valide = valide || (testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
                                 && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),notreCouleur)
@@ -62,27 +60,22 @@ public class ObjectifParcelle extends Objectif {
                     //pour chaque pattern
                     for(Direction[] formes : figure.getDirections()){
                         if(testCouleurOfPos(plateau, pos, principale)
-                            && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[0]), principale)
-                            && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[1]), principale)
+                                && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[0]), principale)
+                                && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[1]), principale)
                         )return true;
-
                     }
                     break;
+                }
             }
-
-        }
         return false;
     }
-
     private boolean testCouleurOfPos(Plateau plat, Position pos, Couleur color) {
         ParcelleInactive parcelle = plat.getParcelle(pos);
-
         if (parcelle instanceof Parcelle) {
             Parcelle valid = (Parcelle) parcelle;
             return valid.getCouleur() == color;
         } else return false;
 
     }
+
 }
-
-
