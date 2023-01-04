@@ -1,6 +1,6 @@
 package ps5.takenoko.Objectif;
 
-import ps5.takenoko.Element.Amenagement;
+import ps5.takenoko.Element.AmenagementType;
 import ps5.takenoko.Plateau.*;
 
 public class ObjectifJardinier extends Objectif{
@@ -34,9 +34,7 @@ public class ObjectifJardinier extends Objectif{
                         && parcelle.getNbBamboo()==type.getNbBamboo()
 
                 ) {
-
-                    System.out.println("restant : "+ --restant);
-                    if (restant == 0) return true;
+                    if (--restant == 0) return true;
                 }
             }
 
