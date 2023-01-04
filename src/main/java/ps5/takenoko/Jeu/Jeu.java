@@ -55,8 +55,8 @@ public class Jeu {
             System.out.println(this.affichePlateau());
         }
         afficheResultat();
-        System.out.println(joueurs.get(0).getObjectifsObtenus());
-        System.out.println(joueurs.get(1).getObjectifsObtenus());
+        System.out.println("Objectifs validés par J1 : " + joueurs.get(0).getObjectifsObtenus());
+        System.out.println("Objectifs validés par J2 : " + joueurs.get(1).getObjectifsObtenus());
         // System.out.println(joueurs.get(2).getObjectifsObtenus());
 
     }
