@@ -46,6 +46,7 @@ public class Jeu {
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
+            getPlateau().affichePlateau();
         }
         afficheResultat();
     }
@@ -58,30 +59,37 @@ public class Jeu {
         }
         while(nbActions>0 && !stop){
             Action actionChoisi = j.jouer(actionsPossibles);
-            System.out.println("Joueur "+j.getId()+" a choisi action " + actionChoisi.toString());
+            String msg = "Joueur "+j.getId()+" a choisi action " + actionChoisi.toString();
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
                     Parcelle parcellePioche = this.piocherParcelles(j);
+                    msg += " et a pioché une " + parcellePioche + "puis l'a placé sur le plateau";
                     j.poserParcelle(parcellePioche);
                     parcellesList.remove(parcellePioche);
+                    //affichage plateau
                     break;
                 case OBJECTIFS:
+                    msg += " et a pioché un objectif";
                     this.piocherObjectifs(j);
                     break;
                 case JARDINIER:
-                    jardinier.deplacer(j.deplacerJardinier(jardinier.posPossibles(plateau)),plateau);
+                    Position posJardinier = j.deplacerJardinier(jardinier.posPossibles(plateau));
+                    msg += " et a déplacé le jardinier en " + posJardinier;
+                    jardinier.deplacer(posJardinier,plateau);
                     break;
                     case PANDA:
                         Position p = j.deplacerPanda(panda.posPossibles(plateau));
+                        msg += " et a déplacé le panda en " + p;
                         if(panda.deplacer(p,plateau)){
                             j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
                         }
                         break;
             }
+            System.out.println(msg);
             actionsPossibles = getActionsPossibles(j);
             nbActions--;
+            j.validerObjectifs();
         }
-        j.validerObjectifs();
         return true;
     }
 

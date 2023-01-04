@@ -14,8 +14,6 @@ public class JoueurRandom extends Joueur{
     @Override
     public void poserParcelle(Parcelle p) {
         getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
-        System.out.println("------------------------------");
-        getPlateau().affichePlateau();
     }
     public Position getRandomPosition(Set<Position> positions){
         int R = new Random().nextInt(positions.size());
