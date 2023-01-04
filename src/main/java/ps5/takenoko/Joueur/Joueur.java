@@ -1,15 +1,13 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Objectif.Objectif;
-import ps5.takenoko.Objectif.ObjectifPanda;
+import ps5.takenoko.Objectif.*;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
+import ps5.takenoko.Plateau.Position;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Joueur implements Comparable<Joueur>{
     private final int MAX_OBJECTIFS = 5 ;
@@ -25,11 +23,11 @@ public abstract class Joueur implements Comparable<Joueur>{
     private int nbIrrigations;
     private int[] bambousObtenus = new int[]{0,0,0};
 
+
     public int getNombreObjectifsObtenus() {
         return objectifsObtenus.size();
     }
 
-    //TODO: Carte Empereur = Objectif with 2 points?-> just put in objectifObtenus
     //private boolean estDerniere (est le dernier qui valide le dernier object->avoir empereur)
     public Joueur(int id){
         this.id=id;
@@ -53,7 +51,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public ArrayList<Objectif> getObjectifsObtenus() {return objectifsObtenus;}
     public ArrayList<Parcelle> getParcelles() {return parcelles;}
     public int[] getBambousObtenus() {return bambousObtenus;}
-
+    public ArrayList<Objectif> getObjectifs() {return objectifs;}
     public void setParcelles(ArrayList<Parcelle> parcelles) {this.parcelles = parcelles;}
 
     public Plateau getPlateau() {return plateau;}
@@ -90,17 +88,36 @@ public abstract class Joueur implements Comparable<Joueur>{
      */
     public void completerObjectif(Objectif obj){
         Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL");
-            if(!(objectifs.contains(obj))){ //TODO: Check if not bug
+        if(obj instanceof Empereur){
+            objectifsObtenus.add(obj);
+        }
+        else{
+            if(!(objectifs.contains(obj))){
                 throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
+            }
+            if (obj instanceof ObjectifJardinier){
+                //TODO
+            }
+            else if (obj instanceof ObjectifPanda) {
+                for (int i = 0; i < obj.getCouleurs().length; i++) {
+                    enleverBambous(((ObjectifPanda) obj).getNbBambous(),obj.getCouleurs()[i]);
+                    System.out.println("panda"+obj.getCouleurs()[i]);
+                }
+            }
+            else if (obj instanceof ObjectifParcelle) {
+                //TODO
+            }
+            else{
+                throw new IllegalArgumentException("Type d'objectif inconnu");
             }
             objectifs.remove(obj);
             objectifsObtenus.add(obj);
-
+        }
     }
-    
+
     public void validerObjectifs(){
         for(int i=0;i<objectifs.size();i++){
-            if(objectifs.get(i).verifie(plateau)){
+            if(objectifs.get(i).verifie(this)) {
                 completerObjectif(objectifs.get(i));
                 i--;
             }
@@ -135,7 +152,8 @@ public abstract class Joueur implements Comparable<Joueur>{
      * @return 1 Parcelle choisi
      */
     public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
-
+    public abstract Position deplacerJardinier(Set<Position> positionsPossibles);
+    public abstract Position deplacerPanda(Set<Position> positionsPossibles);
     @Override
     public int compareTo(Joueur j2) {
         if(calculPoint()!=j2.calculPoint()){
@@ -148,9 +166,7 @@ public abstract class Joueur implements Comparable<Joueur>{
 
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
 
-
     //TODO:
-
     public void placerIrrigation(){
 
     }

@@ -5,6 +5,7 @@ import ps5.takenoko.Jeu.Jeu;
 import ps5.takenoko.Jeu.ObjectifList;
 import ps5.takenoko.Jeu.ParcelleList;
 import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Joueur.JoueurRandom;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
@@ -21,7 +22,11 @@ class ObjectifJardinierTest {
     @Test
     void verifie() {
         Plateau board = new Plateau();
-        Jeu game = new Jeu(new ArrayList<Joueur>(),board,new Position(15,15),new Position(15,15),new ObjectifList(), new ParcelleList(),3);
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        Joueur player = new JoueurRandom(0);
+        players.add(player);players.add(player);
+        Jeu game = new Jeu(players);
+        game.setPlateau(board);
 
         Parcelle tileRed3 = new Parcelle(Couleur.ROSE);
         tileRed3.setNbBamboo(3);
@@ -51,13 +56,13 @@ class ObjectifJardinierTest {
         Objectif objYellowMult= new ObjectifJardinier(TypeObjJardinier.MULTIPLE,Couleur.JAUNE);
         System.out.println(game.affichePlateau());
 
-        assertTrue(objRedNoA.verifie(board));
-        assertTrue(objGreenNoA.verifie(board));
-        assertFalse(objYellowNoA.verifie(board));
+        assertTrue(objRedNoA.verifie(player));
+        assertTrue(objGreenNoA.verifie(player));
+        assertFalse(objYellowNoA.verifie(player));
 
-        assertFalse(objRedMult.verifie(board));
-        assertFalse(objGreenMult.verifie(board));
-        assertTrue(objYellowMult.verifie(board));
+        assertFalse(objRedMult.verifie(player));
+        assertFalse(objGreenMult.verifie(player));
+        assertTrue(objYellowMult.verifie(player));
 
 
 

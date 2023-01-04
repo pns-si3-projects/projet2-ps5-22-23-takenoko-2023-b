@@ -17,6 +17,5 @@ public class Main {
         joueurs.add(new JoueurRandom(2));
         Jeu j = new Jeu(joueurs);
         j.lancer();
-
     }
 }

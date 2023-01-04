@@ -1,13 +1,16 @@
 package ps5.takenoko.Plateau;
 
 import ps5.takenoko.Element.Amenagement;
+import ps5.takenoko.Element.AmenagementType;
+
 import java.util.Random;
 
 public class Parcelle extends ParcelleInactive{
     private static final int MAX_BAMBOU = 4;
     private Couleur couleur;
-    private Amenagement amenagement = null;
+    private Amenagement amenagement = new Amenagement();
     private int nbBamboo = 0;
+
 
     public Parcelle() {
         Random R = new Random();
@@ -45,20 +48,20 @@ public class Parcelle extends ParcelleInactive{
 
     public boolean augmenteBamboo(){
         if(nbBamboo<MAX_BAMBOU && estIrrigue()){
-            nbBamboo++;
+            nbBamboo=nbBamboo+amenagement.getNbBambouAPousser()>MAX_BAMBOU ? MAX_BAMBOU : nbBamboo+amenagement.getNbBambouAPousser();
             return true;
         }
-        //TODO: Grow double bamboos when there is ENGRAS and nbBamboo<MAX_BAMBOU
         return false;
     }
 
     public boolean mangerBambou(){
-        if(nbBamboo==0){
-            return false;
+        if(nbBamboo>0 && estIrrigue() && amenagement.getNbBambouAManger()>0){
+            nbBamboo= nbBamboo-amenagement.getNbBambouAManger()<0 ? 0 : nbBamboo-amenagement.getNbBambouAManger();
+            return true;
         }
-        nbBamboo--;
-        return true;
+        return false;
     }
+
 
     public boolean estIrrigue(){
         //TODO

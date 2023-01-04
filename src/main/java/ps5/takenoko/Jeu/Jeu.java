@@ -2,7 +2,10 @@ package ps5.takenoko.Jeu;
 
 import ps5.takenoko.Joueur.Action;
 import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
+import ps5.takenoko.Personnage.Jardinier;
+import ps5.takenoko.Personnage.Panda;
 import ps5.takenoko.Plateau.*;
 
 import java.util.ArrayList;
@@ -14,10 +17,10 @@ public class Jeu {
     private int nbObjectifFin;
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
     private Plateau plateau= new Plateau();
-    private Position positionJardinier = new Position(15,15);
-    private Position positionPanda = new Position(15,15);
-    private ObjectifList objectifListe = new ObjectifList();
-    ParcelleList parcellesListe = new ParcelleList();
+    private Jardinier jardinier = new Jardinier();
+    private Panda panda = new Panda();
+    private ObjectifList objectifList = new ObjectifList();
+    private ParcelleList parcellesList = new ParcelleList();
 
     public Jeu(ArrayList<Joueur> joueurs) {
         this.joueurs = joueurs;
@@ -26,13 +29,13 @@ public class Jeu {
     }
 
     //For tests purpose
-    public Jeu(ArrayList<Joueur> joueurs,Plateau plateau, Position Jardinier, Position Panda, ObjectifList objList, ParcelleList parcelleList, int nbObjFin) {
+    public Jeu(ArrayList<Joueur> joueurs,Plateau plateau, Jardinier pawnJardinier, Panda pawnPanda, ObjectifList objList, ParcelleList parcelleList, int nbObjFin) {
         this.joueurs = joueurs;
         this.plateau = plateau;
-        positionJardinier = Jardinier;
-        positionPanda = Panda;
-        objectifListe = objList;
-        parcellesListe = parcelleList;
+        jardinier = pawnJardinier;
+        panda = pawnPanda;
+        objectifList = objList;
+        parcellesList = parcelleList;
         nbObjectifFin = nbObjFin;
     }
 
@@ -50,39 +53,58 @@ public class Jeu {
                 tourJoueur(j,nbActions);
             }
         }
-
+        afficheResultat();
     }
 
     private boolean tourJoueur(Joueur j, int nbActions){
-        ArrayList<Action> actionsPossibles = getActionsPossibles();
+        ArrayList<Action> actionsPossibles = getActionsPossibles(j);
         boolean stop=false; //for later with more complicated stuff
         if(actionsPossibles.isEmpty()){
             return false;
         }
-        Action actionChoisi = j.jouer(actionsPossibles);
         while(nbActions>0 && !stop){
+            Action actionChoisi = j.jouer(actionsPossibles);
+            System.out.println("Joueur "+j.getId()+" a choisi action " + actionChoisi.toString());
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
-                    Parcelle parellePioche = this.piocherParcelles(j);
-                    j.poserParcelle(parellePioche);
+                    Parcelle parcellePioche = this.piocherParcelles(j);
+                    j.poserParcelle(parcellePioche);
+                    parcellesList.remove(parcellePioche);
                     break;
                 case OBJECTIFS:
                     this.piocherObjectifs(j);
                     break;
+                case JARDINIER:
+                    jardinier.deplacer(j.deplacerJardinier(jardinier.posPossibles(plateau)),plateau);
+                    break;
+                    case PANDA:
+                        Position p = j.deplacerPanda(panda.posPossibles(plateau));
+                        if(panda.deplacer(p,plateau)){
+                            j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
+                        }
+                        break;
             }
+            actionsPossibles = getActionsPossibles(j);
             nbActions--;
         }
         j.validerObjectifs();
         return true;
-
-
     }
 
-    //TODO: methode getActionsPossible (par ex: si ya que 1 parcelle etang-> peut pas deplacer Panda ni Jardinier) ou si ya plus de Parcelle dans parcellesList-> peut pas piocher Parcelle
-    private ArrayList<Action> getActionsPossibles(){
-        //TODO: implements conditions
-        ArrayList<Action> res=  new ArrayList<>(Arrays.asList(Action.values()));
-        return res;
+    private ArrayList<Action> getActionsPossibles(Joueur j){
+        ArrayList<Action> actionsPossibles = new ArrayList<Action>();
+        if(plateau.getParcellePosee().size()>1){
+            actionsPossibles.add(Action.PANDA);
+            actionsPossibles.add(Action.JARDINIER);
+        }
+        if(parcellesList.size()>=3){
+            actionsPossibles.add(Action.PIOCHER_PARCELLES);
+        }
+        if(objectifList.size()>0 && j.getObjectifs().size()<5){
+            actionsPossibles.add(Action.OBJECTIFS);
+        }
+        //TODO: implements conditions for irrigation
+        return actionsPossibles;
     }
 
     private ArrayList<Joueur> calculGagnants(){
@@ -97,14 +119,14 @@ public class Jeu {
                 break loopGagnant;
             }
         }
-        afficheResultat();
         return gagnants;
     }
 
     private void afficheResultat(){
         ArrayList<Joueur> gagnants = calculGagnants();
-        if(gagnants.size()>0){
-            //TODO
+        if(gagnants.size()>1){
+            //TODO: implement the case of a draw >=3 joueurs
+            System.out.println("Draw");
         }
         else{
             System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
@@ -116,6 +138,7 @@ public class Jeu {
         for(Joueur j: joueurs){
             if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
                 //TODO: Put Emperor objectif to j here
+                j.completerObjectif(new Empereur());
                 return true;
             }
         }
@@ -125,13 +148,13 @@ public class Jeu {
     private void setNbObjectifFin(){
         switch(joueurs.size()){
             case 2:
-                nbObjectifFin=1;
+                nbObjectifFin=9;
                 break;
             case 3:
-                nbObjectifFin=1;
+                nbObjectifFin=8;
                 break;
             case 4:
-                nbObjectifFin=1;
+                nbObjectifFin=7;
                 break;
             default:
                 throw new IllegalArgumentException("Le nombre de Joueur doit etre entre 2 et 4");
@@ -140,20 +163,16 @@ public class Jeu {
 
 
     private Parcelle piocherParcelles(Joueur j) {
-        ArrayList<Parcelle> parcelles = parcellesListe.getRandomParcelles(3);
+        ArrayList<Parcelle> parcelles = parcellesList.getRandomParcelles(3);
         Parcelle p = j.piocherParcelle(parcelles);
-        parcellesListe.removeParcelle(p);
+        parcellesList.remove(p);
         return p;
     }
 
-    private void poserParcelles(Joueur j) {
-        j.poserParcelle(j.donnerParcelle());
-    }
-
     private void piocherObjectifs(Joueur j) {
-        Objectif o = objectifListe.randomObjectif();
+        Objectif o = objectifList.randomObjectif();
         j.addObjectif(o);
-        objectifListe.removeObjectif(o);
+        objectifList.remove(o);
     }
 
     private void mangerBamboo (Parcelle p, Joueur j){
@@ -257,13 +276,13 @@ public class Jeu {
     }
 
     private String afficheJardinier(Position pos){
-        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(positionJardinier)) return CSL_VIOLET+"J"+CSL_RESET;
+        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier)) return CSL_VIOLET+"J"+CSL_RESET;
         return " ";
     }
 
 
     private String affichePanda(Position pos){
-        if(pos.equals(positionPanda)) return CSL_VIOLET+"P"+CSL_RESET;
+        if(pos.equals(panda)) return CSL_VIOLET+"P"+CSL_RESET;
         return " ";
     }
     public static final String CSL_RESET = "\u001B[0m";
@@ -276,4 +295,11 @@ public class Jeu {
     public static final String CSL_NOIR = "\u001B[30m";
     public static final String CSL_CYAN = "\u001B[36m";
     public static final String CSL_BLANC = "\u001B[37m";
+
+    public void setPlateau(Plateau value) {
+        plateau = value;
+        for (Joueur player : joueurs){
+            player.setPlateau(value);
+        }
+    }
 }

@@ -49,7 +49,8 @@ class JeuTest {
             plateau.addParcelle(new Parcelle(Couleur.JAUNE,1),new Position(17,17));
 
         }catch(Exception e){System.out.println(e);}
-        jeu = new Jeu(players,plateau,new Position(14,15),new Position(16,15),new ObjectifList(),new ParcelleList(),3);
+        jeu = new Jeu(players);
+        jeu.setPlateau(plateau);
         System.out.println(jeu.affichePlateau());
 
 
