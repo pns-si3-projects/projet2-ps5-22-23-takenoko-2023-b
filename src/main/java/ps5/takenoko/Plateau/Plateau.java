@@ -226,8 +226,8 @@ public class Plateau {
                 || autreParcelle.estParcelleOriginnelle()
             ) return CSL_BLEU+border+CSL_RESET;
             else return border;
-
     }
+
     public static final String CSL_RESET = "\u001B[0m";
     public static final String CSL_ROUGE = "\u001B[31m";
     public static final String CSL_VERT = "\u001B[32m";

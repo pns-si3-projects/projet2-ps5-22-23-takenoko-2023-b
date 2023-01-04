@@ -3,6 +3,7 @@ package ps5.takenoko.Jeu;
 import ps5.takenoko.Joueur.Action;
 import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Joueur.JoueurRandom;
+import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifParcelle;
 import ps5.takenoko.Personnage.Jardinier;
@@ -57,7 +58,7 @@ public class Jeu {
         }
         while(nbActions>0 && !stop){
             Action actionChoisi = j.jouer(actionsPossibles);
-            System.out.println(actionChoisi.toString());
+            System.out.println("Joueur "+j.getId()+" a choisi action " + actionChoisi.toString());
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
                     Parcelle parcellePioche = this.piocherParcelles(j);
@@ -131,6 +132,7 @@ public class Jeu {
         for(Joueur j: joueurs){
             if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
                 //TODO: Put Emperor objectif to j here
+                j.completerObjectif(new Empereur());
                 return true;
             }
         }

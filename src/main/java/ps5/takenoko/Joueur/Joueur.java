@@ -1,10 +1,7 @@
 package ps5.takenoko.Joueur;
 
 import ps5.takenoko.Element.Amenagement;
-import ps5.takenoko.Objectif.Objectif;
-import ps5.takenoko.Objectif.ObjectifJardinier;
-import ps5.takenoko.Objectif.ObjectifPanda;
-import ps5.takenoko.Objectif.ObjectifParcelle;
+import ps5.takenoko.Objectif.*;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
@@ -31,7 +28,6 @@ public abstract class Joueur implements Comparable<Joueur>{
         return objectifsObtenus.size();
     }
 
-    //TODO: Carte Empereur = Objectif with 2 points?-> just put in objectifObtenus
     //private boolean estDerniere (est le dernier qui valide le dernier object->avoir empereur)
     public Joueur(int id){
         this.id=id;
@@ -91,30 +87,34 @@ public abstract class Joueur implements Comparable<Joueur>{
      * Depacer objectif de ArrayList objectifs -> ArrayList objectifs obtenus
      */
     public void completerObjectif(Objectif obj){
-        //TODO: if obj Empereur  -> add direct ans no need to remove from objectifs
         Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL");
-        if(!(objectifs.contains(obj))){ //TODO: Check if not bug
-            throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
-        }
-        if (obj instanceof ObjectifJardinier){
-            //TODO
-        }
-        else if (obj instanceof ObjectifPanda) {
-            for (int i = 0; i < obj.getCouleurs().length; i++) {
-                enleverBambous(((ObjectifPanda) obj).getNbBambous(),obj.getCouleurs()[i]);
-                System.out.println("panda");
-            }
-        }
-        else if (obj instanceof ObjectifParcelle) {
-            //TODO
+        if(obj instanceof Empereur){
+            objectifsObtenus.add(obj);
         }
         else{
-            throw new IllegalArgumentException("Type d'objectif inconnu");
+            if(!(objectifs.contains(obj))){
+                throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
+            }
+            if (obj instanceof ObjectifJardinier){
+                //TODO
+            }
+            else if (obj instanceof ObjectifPanda) {
+                for (int i = 0; i < obj.getCouleurs().length; i++) {
+                    enleverBambous(((ObjectifPanda) obj).getNbBambous(),obj.getCouleurs()[i]);
+                    System.out.println("panda"+obj.getCouleurs()[i]);
+                }
+            }
+            else if (obj instanceof ObjectifParcelle) {
+                //TODO
+            }
+            else{
+                throw new IllegalArgumentException("Type d'objectif inconnu");
+            }
+            objectifs.remove(obj);
+            objectifsObtenus.add(obj);
         }
-        objectifs.remove(obj);
-        objectifsObtenus.add(obj);
     }
-    
+
     public void validerObjectifs(){
         for(int i=0;i<objectifs.size();i++){
             if(objectifs.get(i).verifie(this)) {

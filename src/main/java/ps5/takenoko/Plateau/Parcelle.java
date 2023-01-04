@@ -52,6 +52,7 @@ public class Parcelle extends ParcelleInactive{
         return false;
     }
 
+
     public boolean estIrrigue(){
         //TODO
         return true;
