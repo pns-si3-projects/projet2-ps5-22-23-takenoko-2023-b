@@ -30,4 +30,7 @@ public abstract class Objectif {
     }
     public abstract boolean verifie(Joueur j);
 
+    public String toString() {
+        return getClass().getSimpleName() + " de valeur " + point;
+    }
 }

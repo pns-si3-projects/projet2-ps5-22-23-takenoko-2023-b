@@ -52,7 +52,7 @@ public class Jeu {
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
-            this.affichePlateau();
+            System.out.println(this.affichePlateau());
         }
         afficheResultat();
         for(Joueur j: joueurs){
@@ -75,7 +75,7 @@ public class Jeu {
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
                     Parcelle parcellePioche = this.piocherParcelles(j);
-                    msg += " et a pioché une " + parcellePioche + "puis l'a placé sur le plateau";
+                    msg += " et a pioché une " + parcellePioche + " puis l'a placé sur le plateau";
                     j.poserParcelle(parcellePioche);
                     parcellesList.remove(parcellePioche);
                     //affichage plateau
@@ -289,13 +289,13 @@ public class Jeu {
     }
 
     private String afficheJardinier(Position pos){
-        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier)) return CSL_VIOLET+"J"+CSL_RESET;
+        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier.getPosition())) return CSL_VIOLET+"J"+CSL_RESET;
         return " ";
     }
 
 
     private String affichePanda(Position pos){
-        if(pos.equals(panda)) return CSL_VIOLET+"P"+CSL_RESET;
+        if(pos.equals(panda.getPosition())) return CSL_VIOLET+"P"+CSL_RESET;
         return " ";
     }
     public static final String CSL_RESET = "\u001B[0m";
