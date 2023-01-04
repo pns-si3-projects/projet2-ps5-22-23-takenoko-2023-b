@@ -55,10 +55,9 @@ public class Jeu {
             this.affichePlateau();
         }
         afficheResultat();
-        System.out.println(joueurs.get(0).getObjectifsObtenus());
-        System.out.println(joueurs.get(1).getObjectifsObtenus());
-        // System.out.println(joueurs.get(2).getObjectifsObtenus());
-
+        for(Joueur j: joueurs){
+            System.out.println("Joueur "+j.getId()+" : "+j.getObjectifsObtenus().toString());
+        }
     }
 
     private boolean tourJoueur(Joueur j, int nbActions){
@@ -125,20 +124,23 @@ public class Jeu {
         return actionsPossibles;
     }
 
-    private ArrayList<Joueur> calculGagnants(){
-        ArrayList<Joueur> gagnants= new ArrayList<Joueur>();
-        Collections.sort(joueurs);
-        gagnants.add(joueurs.get(0));
-        loopGagnant: for(int i=0; i<joueurs.size()-1;i++){
-            if(joueurs.get(i).compareTo(joueurs.get(i+1))==0){
-                gagnants.add(joueurs.get(i+1));
-            }
-            else{
-                break loopGagnant;
+    private ArrayList<Joueur> calculGagnants() {
+        ArrayList<Joueur> js = new ArrayList<Joueur>();
+        js.addAll(joueurs);
+        js.sort(Collections.reverseOrder());
+        Joueur maxRanking = js.get(0);
+        ArrayList<Joueur> gagnants = new ArrayList<>();
+        for (Joueur joueur : js) {
+            if (joueur.compareTo(maxRanking) == 0) {
+                gagnants.add(joueur);
+            } else {
+                break;
             }
         }
         return gagnants;
     }
+
+
 
     private void afficheResultat(){
         ArrayList<Joueur> gagnants = calculGagnants();
@@ -189,11 +191,6 @@ public class Jeu {
         Objectif o = objectifList.randomObjectif();
         j.addObjectif(o);
         objectifList.remove(o);
-    }
-
-    private void mangerBamboo (Parcelle p, Joueur j){
-        j.ajouteBambou(p.getCouleur());
-        p.mangerBambou();
     }
 
     public String affichePlateau(){

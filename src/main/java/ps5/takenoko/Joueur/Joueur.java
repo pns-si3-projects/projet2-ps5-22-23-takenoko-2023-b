@@ -154,13 +154,12 @@ public abstract class Joueur implements Comparable<Joueur>{
     public abstract Position deplacerJardinier(Set<Position> positionsPossibles);
     public abstract Position deplacerPanda(Set<Position> positionsPossibles);
     @Override
-    public int compareTo(Joueur j2) {
-        if(calculPoint()!=j2.calculPoint()){
-            return calculPoint()-j2.calculPoint();
+    public int compareTo(Joueur other) {
+        int result = Integer.compare(this.calculPoint(),other.calculPoint());
+        if (result != 0) {
+            return result;
         }
-        else{
-            return calculPointPanda()-j2.calculPointPanda();
-        }
+        return Integer.compare( this.calculPointPanda(),other.calculPointPanda());
     }
 
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
