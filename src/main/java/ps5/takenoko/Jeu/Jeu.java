@@ -48,16 +48,22 @@ public class Jeu {
             }
         }
         afficheResultat();
+        System.out.println(joueurs.get(0).getObjectifsObtenus());
+        System.out.println(joueurs.get(1).getObjectifsObtenus());
+        // System.out.println(joueurs.get(2).getObjectifsObtenus());
+
     }
 
     private boolean tourJoueur(Joueur j, int nbActions){
-        ArrayList<Action> actionsPossibles = getActionsPossibles(j);
+        ArrayList<Action> actionChoisis = new ArrayList<Action>();
+        ArrayList<Action> actionsPossibles = getActionsPossibles(j,actionChoisis);
         boolean stop=false; //for later with more complicated stuff
         if(actionsPossibles.isEmpty()){
             return false;
         }
         while(nbActions>0 && !stop){
             Action actionChoisi = j.jouer(actionsPossibles);
+            actionChoisis.add(actionChoisi);
             System.out.println("Joueur "+j.getId()+" a choisi action " + actionChoisi.toString());
             switch(actionChoisi){
                 case PIOCHER_PARCELLES:
@@ -71,21 +77,21 @@ public class Jeu {
                 case JARDINIER:
                     jardinier.deplacer(j.deplacerJardinier(jardinier.posPossibles(plateau)),plateau);
                     break;
-                    case PANDA:
-                        Position p = j.deplacerPanda(panda.posPossibles(plateau));
-                        if(panda.deplacer(p,plateau)){
-                            j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
-                        }
-                        break;
+                case PANDA:
+                    Position p = j.deplacerPanda(panda.posPossibles(plateau));
+                    if(panda.deplacer(p,plateau)){
+                        j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
+                    }
+                    break;
             }
-            actionsPossibles = getActionsPossibles(j);
+            actionsPossibles = getActionsPossibles(j,actionChoisis);
             nbActions--;
+            j.validerObjectifs();
         }
-        j.validerObjectifs();
         return true;
     }
 
-    private ArrayList<Action> getActionsPossibles(Joueur j){
+    private ArrayList<Action> getActionsPossibles(Joueur j, ArrayList<Action> actionsChoisis){
         ArrayList<Action> actionsPossibles = new ArrayList<Action>();
         if(plateau.getParcellePosee().size()>1){
             actionsPossibles.add(Action.PANDA);
@@ -98,6 +104,9 @@ public class Jeu {
             actionsPossibles.add(Action.OBJECTIFS);
         }
         //TODO: implements conditions for irrigation
+
+        //TODO : les actions doivent être différentes sauf si Meteo = VENT
+        actionsPossibles.removeAll(actionsChoisis);
         return actionsPossibles;
     }
 
@@ -127,11 +136,9 @@ public class Jeu {
         }
     }
 
-    //TODO: Good idea to do both at da same time like so?
     private boolean estTermine(){
         for(Joueur j: joueurs){
             if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
-                //TODO: Put Emperor objectif to j here
                 j.completerObjectif(new Empereur());
                 return true;
             }
