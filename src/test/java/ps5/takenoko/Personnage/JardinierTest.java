@@ -31,7 +31,6 @@ class JardinierTest {
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
 
         }catch(Exception e){System.out.println(e);}
-        plateau.affichePlateau();
     }
 
 

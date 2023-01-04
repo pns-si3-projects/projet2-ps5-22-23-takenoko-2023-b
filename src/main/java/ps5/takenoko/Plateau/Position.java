@@ -41,6 +41,7 @@ public class Position {
 
     @Override
     public boolean equals(Object obj) {
+
         if(obj instanceof Position){
             return (this.x == ((Position)obj).getX() && this.y == ((Position)obj).getY());
         }

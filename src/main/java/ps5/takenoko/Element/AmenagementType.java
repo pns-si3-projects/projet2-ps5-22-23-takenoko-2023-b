@@ -5,4 +5,5 @@ public enum AmenagementType {
     ENCLOS,
     ENGRAIS,
     BASSIN
+
 }

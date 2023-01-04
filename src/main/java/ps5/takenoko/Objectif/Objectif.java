@@ -6,6 +6,7 @@ import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Plateau;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Objectif {
     private String description;

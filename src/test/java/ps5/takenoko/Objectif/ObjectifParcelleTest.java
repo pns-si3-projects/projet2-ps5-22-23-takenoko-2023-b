@@ -3,10 +3,15 @@ package ps5.takenoko.Objectif;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.Jeu.Jeu;
+import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Joueur.JoueurRandom;
 import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,120 +21,145 @@ class ObjectifParcelleTest {
     Plateau boardCourbe = new Plateau();
     Plateau boardTriangle = new Plateau();
     Plateau boardLosange = new Plateau();
-    ObjectifParcelle objLigneR = new ObjectifParcelle(3,Shape.LIGNE,Couleur.ROSE);
-    ObjectifParcelle objLigneJ = new ObjectifParcelle(3,Shape.LIGNE,Couleur.JAUNE);
-    ObjectifParcelle objLigneV = new ObjectifParcelle(3,Shape.LIGNE,Couleur.VERT);
+    ObjectifParcelle objLigneR = new ObjectifParcelle(Shape.LIGNE, new Couleur[]{Couleur.ROSE});
+    ObjectifParcelle objLigneJ = new ObjectifParcelle(Shape.LIGNE,new Couleur[]{Couleur.JAUNE});
+    ObjectifParcelle objLigneV = new ObjectifParcelle(Shape.LIGNE,new Couleur[]{Couleur.VERT});
 
-    ObjectifParcelle objCourbeR = new ObjectifParcelle(3,Shape.COURBE,Couleur.ROSE);
-    ObjectifParcelle objCourbeJ = new ObjectifParcelle(3,Shape.COURBE,Couleur.JAUNE);
-    ObjectifParcelle objCourbeV = new ObjectifParcelle(3,Shape.COURBE,Couleur.VERT);
+    ObjectifParcelle objCourbeR = new ObjectifParcelle(Shape.COURBE,new Couleur[]{Couleur.ROSE});
+    ObjectifParcelle objCourbeJ = new ObjectifParcelle(Shape.COURBE,new Couleur[]{Couleur.JAUNE});
+    ObjectifParcelle objCourbeV = new ObjectifParcelle(Shape.COURBE,new Couleur[]{Couleur.VERT});
 
-    ObjectifParcelle objTriangleR = new ObjectifParcelle(3,Shape.TRIANGLE,Couleur.ROSE);
-    ObjectifParcelle objTriangleJ = new ObjectifParcelle(3,Shape.TRIANGLE,Couleur.JAUNE);
-    ObjectifParcelle objTriangleV = new ObjectifParcelle(3,Shape.TRIANGLE,Couleur.VERT);
+    ObjectifParcelle objTriangleR = new ObjectifParcelle(Shape.TRIANGLE,new Couleur[]{Couleur.ROSE});
+    ObjectifParcelle objTriangleJ = new ObjectifParcelle(Shape.TRIANGLE,new Couleur[]{Couleur.JAUNE});
+    ObjectifParcelle objTriangleV = new ObjectifParcelle(Shape.TRIANGLE,new Couleur[]{Couleur.VERT});
 
-    ObjectifParcelle objLosangeR = new ObjectifParcelle(3,Shape.LOSANGE,Couleur.ROSE,Couleur.VERT);
-    ObjectifParcelle objLosangeJ = new ObjectifParcelle(3,Shape.LOSANGE,Couleur.VERT,Couleur.ROSE);
-    ObjectifParcelle objLosangeV = new ObjectifParcelle(3,Shape.LOSANGE,Couleur.JAUNE,Couleur.VERT);
+    ObjectifParcelle objLosangeR = new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.ROSE,Couleur.VERT});
+    ObjectifParcelle objLosangeJ = new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.ROSE});
+    ObjectifParcelle objLosangeV = new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.VERT});
+    Jeu game1;
+    Jeu game2;
+    Jeu game3;
+    Jeu game4;
+    Jeu game5;
+    JoueurRandom player = new JoueurRandom(0);
+    JoueurRandom playerLigne = new JoueurRandom(1);
+    JoueurRandom playerCourbe = new JoueurRandom(2);
+    JoueurRandom playerTriangle = new JoueurRandom(3);
+    JoueurRandom playerLosange = new JoueurRandom(4);
 
     @BeforeEach
     void init() throws IllegalAccessException {
         Parcelle parcelleR = new Parcelle(Couleur.ROSE);
         Parcelle parcelleJ = new Parcelle(Couleur.JAUNE);
         Parcelle parcelleV = new Parcelle(Couleur.VERT);
+        ArrayList<Joueur> players1 = new ArrayList<Joueur>(); players1.add(player);         players1.add(new JoueurRandom(6));
+        ArrayList<Joueur> players2 = new ArrayList<Joueur>(); players2.add(playerLigne);    players2.add(new JoueurRandom(6));
+        ArrayList<Joueur> players3 = new ArrayList<Joueur>(); players3.add(playerCourbe);   players3.add(new JoueurRandom(6));
+        ArrayList<Joueur> players4 = new ArrayList<Joueur>(); players4.add(playerTriangle); players4.add(new JoueurRandom(6));
+        ArrayList<Joueur> players5 = new ArrayList<Joueur>(); players5.add(playerLosange);  players5.add(new JoueurRandom(6));
+        Jeu game1 = new Jeu(players1);
+        Jeu game2 = new Jeu(players2);
+        Jeu game3 = new Jeu(players3);
+        Jeu game4 = new Jeu(players4);
+        Jeu game5 = new Jeu(players5);
         initLigneBoard(parcelleR,parcelleJ,parcelleV);
         initCourbeBoard(parcelleR,parcelleJ,parcelleV);
         initTriangleBoard(parcelleR,parcelleJ,parcelleV);
         initLosangeBoard(parcelleR,parcelleJ,parcelleV);
+        game1.setPlateau(board);
+        game2.setPlateau(boardLigne);
+        game3.setPlateau(boardCourbe);
+        game4.setPlateau(boardTriangle);
+        game5.setPlateau(boardLosange);
     }
     @Test
     void verifieLigne() {
-        assertFalse(objLigneJ.verifie(board));
-        assertFalse(objLigneR.verifie(board));
-        assertFalse(objLigneV.verifie(board));
-        assertTrue(objLigneJ.verifie(boardLigne));
-        assertTrue(objLigneR.verifie(boardLigne));
-        assertTrue(objLigneV.verifie(boardLigne));
+        assertFalse(objLigneJ.verifie(player));
+        assertFalse(objLigneR.verifie(player));
+        assertFalse(objLigneV.verifie(player));
+        assertTrue(objLigneJ.verifie(playerLigne));
+        assertTrue(objLigneR.verifie(playerLigne));
+        assertTrue(objLigneV.verifie(playerLigne));
 
-        assertFalse(objLigneJ.verifie(boardCourbe));
-        assertFalse(objLigneR.verifie(boardCourbe));
-        assertFalse(objLigneV.verifie(boardCourbe));
+        assertFalse(objLigneJ.verifie(playerCourbe));
+        assertFalse(objLigneR.verifie(playerCourbe));
+        assertFalse(objLigneV.verifie(playerCourbe));
 
-        assertFalse(objLigneJ.verifie(boardTriangle));
-        assertFalse(objLigneR.verifie(boardTriangle));
-        assertFalse(objLigneV.verifie(boardTriangle));
+        assertFalse(objLigneJ.verifie(playerTriangle));
+        assertFalse(objLigneR.verifie(playerTriangle));
+        assertFalse(objLigneV.verifie(playerTriangle));
 
-        assertFalse(objLigneJ.verifie(boardLosange));
-        assertFalse(objLigneR.verifie(boardLosange));
-        assertFalse(objLigneV.verifie(boardLosange));
+        assertFalse(objLigneJ.verifie(playerLosange));
+        assertFalse(objLigneR.verifie(playerLosange));
+        assertFalse(objLigneV.verifie(playerLosange));
     }
     @Test
     void verifieCourbe() {
-        assertFalse(objCourbeJ.verifie(board));
-        assertFalse(objCourbeR.verifie(board));
-        assertFalse(objCourbeV.verifie(board));
-        assertTrue(objCourbeJ.verifie(boardCourbe));
-        assertTrue(objCourbeR.verifie(boardCourbe));
-        assertTrue(objCourbeV.verifie(boardCourbe));
+        assertFalse(objCourbeJ.verifie(player));
+        assertFalse(objCourbeR.verifie(player));
+        assertFalse(objCourbeV.verifie(player));
+        assertTrue(objCourbeJ.verifie(playerCourbe));
+        assertTrue(objCourbeR.verifie(playerCourbe));
+        assertTrue(objCourbeV.verifie(playerCourbe));
 
 
-        assertFalse(objCourbeJ.verifie(boardLigne));
-        assertFalse(objCourbeR.verifie(boardLigne));
-        assertFalse(objCourbeV.verifie(boardLigne));
+        assertFalse(objCourbeJ.verifie(playerLigne));
+        assertFalse(objCourbeR.verifie(playerLigne));
+        assertFalse(objCourbeV.verifie(playerLigne));
 
-        assertFalse(objCourbeJ.verifie(boardTriangle));
-        assertFalse(objCourbeR.verifie(boardTriangle));
-        assertFalse(objCourbeV.verifie(boardTriangle));
+        assertFalse(objCourbeJ.verifie(playerTriangle));
+        assertFalse(objCourbeR.verifie(playerTriangle));
+        assertFalse(objCourbeV.verifie(playerTriangle));
 
-        assertFalse(objCourbeJ.verifie(boardLosange));
-        assertFalse(objCourbeR.verifie(boardLosange));
-        assertFalse(objCourbeV.verifie(boardLosange));
+        assertFalse(objCourbeJ.verifie(playerLosange));
+        assertFalse(objCourbeR.verifie(playerLosange));
+        assertFalse(objCourbeV.verifie(playerLosange));
 
     }
     @Test
     void verifieTriangle() {
-        assertFalse(objTriangleJ.verifie(board));
-        assertFalse(objTriangleR.verifie(board));
-        assertFalse(objTriangleV.verifie(board));
-        assertTrue(objTriangleJ.verifie(boardTriangle));
-        assertTrue(objTriangleR.verifie(boardTriangle));
-        assertFalse(objTriangleV.verifie(boardTriangle));
+        assertFalse(objTriangleJ.verifie(player));
+        assertFalse(objTriangleR.verifie(player));
+        assertFalse(objTriangleV.verifie(player));
+        assertTrue(objTriangleJ.verifie(playerTriangle));
+        assertTrue(objTriangleR.verifie(playerTriangle));
+        assertFalse(objTriangleV.verifie(playerTriangle));
 
 
-        assertFalse(objTriangleJ.verifie(boardLigne));
-        assertFalse(objTriangleR.verifie(boardLigne));
-        assertFalse(objTriangleV.verifie(boardLigne));
+        assertFalse(objTriangleJ.verifie(playerLigne));
+        assertFalse(objTriangleR.verifie(playerLigne));
+        assertFalse(objTriangleV.verifie(playerLigne));
 
-        assertFalse(objTriangleJ.verifie(boardCourbe));
-        assertFalse(objTriangleR.verifie(boardCourbe));
-        assertFalse(objTriangleV.verifie(boardCourbe));
+        assertFalse(objTriangleJ.verifie(playerCourbe));
+        assertFalse(objTriangleR.verifie(playerCourbe));
+        assertFalse(objTriangleV.verifie(playerCourbe));
 
-        assertFalse(objTriangleJ.verifie(boardLosange));
-        assertFalse(objTriangleR.verifie(boardLosange));
-        assertFalse(objTriangleV.verifie(boardLosange));
+        assertFalse(objTriangleJ.verifie(playerLosange));
+        assertFalse(objTriangleR.verifie(playerLosange));
+        assertFalse(objTriangleV.verifie(playerLosange));
 
     }
     @Test
     void verifieLosange() {
-        assertFalse(objLosangeJ.verifie(board));
-        assertFalse(objLosangeR.verifie(board));
-        assertFalse(objLosangeV.verifie(board));
-        assertTrue(objLosangeJ.verifie(boardLosange));
-        assertTrue(objLosangeR.verifie(boardLosange));
-        assertTrue(objLosangeV.verifie(boardLosange));
+        assertFalse(objLosangeJ.verifie(player));
+        assertFalse(objLosangeR.verifie(player));
+        assertFalse(objLosangeV.verifie(player));
+        assertTrue(objLosangeJ.verifie(playerLosange));
+        assertTrue(objLosangeR.verifie(playerLosange));
+        assertTrue(objLosangeV.verifie(playerLosange));
 
 
-        assertFalse(objLosangeJ.verifie(boardLigne));
-        assertFalse(objLosangeR.verifie(boardLigne));
-        assertFalse(objLosangeV.verifie(boardLigne));
+        assertFalse(objLosangeJ.verifie(playerLigne));
+        assertFalse(objLosangeR.verifie(playerLigne));
+        assertFalse(objLosangeV.verifie(playerLigne));
 
-        assertFalse(objLosangeJ.verifie(boardCourbe));
-        assertFalse(objLosangeR.verifie(boardCourbe));
-        //assertFalse(objLosangeV.verifie(boardCourbe)); //Car il est present dans le plateau
+        assertFalse(objLosangeJ.verifie(playerCourbe));
+        assertFalse(objLosangeR.verifie(playerCourbe));
+        //assertFalse(objLosangeV.verifie(playerCourbe)); //Car il est present dans le plateau
 
-        assertFalse(objLosangeJ.verifie(boardTriangle));
-        assertFalse(objLosangeR.verifie(boardTriangle));
-        assertFalse(objLosangeV.verifie(boardTriangle));
+        assertFalse(objLosangeJ.verifie(playerTriangle));
+        assertFalse(objLosangeR.verifie(playerTriangle));
+        assertFalse(objLosangeV.verifie(playerTriangle));
     }
 
 

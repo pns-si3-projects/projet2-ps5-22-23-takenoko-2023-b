@@ -21,6 +21,12 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = c;
     }
 
+    // For test purpose
+    public Parcelle(Couleur c,int nbBamboo) {
+        this.couleur = c;
+        this.nbBamboo = nbBamboo;
+    }
+
     public Parcelle(Couleur couleur, Amenagement amenagement) {
         this.couleur = couleur;
         this.amenagement = amenagement;
@@ -30,6 +36,10 @@ public class Parcelle extends ParcelleInactive{
         return couleur;
     }
     public int getNbBamboo() {return nbBamboo;}
+
+    public void setNbBamboo(int nbBamboo) {
+        this.nbBamboo = nbBamboo;
+    }
 
     public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
