@@ -33,9 +33,9 @@ class PlateauTest {
         for(int i=0; i<31; i++) {
             for(int j=0; j<31; j++) {
                 if(endroitsPosables.contains(new Position(i,j))) {
-                    assertTrue(plateau.isPosable(new Position(i,j)));
+                    assertTrue(plateau.positionPosable(new Position(i,j)));
                 } else {
-                    assertFalse(plateau.isPosable(new Position(i,j)));
+                    assertFalse(plateau.positionPosable(new Position(i,j)));
                 }
             }
         }
@@ -61,8 +61,8 @@ class PlateauTest {
     void isPosable() {
         Position pos = new Position(0,0);
         Position posCoteCentre = new Position(14,15);
-        assertFalse(plateau.isPosable(pos));
-        assertTrue(plateau.isPosable(posCoteCentre));
+        assertFalse(plateau.positionPosable(pos));
+        assertTrue(plateau.positionPosable(posCoteCentre));
 
         Parcelle par1 = new Parcelle();
         Parcelle par2 = new Parcelle();
@@ -70,8 +70,8 @@ class PlateauTest {
         Position pos2 = new Position(0,1);
         plateau.addParcelle(par1,pos1);
         plateau.addParcelle(par2,pos2);
-        assertTrue(plateau.isPosable(pos));
-        assertFalse(plateau.isPosable(pos1));
+        assertTrue(plateau.positionPosable(pos));
+        assertFalse(plateau.positionPosable(pos1));
     }
 
 }

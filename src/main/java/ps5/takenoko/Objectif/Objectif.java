@@ -32,33 +32,7 @@ public abstract class Objectif {
 
     public abstract boolean verifie(Joueur j);
 
-    public ArrayList<Objectif> initListeObjectif(){
-        ArrayList<Objectif> res = new ArrayList<>();
-        //Init Obj Jardnier
-        for(TypeObjJardinier type : TypeObjJardinier.values()) for(Couleur couleur : Couleur.values()){
-            if((type == TypeObjJardinier.OBJMULTVERT && couleur!=Couleur.VERT)
-                || (type == TypeObjJardinier.OBJMULTJAUNE && couleur!=Couleur.JAUNE)
-                || (type == TypeObjJardinier.OBJMULTROSE && couleur!=Couleur.ROSE)
-            ) continue;
-            res.add( new ObjectifJardinier(type,couleur));
-        }
-
-        // init Obj Parcelle
-        for(Shape forme : Shape.values()) for(Couleur couleur: Couleur.values()){
-            if(forme == Shape.LOSANGE)continue;
-            res.add(new ObjectifParcelle(forme , new Couleur[]{couleur}));
-        }
-        res.add(new ObjectifParcelle(Shape.LOSANGE, new Couleur[]{Couleur.VERT,Couleur.JAUNE}));
-        res.add(new ObjectifParcelle(Shape.LOSANGE, new Couleur[]{Couleur.VERT,Couleur.ROSE}));
-        res.add(new ObjectifParcelle(Shape.LOSANGE, new Couleur[]{Couleur.JAUNE,Couleur.ROSE}));
-
-        // init Obj Panda
-        int[] nbCards = {5,4,3,3};
-        Objectif[] objs = {new ObjectifPanda(),new ObjectifPanda(),new ObjectifPanda(),new ObjectifPanda()}
-        for (int i=0; i<nbCards.length;i++){
-            for(nbCards)
-        }
-        return res;
+    public String toString() {
+        return getClass().getSimpleName() + " de valeur " + point;
     }
-
 }
