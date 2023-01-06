@@ -75,4 +75,9 @@ public class ObjectifJardinier extends Objectif {
                 return super.getPoint();
         }
     }
+
+    public boolean equals(ObjectifJardinier obj){
+        return super.equals(obj)
+            && this.type == obj.type;
+    }
 }

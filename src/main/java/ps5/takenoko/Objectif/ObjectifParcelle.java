@@ -99,4 +99,8 @@ public class ObjectifParcelle extends Objectif {
 
     }
 
+    public boolean equals(ObjectifParcelle obj) {
+        return super.equals(obj)
+            && this.figure == obj.figure;
+    }
 }

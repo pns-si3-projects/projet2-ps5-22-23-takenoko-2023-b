@@ -100,7 +100,7 @@ public abstract class Joueur implements Comparable<Joueur>{
             }
             else if (obj instanceof ObjectifPanda) {
                 for (int i = 0; i < obj.getCouleurs().length; i++) {
-                    enleverBambous(((ObjectifPanda) obj).getNbBambous(),obj.getCouleurs()[i]);
+                    enleverBambous(((ObjectifPanda) obj).getNbParcelles(),obj.getCouleurs()[i]);
                 }
             }
             else if (obj instanceof ObjectifParcelle) {

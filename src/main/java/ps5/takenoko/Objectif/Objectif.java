@@ -6,6 +6,8 @@ import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Plateau;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class Objectif {
@@ -25,6 +27,22 @@ public abstract class Objectif {
     }
 
     public Couleur[] getCouleurs() {return couleurs;}
+
+    public boolean equals(Objectif obj){
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        return this.description.equals(obj.description)
+            && this.couleurs == obj.couleurs
+            && this.point == obj.point;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(description, point);
+        result = 31 * result + Arrays.hashCode(couleurs);
+        return result;
+    }
 
     public int getPoint() {
         return point;
