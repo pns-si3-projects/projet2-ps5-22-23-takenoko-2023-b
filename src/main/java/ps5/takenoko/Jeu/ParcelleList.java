@@ -41,11 +41,18 @@ public class ParcelleList extends ListDuJeu<Parcelle> {
         list.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.ENGRAIS)));
     }
 
-    public ArrayList<Parcelle> getRandomParcelles(int nbParcelles){
+    public ArrayList<Parcelle> getParcelles(int nbParcelles){
         ArrayList<Parcelle> parcellesRandoms = new ArrayList<Parcelle>();
-        for(int i=0; i<nbParcelles; i++){
+        for(int i=0; i<3; i++){
             parcellesRandoms.add(list.get(i));
         }
+        list.removeAll(parcellesRandoms);
         return parcellesRandoms;
+    }
+
+    public void addAtEnd(ArrayList<Parcelle> parcelles){
+        for(Parcelle p : parcelles){
+            list.add(p);
+        }
     }
 }

@@ -9,7 +9,6 @@ import ps5.takenoko.Personnage.Panda;
 import ps5.takenoko.Plateau.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Jeu {
@@ -180,10 +179,12 @@ public class Jeu {
     }
 
 
-    private Parcelle piocherParcelles(Joueur j) {
-        ArrayList<Parcelle> parcelles = parcellesList.getRandomParcelles(3);
+    Parcelle piocherParcelles(Joueur j) {
+        ArrayList<Parcelle> parcelles = parcellesList.getParcelles(3);
         Parcelle p = j.piocherParcelle(parcelles);
         parcellesList.remove(p);
+        parcelles.remove(p);
+        parcellesList.addAtEnd(parcelles);
         return p;
     }
 

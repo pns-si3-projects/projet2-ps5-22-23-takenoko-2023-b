@@ -52,7 +52,7 @@ class JeuTest {
         jeu = new Jeu(players);
         jeu.setPlateau(plateau);
         System.out.println(jeu.affichePlateau());
-
-
     }
+
+
 }

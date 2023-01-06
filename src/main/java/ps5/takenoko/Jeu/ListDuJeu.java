@@ -7,7 +7,6 @@ public abstract class ListDuJeu <T> {
     ArrayList<T> list = new ArrayList<T>();
     public ListDuJeu() {
         init();
-        Collections.shuffle(list);
     }
     public abstract void init();
     public int size(){
