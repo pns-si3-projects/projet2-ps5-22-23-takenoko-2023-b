@@ -22,7 +22,7 @@ public enum Shape {
                     {Direction.OUEST, Direction.EST} // LIGNE_O_E
                 };
                 description = "Objectif: Une ligne de 3 parcelle de la meme couleur";
-                points = 2;
+                points = 3;
                 break;
             case 1: // COURBE
                 composition = new Direction[][]{
@@ -42,7 +42,7 @@ public enum Shape {
                         {Direction.NORD_OUEST, Direction.NORD_EST} // TRIANGLE_DOWN
                 };
                 description = "Objectif: Un triangle de 3 parcelle de la meme couleur";
-                points = 4;
+                points = 3;
                 break;
             case 3: // LOSANGE
                 composition = new Direction[][]{

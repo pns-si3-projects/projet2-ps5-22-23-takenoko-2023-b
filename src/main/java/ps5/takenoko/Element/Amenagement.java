@@ -5,7 +5,7 @@ public class Amenagement {
     private int nbBambouAManger=1;
     private int nbBambouAPousser=1;
     public Amenagement(){
-        this.type = AmenagementType.DEFAULT;
+        this.type = AmenagementType.EMPTY;
         this.nbBambouAPousser = 1;
         this.nbBambouAManger = 1;
     }
@@ -20,7 +20,7 @@ public class Amenagement {
                 this.nbBambouAPousser = 2;
                 this.nbBambouAManger = 1;
                 break;
-            case DEFAULT:
+            case EMPTY:
                 this.nbBambouAManger = 1;
                 this.nbBambouAPousser = 1;
                 break;

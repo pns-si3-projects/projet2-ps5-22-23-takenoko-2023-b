@@ -10,13 +10,26 @@ public class ObjectifJardinier extends Objectif {
 
     public ObjectifJardinier(TypeObjJardinier type, Couleur color) {
         super(type.getDescription(), type.getPoint(), new Couleur[]{color});
+        switch(type){
+            case OBJMULTROSE :
+                super.couleurs = new Couleur[]{Couleur.ROSE};
+                break;
+            case OBJMULTJAUNE :
+                super.couleurs = new Couleur[]{Couleur.JAUNE};
+                break;
+            case OBJMULTVERT :
+                super.couleurs = new Couleur[]{Couleur.VERT};
+                break;
+            default: break;
+        }
         this.type = type;
+
     }
 
     @Override
     public boolean verifie(Joueur player) {
         Plateau board = player.getPlateau();
-        if (type != TypeObjJardinier.MULTIPLE) {
+        if (!type.isMultiple()) {
             for (Position pos : board.getParcellePosee()) {
                 if (!(board.getParcelle(pos) instanceof Parcelle parcelle)) continue;
                 if (
@@ -26,13 +39,22 @@ public class ObjectifJardinier extends Objectif {
                 ) return true;
             }
         } else {
-            int restant = 4;
+            int restant;
+            switch (couleurs[0]) {
+                case ROSE:
+                    restant = 2;
+                    break;
+                case JAUNE:
+                    restant = 3;
+                    break;
+                default:
+                    restant = 4;
+            }
             for (Position pos : board.getParcellePosee()) {
                 if (!(board.getParcelle(pos) instanceof Parcelle parcelle)) continue;
                 if (
                         couleurs[0] == parcelle.getCouleur()
-                                && parcelle.getNbBamboo() == type.getNbBamboo()
-
+                        && parcelle.getNbBamboo() == type.getNbBamboo()
                 ) {
                     if (--restant == 0) return true;
                 }
@@ -40,5 +62,17 @@ public class ObjectifJardinier extends Objectif {
 
         }
         return false;
+    }
+    @Override
+    public int getPoint(){
+        if(type.isMultiple()) return super.getPoint();
+        switch(couleurs[0]){
+            case ROSE :
+                return super.getPoint()+1;
+            case VERT:
+                return super.getPoint()-1;
+            default:
+                return super.getPoint();
+        }
     }
 }

@@ -25,9 +25,11 @@ public abstract class Objectif {
     }
 
     public Couleur[] getCouleurs() {return couleurs;}
+
     public int getPoint() {
         return point;
     }
+
     public abstract boolean verifie(Joueur j);
 
     public String toString() {

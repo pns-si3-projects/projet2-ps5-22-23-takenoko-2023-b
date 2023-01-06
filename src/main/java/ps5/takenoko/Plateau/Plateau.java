@@ -135,4 +135,5 @@ public class Plateau {
     }
 
     public static int getTaille(){return TAILLE;}
+
 }
