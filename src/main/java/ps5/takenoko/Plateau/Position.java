@@ -41,6 +41,7 @@ public class Position {
 
     @Override
     public boolean equals(Object obj) {
+
         if(obj instanceof Position){
             return (this.x == ((Position)obj).getX() && this.y == ((Position)obj).getY());
         }
@@ -49,5 +50,9 @@ public class Position {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    public String toString(){
+        return "("+x+","+y+")";
     }
 }

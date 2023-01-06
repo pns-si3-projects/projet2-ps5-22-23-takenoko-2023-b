@@ -18,17 +18,13 @@ class PlateauTest {
         plateau = new Plateau();
     }
 
-    /*@Test
+    @Test
     void addParcelle() {
         Parcelle par = new Parcelle();
         Position pos = new Position(5,5);
-        try {
-            assertFalse(plateau.getParcelle(pos) instanceof Parcelle);
-            plateau.addParcelle(par,pos);
-            assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
-        } catch (IllegalAccessException e) {
-            System.out.println("Out of bound exeption");
-        }
+        assertFalse(plateau.getParcelle(pos) instanceof Parcelle);
+        plateau.addParcelle(par,pos);
+        assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
     }
 
     @Test
@@ -37,9 +33,9 @@ class PlateauTest {
         for(int i=0; i<31; i++) {
             for(int j=0; j<31; j++) {
                 if(endroitsPosables.contains(new Position(i,j))) {
-                    assertTrue(plateau.isPosable(new Position(i,j)));
+                    assertTrue(plateau.positionPosable(new Position(i,j)));
                 } else {
-                    assertFalse(plateau.isPosable(new Position(i,j)));
+                    assertFalse(plateau.positionPosable(new Position(i,j)));
                 }
             }
         }
@@ -55,55 +51,55 @@ class PlateauTest {
         assertTrue(plateau.getParcelle(pos) instanceof ParcelleInactive);
         assertTrue(plateau.getParcelle(posorigine) instanceof ParcelleOriginelle);
 
-        try {
-            plateau.addParcelle(par1, pos);
-        } catch (IllegalAccessException e) {
-        }
+        plateau.addParcelle(par1, pos);
 
         assertTrue(plateau.getParcelle(pos) instanceof Parcelle);
         assertTrue(((Parcelle) plateau.getParcelle(pos)).getCouleur() == Couleur.JAUNE);
     }
 
     @Test
-    void isPosable() {
+    void PositionsPosable() {
         Position pos = new Position(0,0);
         Position posCoteCentre = new Position(14,15);
-        assertFalse(plateau.isPosable(pos));
-        assertTrue(plateau.isPosable(posCoteCentre));
+        assertFalse(plateau.positionPosable(pos));
+        assertTrue(plateau.positionPosable(posCoteCentre));
 
         Parcelle par1 = new Parcelle();
         Parcelle par2 = new Parcelle();
         Position pos1 = new Position(1,0);
         Position pos2 = new Position(0,1);
-
-        try{
-            plateau.addParcelle(par1,pos1);
-            plateau.addParcelle(par2,pos2);
-            assertTrue(plateau.isPosable(pos));
-            assertFalse(plateau.isPosable(pos1));
-
-        } catch (IllegalAccessException e) {
-        }
-    }*/
+        plateau.addParcelle(par1,pos1);
+        plateau.addParcelle(par2,pos2);
+        assertTrue(plateau.positionPosable(pos));
+        assertFalse(plateau.positionPosable(pos1));
+    }
 
     @Test
-    void affichePlateau() {
+    void getConnectedParcelleSameColor() {
         try{
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,13));
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(14,14));
             plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(15,14));
             plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(14,15));
             plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(16,15));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(17,15));
             plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(14,16));
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,16));
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,17));
-
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(13,14));
-
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
 
-        }catch(Exception e){System.out.println(e);}
-        plateau.affichePlateau();
-
+            ArrayList<Position> connectedParcelleSameColor = plateau.getConnectedParcelleSameColor(new Position(14,14));
+            assertEquals(3,connectedParcelleSameColor.size());
+            assertTrue(connectedParcelleSameColor.contains(new Position(15,13)));
+            assertTrue(connectedParcelleSameColor.contains(new Position(14,14)));
+            assertTrue(connectedParcelleSameColor.contains(new Position(13,14)));
+            for(Position pos : connectedParcelleSameColor) {
+                Parcelle par = (Parcelle) plateau.getParcelle(pos);
+                assertTrue(par.getCouleur().equals(Couleur.ROSE));
+            }
+        }catch(Exception e){System.out.println(e);
+        }
     }
+
 }

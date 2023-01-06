@@ -1,13 +1,16 @@
 package ps5.takenoko.Plateau;
 
 import ps5.takenoko.Element.Amenagement;
+import ps5.takenoko.Element.AmenagementType;
+
 import java.util.Random;
 
 public class Parcelle extends ParcelleInactive{
     private static final int maxNbBamboo = 4;
     private Couleur couleur;
-    private Amenagement amenagement = null;
+    private Amenagement amenagement = new Amenagement();
     private int nbBamboo = 0;
+
 
     public Parcelle() {
         Random R = new Random();
@@ -20,6 +23,12 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = c;
     }
 
+    // For test purpose
+    public Parcelle(Couleur c,int nbBamboo) {
+        this.couleur = c;
+        this.nbBamboo = nbBamboo;
+    }
+
     public Parcelle(Couleur couleur, Amenagement amenagement) {
         this.couleur = couleur;
         this.amenagement = amenagement;
@@ -29,12 +38,45 @@ public class Parcelle extends ParcelleInactive{
         return couleur;
     }
 
+    public void setNbBamboo(int nbBamboo) {
+        this.nbBamboo = nbBamboo;
+    }
+
     public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
 
-    @Override
-    public String toString() {
-        return ""; //TODO
+    public boolean augmenteBamboo(){
+        if(nbBamboo<MAX_BAMBOU && estIrrigue()){
+            nbBamboo=nbBamboo+amenagement.getNbBambouAPousser()>MAX_BAMBOU ? MAX_BAMBOU : nbBamboo+amenagement.getNbBambouAPousser();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean mangerBambou(){
+        if(nbBamboo>0 && estIrrigue() && amenagement.getNbBambouAManger()>0){
+            nbBamboo= nbBamboo-amenagement.getNbBambouAManger()<0 ? 0 : nbBamboo-amenagement.getNbBambouAManger();
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean estIrrigue(){
+        //TODO
+        return true;
+    }
+
+    public Amenagement getAmenagement() {
+        return amenagement;
+    }
+
+    public void setAmenagement(Amenagement amenagement) {
+        this.amenagement = amenagement;
+    }
+
+    public String toString(){
+        return "parcelle de couleur "+couleur;
     }
 }

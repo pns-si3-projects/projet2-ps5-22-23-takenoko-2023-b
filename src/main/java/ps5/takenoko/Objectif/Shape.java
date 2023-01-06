@@ -10,6 +10,8 @@ public enum Shape {
     LOSANGE();
 
     private Direction[][] composition;
+    private String description;
+    private int points;
 
     Shape(){
         switch (ordinal()){
@@ -19,7 +21,8 @@ public enum Shape {
                     {Direction.NORD_OUEST, Direction.SUD_EST}, // LIGNE_NO_SE
                     {Direction.OUEST, Direction.EST} // LIGNE_O_E
                 };
-
+                description = "Objectif: Une ligne de 3 parcelle de la meme couleur";
+                points = 3;
                 break;
             case 1: // COURBE
                 composition = new Direction[][]{
@@ -30,12 +33,16 @@ public enum Shape {
                     {Direction.SUD_EST, Direction.OUEST}, // COURBE_SO
                     {Direction.NORD_OUEST, Direction.SUD_OUEST}// COURBE_O
                 };
+                description = "Objectif: Une courbe de 3 parcelle de la meme couleur";
+                points = 3;
                 break;
             case 2: // TRIANGLE
                 composition = new Direction[][]{
                         {Direction.SUD_OUEST, Direction.SUD_EST}, // TRIANGLE_UP
                         {Direction.NORD_OUEST, Direction.NORD_EST} // TRIANGLE_DOWN
                 };
+                description = "Objectif: Un triangle de 3 parcelle de la meme couleur";
+                points = 3;
                 break;
             case 3: // LOSANGE
                 composition = new Direction[][]{
@@ -43,10 +50,19 @@ public enum Shape {
                         {Direction.OUEST, Direction.SUD_OUEST, Direction.SUD_EST}, // LOSANGE_SE_NO
                         {Direction.NORD_EST, Direction.EST, Direction.SUD_OUEST} // LOSANGE_S_N
                 };
+                description = "Objectif: Un losange de 2 paires de 2 parcelles de la meme couleur";
+                points = 4;
                 break;
         }
     }
 
     Direction[][] getDirections(){return composition;}
 
+    public String getDescription() {
+        return description;
+    }
+
+    public int getPoint() {
+        return points;
+    }
 }

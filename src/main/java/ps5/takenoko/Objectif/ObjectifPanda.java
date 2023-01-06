@@ -1,14 +1,28 @@
 package ps5.takenoko.Objectif;
 
-import ps5.takenoko.Plateau.Plateau;
+import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Plateau.Couleur;
 
 public class ObjectifPanda extends Objectif{
-    public ObjectifPanda(int point) {
-        super(point);
+    private int nbParcelles;
+
+    public ObjectifPanda(int point, Couleur[] couleurs, int nbParcelles) {
+        super( point, couleurs);
+        this.nbParcelles = nbParcelles;
+    }
+    public int getNbParcelles() {return nbParcelles;}
+    @Override
+    public boolean verifie(Joueur j) {
+        for(int i=0; i<couleurs.length;i++){
+            if(j.nbBambousParCouleur(couleurs[i]) < nbParcelles){
+                return false;
+            }
+        }
+        return true;
     }
 
-    @Override
-    public boolean verifie(Plateau board) {
-        return false;
+    public boolean equals(ObjectifPanda obj) {
+        return super.equals(obj)
+            && this.nbParcelles == obj.nbParcelles;
     }
 }
