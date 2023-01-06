@@ -68,6 +68,14 @@ public class Parcelle extends ParcelleInactive{
         return true;
     }
 
+    public Amenagement getAmenagement() {
+        return amenagement;
+    }
+
+    public void setAmenagement(Amenagement amenagement) {
+        this.amenagement = amenagement;
+    }
+
     public String toString(){
         return "parcelle de couleur "+couleur;
     }

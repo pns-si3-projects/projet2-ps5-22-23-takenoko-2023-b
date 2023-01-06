@@ -11,6 +11,7 @@ import ps5.takenoko.Plateau.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 public class Jeu {
     private static final int nbActions = 2;
     private int nbObjectifFin;
@@ -241,15 +242,13 @@ public class Jeu {
                     break;
             }
             // get Ammenagement
-
-            /*
-            switch(parcelle.getAmmenagement()){
+            switch(parcelle.){
                 case ENCLOS: content+="Ec"; break;
                 case ENGRAIS: content+="Eg"; break;
                 case BASSIN: content+="Ba"; break;
                 default:content = content+" ";
             }
-             */
+
             content=" "+content+" ";
         }else if(current.estParcelleOriginnelle())content = CSL_BLEU+" E "+CSL_RESET;
         content = afficheBordure(pos, Direction.OUEST) + content;

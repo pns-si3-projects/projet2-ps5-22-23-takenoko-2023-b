@@ -14,6 +14,22 @@ public class ObjectifParcelle extends Objectif {
     @Override
     public int getPoint() {
         if(figure == Shape.LOSANGE){
+            switch(couleurs[0]){
+                case VERT :
+                    if(couleurs[1] == Couleur.VERT) return 3;
+                    else throw new IllegalArgumentException();
+                case JAUNE :
+                    if(couleurs[1] == Couleur.VERT) return 3;
+                    else if(couleurs[1] == Couleur.JAUNE) return 4;
+                    else if(couleurs[1] == Couleur.ROSE) return 5;
+                    else throw new IllegalArgumentException();
+                case ROSE :
+                    if(couleurs[1] == Couleur.VERT) return 4;
+                    else if(couleurs[1] == Couleur.ROSE) return 5;
+                    else throw new IllegalArgumentException();
+                default : throw new IllegalArgumentException();
+
+            }
             if(
                     (couleurs[0] == Couleur.JAUNE && couleurs[1] == Couleur.ROSE)
                     || (couleurs[0] == Couleur.ROSE && couleurs[1] == Couleur.JAUNE)
@@ -27,7 +43,7 @@ public class ObjectifParcelle extends Objectif {
                     (couleurs[0] == Couleur.JAUNE && couleurs[1] == Couleur.VERT)
                             || (couleurs[0] == Couleur.VERT && couleurs[1] == Couleur.JAUNE)
             ) return 3;
-            throw new IllegalArgumentException();
+
         }switch(couleurs[0]){
             case VERT :
                 return super.getPoint() -1;
