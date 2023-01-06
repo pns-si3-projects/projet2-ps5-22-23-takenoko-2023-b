@@ -1,7 +1,5 @@
 package ps5.takenoko.Plateau;
 
-import ps5.takenoko.Element.Irrigation;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +17,6 @@ public class Plateau {
     private Set<Position> parcellePosee = new HashSet<Position>();
 
     private Set<Position> parcelleDisponible = new HashSet<Position>();
-    ArrayList<Irrigation> irrigations = new ArrayList<Irrigation>();
 
     public Plateau() {
         this.plateau = new ParcelleInactive[TAILLE][TAILLE];
@@ -102,29 +99,6 @@ public class Plateau {
         return cpt > 1;
     }
 
-    public Boolean irrigationPosable(Irrigation i){
-        if (i == null) {
-            return false;
-        }
-        //Etang ne peut pas avoir d'irrigation
-        if(i.getPremier().equals(new Position(TAILLE/2,TAILLE/2)) || i.getDeuxieme().equals(new Position(TAILLE/2,TAILLE/2))){
-            return false;
-        }
-        else if (parcellePosee.contains(i.getPremier()) && parcellePosee.contains(i.getDeuxieme())) {
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean poserIrrigation(Irrigation i){
-        if (irrigationPosable(i)) {
-            //TODO
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
 
     // return an array of all the positions of the parcelles that are adjacent to the parcelle at the given position
