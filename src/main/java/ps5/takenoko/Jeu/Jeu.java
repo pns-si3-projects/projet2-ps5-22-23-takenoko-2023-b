@@ -242,12 +242,13 @@ public class Jeu {
                     break;
             }
             // get Ammenagement
-            switch(parcelle.getAmenagement().getType()){
+           /* switch(parcelle.getAmenagement().getType()){
                 case ENCLOS: content+="Ec"; break;
                 case ENGRAIS: content+="Eg"; break;
                 case BASSIN: content+="Ba"; break;
                 default:content = " "+content+" ";
-            }
+            }*/
+            content = " "+content+" ";
 
         }else if(current.estParcelleOriginnelle())content = CSL_BLEU+" E "+CSL_RESET;
         content = afficheBordure(pos, Direction.OUEST) + content;
