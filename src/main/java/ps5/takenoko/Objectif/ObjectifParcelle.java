@@ -7,7 +7,7 @@ public class ObjectifParcelle extends Objectif {
     private Shape figure;
 
     public ObjectifParcelle(Shape figure, Couleur[] couleurs) {
-        super(figure.getDescription(), figure.getPoint(), couleurs);
+        super(figure.getPoint(), couleurs);
         this.figure = figure;
     }
 

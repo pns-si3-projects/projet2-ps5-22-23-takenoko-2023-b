@@ -13,8 +13,8 @@ public abstract class Objectif {
     private final int point;
     Couleur[] couleurs;
 
-    public Objectif(String description, int point, Couleur[] couleurs) {
-        this.description = description;
+    public Objectif(int point, Couleur[] couleurs) {
+        this.description = this.getClass().getSimpleName();
         this.point = point;
         this.couleurs = couleurs;
     }

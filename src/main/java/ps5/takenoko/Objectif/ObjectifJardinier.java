@@ -9,7 +9,7 @@ public class ObjectifJardinier extends Objectif {
 
 
     public ObjectifJardinier(TypeObjJardinier type, Couleur color) {
-        super(type.getDescription(), type.getPoint(), new Couleur[]{color});
+        super(type.getPoint(), new Couleur[]{color});
         switch(type){
             case OBJMULTROSE :
                 super.couleurs = new Couleur[]{Couleur.ROSE};

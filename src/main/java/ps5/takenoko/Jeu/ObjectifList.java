@@ -16,14 +16,14 @@ public class ObjectifList extends ListDuJeu<Objectif> {
     @Override
     public void init() {
         for(int i=0; i<5;i++){
-            list.add(new ObjectifPanda("Objectif Panda", 3, new Couleur[]{Couleur.VERT}, 2));
+            list.add(new ObjectifPanda( 3, new Couleur[]{Couleur.VERT}, 2));
         }
         for(int i=0; i<4;i++){
-            list.add(new ObjectifPanda("Objectif Panda", 4, new Couleur[]{Couleur.JAUNE}, 2));
+            list.add(new ObjectifPanda( 4, new Couleur[]{Couleur.JAUNE}, 2));
         }
         for(int i=0; i<5;i++){
-            list.add(new ObjectifPanda("Objectif Panda", 5, new Couleur[]{Couleur.ROSE}, 2));
-            list.add(new ObjectifPanda("Objectif Panda", 6, new Couleur[]{Couleur.ROSE,Couleur.JAUNE,Couleur.VERT}, 1));
+            list.add(new ObjectifPanda(5, new Couleur[]{Couleur.ROSE}, 2));
+            list.add(new ObjectifPanda( 6, new Couleur[]{Couleur.ROSE,Couleur.JAUNE,Couleur.VERT}, 1));
         }
 
 

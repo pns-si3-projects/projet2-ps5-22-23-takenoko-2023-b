@@ -7,8 +7,8 @@ import ps5.takenoko.Plateau.Plateau;
 public class ObjectifPanda extends Objectif{
     private int nbBambous;
 
-    public ObjectifPanda(String description, int point, Couleur[] couleurs, int nbBambous) {
-        super(description, point, couleurs);
+    public ObjectifPanda(int point, Couleur[] couleurs, int nbBambous) {
+        super( point, couleurs);
         this.nbBambous = nbBambous;
     }
     public int getNbBambous() {return nbBambous;}
