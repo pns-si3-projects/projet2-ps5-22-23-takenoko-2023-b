@@ -6,11 +6,12 @@ import ps5.takenoko.Plateau.*;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class JardinierTest {
-
+public class DeplacableTest {
     Plateau plateau;
+
     @BeforeEach
     void CreatePlateau() {
         plateau = new Plateau();
@@ -30,19 +31,20 @@ class JardinierTest {
 
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
 
-        }catch(Exception e){System.out.println(e);}
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 
-
     @Test
-    void deplacer() {
-        Jardinier deplacable = new Jardinier(new Position(15,15));
-        deplacable.deplacer(new Position(14,14),plateau);
+    void endroitsDeplacable() {
 
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(14,14))).getNbBamboo());
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(13,14))).getNbBamboo());
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(15,13))).getNbBamboo());
-        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,14))).getNbBamboo());
-        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,16))).getNbBamboo());
+        Deplacable deplacable = new Jardinier(new Position(15, 15));
+        Set<Position> endroitsDeplacable = deplacable.posPossibles(plateau);
+        for(Direction d : Direction.values()) {
+            assertTrue(endroitsDeplacable.contains(deplacable.getPosition().getPositionByDirection(d)));
+        }
+        assertTrue(endroitsDeplacable.contains(new Position(17,15)));
+        assertFalse(endroitsDeplacable.contains(new Position(17,17)));
     }
 }

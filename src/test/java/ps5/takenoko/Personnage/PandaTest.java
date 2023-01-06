@@ -1,5 +1,4 @@
 package ps5.takenoko.Personnage;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ps5.takenoko.Plateau.*;
@@ -8,9 +7,9 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JardinierTest {
-
+public class PandaTest {
     Plateau plateau;
+
     @BeforeEach
     void CreatePlateau() {
         plateau = new Plateau();
@@ -30,19 +29,8 @@ class JardinierTest {
 
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
 
-        }catch(Exception e){System.out.println(e);}
-    }
-
-
-    @Test
-    void deplacer() {
-        Jardinier deplacable = new Jardinier(new Position(15,15));
-        deplacable.deplacer(new Position(14,14),plateau);
-
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(14,14))).getNbBamboo());
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(13,14))).getNbBamboo());
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(15,13))).getNbBamboo());
-        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,14))).getNbBamboo());
-        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,16))).getNbBamboo());
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 }
