@@ -8,15 +8,16 @@ public class ObjectifJardinier extends Objectif {
     private TypeObjJardinier type;
 
 
-    public ObjectifJardinier(TypeObjJardinier type, Couleur color) {
+    public ObjectifJardinier(TypeObjJardinier type, Couleur color, AmenagementType amenagement) {
         super(type.getDescription(), type.getPoint(), new Couleur[]{color});
         this.type = type;
+
     }
 
     @Override
     public boolean verifie(Joueur player) {
         Plateau board = player.getPlateau();
-        if (type != TypeObjJardinier.MULTIPLE) {
+        if (!type.isMultiple()) {
             for (Position pos : board.getParcellePosee()) {
                 if (!(board.getParcelle(pos) instanceof Parcelle parcelle)) continue;
                 if (
@@ -26,13 +27,22 @@ public class ObjectifJardinier extends Objectif {
                 ) return true;
             }
         } else {
-            int restant = 4;
+            int restant;
+            switch (couleurs[0]) {
+                case ROSE:
+                    restant = 2;
+                    break;
+                case JAUNE:
+                    restant = 3;
+                    break;
+                default:
+                    restant = 4;
+            }
             for (Position pos : board.getParcellePosee()) {
                 if (!(board.getParcelle(pos) instanceof Parcelle parcelle)) continue;
                 if (
                         couleurs[0] == parcelle.getCouleur()
-                                && parcelle.getNbBamboo() == type.getNbBamboo()
-
+                        && parcelle.getNbBamboo() == type.getNbBamboo()
                 ) {
                     if (--restant == 0) return true;
                 }
@@ -40,5 +50,18 @@ public class ObjectifJardinier extends Objectif {
 
         }
         return false;
+    }
+    @Override
+    public int getPoint(){
+        switch(couleurs[0]){
+            case ROSE :
+                if(type.isMultiple()) return super.getPoint()-1;
+                else return super.getPoint()+1;
+            case VERT:
+                if(type.isMultiple()) return super.getPoint()+1;
+                else return super.getPoint()-1;
+            default:
+                return super.getPoint();
+        }
     }
 }

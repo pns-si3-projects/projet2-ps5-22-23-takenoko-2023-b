@@ -1,7 +1,7 @@
 package ps5.takenoko.Element;
 
 public enum AmenagementType {
-    DEFAULT,
+    EMPTY,
     ENCLOS,
     ENGRAIS,
     BASSIN
