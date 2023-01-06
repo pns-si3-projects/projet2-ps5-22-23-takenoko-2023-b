@@ -20,8 +20,8 @@ public abstract class Joueur implements Comparable<Joueur>{
     private ArrayList<Objectif> objectifsObtenus= new ArrayList<Objectif>();
 
     private ArrayList<Amenagement> amenagements= new ArrayList<Amenagement>();
-    private ArrayList<Bamboo> bamboosObtenus = new ArrayList<Bamboo>();
     private int nbIrrigations;
+    private int[] bambousObtenus = new int[]{0,0,0};
 
 
     public int getNombreObjectifsObtenus() {
@@ -33,11 +33,10 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.id=id;
     }
     //TODO: fix later
-    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, ArrayList<Bamboo> bamboosObtenus, int nbIrrigations) {
+    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, int nbIrrigations) {
         this.id=id;
         this.objectifs = objectifs;
         this.objectifsObtenus = objectifsObtenus;
-        this.bamboosObtenus = bamboosObtenus;
         this.nbIrrigations = nbIrrigations;
     }
 
@@ -135,6 +134,17 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
 
     public abstract void poserParcelle(Parcelle p);
+    public void ajouteBambou(Couleur c){
+        bambousObtenus[c.ordinal()]++;
+    }
+    public void enleverBambous(int nb, Couleur c){
+        bambousObtenus[c.ordinal()]-=nb;
+    }
+
+    public int nbBambousParCouleur(Couleur c){
+        return bambousObtenus[c.ordinal()];
+    }
+
 
     /***
      *

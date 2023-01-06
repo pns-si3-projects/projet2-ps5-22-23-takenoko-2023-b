@@ -6,7 +6,7 @@ import ps5.takenoko.Element.AmenagementType;
 import java.util.Random;
 
 public class Parcelle extends ParcelleInactive{
-    private static final int maxNbBamboo = 4;
+    private static final int MAX_BAMBOU = 4;
     private Couleur couleur;
     private Amenagement amenagement = new Amenagement();
     private int nbBamboo = 0;
@@ -16,8 +16,6 @@ public class Parcelle extends ParcelleInactive{
         Random R = new Random();
         this.couleur = Couleur.values()[R.nextInt(3)];
     }
-
-
 
     public Parcelle(Couleur c) {
         this.couleur = c;
@@ -37,6 +35,7 @@ public class Parcelle extends ParcelleInactive{
     public Couleur getCouleur() {
         return couleur;
     }
+    public int getNbBamboo() {return nbBamboo;}
 
     public void setNbBamboo(int nbBamboo) {
         this.nbBamboo = nbBamboo;
@@ -45,6 +44,7 @@ public class Parcelle extends ParcelleInactive{
     public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
+
 
     public boolean augmenteBamboo(){
         if(nbBamboo<MAX_BAMBOU && estIrrigue()){
