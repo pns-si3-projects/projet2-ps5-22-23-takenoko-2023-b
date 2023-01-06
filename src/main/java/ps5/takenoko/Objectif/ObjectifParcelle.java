@@ -30,19 +30,6 @@ public class ObjectifParcelle extends Objectif {
                 default : throw new IllegalArgumentException();
 
             }
-            if(
-                    (couleurs[0] == Couleur.JAUNE && couleurs[1] == Couleur.ROSE)
-                    || (couleurs[0] == Couleur.ROSE && couleurs[1] == Couleur.JAUNE)
-            ) return 5;
-            if(
-                    (couleurs[0] == Couleur.VERT && couleurs[1] == Couleur.ROSE)
-                            || (couleurs[0] == Couleur.ROSE && couleurs[1] == Couleur.VERT)
-            ) return 4;
-            if
-            (
-                    (couleurs[0] == Couleur.JAUNE && couleurs[1] == Couleur.VERT)
-                            || (couleurs[0] == Couleur.VERT && couleurs[1] == Couleur.JAUNE)
-            ) return 3;
 
         }switch(couleurs[0]){
             case VERT :
