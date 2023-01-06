@@ -58,7 +58,7 @@ class PlateauTest {
     }
 
     @Test
-    void isPosable() {
+    void PositionsPosable() {
         Position pos = new Position(0,0);
         Position posCoteCentre = new Position(14,15);
         assertFalse(plateau.positionPosable(pos));
@@ -72,6 +72,34 @@ class PlateauTest {
         plateau.addParcelle(par2,pos2);
         assertTrue(plateau.positionPosable(pos));
         assertFalse(plateau.positionPosable(pos1));
+    }
+
+    @Test
+    void getConnectedParcelleSameColor() {
+        try{
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,13));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(14,14));
+            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(15,14));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(14,15));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(16,15));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(17,15));
+            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(14,16));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,16));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,17));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(13,14));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
+
+            ArrayList<Position> connectedParcelleSameColor = plateau.getConnectedParcelleSameColor(new Position(14,14));
+            assertEquals(3,connectedParcelleSameColor.size());
+            assertTrue(connectedParcelleSameColor.contains(new Position(15,13)));
+            assertTrue(connectedParcelleSameColor.contains(new Position(14,14)));
+            assertTrue(connectedParcelleSameColor.contains(new Position(13,14)));
+            for(Position pos : connectedParcelleSameColor) {
+                Parcelle par = (Parcelle) plateau.getParcelle(pos);
+                assertTrue(par.getCouleur().equals(Couleur.ROSE));
+            }
+        }catch(Exception e){System.out.println(e);
+        }
     }
 
 }
