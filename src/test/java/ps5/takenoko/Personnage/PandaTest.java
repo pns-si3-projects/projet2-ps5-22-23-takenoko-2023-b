@@ -33,4 +33,26 @@ public class PandaTest {
             System.out.println(e);
         }
     }
+
+    @Test
+    void deplacer() {
+        Panda panda = new Panda(new Position(15,15));
+
+        Parcelle p1 = (Parcelle) plateau.getParcelle(new Position(14,14));
+        Parcelle p2 = (Parcelle) plateau.getParcelle(new Position(13,14));
+        Parcelle p3 = (Parcelle) plateau.getParcelle(new Position(15,13));
+        p1.setNbBamboo(4);
+        p2.setNbBamboo(3);
+        assertEquals(4,p1.getNbBamboo());
+        assertEquals(3,p2.getNbBamboo());
+        assertEquals(0,p3.getNbBamboo());
+
+        panda.deplacer(new Position(14,14),plateau);
+        panda.deplacer(new Position(15,13),plateau);
+        panda.deplacer(new Position(14,14),plateau);
+
+        assertEquals(2,p1.getNbBamboo());
+        assertEquals(3,p2.getNbBamboo());
+        assertEquals(0,p3.getNbBamboo());
+    }
 }
