@@ -8,8 +8,20 @@ public class ObjectifJardinier extends Objectif {
     private TypeObjJardinier type;
 
 
-    public ObjectifJardinier(TypeObjJardinier type, Couleur color, AmenagementType amenagement) {
+    public ObjectifJardinier(TypeObjJardinier type, Couleur color) {
         super(type.getDescription(), type.getPoint(), new Couleur[]{color});
+        switch(type){
+            case OBJMULTROSE :
+                super.couleurs = new Couleur[]{Couleur.ROSE};
+                break;
+            case OBJMULTJAUNE :
+                super.couleurs = new Couleur[]{Couleur.JAUNE};
+                break;
+            case OBJMULTVERT :
+                super.couleurs = new Couleur[]{Couleur.VERT};
+                break;
+            default: break;
+        }
         this.type = type;
 
     }
@@ -53,13 +65,12 @@ public class ObjectifJardinier extends Objectif {
     }
     @Override
     public int getPoint(){
+        if(type.isMultiple()) return super.getPoint();
         switch(couleurs[0]){
             case ROSE :
-                if(type.isMultiple()) return super.getPoint()-1;
-                else return super.getPoint()+1;
+                return super.getPoint()+1;
             case VERT:
-                if(type.isMultiple()) return super.getPoint()+1;
-                else return super.getPoint()-1;
+                return super.getPoint()-1;
             default:
                 return super.getPoint();
         }

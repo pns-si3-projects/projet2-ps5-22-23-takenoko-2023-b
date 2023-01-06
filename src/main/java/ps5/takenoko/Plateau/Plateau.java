@@ -161,4 +161,30 @@ public class Plateau {
     }
 
     public static int getTaille(){return TAILLE;}
+
+    public Boolean isPosable(Position p) {
+        if (p == null) {
+            return false;
+        }
+        if (this.getParcelle(p) instanceof Parcelle) {
+            return false;
+        }
+        if (this.getParcelle(p) instanceof ParcelleOriginelle) {
+            return false;
+        }
+        int cpt = 0;
+
+        for (Direction d : Direction.values()) {
+            if (this.getParcelle(p.getPositionByDirection(d)) == null) {
+            } else {
+                if (this.getParcelle(p.getPositionByDirection(d)) instanceof ParcelleOriginelle) {
+                    return true;
+                }
+                if (this.getParcelle(p.getPositionByDirection(d)) instanceof Parcelle) {
+                    cpt++;
+                }
+            }
+        }
+        return cpt > 1;
+    }
 }

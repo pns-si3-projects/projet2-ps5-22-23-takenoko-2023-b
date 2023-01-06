@@ -2,8 +2,6 @@ package ps5.takenoko.Objectif;
 
 import org.junit.jupiter.api.Test;
 import ps5.takenoko.Jeu.Jeu;
-import ps5.takenoko.Jeu.ObjectifList;
-import ps5.takenoko.Jeu.ParcelleList;
 import ps5.takenoko.Joueur.Joueur;
 import ps5.takenoko.Joueur.JoueurRandom;
 import ps5.takenoko.Plateau.Couleur;
@@ -48,12 +46,12 @@ class ObjectifJardinierTest {
         board.addParcelle(tileYellow3,new Position(14,14));
         board.addParcelle(tileYellow3,new Position(16,16));
 
-        Objectif objGreenNoA= new ObjectifJardinier(TypeObjJardinier.NOAMMENAGEMENT,Couleur.VERT);
-        Objectif objRedNoA= new ObjectifJardinier(TypeObjJardinier.NOAMMENAGEMENT,Couleur.ROSE);
-        Objectif objYellowNoA= new ObjectifJardinier(TypeObjJardinier.NOAMMENAGEMENT,Couleur.JAUNE);
-        Objectif objGreenMult= new ObjectifJardinier(TypeObjJardinier.MULTIPLE,Couleur.VERT);
-        Objectif objRedMult= new ObjectifJardinier(TypeObjJardinier.MULTIPLE,Couleur.ROSE);
-        Objectif objYellowMult= new ObjectifJardinier(TypeObjJardinier.MULTIPLE,Couleur.JAUNE);
+        Objectif objGreenNoA= new ObjectifJardinier(TypeObjJardinier.OBJVIDE,Couleur.VERT);
+        Objectif objRedNoA= new ObjectifJardinier(TypeObjJardinier.OBJVIDE,Couleur.ROSE);
+        Objectif objYellowNoA= new ObjectifJardinier(TypeObjJardinier.OBJVIDE,Couleur.JAUNE);
+        Objectif objGreenMult= new ObjectifJardinier(TypeObjJardinier.OBJMULTVERT,Couleur.VERT);
+        Objectif objRedMult= new ObjectifJardinier(TypeObjJardinier.OBJMULTROSE,Couleur.ROSE);
+        Objectif objYellowMult= new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE,Couleur.JAUNE);
         System.out.println(game.affichePlateau());
 
         assertTrue(objRedNoA.verifie(player));
@@ -66,5 +64,39 @@ class ObjectifJardinierTest {
 
 
 
+    }
+
+    @Test
+    void objVert(){
+        Couleur vert = Couleur.VERT;
+        assertEquals(5,new ObjectifJardinier(TypeObjJardinier.OBJVIDE,vert).getPoint());
+        assertEquals(4,new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,vert).getPoint());
+        assertEquals(4,new ObjectifJardinier(TypeObjJardinier.OBJENCLOS,vert).getPoint());
+        assertEquals(3,new ObjectifJardinier(TypeObjJardinier.OBJENGRAIS,vert).getPoint());
+
+        assertEquals(8,new ObjectifJardinier(TypeObjJardinier.OBJMULTVERT,vert).getPoint());
+    }
+
+    @Test
+    void objJaune(){
+        Couleur jaune = Couleur.JAUNE;
+        assertEquals(6,new ObjectifJardinier(TypeObjJardinier.OBJVIDE,jaune).getPoint());
+        assertEquals(5,new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,jaune).getPoint());
+        assertEquals(5,new ObjectifJardinier(TypeObjJardinier.OBJENCLOS,jaune).getPoint());
+        assertEquals(4,new ObjectifJardinier(TypeObjJardinier.OBJENGRAIS,jaune).getPoint());
+
+        assertEquals(7,new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE,jaune).getPoint());
+    }
+
+    @Test
+    void objRouge(){
+
+        Couleur rose = Couleur.ROSE;
+        assertEquals(7,new ObjectifJardinier(TypeObjJardinier.OBJVIDE,rose).getPoint());
+        assertEquals(6,new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,rose).getPoint());
+        assertEquals(6,new ObjectifJardinier(TypeObjJardinier.OBJENCLOS,rose).getPoint());
+        assertEquals(5,new ObjectifJardinier(TypeObjJardinier.OBJENGRAIS,rose).getPoint());
+
+        assertEquals(6,new ObjectifJardinier(TypeObjJardinier.OBJMULTROSE,rose).getPoint());
     }
 }

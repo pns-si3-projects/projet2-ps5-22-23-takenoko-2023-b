@@ -1,16 +1,15 @@
 package ps5.takenoko.Objectif;
 
 import ps5.takenoko.Element.AmenagementType;
-import ps5.takenoko.Plateau.Couleur;
 
 public enum TypeObjJardinier {
     OBJVIDE(),
     OBJBASSIN(),
     OBJENGRAIS(),
     OBJENCLOS(),
-    OBJMULT2(),
-    OBJMULT3(),
-    OBJMULT4();
+    OBJMULTROSE(),
+    OBJMULTJAUNE(),
+    OBJMULTVERT();
 
     private int points;
     private int nbBamboo;
@@ -20,26 +19,26 @@ public enum TypeObjJardinier {
     TypeObjJardinier(){
         switch(ordinal()){
             case 0 :
-                points=5;
-                nbBamboo=6;
+                points=6;
+                nbBamboo=4;
                 amenagementType = AmenagementType.EMPTY;
                 description="Objectif: Avoir sur le plateau une parcelle avec 4 bambous de la couleur de la carte objectif sans ammenagement";
                 break;
             case 1:
-                points=6;
-                nbBamboo=5;
+                points=5;
+                nbBamboo=4;
                 amenagementType = AmenagementType.BASSIN;
                 description="Objectif: Avoir sur le plateau une parcelle avec 4 bambous de la couleur de la carte objectif et avec un amenagement bassin";
                 break;
             case 2:
-                points=8;
+                points=4;
                 nbBamboo=4;
                 amenagementType = AmenagementType.ENGRAIS;
                 description="Objectif: Avoir sur le plateau une parcelle avec 4 bambous de la couleur de la carte objectif et avec un amenagement engrais";
                 break;
             case 3:
-                points=8;
-                nbBamboo=5;
+                points=5;
+                nbBamboo=4;
                 amenagementType = AmenagementType.ENCLOS;
                 description="Objectif: Avoir sur le plateau une parcelle avec 4 bambous de la couleur de la carte objectif et avec un amenagement enclos.";
                 break;
@@ -73,8 +72,8 @@ public enum TypeObjJardinier {
     }
 
     public boolean isMultiple(){
-        return ordinal() == OBJMULT2.ordinal()
-                || ordinal() == OBJMULT3.ordinal()
-                || ordinal() == OBJMULT4.ordinal();
+        return ordinal() == OBJMULTROSE.ordinal()
+                || ordinal() == OBJMULTJAUNE.ordinal()
+                || ordinal() == OBJMULTVERT.ordinal();
     }
 }
