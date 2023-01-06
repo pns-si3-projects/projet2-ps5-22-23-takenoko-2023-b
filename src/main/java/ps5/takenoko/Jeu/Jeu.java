@@ -28,6 +28,7 @@ public class Jeu {
 
     }
 
+
     //For tests purpose
     public Jeu(ArrayList<Joueur> joueurs,Plateau plateau, Jardinier pawnJardinier, Panda pawnPanda, ObjectifList objList, ParcelleList parcelleList, int nbObjFin) {
         this.joueurs = joueurs;
@@ -42,7 +43,6 @@ public class Jeu {
     public Plateau getPlateau() {
         return plateau;
     }
-
     public void lancer() {
         for(Joueur j: this.joueurs){
             j.setPlateau(this.plateau);
