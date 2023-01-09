@@ -52,11 +52,11 @@ public class Jeu {
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
-            System.out.println(this.affichePlateau());
+           // System.out.println(this.affichePlateau());
         }
         afficheResultat();
         for(Joueur j: joueurs){
-            System.out.println("Joueur "+j.getId()+" : "+j.getObjectifsObtenus().toString());
+           // System.out.println("Joueur "+j.getId()+" : "+j.getObjectifsObtenus().toString());
         }
     }
 
@@ -97,7 +97,7 @@ public class Jeu {
                         }
                         break;
             }
-            System.out.println(msg);
+           // System.out.println(msg);
             actionsPossibles = getActionsPossibles(j,actionChoisis);
             nbActions--;
             j.validerObjectifs();
@@ -146,10 +146,10 @@ public class Jeu {
         ArrayList<Joueur> gagnants = calculGagnants();
         if(gagnants.size()>1){
             //TODO: implement the case of a draw >=3 joueurs
-            System.out.println("Draw");
+           // System.out.println("Draw");
         }
         else{
-            System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
+           // System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
         }
     }
 
