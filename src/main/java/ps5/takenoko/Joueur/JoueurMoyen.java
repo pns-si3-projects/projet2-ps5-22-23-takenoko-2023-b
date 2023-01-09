@@ -52,7 +52,7 @@ public class JoueurMoyen extends Joueur{
 
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        if(getObjectifs().size() < this.MAX_OBJECTIFS){
+        if(getObjectifs().size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
         Collections.shuffle(actionsPossibles);
