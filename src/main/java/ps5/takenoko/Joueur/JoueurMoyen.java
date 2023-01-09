@@ -55,6 +55,13 @@ public class JoueurMoyen extends Joueur{
         if(getObjectifs().size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
+        if(actionsPossibles.contains(Action.PANDA)){
+            return Action.PANDA;
+        }
+        if(actionsPossibles.contains(Action.JARDINIER)){
+            return Action.JARDINIER;
+        }
+
         Collections.shuffle(actionsPossibles);
         return actionsPossibles.get(0);
     }
