@@ -124,7 +124,7 @@ public class Jeu {
         return actionsPossibles;
     }
 
-    private ArrayList<Joueur> calculGagnants() {
+    public ArrayList<Joueur> calculGagnants() {
         ArrayList<Joueur> js = new ArrayList<Joueur>();
         js.addAll(joueurs);
         js.sort(Collections.reverseOrder());
