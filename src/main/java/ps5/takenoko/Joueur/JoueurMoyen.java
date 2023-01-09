@@ -1,4 +1,61 @@
 package ps5.takenoko.Joueur;
 
-public class JoueurMoyen {
+import ps5.takenoko.Plateau.Parcelle;
+import ps5.takenoko.Plateau.Position;
+
+import java.util.*;
+
+public class JoueurMoyen extends Joueur{
+    public JoueurMoyen(int id) {
+        super(id);
+    }
+
+    @Override
+    public void poserParcelle(Parcelle p) {
+        getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
+    }
+    public Position getRandomPosition(Set<Position> positions){
+        int R = new Random().nextInt(positions.size());
+        Iterator<Position> iterator = positions.iterator(); //iterator is already random by itself
+        Position position = iterator.next();
+        while(R>0){
+            position = iterator.next();
+            R--;
+        }
+        return position;
+    }
+
+    /***
+     *
+     * Choisir 1 parcelle parmi les 3 et puis le poser sur le plateau
+     * @return
+     */
+    @Override
+    public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
+        Collections.shuffle(parcelles);
+        return parcelles.get(0);
+    }
+
+
+    public Position deplacerPersonnage(Set<Position> positionsPossibles) {
+        return getRandomPosition(positionsPossibles);
+    }
+
+    @Override
+    public Position deplacerJardinier(Set<Position> positionsPossibles) {
+        return deplacerPersonnage(positionsPossibles);
+    }
+    @Override
+    public Position deplacerPanda(Set<Position> positionsPossibles) {
+        return deplacerPersonnage(positionsPossibles);
+    }
+
+    @Override
+    public Action jouer(ArrayList<Action> actionsPossibles) {
+        if(getObjectifs().size() < this.MAX_OBJECTIFS){
+            return Action.OBJECTIFS;
+        }
+        Collections.shuffle(actionsPossibles);
+        return actionsPossibles.get(0);
+    }
 }

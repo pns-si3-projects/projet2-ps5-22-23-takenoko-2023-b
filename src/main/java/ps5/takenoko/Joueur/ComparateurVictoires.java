@@ -13,7 +13,7 @@ public class ComparateurVictoires {
         for (int i = 0; i < 1000; i++) {
             ArrayList<Joueur> joueurs = new ArrayList<>();
             joueurs.add(new JoueurRandom(1));
-            joueurs.add(new JoueurRandom(2));
+            joueurs.add(new JoueurMoyen(2));
             Jeu j = new Jeu(joueurs);
             j.lancer();
             int g = j.calculGagnants().get(0).getId();
