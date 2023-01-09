@@ -13,6 +13,8 @@ import java.util.Collections;
 
 
 public class Jeu {
+
+    private int cpt = 0;
     private static final int nbActions = 2;
     private int nbObjectifFin;
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
@@ -48,11 +50,17 @@ public class Jeu {
             j.setPlateau(this.plateau);
         }
         while (!estTermine()) {
+            cpt++;
             //TODO: Implementation of Meteo here (except the first round)
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
-           // System.out.println(this.affichePlateau());
+            if(cpt > 100000) {
+                System.out.println(this.affichePlateau());
+                for(Joueur j: joueurs){
+                    System.out.println(j.getObjectifs());
+                }
+            }
         }
         afficheResultat();
         for(Joueur j: joueurs){
