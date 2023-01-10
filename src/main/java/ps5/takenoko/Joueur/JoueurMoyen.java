@@ -3,6 +3,7 @@ package ps5.takenoko.Joueur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifJardinier;
 import ps5.takenoko.Objectif.ObjectifPanda;
+import ps5.takenoko.Objectif.ObjectifParcelle;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
@@ -36,6 +37,17 @@ public class JoueurMoyen extends Joueur{
     @Override
     public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
         Collections.shuffle(parcelles);
+        for(Objectif o : this.getObjectifs()) {
+            if(o instanceof ObjectifParcelle) {
+                for(int i = 0; i < o.getCouleurs().length; i++) {
+                    for(Parcelle p : parcelles) {
+                        if(o.getCouleurs()[i] == p.getCouleur()) {
+                            return p;
+                        }
+                    }
+                }
+            }
+        }
         return parcelles.get(0);
     }
 
