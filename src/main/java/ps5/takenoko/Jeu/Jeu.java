@@ -15,7 +15,7 @@ import java.util.Collections;
 
 public class Jeu {
 
-    public static final int NB_TOUR_MAX = 50000;
+    public static final int NB_TOUR_MAX = 5000;
     private int cpt = 0;
     private static final int nbActions = 2;
     private int nbObjectifFin;

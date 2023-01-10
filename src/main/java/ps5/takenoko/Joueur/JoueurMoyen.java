@@ -4,6 +4,8 @@ import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifJardinier;
 import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Objectif.ObjectifParcelle;
+import ps5.takenoko.Plateau.Couleur;
+import ps5.takenoko.Plateau.Direction;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
@@ -17,7 +19,26 @@ public class JoueurMoyen extends Joueur{
     @Override
     public void poserParcelle(Parcelle p) {
         getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
+        Set<Position> pospos = getPlateau().getEndroitsPosables();
+        boolean b = false;
+        //foreach pospos
+        for(Position pos : pospos){
+            for(Direction d : Direction.values()) {
+                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle) {
+                    Parcelle par = (Parcelle) getPlateau().getParcelle(pos.getPositionByDirection(d));
+                    if(par.getCouleur().equals(p.getCouleur())){
+                        getPlateau().addParcelle(p, pos);
+                        b = true;
+                        return ;
+                    }
+                }
+            }
+        }
+        if(!b){
+            getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
+        }
     }
+
     public Position getRandomPosition(Set<Position> positions){
         int R = new Random().nextInt(positions.size());
         Iterator<Position> iterator = positions.iterator(); //iterator is already random by itself
@@ -97,6 +118,12 @@ public class JoueurMoyen extends Joueur{
     public Action jouer(ArrayList<Action> actionsPossibles) {
         if(getObjectifs().size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
+        }
+        if(actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
+            return Action.PIOCHER_PARCELLES;
+        }
+        if(actionsPossibles.contains(Action.POSER_PARCELLES)){
+            return Action.POSER_PARCELLES;
         }
         if(actionsPossibles.contains(Action.PANDA)){
             return Action.PANDA;
