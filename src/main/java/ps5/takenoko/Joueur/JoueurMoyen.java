@@ -1,5 +1,8 @@
 package ps5.takenoko.Joueur;
 
+import ps5.takenoko.Objectif.Objectif;
+import ps5.takenoko.Objectif.ObjectifJardinier;
+import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
@@ -43,10 +46,38 @@ public class JoueurMoyen extends Joueur{
 
     @Override
     public Position deplacerJardinier(Set<Position> positionsPossibles) {
+        for(Objectif o : this.getObjectifs()) {
+            if(o instanceof ObjectifJardinier) {
+                for(Position p : positionsPossibles){
+                    for(int i = 0; i < o.getCouleurs().length; i++) {
+                        if(!getPlateau().getParcelle(p).estParcelleOriginnelle()) {
+                            Parcelle par = (Parcelle) getPlateau().getParcelle(p);
+                            if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() < 4) {
+                                return p;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return deplacerPersonnage(positionsPossibles);
     }
     @Override
     public Position deplacerPanda(Set<Position> positionsPossibles) {
+        for(Objectif o : this.getObjectifs()) {
+            if(o instanceof ObjectifPanda) {
+                for(Position p : positionsPossibles){
+                    for(int i = 0; i < o.getCouleurs().length; i++) {
+                        if(!getPlateau().getParcelle(p).estParcelleOriginnelle()) {
+                            Parcelle par = (Parcelle) getPlateau().getParcelle(p);
+                            if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() > 0) {
+                                return p;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return deplacerPersonnage(positionsPossibles);
     }
 

@@ -15,6 +15,7 @@ import java.util.Collections;
 
 public class Jeu {
 
+    public static final int NB_TOUR_MAX = 50000;
     private int cpt = 0;
     private static final int nbActions = 2;
     private int nbObjectifFin;
@@ -56,10 +57,10 @@ public class Jeu {
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
-            if(cpt > 100000) {
-                System.out.println(this.affichePlateau());
+            if(cpt > NB_TOUR_MAX) {
+                //System.out.println(this.affichePlateau());
                 for(Joueur j: joueurs){
-                    System.out.println(j.getObjectifs());
+                    //System.out.println(j.getObjectifs());
                 }
                 break;
             }
@@ -147,7 +148,7 @@ public class Jeu {
                 break;
             }
         }
-        if(cpt > 100000){
+        if(cpt > NB_TOUR_MAX){
             ArrayList<Joueur> error = new ArrayList<Joueur>();
             error.add(new JoueurRandom(-1));
             return error;
