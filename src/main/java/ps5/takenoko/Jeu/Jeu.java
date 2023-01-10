@@ -2,6 +2,7 @@ package ps5.takenoko.Jeu;
 
 import ps5.takenoko.Joueur.Action;
 import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Joueur.JoueurRandom;
 import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Personnage.Jardinier;
@@ -60,6 +61,7 @@ public class Jeu {
                 for(Joueur j: joueurs){
                     System.out.println(j.getObjectifs());
                 }
+                break;
             }
         }
         afficheResultat();
@@ -144,6 +146,11 @@ public class Jeu {
             } else {
                 break;
             }
+        }
+        if(cpt > 100000){
+            ArrayList<Joueur> error = new ArrayList<Joueur>();
+            error.add(new JoueurRandom(-1));
+            return error;
         }
         return gagnants;
     }

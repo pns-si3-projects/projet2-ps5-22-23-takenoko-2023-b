@@ -12,6 +12,7 @@ public class ComparateurVictoires {
         ArrayList<Float> points = new ArrayList<>();
         points.add((float) 0);
         points.add((float) 0);
+        points.add((float) 0);
         for (int i = 0; i < nbparties; i++) {
             if(i%100==0) System.out.println(i);
             ArrayList<Joueur> joueurs = new ArrayList<>();
@@ -20,9 +21,16 @@ public class ComparateurVictoires {
             Jeu j = new Jeu(joueurs);
             j.lancer();
             int g = j.calculGagnants().get(0).getId();
-            points.set(g - 1, points.get(g - 1) + 1);
+            if(j.calculGagnants().size()>1) {
+                points.set(0, points.get(0) + 1);
+            } else if(g != -1) {
+                points.set(g, points.get(g) + 1);
+            } else {
+                i--;
+            }
         }
-        System.out.println("Joueur 1 : " + (points.get(0) / nbparties * 100)  + "%");
-        System.out.println("Joueur 2 : " + (points.get(1) / nbparties * 100) + "%");
+        System.out.println("Draw : " + (points.get(0) / nbparties * 100)  + "%");
+        System.out.println("Joueur 1 : " + (points.get(1) / nbparties * 100)  + "%");
+        System.out.println("Joueur 2 : " + (points.get(2) / nbparties * 100) + "%");
     }
 }
