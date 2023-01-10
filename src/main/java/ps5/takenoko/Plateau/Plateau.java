@@ -15,8 +15,10 @@ public class Plateau {
     }
 
     private Set<Position> parcellePosee = new HashSet<Position>();
-
     private Set<Position> parcelleDisponible = new HashSet<Position>();
+
+    private Set<Bordure> irrigationPosee = new HashSet<Position>();
+    private Set<Bordure> irrigationDisponible = new HashSet<Position>();
 
     public Plateau() {
         this.plateau = new ParcelleInactive[TAILLE][TAILLE];
@@ -32,6 +34,7 @@ public class Plateau {
         for(Direction d : Direction.values()) {
             parcelleDisponible.add(centre.getPositionByDirection(d));
         }
+        irrigationPosee.add()
     }
 
     public Set<Position> getParcellePosee() {

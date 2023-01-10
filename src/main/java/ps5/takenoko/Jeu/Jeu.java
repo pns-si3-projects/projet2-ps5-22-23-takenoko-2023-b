@@ -196,15 +196,10 @@ public class Jeu {
     }
 
     public String affichePlateau(){
-        int ParcelleGauche=0;
         String result="";
 
-        for(int x=1;x<15 && ParcelleGauche==0;x++) for(int y=1;y<plateau.getTaille()-1 && ParcelleGauche==0;y++){
-            if(plateau.getPlateau()[x][y] instanceof Parcelle)ParcelleGauche=x;
-        }if(ParcelleGauche==0) ParcelleGauche=15;
-
         for(int y=0;y<plateau.getTaille()-1;y++) {
-            String lignes[] = ligneToString(y);
+            String[] lignes = ligneToString(y);
             if(!lignes[0].matches("^\s+$")) result+=lignes[0]+"\n";
             if(!lignes[1].matches("^\s+$")) result+=lignes[1]+"\n";
         }
@@ -212,11 +207,11 @@ public class Jeu {
     }
 
     private String[] ligneToString(int y){
-        String result[] = {"",""};
+        String[] result = {"",""};
         if(y%2==0)result= new String[]{"  ", "  "};
 
         for(int x=1;x<Plateau.getTaille()-1;x++) {
-            String retour[] = parcelleToString(new Position(x, y));
+            String[] retour = parcelleToString(new Position(x, y));
             result[0]+=retour[0]; result[1]+=retour[1];
         }
         return result;
@@ -230,25 +225,18 @@ public class Jeu {
             Parcelle parcelle = (Parcelle) plateau.getParcelle(pos);
             //Creation du contenu de la parcelle
             // get nbBambou + Couleur
-            switch(parcelle.getCouleur()){
-                case ROSE :
-                    content=CSL_ROUGE+parcelle.getNbBamboo()+CSL_RESET;
-                    break;
-                case VERT :
-                    content=CSL_VERT+parcelle.getNbBamboo()+CSL_RESET;
-                    break;
-                case JAUNE:
-                    content=CSL_JAUNE+parcelle.getNbBamboo()+CSL_RESET;
-                    break;
-            }
+            content = switch (parcelle.getCouleur()) {
+                case ROSE -> CSL_ROUGE + parcelle.getNbBamboo();
+                case VERT -> CSL_VERT + parcelle.getNbBamboo();
+                case JAUNE -> CSL_JAUNE + parcelle.getNbBamboo();
+            };
             // get Ammenagement
-           /* switch(parcelle.getAmenagement().getType()){
-                case ENCLOS: content+="Ec"; break;
-                case ENGRAIS: content+="Eg"; break;
-                case BASSIN: content+="Ba"; break;
-                default:content = " "+content+" ";
-            }*/
-            content = " "+content+" ";
+            switch (parcelle.getAmenagement().getType()) {
+                case ENCLOS -> content += "Ec" + CSL_RESET;
+                case ENGRAIS -> content += "Eg" + CSL_RESET;
+                case BASSIN -> content += "Ba" + CSL_RESET;
+                default -> content = " " + content + " " + CSL_RESET;
+            }
 
         }else if(current.estParcelleOriginnelle())content = CSL_BLEU+" E "+CSL_RESET;
         content = afficheBordure(pos, Direction.OUEST) + content;
@@ -283,13 +271,14 @@ public class Jeu {
         if(
                 parcelle.estParcelleOriginnelle()
                         || autreParcelle.estParcelleOriginnelle()
+                //TODO changer la couleur quand il y a une irrigation : || listeBordure.contains(new Bordure(pos,pos.getPositionByDirection(dir)))
         ) return CSL_BLEU+border+CSL_RESET;
         else return border;
 
     }
 
     private String afficheJardinier(Position pos){
-        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier.getPosition())) return CSL_VIOLET+"J"+CSL_RESET;
+        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier.getPosition())) return CSL_BLEU+"J"+CSL_RESET;
         return " ";
     }
 
