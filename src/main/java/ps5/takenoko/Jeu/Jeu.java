@@ -270,8 +270,8 @@ public class Jeu {
         }
         if(
                 parcelle.estParcelleOriginnelle()
-                        || autreParcelle.estParcelleOriginnelle()
-                //TODO changer la couleur quand il y a une irrigation : || listeBordure.contains(new Bordure(pos,pos.getPositionByDirection(dir)))
+                    || autreParcelle.estParcelleOriginnelle()
+                    || plateau.getBordurePosee().contains(new Bordure(pos,dir))
         ) return CSL_BLEU+border+CSL_RESET;
         else return border;
 

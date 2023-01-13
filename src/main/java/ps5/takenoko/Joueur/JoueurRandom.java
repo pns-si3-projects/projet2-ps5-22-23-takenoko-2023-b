@@ -6,6 +6,7 @@ import ps5.takenoko.Plateau.Position;
 import java.util.*;
 
 public class JoueurRandom extends Joueur{
+    Random Rdm = new Random();
 
     public JoueurRandom(int id) {
         super(id);
@@ -16,7 +17,7 @@ public class JoueurRandom extends Joueur{
         getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
     }
     public Position getRandomPosition(Set<Position> positions){
-        int R = new Random().nextInt(positions.size());
+        int R = Rdm.nextInt(positions.size());
         Iterator<Position> iterator = positions.iterator(); //iterator is already random by itself
         Position position = iterator.next();
         while(R>0){

@@ -2,6 +2,7 @@ package ps5.takenoko.Plateau;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Bordure {
     private enum BordureDir{
@@ -11,21 +12,54 @@ public class Bordure {
     }
     private Position pos1;
     private Position pos2;
+
+    public Bordure(Position pos, Direction dir) {
+        this(pos,pos.getPositionByDirection(dir));
+    }
     public Bordure(Position pos1, Position pos2){
         if(pos1 == null || pos2==null) throw new IllegalArgumentException();
+        if(
+                pos1.getPositionByDirection(Direction.EST).equals(pos2)
+                || pos1.getPositionByDirection(Direction.SUD_OUEST).equals(pos2)
+                || pos1.getPositionByDirection(Direction.SUD_EST).equals(pos2)
+        ){
+            this.pos1 = pos1;
+            this.pos2 = pos2;
+        }
+        else if(
+                pos1.getPositionByDirection(Direction.NORD_OUEST).equals(pos2)
+                    || pos1.getPositionByDirection(Direction.NORD_EST).equals(pos2)
+                    || pos1.getPositionByDirection(Direction.OUEST).equals(pos2)
+        ){
+            this.pos1 = pos2;
+            this.pos2 = pos1;
 
-        this.pos1 = pos1;
-        this.pos2 = pos2;
+        }else throw new IllegalArgumentException("Les parcelles ne sont pas a cote");
     }
 
-    public boolean equals(Bordure other){
-        if(this == other) return true;
+    public Position getPos1() {
+        return pos1;
+    }
+
+    public Position getPos2() {
+        return pos2;
+    }
+
+    @Override
+    public boolean equals(Object object){
+        if(this == object) return true;
         if(
-            other ==null
-            || this.getClass()!= other.getClass()
+            object ==null
+            || this.getClass()!= object.getClass()
         )return false;
 
-        return (pos1.equals(other.pos1) && pos2.equals(other.pos2)) || (pos1.equals(other.pos2) && pos2.equals(other.pos1));
+        Bordure other = (Bordure) object;
+        return (pos1.equals(other.pos1) && pos2.equals(other.pos2));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pos1, pos2);
     }
 
     public List<Bordure> adjacentBorder(){
@@ -49,9 +83,6 @@ public class Bordure {
                 result.add(new Bordure(pos2, pos2.getPositionByDirection(Direction.EST)));
                 result.add(new Bordure(pos2, pos2.getPositionByDirection(Direction.NORD_OUEST)));
             }
-            default -> {
-                throw new Exception ;
-            }
         }
         return result;
     }
@@ -67,6 +98,9 @@ public class Bordure {
         else if(pos1.getPositionByDirection(Direction.SUD_OUEST).equals(pos2)){
             return BordureDir.DIAGONALE_NO_SE;
         }
-        return null;
+        throw new NullPointerException();
+    }
+    public String toString(){
+        return "["+pos1.toString()+","+pos2.toString()+"]";
     }
 }
