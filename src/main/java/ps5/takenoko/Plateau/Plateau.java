@@ -32,6 +32,9 @@ public class Plateau {
         plateau[centre.getX()][centre.getY()] = etang;
         parcellePosee.add(centre);
         for(Direction d : Direction.values()) {
+            parcelleDisponible.add(centre.getPositionByDirection(d));
+        }
+        for(Direction d : Direction.values()) {
             bordurePosee.add(new Bordure (centre,centre.getPositionByDirection(d)));
         }
     }
