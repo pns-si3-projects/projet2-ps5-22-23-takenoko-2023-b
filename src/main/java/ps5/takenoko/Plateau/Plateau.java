@@ -35,7 +35,10 @@ public class Plateau {
             parcelleDisponible.add(centre.getPositionByDirection(d));
         }
         for(Direction d : Direction.values()) {
-            bordurePosee.add(new Bordure (centre,centre.getPositionByDirection(d)));
+            Bordure initial = new Bordure (centre,centre.getPositionByDirection(d));
+            bordurePosee.add(initial);
+            miseAJourBordurePosable(initial);
+
         }
     }
 
@@ -60,22 +63,39 @@ public class Plateau {
         this.plateau[x][y] = p;
         parcellePosee.add(pos);
         miseAJourParcellePosable(pos);
+        miseAJourBordurePosable(pos);
+    }
+
+    private void miseAJourBordurePosable(Position pos) {
+        for(Direction dir : Direction.values()){
+            Bordure current = new Bordure(pos,pos.getPositionByDirection(dir));
+            if(!(entreParcelles(current)))continue;
+            for(Bordure voisin : current.adjacentBorder()){
+                if(bordurePosee.contains(voisin)){
+                    bordureDisponible.add(current);
+                    break;
+                }
+            }
+
+        }
+    }
+    private void miseAJourBordurePosable(Bordure border) {
+        List<Bordure> adjacents = border.adjacentBorder();
+        for(Bordure voisin : adjacents){
+            if(entreParcelles(voisin))bordureDisponible.add(voisin);
+        }
+    }
+
+    public boolean entreParcelles(Bordure border){
+        return (getParcelle(border.getPos1()) instanceof Parcelle) && (getParcelle(border.getPos2()) instanceof Parcelle);
     }
 
     public void miseAJourParcellePosable(Position pos){
         parcelleDisponible.remove(pos);
 
         for(Direction d : Direction.values()) {
-            Bordure border = new Bordure(pos, pos.getPositionByDirection(d));
             if(positionPosable(pos.getPositionByDirection(d))) {
                 parcelleDisponible.add(pos.getPositionByDirection(d));
-            }
-            if(
-                    bordurePosee.contains(border) ||
-                        bordureDisponible.contains(border)
-            )continue;
-            if(getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle){
-                bordureDisponible.add(border);
             }
         }
     }
@@ -181,9 +201,18 @@ public class Plateau {
 
         bordureDisponible.remove(border);
         bordurePosee.add(border);
+        miseAJourBordurePosable(border);
         //TODO: mettre a jour le status des parcelles
         return true;
 
+    }
+
+    public boolean adjacentIrrigue(Bordure border){
+        List<Bordure> adjacent = border.adjacentBorder();
+        for(Bordure unit : adjacent){
+            if(bordurePosee.contains(unit)) return true;
+        }
+        return false;
     }
 
     public static int getTaille(){return TAILLE;}

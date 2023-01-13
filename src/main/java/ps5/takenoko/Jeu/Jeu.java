@@ -273,12 +273,13 @@ public class Jeu {
                     || autreParcelle.estParcelleOriginnelle()
                     || plateau.getBordurePosee().contains(new Bordure(pos,dir))
         ) return CSL_BLEU+border+CSL_RESET;
-        else return border;
+        else if(plateau.getBordureDisponible().contains(new Bordure(pos,dir))) return border;
+        else return CSL_NOIR+border+CSL_RESET;
 
     }
 
     private String afficheJardinier(Position pos){
-        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier.getPosition())) return CSL_BLEU+"J"+CSL_RESET;
+        if(pos.getPositionByDirection(Direction.SUD_OUEST).equals(jardinier.getPosition())) return CSL_VIOLET+"J"+CSL_RESET;
         return " ";
     }
 

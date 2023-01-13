@@ -131,6 +131,16 @@ class PlateauTest {
         plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,14));
         plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,15));
         plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,16));
+        System.out.println(game.affichePlateau());
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(16,14));
+        System.out.println(game.affichePlateau());
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(17,15));
+        System.out.println(game.affichePlateau());
+
+        assertTrue(plateau.addBordure(new Position(16,15),new Position(16,14)));
+        System.out.println(game.affichePlateau());
     }
 
 }
