@@ -17,8 +17,8 @@ public class Plateau {
     private Set<Position> parcellePosee = new HashSet<Position>();
     private Set<Position> parcelleDisponible = new HashSet<Position>();
 
-    private Set<Bordure> irrigationPosee = new HashSet<Position>();
-    private Set<Bordure> irrigationDisponible = new HashSet<Position>();
+    private Set<Bordure> bordurePosee = new HashSet<Bordure>();
+    private Set<Bordure> bordureDisponible = new HashSet<Bordure>();
 
     public Plateau() {
         this.plateau = new ParcelleInactive[TAILLE][TAILLE];
@@ -32,13 +32,20 @@ public class Plateau {
         plateau[centre.getX()][centre.getY()] = etang;
         parcellePosee.add(centre);
         for(Direction d : Direction.values()) {
-            parcelleDisponible.add(centre.getPositionByDirection(d));
+            bordurePosee.add(new Bordure (centre,centre.getPositionByDirection(d)));
         }
-        irrigationPosee.add()
     }
 
     public Set<Position> getParcellePosee() {
         return parcellePosee;
+    }
+
+    public Set<Bordure> getBordurePosee() {
+        return bordurePosee;
+    }
+
+    public Set<Bordure> getBordureDisponible() {
+        return bordureDisponible;
     }
 
     public void addParcelle(Parcelle p, Position pos) {
@@ -54,9 +61,18 @@ public class Plateau {
 
     public void miseAJourParcellePosable(Position pos){
         parcelleDisponible.remove(pos);
+
         for(Direction d : Direction.values()) {
+            Bordure border = new Bordure(pos, pos.getPositionByDirection(d));
             if(positionPosable(pos.getPositionByDirection(d))) {
                 parcelleDisponible.add(pos.getPositionByDirection(d));
+            }
+            if(
+                    bordurePosee.contains(border) ||
+                        bordureDisponible.contains(border)
+            )continue;
+            if(getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle){
+                bordureDisponible.add(border);
             }
         }
     }
@@ -135,6 +151,36 @@ public class Plateau {
             }
         } while (size < connectedParcelle.size());
         return new ArrayList<Position>(connectedParcelle);
+    }
+
+    /**
+     * Essaye d'ajouter une irrigation sur la position cible, renvois true si elle a reussis sinon renvois faux
+     * @param pos1 position d'une parcelle existante
+     * @param dir emplacement de l'irrigation par rapport au centre de la parcelle
+     * @return boolean si l'irrigation a ete pose.
+     */
+    public boolean addBordure(Position pos1,Direction dir){ return addBordure(pos1,pos1.getPositionByDirection(dir));}
+
+    /**
+     * Essaye d'ajouter une irrigation sur la position cible, renvois true si elle a reussis sinon renvois faux
+     * @param pos1 position d'une parcelle existante
+     * @param pos2 emplacement de la seconde parcelle
+     * @return renvois "true" si l'irrigation a ete pose.
+     */
+    public boolean addBordure(Position pos1,Position pos2) {
+        boolean valid = false;
+        for (Direction dir : Direction.values()) if(pos1.getPositionByDirection(dir).equals(pos2)) valid = true;
+        if(!valid)throw new IllegalArgumentException("les positions ne sont pas adjacentes");
+
+        Bordure border = new Bordure(pos1,pos2);
+
+        if (!bordureDisponible.contains(border)) return false;
+
+        bordureDisponible.remove(border);
+        bordurePosee.add(border);
+        //TODO: mettre a jour le status des parcelles
+        return true;
+
     }
 
     public static int getTaille(){return TAILLE;}

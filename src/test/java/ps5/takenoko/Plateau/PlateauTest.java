@@ -2,6 +2,10 @@ package ps5.takenoko.Plateau;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.Jeu.Jeu;
+import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Joueur.JoueurMoyen;
+import ps5.takenoko.Joueur.JoueurRandom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,6 +104,33 @@ class PlateauTest {
             }
         }catch(Exception e){System.out.println(e);
         }
+    }
+
+    @Test
+    void initialBorders(){
+        JoueurRandom rdm0 = new JoueurRandom(0);
+        JoueurRandom rdm1 = new JoueurRandom(11);
+        ArrayList<Joueur> players = new ArrayList<>();
+        players.add(rdm0); players.add(rdm1);
+        Jeu game = new Jeu(players);
+        Plateau plateau = game.getPlateau();
+
+
+
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(16,15));
+
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(15,14));
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(15,16));
+
+        Position East = new Position(16,15);
+        assertTrue(plateau.addBordure(East,East.getPositionByDirection(Direction.NORD_OUEST)));
+        assertTrue(plateau.addBordure(East,East.getPositionByDirection(Direction.SUD_OUEST)));
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,14));
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,15));
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,16));
     }
 
 }
