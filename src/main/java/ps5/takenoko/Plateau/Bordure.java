@@ -60,7 +60,7 @@ public class Bordure {
     @Override
     public int hashCode() {
         return Objects.hash(pos1, pos2);
-    }
+}
 
     public List<Bordure> adjacentBorder(){
         ArrayList<Bordure> result = new ArrayList<>();
@@ -82,6 +82,9 @@ public class Bordure {
                 result.add(new Bordure(pos1, pos1.getPositionByDirection(Direction.SUD_EST)));
                 result.add(new Bordure(pos2, pos2.getPositionByDirection(Direction.EST)));
                 result.add(new Bordure(pos2, pos2.getPositionByDirection(Direction.NORD_OUEST)));
+            }
+            default -> {
+                throw new IllegalArgumentException("Cette direction n'existe pas");
             }
         }
         return result;
