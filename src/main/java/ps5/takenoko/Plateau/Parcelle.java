@@ -11,6 +11,16 @@ public class Parcelle extends ParcelleInactive{
     private Amenagement amenagement = new Amenagement();
     private int nbBamboo = 0;
 
+    public boolean isIrrigue() {
+        return irrigue;
+    }
+
+    public void irrigue() {
+        this.irrigue = true;
+    }
+
+    private boolean irrigue = false;
+
 
     public Parcelle() {
         Random R = new Random();

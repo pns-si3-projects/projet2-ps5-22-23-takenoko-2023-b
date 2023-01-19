@@ -62,8 +62,17 @@ public class Plateau {
         }
         this.plateau[x][y] = p;
         parcellePosee.add(pos);
+        if(nextToOrigin(pos)) p.irrigue();
         miseAJourParcellePosable(pos);
         miseAJourBordurePosable(pos);
+    }
+
+    public boolean nextToOrigin(Position pos){
+        Position center = new Position(TAILLE/2,TAILLE/2);
+        for(Direction dir : Direction.values()){
+            if(center.getPositionByDirection(dir).equals(pos))return true;
+        }
+        return false;
     }
 
     private void miseAJourBordurePosable(Position pos) {
@@ -202,7 +211,8 @@ public class Plateau {
         bordureDisponible.remove(border);
         bordurePosee.add(border);
         miseAJourBordurePosable(border);
-        //TODO: mettre a jour le status des parcelles
+        ((Parcelle) getParcelle(pos1)).irrigue();
+        ((Parcelle) getParcelle(pos2)).irrigue();
         return true;
 
     }
