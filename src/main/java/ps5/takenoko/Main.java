@@ -16,5 +16,13 @@ public class Main {
         joueurs.add(new JoueurRandom(2));
         Jeu j = new Jeu(joueurs);
         j.lancer();
+
+
+        Plateau plateau = j.getPlateau();
+        for(Position pos : plateau.getParcellePosee()){
+            if( plateau.getParcelle(pos) instanceof Parcelle parcelle){
+                System.out.println(pos+" : "+parcelle.estIrrigue());
+            }
+        }
     }
 }

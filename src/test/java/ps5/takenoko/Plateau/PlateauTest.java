@@ -147,4 +147,17 @@ class PlateauTest {
         assertEquals(7,sum);
     }
 
+    @Test
+    void nextToOriginTest(){
+        Position center = new Position(Plateau.getTaille()/2,Plateau.getTaille()/2);
+        ArrayList<Position> adjacentCenter = new ArrayList<>();
+        for (Direction dir : Direction.values()) adjacentCenter.add(center.getPositionByDirection(dir));
+
+        for(int y=1;y<Plateau.getTaille()-1;y++) for(int x=1;x<Plateau.getTaille()-1;x++){
+            Position current = new Position(x,y);
+            if(adjacentCenter.contains(current)) assertTrue(plateau.nextToOrigin(current));
+            else assertFalse(plateau.nextToOrigin(current));
+        }
+    }
+
 }

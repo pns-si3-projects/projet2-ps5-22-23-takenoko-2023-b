@@ -20,11 +20,8 @@ public class Jardinier extends Deplacable {
             this.setPosition(position);
             ArrayList<Position> positions = plateau.getConnectedParcelleSameColor(position);
             for(Position p : positions) {
-                if(!(plateau.getParcelle(p) instanceof ParcelleOriginelle)) {
-                    Parcelle temp = (Parcelle) plateau.getParcelle(p);
-                    if (temp.estIrrigue()) {
-                        temp.augmenteBamboo();
-                    }
+                if(plateau.getParcelle(p) instanceof Parcelle temp) {
+                    temp.augmenteBamboo();
                 }
             }
             return true;
