@@ -4,10 +4,7 @@ import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Objectif.ObjectifJardinier;
 import ps5.takenoko.Objectif.ObjectifPanda;
 import ps5.takenoko.Objectif.ObjectifParcelle;
-import ps5.takenoko.Plateau.Couleur;
-import ps5.takenoko.Plateau.Direction;
-import ps5.takenoko.Plateau.Parcelle;
-import ps5.takenoko.Plateau.Position;
+import ps5.takenoko.Plateau.*;
 
 import java.util.*;
 
@@ -112,6 +109,20 @@ public class JoueurMoyen extends Joueur{
             }
         }
         return deplacerPersonnage(positionsPossibles);
+    }
+
+    @Override
+    public void placerIrrigation(){
+        Random Rdm = new Random();
+        Set<Bordure> bordures = getPlateau().getBordureDisponible();
+        int R = Rdm.nextInt(bordures.size());
+        Iterator<Bordure> iterator = bordures.iterator(); //iterator is already random by itself
+        Bordure bordure = iterator.next();
+        while(R>0){
+            bordure = iterator.next();
+            R--;
+        }
+        getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
     }
 
     @Override
