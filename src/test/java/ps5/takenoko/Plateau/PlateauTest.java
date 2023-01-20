@@ -141,7 +141,7 @@ class PlateauTest {
         //System.out.println(game.affichePlateau());
         int sum=0;
         for(Position p : plateau.getParcellePosee()){
-            if(plateau.getParcelle(p) instanceof Parcelle parc) if (parc.isIrrigue()) sum++;
+            if(plateau.getParcelle(p) instanceof Parcelle parc) if (parc.estIrrigue()) sum++;
 
         }
         assertEquals(7,sum);
