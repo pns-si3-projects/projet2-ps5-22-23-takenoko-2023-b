@@ -166,7 +166,7 @@ public abstract class Joueur implements Comparable<Joueur>{
 
     //TODO:
     public void placerIrrigation(){
-
+        this.nbIrrigations--;
     }
 
 

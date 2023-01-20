@@ -82,7 +82,7 @@ public class JoueurMoyen extends Joueur{
                     for(int i = 0; i < o.getCouleurs().length; i++) {
                         if(!getPlateau().getParcelle(p).estParcelleOriginnelle()) {
                             Parcelle par = (Parcelle) getPlateau().getParcelle(p);
-                            if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() < 4) {
+                            if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() < 4 && par.estIrrigue()) {
                                 return p;
                             }
                         }
@@ -123,6 +123,7 @@ public class JoueurMoyen extends Joueur{
             R--;
         }
         getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
+        super.placerIrrigation();
     }
 
     @Override

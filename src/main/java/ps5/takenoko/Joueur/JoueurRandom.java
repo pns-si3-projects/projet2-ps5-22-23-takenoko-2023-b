@@ -70,5 +70,6 @@ public class JoueurRandom extends Joueur{
             R--;
         }
         getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
+        super.placerIrrigation();
     }
 }
