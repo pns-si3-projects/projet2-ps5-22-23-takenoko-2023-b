@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ComparateurVictoires {
 
-    private static int nbparties = 1000;
+    private static int nbparties = 10000;
 
     public static void main(String... args) throws IllegalAccessException {
         ArrayList<Float> points = new ArrayList<>();
@@ -19,6 +19,7 @@ public class ComparateurVictoires {
             joueurs.add(new JoueurRandom(1));
             joueurs.add(new JoueurMoyen(2));
             Jeu j = new Jeu(joueurs);
+            j.setAffichage(false);
             j.lancer();
             int g = j.calculGagnants().get(0).getId();
             if(j.calculGagnants().size()>1) {

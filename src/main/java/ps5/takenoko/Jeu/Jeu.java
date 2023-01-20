@@ -26,6 +26,8 @@ public class Jeu {
     private ObjectifList objectifList = new ObjectifList();
     private ParcelleList parcellesList = new ParcelleList();
 
+    private Boolean affichage = true;
+
     public Jeu(ArrayList<Joueur> joueurs) {
         this.joueurs = joueurs;
         setNbObjectifFin();
@@ -56,7 +58,9 @@ public class Jeu {
             //TODO: Implementation of Meteo here (except the first round)
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
-                System.out.println(this.affichePlateau());
+                if(this.affichage) {
+                    System.out.println(this.affichePlateau());
+                }
             }
             if(cpt > NB_TOUR_MAX) {
                 //System.out.println(this.affichePlateau());
@@ -66,9 +70,11 @@ public class Jeu {
                 break;
             }
         }
-        afficheResultat();
-        for(Joueur j: joueurs){
-            System.out.println("Joueur "+j.getId()+" : "+j.getObjectifsObtenus().toString());
+        if(this.affichage) {
+            afficheResultat();
+            for (Joueur j : joueurs) {
+                System.out.println("Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
+            }
         }
     }
 
@@ -116,7 +122,9 @@ public class Jeu {
                         }
                         break;
             }
-            System.out.println(msg);
+            if(this.affichage) {
+                System.out.println(msg);
+            }
             actionsPossibles = getActionsPossibles(j,actionChoisis);
             nbActions--;
             j.validerObjectifs();
@@ -331,5 +339,9 @@ public class Jeu {
         for (Joueur player : joueurs){
             player.setPlateau(value);
         }
+    }
+
+    public void setAffichage(Boolean value) {
+        affichage = value;
     }
 }
