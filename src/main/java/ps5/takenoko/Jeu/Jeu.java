@@ -2,6 +2,7 @@ package ps5.takenoko.Jeu;
 
 import ps5.takenoko.Joueur.Action;
 import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Joueur.JoueurRandom;
 import ps5.takenoko.Objectif.Empereur;
 import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Personnage.Jardinier;
@@ -13,6 +14,9 @@ import java.util.Collections;
 
 
 public class Jeu {
+
+    public static final int NB_TOUR_MAX = 5000;
+    private int cpt = 0;
     private static final int nbActions = 2;
     private int nbObjectifFin;
     private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
@@ -48,15 +52,22 @@ public class Jeu {
             j.setPlateau(this.plateau);
         }
         while (!estTermine()) {
+            cpt++;
             //TODO: Implementation of Meteo here (except the first round)
             for(Joueur j: joueurs){
                 tourJoueur(j,nbActions);
             }
-            System.out.println(this.affichePlateau());
+            if(cpt > NB_TOUR_MAX) {
+                //System.out.println(this.affichePlateau());
+                for(Joueur j: joueurs){
+                    //System.out.println(j.getObjectifs());
+                }
+                break;
+            }
         }
         afficheResultat();
         for(Joueur j: joueurs){
-            System.out.println("Joueur "+j.getId()+" : "+j.getObjectifsObtenus().toString());
+           // System.out.println("Joueur "+j.getId()+" : "+j.getObjectifsObtenus().toString());
         }
     }
 
@@ -97,7 +108,7 @@ public class Jeu {
                         }
                         break;
             }
-            System.out.println(msg);
+           // System.out.println(msg);
             actionsPossibles = getActionsPossibles(j,actionChoisis);
             nbActions--;
             j.validerObjectifs();
@@ -124,7 +135,7 @@ public class Jeu {
         return actionsPossibles;
     }
 
-    private ArrayList<Joueur> calculGagnants() {
+    public ArrayList<Joueur> calculGagnants() {
         ArrayList<Joueur> js = new ArrayList<Joueur>();
         js.addAll(joueurs);
         js.sort(Collections.reverseOrder());
@@ -137,6 +148,11 @@ public class Jeu {
                 break;
             }
         }
+        if(cpt > NB_TOUR_MAX){
+            ArrayList<Joueur> error = new ArrayList<Joueur>();
+            error.add(new JoueurRandom(-1));
+            return error;
+        }
         return gagnants;
     }
 
@@ -146,10 +162,10 @@ public class Jeu {
         ArrayList<Joueur> gagnants = calculGagnants();
         if(gagnants.size()>1){
             //TODO: implement the case of a draw >=3 joueurs
-            System.out.println("Draw");
+           // System.out.println("Draw");
         }
         else{
-            System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
+           // System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
         }
     }
 

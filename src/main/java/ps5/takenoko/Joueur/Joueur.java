@@ -10,7 +10,7 @@ import ps5.takenoko.Plateau.Position;
 import java.util.*;
 
 public abstract class Joueur implements Comparable<Joueur>{
-    private final int MAX_OBJECTIFS = 5 ;
+    final int MAX_OBJECTIFS = 5 ;
     
     private final int MAX_PARCELLES =12;
     private final int id;
