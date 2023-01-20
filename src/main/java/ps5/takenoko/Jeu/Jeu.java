@@ -84,6 +84,13 @@ public class Jeu {
             String msg = "Joueur "+j.getId()+" a choisi action " + actionChoisi.toString();
 
             switch(actionChoisi){
+                case PIOCHER_CALNAL_DIRRIGATION:
+                    j.ajouteIrrigation();
+                    break;
+                case POSER_CANAL_DIRRIGATION:
+                    nbActions++;
+                    j.placerIrrigation();
+                    break;
                 case PIOCHER_PARCELLES:
                     Parcelle parcellePioche = this.piocherParcelles(j);
                     msg += " et a pioché une " + parcellePioche + " puis l'a placé sur le plateau";
@@ -129,7 +136,10 @@ public class Jeu {
             actionsPossibles.add(Action.OBJECTIFS);
         }
         //TODO: implements conditions for irrigation
-
+        actionsPossibles.add(Action.PIOCHER_CALNAL_DIRRIGATION);
+        if(j.getNbIrrigations() > 0 && this.plateau.getBordureDisponible().size() > 0) {
+            actionsPossibles.add(Action.POSER_CANAL_DIRRIGATION);
+        }
         //TODO : les actions doivent être différentes sauf si Meteo = VENT
         actionsPossibles.removeAll(actionsChoisis);
         return actionsPossibles;

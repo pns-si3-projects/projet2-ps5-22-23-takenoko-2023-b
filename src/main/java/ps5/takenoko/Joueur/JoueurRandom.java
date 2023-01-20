@@ -1,5 +1,6 @@
 package ps5.takenoko.Joueur;
 
+import ps5.takenoko.Plateau.Bordure;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
 
@@ -56,5 +57,18 @@ public class JoueurRandom extends Joueur{
     public Action jouer(ArrayList<Action> actionsPossibles) {
         Collections.shuffle(actionsPossibles);
         return actionsPossibles.get(0);
+    }
+
+    @Override
+    public void placerIrrigation(){
+        Set<Bordure> bordures = getPlateau().getBordureDisponible();
+        int R = Rdm.nextInt(bordures.size());
+        Iterator<Bordure> iterator = bordures.iterator(); //iterator is already random by itself
+        Bordure bordure = iterator.next();
+        while(R>0){
+            bordure = iterator.next();
+            R--;
+        }
+        getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
     }
 }
