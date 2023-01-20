@@ -52,6 +52,9 @@ class ObjectifParcelleTest {
         Parcelle parcelleR = new Parcelle(Couleur.ROSE);
         Parcelle parcelleJ = new Parcelle(Couleur.JAUNE);
         Parcelle parcelleV = new Parcelle(Couleur.VERT);
+        parcelleR.irrigue();
+        parcelleJ.irrigue();
+        parcelleV.irrigue();
         ArrayList<Joueur> players1 = new ArrayList<Joueur>(); players1.add(player);         players1.add(new JoueurRandom(6));
         ArrayList<Joueur> players2 = new ArrayList<Joueur>(); players2.add(playerLigne);    players2.add(new JoueurRandom(6));
         ArrayList<Joueur> players3 = new ArrayList<Joueur>(); players3.add(playerCourbe);   players3.add(new JoueurRandom(6));
@@ -71,6 +74,12 @@ class ObjectifParcelleTest {
         game3.setPlateau(boardCourbe);
         game4.setPlateau(boardTriangle);
         game5.setPlateau(boardLosange);
+
+        System.out.println((game1.affichePlateau()));
+        System.out.println((game2.affichePlateau()));
+        System.out.println((game3.affichePlateau()));
+        System.out.println((game4.affichePlateau()));
+        System.out.println((game5.affichePlateau()));
     }
     @Test
     void verifieLigne() {
@@ -177,6 +186,8 @@ class ObjectifParcelleTest {
         boardLigne.addParcelle(rose,new Position(15,17));
         boardLigne.addParcelle(jaune,new Position(13,14));
         boardLigne.addParcelle(vert,new Position(16,14));
+
+        System.out.println("Adjacent: "+boardLigne.nextToOrigin(new Position(13,14)));
     }
     private void initCourbeBoard(Parcelle rose,Parcelle jaune, Parcelle vert) throws IllegalAccessException {
 
@@ -248,5 +259,6 @@ class ObjectifParcelleTest {
         boardLosange.addParcelle(rose,new Position(14,18));
         boardLosange.addParcelle(vert,new Position(12,16));
         boardLosange.addParcelle(jaune,new Position(13,13));
+
     }
 }

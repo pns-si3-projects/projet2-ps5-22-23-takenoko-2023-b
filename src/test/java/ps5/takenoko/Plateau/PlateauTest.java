@@ -2,6 +2,10 @@ package ps5.takenoko.Plateau;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.Jeu.Jeu;
+import ps5.takenoko.Joueur.Joueur;
+import ps5.takenoko.Joueur.JoueurMoyen;
+import ps5.takenoko.Joueur.JoueurRandom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,6 +103,60 @@ class PlateauTest {
                 assertTrue(par.getCouleur().equals(Couleur.ROSE));
             }
         }catch(Exception e){System.out.println(e);
+        }
+    }
+
+    @Test
+    void initialBorders(){
+        JoueurRandom rdm0 = new JoueurRandom(0);
+        JoueurRandom rdm1 = new JoueurRandom(11);
+        ArrayList<Joueur> players = new ArrayList<>();
+        players.add(rdm0); players.add(rdm1);
+        Jeu game = new Jeu(players);
+        Plateau plateau = game.getPlateau();
+
+
+
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(16,15));
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(15,14));
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(15,16));
+
+        Position East = new Position(16,15);
+        assertTrue(plateau.addBordure(East,East.getPositionByDirection(Direction.NORD_OUEST)));
+        assertTrue(plateau.addBordure(East,East.getPositionByDirection(Direction.SUD_OUEST)));
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,14));
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,15));
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(14,16));
+        //System.out.println(game.affichePlateau());
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(16,14));
+        //System.out.println(game.affichePlateau());
+
+        plateau.addParcelle(new Parcelle(Couleur.ROSE,1),new Position(17,15));
+        //System.out.println(game.affichePlateau());
+
+        assertTrue(plateau.addBordure(new Position(16,15),new Position(16,14)));
+        //System.out.println(game.affichePlateau());
+        int sum=0;
+        for(Position p : plateau.getParcellePosee()){
+            if(plateau.getParcelle(p) instanceof Parcelle parc) if (parc.estIrrigue()) sum++;
+
+        }
+        assertEquals(7,sum);
+    }
+
+    @Test
+    void nextToOriginTest(){
+        Position center = new Position(Plateau.getTaille()/2,Plateau.getTaille()/2);
+        ArrayList<Position> adjacentCenter = new ArrayList<>();
+        for (Direction dir : Direction.values()) adjacentCenter.add(center.getPositionByDirection(dir));
+
+        for(int y=1;y<Plateau.getTaille()-1;y++) for(int x=1;x<Plateau.getTaille()-1;x++){
+            Position current = new Position(x,y);
+            if(adjacentCenter.contains(current)) assertTrue(plateau.nextToOrigin(current));
+            else assertFalse(plateau.nextToOrigin(current));
         }
     }
 

@@ -64,17 +64,17 @@ public class ObjectifParcelle extends Objectif {
                             autreCouleur = couleurs[0];
                         }else break;
 
-                        valide = testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),notreCouleur);
+                        valide = testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
+                                && testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
+                                && testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[2]),notreCouleur);
 
-                        valide = valide || (testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),notreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur));
+                        valide = valide || (testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[0]),autreCouleur)
+                                && testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[1]),notreCouleur)
+                                && testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur));
 
-                        valide = valide || (testCouleurOfPos(plateau,pos.getPositionByDirection(formes[0]),notreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
-                                && testCouleurOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur));
+                        valide = valide || (testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[0]),notreCouleur)
+                                && testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[1]),autreCouleur)
+                                && testCouleurIrrigueOfPos(plateau,pos.getPositionByDirection(formes[2]),autreCouleur));
                         if(valide) return true;
                     }
 
@@ -84,8 +84,8 @@ public class ObjectifParcelle extends Objectif {
                     //pour chaque pattern
                     for(Direction[] formes : figure.getDirections()){
                         if(testCouleurOfPos(plateau, pos, couleurs[0])
-                                && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[0]), couleurs[0])
-                                && testCouleurOfPos(plateau, pos.getPositionByDirection(formes[1]), couleurs[0])
+                                && testCouleurIrrigueOfPos(plateau, pos.getPositionByDirection(formes[0]), couleurs[0])
+                                && testCouleurIrrigueOfPos(plateau, pos.getPositionByDirection(formes[1]), couleurs[0])
                         )return true;
                     }
                     break;
@@ -93,13 +93,16 @@ public class ObjectifParcelle extends Objectif {
             }
         return false;
     }
-    private boolean testCouleurOfPos(Plateau plat, Position pos, Couleur color) {
-        ParcelleInactive parcelle = plat.getParcelle(pos);
-        if (parcelle instanceof Parcelle) {
-            Parcelle valid = (Parcelle) parcelle;
-            return valid.getCouleur() == color;
-        } else return false;
 
+    private boolean testCouleurIrrigueOfPos(Plateau plat, Position pos, Couleur color){
+        if(plat.getParcelle(pos) instanceof Parcelle parcelle) {
+            return parcelle.estIrrigue() && parcelle.getCouleur() == color;
+        } return false;
+    }
+
+    private boolean testCouleurOfPos(Plateau plat, Position pos, Couleur color) {
+        if(plat.getParcelle(pos) instanceof Parcelle parcelle) return parcelle.getCouleur() == color;
+        return false;
     }
 
     public boolean equals(ObjectifParcelle obj) {

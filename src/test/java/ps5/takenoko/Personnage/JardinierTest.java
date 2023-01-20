@@ -29,6 +29,9 @@ class JardinierTest {
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(13,14));
 
             plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
+            for(Position pos : plateau.getParcellePosee()){
+                if(plateau.getParcelle(pos) instanceof Parcelle parcelle)parcelle.irrigue();
+            }
 
         }catch(Exception e){System.out.println(e);}
     }
@@ -39,10 +42,10 @@ class JardinierTest {
         Jardinier deplacable = new Jardinier(new Position(15,15));
         deplacable.deplacer(new Position(14,14),plateau);
 
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(14,14))).getNbBamboo());
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(13,14))).getNbBamboo());
-        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(15,13))).getNbBamboo());
-        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,14))).getNbBamboo());
-        assertEquals(0,((Parcelle)plateau.getParcelle(new Position(15,16))).getNbBamboo());
+        assertEquals(2,((Parcelle)plateau.getParcelle(new Position(14,14))).getNbBamboo());
+        assertEquals(2,((Parcelle)plateau.getParcelle(new Position(13,14))).getNbBamboo());
+        assertEquals(2,((Parcelle)plateau.getParcelle(new Position(15,13))).getNbBamboo());
+        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(15,14))).getNbBamboo());
+        assertEquals(1,((Parcelle)plateau.getParcelle(new Position(15,16))).getNbBamboo());
     }
 }

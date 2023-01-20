@@ -27,17 +27,17 @@ class ObjectifJardinierTest {
         game.setPlateau(board);
 
         Parcelle tileRed3 = new Parcelle(Couleur.ROSE);
-        tileRed3.setNbBamboo(3);
+        tileRed3.setNbBamboo(2);
         Parcelle tileYellow3 = new Parcelle(Couleur.JAUNE);
-        tileYellow3.setNbBamboo(3);
+        tileYellow3.setNbBamboo(2);
         Parcelle tileGreen3 = new Parcelle(Couleur.VERT);
-        tileGreen3.setNbBamboo(3);
+        tileGreen3.setNbBamboo(2);
         Parcelle tileRed4 = new Parcelle(Couleur.ROSE);
-        tileRed4.setNbBamboo(4);
+        tileRed4.setNbBamboo(3);
         Parcelle tileYellow4 = new Parcelle(Couleur.JAUNE);
-        tileYellow4.setNbBamboo(4);
+        tileYellow4.setNbBamboo(3);
         Parcelle tileGreen4 = new Parcelle(Couleur.VERT);
-        tileGreen4.setNbBamboo(4);
+        tileGreen4.setNbBamboo(3);
         board.addParcelle(tileRed4,new Position(16,15));
         board.addParcelle(tileYellow3,new Position(14,15));
         board.addParcelle(tileYellow3,new Position(15,16));

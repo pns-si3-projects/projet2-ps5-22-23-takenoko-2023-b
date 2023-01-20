@@ -10,12 +10,14 @@ public class Parcelle extends ParcelleInactive{
     private Couleur couleur;
     private Amenagement amenagement = new Amenagement();
     private int nbBamboo = 0;
+    private boolean irrigue = false;
 
 
     public Parcelle() {
         Random R = new Random();
         this.couleur = Couleur.values()[R.nextInt(3)];
     }
+
 
     public Parcelle(Couleur c) {
         this.couleur = c;
@@ -30,6 +32,12 @@ public class Parcelle extends ParcelleInactive{
     public Parcelle(Couleur couleur, Amenagement amenagement) {
         this.couleur = couleur;
         this.amenagement = amenagement;
+    }
+
+    public void irrigue() {
+        if(irrigue) return;
+        this.irrigue = true;
+        augmenteBamboo();
     }
 
     public Couleur getCouleur() {
@@ -64,8 +72,7 @@ public class Parcelle extends ParcelleInactive{
 
 
     public boolean estIrrigue(){
-        //TODO
-        return true;
+        return irrigue;
     }
 
     public Amenagement getAmenagement() {
