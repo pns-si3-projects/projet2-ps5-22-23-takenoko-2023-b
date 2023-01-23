@@ -102,7 +102,7 @@ public class Jeu {
                     Parcelle parcellePioche = this.piocherParcelles(j);
                     msg += " et a pioché une " + parcellePioche + " puis l'a placé sur le plateau";
                     j.poserParcelle(parcellePioche);
-                    parcellesList.remove(parcellePioche);
+                    parcellesList.getList().remove(parcellePioche);
                     //affichage plateau
                     break;
                 case OBJECTIFS:
@@ -138,7 +138,7 @@ public class Jeu {
             actionsPossibles.add(Action.PANDA);
             actionsPossibles.add(Action.JARDINIER);
         }
-        if(parcellesList.size()>=3){
+        if(parcellesList.getList().size()>=3){
             actionsPossibles.add(Action.PIOCHER_PARCELLES);
         }
         if(objectifList.size()>0 && j.getObjectifs().size()<5){
@@ -218,7 +218,7 @@ public class Jeu {
     Parcelle piocherParcelles(Joueur j) {
         ArrayList<Parcelle> parcelles = parcellesList.getParcelles(3);
         Parcelle p = j.piocherParcelle(parcelles);
-        parcellesList.remove(p);
+        parcellesList.getList().remove(p);
         parcelles.remove(p);
         parcellesList.addAtEnd(parcelles);
         return p;

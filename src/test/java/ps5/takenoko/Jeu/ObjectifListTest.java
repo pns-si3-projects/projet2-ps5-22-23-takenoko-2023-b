@@ -1,8 +1,6 @@
 package ps5.takenoko.Jeu;
 
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.Objectif.*;
-import ps5.takenoko.Plateau.Couleur;
 
 import static org.junit.jupiter.api.Assertions.*;
 

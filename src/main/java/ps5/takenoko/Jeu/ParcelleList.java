@@ -8,12 +8,15 @@ import ps5.takenoko.Plateau.Parcelle;
 import java.util.ArrayList;
 //TODO: Le rendre un STack (es 2 non choisis vont a l'arriere)
 
-public class ParcelleList extends ListDuJeu<Parcelle> {
+public class ParcelleList{
+    ListDuJeu<Parcelle> list;
     public ParcelleList() {
-        super();
+        init();
+    }
+    public ListDuJeu<Parcelle> getList() {
+        return list;
     }
 
-    @Override
     public void init() {
         for (int i = 0; i < 6; i++) {
             list.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.EMPTY)));
@@ -55,4 +58,6 @@ public class ParcelleList extends ListDuJeu<Parcelle> {
             list.add(p);
         }
     }
+
+
 }
