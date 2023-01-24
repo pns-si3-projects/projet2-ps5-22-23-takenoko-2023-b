@@ -32,7 +32,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public Joueur(int id){
         this.id=id;
     }
-    //TODO: fix later
+
     public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, int nbIrrigations) {
         this.id=id;
         this.objectifs = objectifs;
@@ -77,6 +77,7 @@ public abstract class Joueur implements Comparable<Joueur>{
         }
         return res;
     }
+
 
     public void addObjectif(Objectif obj){
         objectifs.add(Objects.requireNonNull(obj,"Objectif ne doit pas etre NULL"));
@@ -153,6 +154,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
     public abstract Position deplacerJardinier(Set<Position> positionsPossibles);
     public abstract Position deplacerPanda(Set<Position> positionsPossibles);
+    public abstract Class<? extends Objectif> choisirObjectif (ArrayList<Class<? extends Objectif>> objectifs);
     @Override
     public int compareTo(Joueur other) {
         int result = Integer.compare(this.calculPoint(),other.calculPoint());

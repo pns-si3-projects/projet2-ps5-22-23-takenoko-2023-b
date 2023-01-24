@@ -8,7 +8,7 @@ class ObjectifListTest {
     @Test
     void initList(){
         ObjectifList objList = new ObjectifList();
-        assertEquals(45,objList.list.size());
+        assertEquals(3,objList.list.size());
         /*
         //PARCELLE
         assertTrue(objList.hasObj(new ObjectifParcelle(Shape.LIGNE,new Couleur[]{Couleur.VERT})));

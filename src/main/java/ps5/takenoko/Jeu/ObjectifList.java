@@ -8,19 +8,19 @@ import java.util.Map;
 import java.util.Random;
 
 public class ObjectifList {
-    public Map<Class<? extends Objectif>,  ListDuJeu<Objectif>> list;
+    public Map<Class<? extends Objectif>,  ArrayList<Objectif>> list;
 
     public ObjectifList() {
         init();
     }
-    public Map<Class<? extends Objectif>, ListDuJeu<Objectif>> getList() {
+    public Map<Class<? extends Objectif>, ArrayList<Objectif>> getList() {
         return list;
     }
     public void init() {
         list= Map.of(
-                ObjectifPanda.class, new ListDuJeu<Objectif>(initPanda()),
-                ObjectifParcelle.class, new ListDuJeu<Objectif>(initParcelle()) ,
-                ObjectifJardinier.class, new ListDuJeu<Objectif>(initJardinier())
+                ObjectifPanda.class, new ArrayList<Objectif>(initPanda()),
+                ObjectifParcelle.class, new ArrayList<Objectif>(initParcelle()) ,
+                ObjectifJardinier.class, new ArrayList<Objectif>(initJardinier())
         );
     }
     private ArrayList<Objectif> initPanda(){
@@ -66,20 +66,11 @@ public class ObjectifList {
         return list;
     }
 
-
-
-
-    public Objectif randomObjectif(){
-        Random random_method = new Random();
-        return list.get(random_method.nextInt(list.size()));
-    }
-
-    public boolean hasObj(Objectif out){
-        for(Objectif in : this.list){
-            if(in.equals(out))return true;
+    public ArrayList<Class<? extends Objectif>> objectifTypeDisponible(){
+        ArrayList<Class<? extends Objectif>> list = new ArrayList<>();
+        for(Class<? extends Objectif> type : this.list.keySet()){
+            if(this.list.get(type).size() > 0) list.add(type);
         }
-        return false;
+        return list;
     }
-
-
 }

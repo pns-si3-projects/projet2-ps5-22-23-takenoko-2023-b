@@ -111,6 +111,13 @@ public class JoueurMoyen extends Joueur{
         return deplacerPersonnage(positionsPossibles);
     }
 
+
+    @Override
+    public Class<? extends Objectif> choisirObjectif(ArrayList<Class<? extends Objectif>> objectifs) {
+        //TODO
+        return null;
+    }
+
     @Override
     public void placerIrrigation(){
         Random Rdm = new Random();

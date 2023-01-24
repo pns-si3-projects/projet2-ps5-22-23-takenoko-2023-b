@@ -6,56 +6,51 @@ import ps5.takenoko.Plateau.Couleur;
 import ps5.takenoko.Plateau.Parcelle;
 
 import java.util.ArrayList;
-//TODO: Le rendre un STack (es 2 non choisis vont a l'arriere)
 
-public class ParcelleList{
-    ListDuJeu<Parcelle> list;
+public class ParcelleList extends ArrayList<Parcelle> {
     public ParcelleList() {
         init();
-    }
-    public ListDuJeu<Parcelle> getList() {
-        return list;
     }
 
     public void init() {
         for (int i = 0; i < 6; i++) {
-            list.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.EMPTY)));
+            this.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.EMPTY)));
         }
         for (int i = 0; i < 2; i++) {
-            list.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.BASSIN)));
+            this.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.BASSIN)));
         }
         for (int i = 0; i < 2; i++) {
-            list.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.ENCLOS)));
+            this.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.ENCLOS)));
         }
-        list.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.ENGRAIS)));
+        this.add(new Parcelle(Couleur.VERT, new Amenagement(AmenagementType.ENGRAIS)));
 
         for (int i = 0; i < 4; i++) {
-            list.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.EMPTY)));
+            this.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.EMPTY)));
         }
-        list.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.BASSIN)));
-        list.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.ENCLOS)));
-        list.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.ENGRAIS)));
+        this.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.BASSIN)));
+        this.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.ENCLOS)));
+        this.add(new Parcelle(Couleur.ROSE, new Amenagement(AmenagementType.ENGRAIS)));
 
         for (int i = 0; i < 6; i++) {
-            list.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.EMPTY)));
+            this.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.EMPTY)));
         }
-        list.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.BASSIN)));
-        list.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.ENCLOS)));
-        list.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.ENGRAIS)));
+        this.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.BASSIN)));
+        this.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.ENCLOS)));
+        this.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.ENGRAIS)));
     }
 
     public ArrayList<Parcelle> getParcelles(int nbParcelles){
         ArrayList<Parcelle> parcellesRandoms = new ArrayList<Parcelle>();
         for(int i=0; i<3; i++){
-            parcellesRandoms.add(list.get(i));
+            parcellesRandoms.add(this.get(i));
         }
-        list.removeAll(parcellesRandoms);
+        this.removeAll(parcellesRandoms);
         return parcellesRandoms;
     }
 
     public void addAtEnd(ArrayList<Parcelle> parcelles){
         for(Parcelle p : parcelles){
-            list.add(p);
+            this.add(p);
         }
     }
 

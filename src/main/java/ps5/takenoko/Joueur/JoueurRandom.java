@@ -1,5 +1,6 @@
 package ps5.takenoko.Joueur;
 
+import ps5.takenoko.Objectif.Objectif;
 import ps5.takenoko.Plateau.Bordure;
 import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Position;
@@ -51,6 +52,12 @@ public class JoueurRandom extends Joueur{
     @Override
     public Position deplacerPanda(Set<Position> positionsPossibles) {
         return deplacerPersonnage(positionsPossibles);
+    }
+
+    @Override
+    public Class<? extends Objectif> choisirObjectif(ArrayList<Class<? extends Objectif>> objectifs) {
+        Collections.shuffle(objectifs);
+        return objectifs.get(0);
     }
 
     @Override

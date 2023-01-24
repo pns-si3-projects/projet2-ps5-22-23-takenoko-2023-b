@@ -102,7 +102,7 @@ public class Jeu {
                     Parcelle parcellePioche = this.piocherParcelles(j);
                     msg += " et a pioché une " + parcellePioche + " puis l'a placé sur le plateau";
                     j.poserParcelle(parcellePioche);
-                    parcellesList.getList().remove(parcellePioche);
+                    parcellesList.remove(parcellePioche);
                     //affichage plateau
                     break;
                 case OBJECTIFS:
@@ -138,10 +138,10 @@ public class Jeu {
             actionsPossibles.add(Action.PANDA);
             actionsPossibles.add(Action.JARDINIER);
         }
-        if(parcellesList.getList().size()>=3){
+        if(parcellesList.size()>=3){
             actionsPossibles.add(Action.PIOCHER_PARCELLES);
         }
-        if(objectifList.size()>0 && j.getObjectifs().size()<5){
+        if(objectifList.objectifTypeDisponible().size()>0 && j.getObjectifs().size()<5){
             actionsPossibles.add(Action.OBJECTIFS);
         }
         //TODO: implements conditions for irrigation
@@ -218,16 +218,19 @@ public class Jeu {
     Parcelle piocherParcelles(Joueur j) {
         ArrayList<Parcelle> parcelles = parcellesList.getParcelles(3);
         Parcelle p = j.piocherParcelle(parcelles);
-        parcellesList.getList().remove(p);
+        parcellesList.remove(p);
         parcelles.remove(p);
         parcellesList.addAtEnd(parcelles);
         return p;
     }
 
     private void piocherObjectifs(Joueur j) {
-        Objectif o = objectifList.randomObjectif();
-        j.addObjectif(o);
-        objectifList.remove(o);
+        ArrayList<Class<?extends Objectif>> objectifs = objectifList.objectifTypeDisponible();
+        Class<? extends Objectif> o = j.choisirObjectif(objectifs);
+        if(!objectifs.contains(o)){
+            throw new IllegalArgumentException("Le joueur a choisi un objectif qui n'est pas disponible");
+        }
+        j.addObjectif(objectifList.getList().get(o).remove(0));
     }
 
     public String affichePlateau(){
