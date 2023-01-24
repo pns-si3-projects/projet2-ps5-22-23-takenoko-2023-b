@@ -1,0 +1,11 @@
+package ps5.takenoko.joueur;
+
+public enum Action {
+    POSER_PARCELLES,
+    PIOCHER_PARCELLES,
+    POSER_CANAL_DIRRIGATION,
+    PIOCHER_CALNAL_DIRRIGATION,
+    JARDINIER,
+    PANDA,
+    OBJECTIFS
+}
