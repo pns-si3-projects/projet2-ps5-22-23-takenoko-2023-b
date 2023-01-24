@@ -7,6 +7,7 @@ import ps5.takenoko.Plateau.Parcelle;
 import ps5.takenoko.Plateau.Plateau;
 import ps5.takenoko.Plateau.Position;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public abstract class Joueur implements Comparable<Joueur>{
@@ -16,7 +17,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     private final int id;
     private Plateau plateau;
     private ArrayList<Parcelle> parcelles = new ArrayList<Parcelle>(MAX_PARCELLES);
-    private ArrayList<Objectif> objectifs = new ArrayList<Objectif>(MAX_OBJECTIFS);
+    protected ArrayList<Objectif> objectifs = new ArrayList<Objectif>(MAX_OBJECTIFS);
     private ArrayList<Objectif> objectifsObtenus= new ArrayList<Objectif>();
 
     private ArrayList<Amenagement> amenagements= new ArrayList<Amenagement>();
@@ -97,7 +98,7 @@ public abstract class Joueur implements Comparable<Joueur>{
                 throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
             }
             if (obj instanceof ObjectifJardinier){
-                //TODO
+                //TODO ?
             }
             else if (obj instanceof ObjectifPanda) {
                 for (int i = 0; i < obj.getCouleurs().length; i++) {
@@ -105,7 +106,7 @@ public abstract class Joueur implements Comparable<Joueur>{
                 }
             }
             else if (obj instanceof ObjectifParcelle) {
-                //TODO
+                //TODO ?
             }
             else{
                 throw new IllegalArgumentException("Type d'objectif inconnu");
@@ -115,13 +116,16 @@ public abstract class Joueur implements Comparable<Joueur>{
         }
     }
 
-    public void validerObjectifs(){
+    public abstract void validerObjectifs();
+
+    public ArrayList<Objectif> objectifsValidable(){
+        ArrayList<Objectif> objectifsValidable = new ArrayList<>();
         for(int i=0;i<objectifs.size();i++){
             if(objectifs.get(i).verifie(this)) {
-                completerObjectif(objectifs.get(i));
-                i--;
+                objectifsValidable.add(objectifs.get(i));
             }
         }
+        return objectifsValidable;
     }
 
     public void ajouteIrrigation(){

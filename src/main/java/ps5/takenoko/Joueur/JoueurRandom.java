@@ -15,6 +15,17 @@ public class JoueurRandom extends Joueur{
     }
 
     @Override
+    public void validerObjectifs() {
+        ArrayList<Objectif>validables = objectifsValidable();
+        for(Objectif o : validables){
+            boolean choice = (Rdm.nextInt(2) == 0) ? true : false; //50-50% chance
+            if(choice){
+                completerObjectif(o);
+            }
+        }
+    }
+
+    @Override
     public void poserParcelle(Parcelle p) {
         getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
     }
