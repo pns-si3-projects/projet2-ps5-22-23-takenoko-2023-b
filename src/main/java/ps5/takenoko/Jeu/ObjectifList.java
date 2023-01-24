@@ -1,21 +1,30 @@
 package ps5.takenoko.Jeu;
 
-import ps5.takenoko.Element.AmenagementType;
 import ps5.takenoko.Objectif.*;
 import ps5.takenoko.Plateau.Couleur;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Map;
 import java.util.Random;
 
-public class ObjectifList extends ListDuJeu<Objectif> {
-    public ObjectifList() {
-        super();
-    }
+public class ObjectifList {
+    public Map<Class<? extends Objectif>,  ArrayList<Objectif>> list;
 
-    @Override
+    public ObjectifList() {
+        init();
+    }
+    public Map<Class<? extends Objectif>, ArrayList<Objectif>> getList() {
+        return list;
+    }
     public void init() {
-        list = new ArrayList<>();
+        list= Map.of(
+                ObjectifPanda.class, new ArrayList<Objectif>(initPanda()),
+                ObjectifParcelle.class, new ArrayList<Objectif>(initParcelle()) ,
+                ObjectifJardinier.class, new ArrayList<Objectif>(initJardinier())
+        );
+    }
+    private ArrayList<Objectif> initPanda(){
+        ArrayList<Objectif> list = new ArrayList<>();
         for(int i=0; i<5;i++){
             list.add(new ObjectifPanda( 3, new Couleur[]{Couleur.VERT}, 2));
         }
@@ -26,20 +35,15 @@ public class ObjectifList extends ListDuJeu<Objectif> {
             list.add(new ObjectifPanda(5, new Couleur[]{Couleur.ROSE}, 2));
             list.add(new ObjectifPanda( 6, new Couleur[]{Couleur.ROSE,Couleur.JAUNE,Couleur.VERT}, 1));
         }
+        return list;
+    }
 
-        for(Couleur couleur : Couleur.values()) for(TypeObjJardinier type : TypeObjJardinier.values()){
-            if(type.isMultiple()) continue;
-            list.add(new ObjectifJardinier(type,couleur));
-        }
-        list.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTVERT,Couleur.VERT));
-        list.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE,Couleur.JAUNE));
-        list.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTROSE,Couleur.ROSE));
-
+    private ArrayList<Objectif> initParcelle(){
+        ArrayList<Objectif> list = new ArrayList<>();
         for(Couleur couleur : Couleur.values()) for( Shape type : Shape.values()){
             if(type == Shape.LOSANGE) continue;
             list.add(new ObjectifParcelle(type, new Couleur[]{couleur}));
         }
-
         list.add(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT}));
         list.add(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.JAUNE}));
         list.add(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.ROSE,Couleur.ROSE}));
@@ -47,19 +51,26 @@ public class ObjectifList extends ListDuJeu<Objectif> {
         list.add(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE}));
         list.add(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.VERT}));
         list.add(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.ROSE,Couleur.VERT}));
-
+        return list;
     }
 
-    public Objectif randomObjectif(){
-        Random random_method = new Random();
-        return list.get(random_method.nextInt(list.size()));
-    }
-
-    public boolean hasObj(Objectif out){
-        for(Objectif in : this.list){
-            if(in.equals(out))return true;
+    private ArrayList<Objectif> initJardinier(){
+        ArrayList<Objectif> list = new ArrayList<>();
+        for(Couleur couleur : Couleur.values()) for(TypeObjJardinier type : TypeObjJardinier.values()){
+            if(type.isMultiple()) continue;
+            list.add(new ObjectifJardinier(type,couleur));
         }
-        return false;
+        list.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTVERT,Couleur.VERT));
+        list.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE,Couleur.JAUNE));
+        list.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTROSE,Couleur.ROSE));
+        return list;
     }
 
+    public ArrayList<Class<? extends Objectif>> objectifTypeDisponible(){
+        ArrayList<Class<? extends Objectif>> list = new ArrayList<>();
+        for(Class<? extends Objectif> type : this.list.keySet()){
+            if(this.list.get(type).size() > 0) list.add(type);
+        }
+        return list;
+    }
 }

@@ -141,7 +141,7 @@ public class Jeu {
         if(parcellesList.size()>=3){
             actionsPossibles.add(Action.PIOCHER_PARCELLES);
         }
-        if(objectifList.size()>0 && j.getObjectifs().size()<5){
+        if(objectifList.objectifTypeDisponible().size()>0 && j.getObjectifs().size()<5){
             actionsPossibles.add(Action.OBJECTIFS);
         }
         //TODO: implements conditions for irrigation
@@ -225,9 +225,12 @@ public class Jeu {
     }
 
     private void piocherObjectifs(Joueur j) {
-        Objectif o = objectifList.randomObjectif();
-        j.addObjectif(o);
-        objectifList.remove(o);
+        ArrayList<Class<?extends Objectif>> objectifs = objectifList.objectifTypeDisponible();
+        Class<? extends Objectif> o = j.choisirObjectif(objectifs);
+        if(!objectifs.contains(o)){
+            throw new IllegalArgumentException("Le joueur a choisi un objectif qui n'est pas disponible");
+        }
+        j.addObjectif(objectifList.getList().get(o).remove(0));
     }
 
     public String affichePlateau(){

@@ -1,8 +1,6 @@
 package ps5.takenoko.Jeu;
 
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.Objectif.*;
-import ps5.takenoko.Plateau.Couleur;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +8,7 @@ class ObjectifListTest {
     @Test
     void initList(){
         ObjectifList objList = new ObjectifList();
-        assertEquals(45,objList.list.size());
+        assertEquals(3,objList.list.size());
         /*
         //PARCELLE
         assertTrue(objList.hasObj(new ObjectifParcelle(Shape.LIGNE,new Couleur[]{Couleur.VERT})));

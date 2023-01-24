@@ -12,6 +12,19 @@ public class JoueurMoyen extends Joueur{
     public JoueurMoyen(int id) {
         super(id);
     }
+    @Override
+    public void validerObjectifs() {
+        //TODO
+        ArrayList<Objectif>validables = objectifsValidable();
+        for(Objectif o : validables){
+                completerObjectif(o);
+        }
+    }
+    @Override
+    public Class<? extends Objectif> choisirObjectif(ArrayList<Class<? extends Objectif>> objectifs) {
+        //TODO
+        return objectifs.get(0);
+    }
 
     @Override
     public void poserParcelle(Parcelle p) {
@@ -55,7 +68,7 @@ public class JoueurMoyen extends Joueur{
     @Override
     public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
         Collections.shuffle(parcelles);
-        for(Objectif o : this.getObjectifs()) {
+        for(Objectif o : objectifs) {
             if(o instanceof ObjectifParcelle) {
                 for(int i = 0; i < o.getCouleurs().length; i++) {
                     for(Parcelle p : parcelles) {
@@ -76,7 +89,7 @@ public class JoueurMoyen extends Joueur{
 
     @Override
     public Position deplacerJardinier(Set<Position> positionsPossibles) {
-        for(Objectif o : this.getObjectifs()) {
+        for(Objectif o : objectifs) {
             if(o instanceof ObjectifJardinier) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
@@ -94,7 +107,7 @@ public class JoueurMoyen extends Joueur{
     }
     @Override
     public Position deplacerPanda(Set<Position> positionsPossibles) {
-        for(Objectif o : this.getObjectifs()) {
+        for(Objectif o : objectifs) {
             if(o instanceof ObjectifPanda) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
@@ -128,7 +141,7 @@ public class JoueurMoyen extends Joueur{
 
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        if(getObjectifs().size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
+        if(objectifs.size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
         if(actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
