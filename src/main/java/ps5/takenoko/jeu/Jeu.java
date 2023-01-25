@@ -122,6 +122,9 @@ public class Jeu {
                             j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
                         }
                         break;
+                default:
+                    throw new IllegalArgumentException("Action non valide");
+
             }
             if(this.affichage) {
                 System.out.println(msg);

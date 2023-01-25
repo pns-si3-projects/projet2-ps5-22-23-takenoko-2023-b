@@ -18,12 +18,15 @@ public class JoueurMoyen extends Joueur{
         //TODO
         ArrayList<Objectif>validables = objectifsValidable();
         for(Objectif o : validables){
+            if(random.nextInt(2) == 0){//50-50% chance
                 completerObjectif(o);
+            }
         }
     }
     @Override
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
         //TODO
+        Collections.shuffle(objectifs);
         return objectifs.get(0);
     }
 

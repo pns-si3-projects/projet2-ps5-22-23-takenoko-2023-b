@@ -57,6 +57,8 @@ public enum TypeObjJardinier {
                 nbBamboo=3;
                 description="Objectif: Avoir sur le plateau 4 parcelles de 3 bambous de la couleur de la carte objectif.";
                 break;
+            default:
+                throw new IllegalArgumentException("TypeObjJardinier non valide");
         }
     }
     public int getPoint() {

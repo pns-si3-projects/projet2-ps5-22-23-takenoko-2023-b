@@ -3,6 +3,8 @@ package ps5.takenoko.objectif;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.plateau.*;
 
+import java.util.Objects;
+
 public class ObjectifParcelle extends Objectif {
     private Shape figure;
 
@@ -105,8 +107,17 @@ public class ObjectifParcelle extends Objectif {
         return false;
     }
 
-    public boolean equals(ObjectifParcelle obj) {
-        return super.equals(obj)
-            && this.figure == obj.figure;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ObjectifParcelle that = (ObjectifParcelle) o;
+        return figure == that.figure;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), figure);
     }
 }

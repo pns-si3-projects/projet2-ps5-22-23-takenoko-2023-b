@@ -41,7 +41,7 @@ public class ParcelleList extends ArrayList<Parcelle> {
 
     public ArrayList<Parcelle> getParcelles(int nbParcelles){
         ArrayList<Parcelle> parcellesRandoms = new ArrayList<Parcelle>();
-        for(int i=0; i<3; i++){
+        for(int i=0; i<nbParcelles; i++){
             parcellesRandoms.add(this.get(i));
         }
         this.removeAll(parcellesRandoms);
