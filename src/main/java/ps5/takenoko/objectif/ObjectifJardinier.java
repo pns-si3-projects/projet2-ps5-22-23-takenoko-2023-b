@@ -3,6 +3,8 @@ package ps5.takenoko.objectif;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.plateau.*;
 
+import java.util.Objects;
+
 public class ObjectifJardinier extends Objectif {
     private TypeObjJardinier type;
 
@@ -75,8 +77,18 @@ public class ObjectifJardinier extends Objectif {
         }
     }
 
-    public boolean equals(ObjectifJardinier obj){
-        return super.equals(obj)
-            && this.type == obj.type;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ObjectifJardinier that = (ObjectifJardinier) o;
+        return type == that.type;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), type);
+    }
+
 }

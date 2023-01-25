@@ -24,6 +24,10 @@ public class Amenagement {
                 this.nbBambouAManger = 1;
                 this.nbBambouAPousser = 1;
                 break;
+            case BASSIN:
+                break;
+            default:
+                throw new IllegalArgumentException("AmenagementType inconnu");
         }
     }
 

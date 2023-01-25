@@ -52,6 +52,8 @@ public enum Shape {
                 description = "Objectif: Un losange de 2 paires de 2 parcelles de la meme couleur";
                 points = 4;
                 break;
+            default:
+                throw new IllegalArgumentException("Shape non valide");
         }
     }
 

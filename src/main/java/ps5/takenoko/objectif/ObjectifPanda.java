@@ -3,6 +3,8 @@ package ps5.takenoko.objectif;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.plateau.Couleur;
 
+import java.util.Objects;
+
 public class ObjectifPanda extends Objectif{
     private int nbParcelles;
 
@@ -21,8 +23,17 @@ public class ObjectifPanda extends Objectif{
         return true;
     }
 
-    public boolean equals(ObjectifPanda obj) {
-        return super.equals(obj)
-            && this.nbParcelles == obj.nbParcelles;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ObjectifPanda that = (ObjectifPanda) o;
+        return nbParcelles == that.nbParcelles;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), nbParcelles);
     }
 }
