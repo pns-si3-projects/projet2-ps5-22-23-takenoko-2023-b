@@ -166,6 +166,9 @@ public class Jeu {
                             throw new IllegalArgumentException("La position choisie n'est pas amenagemable");
                         }
                     }
+                    else{
+                        throw new IllegalArgumentException("Il n'y a pas de parcelle amenageable");
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("Action non valide");
@@ -187,6 +190,9 @@ public class Jeu {
     private Meteo choisirMeteo(Joueur j){
         ArrayList<Meteo> meteoList = new ArrayList<>(Arrays.asList(Meteo.values()));
         meteoList.remove(Meteo.CHOIX_LIBRE);
+        if(amenagementList.isEmpty()){
+            meteoList.remove(Meteo.NUAGES);
+        }
         Meteo res = j.choisirMeteo(meteoList);
         if(!meteoList.contains(res)){
             throw new IllegalArgumentException("Météo non valide");
@@ -239,7 +245,7 @@ public class Jeu {
             if(j.getNbIrrigations() > 0 && this.plateau.getBordureDisponible().size() > 0) {
                 actionsPossibles.add(Action.POSER_CANAL_DIRRIGATION);
             }
-            if(!j.getAmenagements().isEmpty()){
+            if(!j.getAmenagements().isEmpty() && !this.plateau.getParcellesAmenageables().isEmpty()){
                 actionsPossibles.add(Action.POSER_AMENAGEMENT);
             }
             return actionsPossibles;
