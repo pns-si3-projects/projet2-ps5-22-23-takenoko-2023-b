@@ -10,16 +10,17 @@ public class Panda extends Deplacable{
 
     @Override
     public boolean deplacer(Position position, Plateau plateau) {
-        if(posPossibles(plateau).contains(position)){
+        //TODO: If Meteo ORAGE-> peut deplacer n'importe ou
+       // if(posPossibles(plateau).contains(position)){
             this.setPosition(position);
             if (!(plateau.getParcelle(position) instanceof ParcelleOriginelle)){
                 Parcelle temp = (Parcelle) plateau.getParcelle(position);
                 return temp.mangerBambou();
             }
-        }
-        else{
-            throw new IllegalArgumentException("Position impossible a poser");
-        }
+//        }
+//        else{
+//            throw new IllegalArgumentException("Position impossible a poser");
+//        }
         return false;
     }
 

@@ -237,7 +237,7 @@ public class Plateau {
     public Set<Position> getParcellesPousables(){
         Set<Position> res = new HashSet<Position>();
         for(Position p : parcellePosee){
-            if(((Parcelle) getParcelle(p)).pouvoirAugmenter() && ((Parcelle) getParcelle(p)).estIrrigue()){
+            if(((Parcelle) getParcelle(p)).pouvoirAugmenter()){
                 res.add(p);
             }
         }

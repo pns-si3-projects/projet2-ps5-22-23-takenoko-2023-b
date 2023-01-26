@@ -38,6 +38,7 @@ public class Parcelle extends ParcelleInactive{
         }
     }
 
+
     public void irrigue() {
         if(irrigue) return;
         this.irrigue = true;
@@ -79,10 +80,12 @@ public class Parcelle extends ParcelleInactive{
         return false;
     }
 
+    @Override
     public boolean pouvoirAugmenter(){
         return irrigue && nbBamboo<MAX_BAMBOU;
     }
 
+    @Override
     public boolean estIrrigue(){
         return irrigue;
     }
