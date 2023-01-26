@@ -1,5 +1,7 @@
 package ps5.takenoko.joueur;
 
+import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.Meteo;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.ObjectifPanda;
@@ -12,6 +14,29 @@ public class JoueurMoyen extends Joueur{
     Random random = new Random();
     public JoueurMoyen(int id) {
         super(id);
+    }
+    @Override
+    public Position choisirParcelleAPousser(Set<Position> positions) {
+        //TODO
+        return getRandomPosition(positions);
+    }
+    @Override
+    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
+        //TODO
+        Collections.shuffle(amenagements);
+        return amenagements.get(0);
+    }
+
+    @Override
+    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
+        //TODO
+        return new ChoixAmenagement(choisirAmenagement(amenagements),getRandomPosition(positions));
+    }
+    @Override
+    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
+        //TODO
+        Collections.shuffle(meteos);
+        return meteos.get(0);
     }
     @Override
     public void validerObjectifs() {

@@ -7,5 +7,6 @@ public enum Action {
     PIOCHER_CALNAL_DIRRIGATION,
     JARDINIER,
     PANDA,
-    OBJECTIFS
+    OBJECTIFS,
+    POSER_AMENAGEMENT
 }

@@ -1,5 +1,7 @@
 package ps5.takenoko.plateau;
 
+import ps5.takenoko.element.AmenagementType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -222,6 +224,34 @@ public class Plateau {
             if(bordurePosee.contains(unit)) return true;
         }
         return false;
+    }
+
+    public Set<Position> getParcellesIrrigues() {
+        Set<Position> res = new HashSet<Position>();
+        for(Position p : parcellePosee){
+            if(((Parcelle) getParcelle(p)).estIrrigue()) res.add(p);
+        }
+        return res;
+    }
+
+    public Set<Position> getParcellesPousables(){
+        Set<Position> res = new HashSet<Position>();
+        for(Position p : parcellePosee){
+            if(((Parcelle) getParcelle(p)).pouvoirAugmenter() && ((Parcelle) getParcelle(p)).estIrrigue()){
+                res.add(p);
+            }
+        }
+        return res;
+    }
+
+    public Set<Position> getParcellesAmenagemables(){
+        Set<Position> res = new HashSet<Position>();
+        for(Position p : parcellePosee){
+            if(((Parcelle) getParcelle(p)).getNbBamboo()==0 && ((Parcelle) getParcelle(p)).getAmenagement().getType()== AmenagementType.EMPTY){
+                res.add(p);
+            }
+        }
+        return res;
     }
 
     public static int getTaille(){return TAILLE;}
