@@ -80,12 +80,10 @@ public class Parcelle extends ParcelleInactive{
         return false;
     }
 
-    @Override
     public boolean pouvoirAugmenter(){
         return irrigue && nbBamboo<MAX_BAMBOU;
     }
 
-    @Override
     public boolean estIrrigue(){
         return irrigue;
     }

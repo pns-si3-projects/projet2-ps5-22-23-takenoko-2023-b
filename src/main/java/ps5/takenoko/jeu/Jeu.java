@@ -5,7 +5,6 @@ import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Action;
 import ps5.takenoko.joueur.ChoixAmenagement;
 import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.objectif.Empereur;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.personnage.Jardinier;
@@ -118,7 +117,7 @@ public class Jeu {
             String msg = "Joueur "+j.getId()+" a choisi action " + actionChoisi.toString();
 
             switch(actionChoisi){
-                case PIOCHER_CALNAL_DIRRIGATION:
+                case PIOCHER_CANAL_DIRRIGATION:
                     nbActions++;
                     j.ajouteIrrigation();
                     break;
@@ -155,16 +154,17 @@ public class Jeu {
                     }
                     break;
                 case POSER_AMENAGEMENT:
-                    Set<Position> parcellesAmenagemables = plateau.getParcellesAmenagemables();
-                    ChoixAmenagement choixAmenagement = j.choisirPositionAmenagement(parcellesAmenagemables, j.getAmenagements());
-                    if(parcellesAmenagemables.contains(choixAmenagement.getPosition())){
-                        ((Parcelle)plateau.getParcelle(choixAmenagement.getPosition())).setAmenagement(choixAmenagement.getAmenagement());
-                        j.getAmenagements().remove(choixAmenagement.getAmenagement());
+                    Set<Position>parcellesAmenageables = plateau.getParcellesAmenageables();
+                    if(!parcellesAmenageables.isEmpty()) {
+                        ChoixAmenagement choixAmenagement = j.choisirPositionAmenagement(parcellesAmenageables, j.getAmenagements());
+                        if (parcellesAmenageables.contains(choixAmenagement.getPosition())) {
+                            ((Parcelle) plateau.getParcelle(choixAmenagement.getPosition())).setAmenagement(choixAmenagement.getAmenagement());
+                            j.getAmenagements().remove(choixAmenagement.getAmenagement());
+                        } else {
+                            throw new IllegalArgumentException("La position choisie n'est pas amenagemable");
+                        }
+                        break;
                     }
-                    else{
-                        throw new IllegalArgumentException("La position choisie n'est pas amenagemable");
-                    }
-                    break;
                 default:
                     throw new IllegalArgumentException("Action non valide");
 
@@ -193,7 +193,7 @@ public class Jeu {
     }
 
     private void executerPluie(Joueur j){
-        Set<Position> parcellesIrriguees = plateau.getParcellesPousables();
+        Set<Position> parcellesIrriguees = plateau.getParcellesPosables();
         if(!parcellesIrriguees.isEmpty()){
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
             if(parcellesIrriguees.contains(p)){
@@ -233,7 +233,7 @@ public class Jeu {
             if(objectifList.objectifTypeDisponible().size()>0 && j.getObjectifs().size()<5){
                 actionsPossibles.add(Action.OBJECTIFS);
             }
-            actionsPossibles.add(Action.PIOCHER_CALNAL_DIRRIGATION);
+            actionsPossibles.add(Action.PIOCHER_CANAL_DIRRIGATION);
             if(j.getNbIrrigations() > 0 && this.plateau.getBordureDisponible().size() > 0) {
                 actionsPossibles.add(Action.POSER_CANAL_DIRRIGATION);
             }
@@ -366,7 +366,7 @@ public class Jeu {
                     default -> content = " " + content + " " + CSL_RESET;
                 }
 
-            }else if(current.estParcelleOriginnelle())content = CSL_BLEU+" E "+CSL_RESET;
+            }else if(current.estParcelleOriginelle())content = CSL_BLEU+" E "+CSL_RESET;
             content = afficheBordure(pos, Direction.OUEST) + content;
             String ligneBas = afficheJardinier(pos)+afficheBordure(pos,Direction.SUD_OUEST) + affichePanda(pos) + afficheBordure(pos,Direction.SUD_EST);
             return new String[]{content, ligneBas};
@@ -397,8 +397,8 @@ public class Jeu {
 
             }
             if(
-                    parcelle.estParcelleOriginnelle()
-                            || autreParcelle.estParcelleOriginnelle()
+                    parcelle.estParcelleOriginelle()
+                            || autreParcelle.estParcelleOriginelle()
                             || plateau.getBordurePosee().contains(new Bordure(pos,dir))
             ) return CSL_BLEU+border+CSL_RESET;
             else if(plateau.getBordureDisponible().contains(new Bordure(pos,dir))) return border;

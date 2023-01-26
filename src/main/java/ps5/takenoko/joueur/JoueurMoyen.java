@@ -122,7 +122,7 @@ public class JoueurMoyen extends Joueur{
             if(o instanceof ObjectifJardinier) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
-                        if(!getPlateau().getParcelle(p).estParcelleOriginnelle()) {
+                        if(!getPlateau().getParcelle(p).estParcelleOriginelle()) {
                             Parcelle par = (Parcelle) getPlateau().getParcelle(p);
                             if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() < 4 && par.estIrrigue()) {
                                 return p;
@@ -140,7 +140,7 @@ public class JoueurMoyen extends Joueur{
             if(o instanceof ObjectifPanda) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
-                        if(!getPlateau().getParcelle(p).estParcelleOriginnelle()) {
+                        if(!getPlateau().getParcelle(p).estParcelleOriginelle()) {
                             Parcelle par = (Parcelle) getPlateau().getParcelle(p);
                             if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() > 0) {
                                 return p;
@@ -174,9 +174,6 @@ public class JoueurMoyen extends Joueur{
         }
         if(actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
             return Action.PIOCHER_PARCELLES;
-        }
-        if(actionsPossibles.contains(Action.POSER_PARCELLES)){
-            return Action.POSER_PARCELLES;
         }
         if(actionsPossibles.contains(Action.PANDA)){
             return Action.PANDA;

@@ -3,9 +3,9 @@ package ps5.takenoko.plateau;
 public class ParcelleInactive {
 
     public boolean estOccupe(){
-        return (this instanceof Parcelle || estParcelleOriginnelle());
+        return (this instanceof Parcelle || estParcelleOriginelle());
     }
-    public boolean estParcelleOriginnelle(){
+    public boolean estParcelleOriginelle(){
         return this instanceof ParcelleOriginelle;
     }
 }
