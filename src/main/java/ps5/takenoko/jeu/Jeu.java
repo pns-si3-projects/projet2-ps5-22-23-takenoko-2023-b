@@ -96,7 +96,9 @@ public class Jeu {
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
                 }
-                executerNuage(j);
+                else if(!plateau.getParcellesAmenageables().isEmpty()){
+                    executerNuage(j);
+                }
             }
             if(meteoTour == Meteo.SOLEIL){
                 nbActions++;
@@ -163,8 +165,8 @@ public class Jeu {
                         } else {
                             throw new IllegalArgumentException("La position choisie n'est pas amenagemable");
                         }
-                        break;
                     }
+                    break;
                 default:
                     throw new IllegalArgumentException("Action non valide");
 
