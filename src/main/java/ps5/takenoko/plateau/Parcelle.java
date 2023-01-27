@@ -1,6 +1,7 @@
 package ps5.takenoko.plateau;
 
 import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.AmenagementType;
 
 import java.util.Random;
 
@@ -22,6 +23,7 @@ public class Parcelle extends ParcelleInactive{
         this.couleur = c;
     }
 
+
     // For test purpose
     public Parcelle(Couleur c,int nbBamboo) {
         this.couleur = c;
@@ -31,7 +33,11 @@ public class Parcelle extends ParcelleInactive{
     public Parcelle(Couleur couleur, Amenagement amenagement) {
         this.couleur = couleur;
         this.amenagement = amenagement;
+        if(amenagement.getType() == AmenagementType.BASSIN){
+            irrigue();
+        }
     }
+
 
     public void irrigue() {
         if(irrigue) return;
@@ -51,10 +57,15 @@ public class Parcelle extends ParcelleInactive{
     public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
-
+    public void setAmenagement(Amenagement amenagement) {
+        this.amenagement = amenagement;
+        if(amenagement.getType() == AmenagementType.BASSIN){
+            irrigue();
+        }
+    }
 
     public boolean augmenteBamboo(){
-        if(nbBamboo<MAX_BAMBOU && estIrrigue()){
+        if(pouvoirAugmenter()){
             nbBamboo=nbBamboo+amenagement.getNbBambouAPousser()>MAX_BAMBOU ? MAX_BAMBOU : nbBamboo+amenagement.getNbBambouAPousser();
             return true;
         }
@@ -69,6 +80,9 @@ public class Parcelle extends ParcelleInactive{
         return false;
     }
 
+    public boolean pouvoirAugmenter(){
+        return irrigue && nbBamboo<MAX_BAMBOU;
+    }
 
     public boolean estIrrigue(){
         return irrigue;
@@ -76,10 +90,6 @@ public class Parcelle extends ParcelleInactive{
 
     public Amenagement getAmenagement() {
         return amenagement;
-    }
-
-    public void setAmenagement(Amenagement amenagement) {
-        this.amenagement = amenagement;
     }
 
     public String toString(){

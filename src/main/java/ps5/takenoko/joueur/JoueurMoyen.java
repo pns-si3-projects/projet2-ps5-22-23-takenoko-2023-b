@@ -1,5 +1,7 @@
 package ps5.takenoko.joueur;
 
+import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.Meteo;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.ObjectifPanda;
@@ -12,6 +14,29 @@ public class JoueurMoyen extends Joueur{
     Random random = new Random();
     public JoueurMoyen(int id) {
         super(id);
+    }
+    @Override
+    public Position choisirParcelleAPousser(Set<Position> positions) {
+        //TODO
+        return getRandomPosition(positions);
+    }
+    @Override
+    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
+        //TODO
+        Collections.shuffle(amenagements);
+        return amenagements.get(0);
+    }
+
+    @Override
+    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
+        //TODO
+        return new ChoixAmenagement(choisirAmenagement(amenagements),getRandomPosition(positions));
+    }
+    @Override
+    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
+        //TODO
+        Collections.shuffle(meteos);
+        return meteos.get(0);
     }
     @Override
     public void validerObjectifs() {
@@ -97,7 +122,7 @@ public class JoueurMoyen extends Joueur{
             if(o instanceof ObjectifJardinier) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
-                        if(!getPlateau().getParcelle(p).estParcelleOriginnelle()) {
+                        if(!getPlateau().getParcelle(p).estParcelleOriginelle()) {
                             Parcelle par = (Parcelle) getPlateau().getParcelle(p);
                             if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() < 4 && par.estIrrigue()) {
                                 return p;
@@ -115,7 +140,7 @@ public class JoueurMoyen extends Joueur{
             if(o instanceof ObjectifPanda) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
-                        if(!getPlateau().getParcelle(p).estParcelleOriginnelle()) {
+                        if(!getPlateau().getParcelle(p).estParcelleOriginelle()) {
                             Parcelle par = (Parcelle) getPlateau().getParcelle(p);
                             if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() > 0) {
                                 return p;
@@ -149,9 +174,6 @@ public class JoueurMoyen extends Joueur{
         }
         if(actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
             return Action.PIOCHER_PARCELLES;
-        }
-        if(actionsPossibles.contains(Action.POSER_PARCELLES)){
-            return Action.POSER_PARCELLES;
         }
         if(actionsPossibles.contains(Action.PANDA)){
             return Action.PANDA;

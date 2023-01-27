@@ -1,5 +1,7 @@
 package ps5.takenoko.plateau;
 
+import ps5.takenoko.element.AmenagementType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -136,8 +138,7 @@ public class Plateau {
         int cpt = 0;
 
         for (Direction d : Direction.values()) {
-            if (this.getParcelle(p.getPositionByDirection(d)) == null) {
-            } else {
+            if (!(this.getParcelle(p.getPositionByDirection(d)) == null)) {
                 if (this.getParcelle(p.getPositionByDirection(d)) instanceof ParcelleOriginelle) {
                     return true;
                 }
@@ -153,11 +154,11 @@ public class Plateau {
 
     // return an array of all the positions of the parcelles that are adjacent to the parcelle at the given position
     public ArrayList<Position> getConnectedParcelleSameColor(Position p) {
-        Set<Position> connectedParcelle = new HashSet<Position>();
+        Set<Position> connectedParcelle = new HashSet<>();
         Parcelle parcelle;
         Couleur couleur;
         if(!(this.getParcelle(p) instanceof Parcelle)) {
-            return new ArrayList<Position>();
+            return new ArrayList<>();
         } else {
             parcelle = (Parcelle) this.getParcelle(p);
             couleur = parcelle.getCouleur();
@@ -167,7 +168,7 @@ public class Plateau {
         do {
             size = connectedParcelle.size();
             // Create a new list from the Set
-            List<Position> tempList = new ArrayList<Position>(connectedParcelle);
+            List<Position> tempList = new ArrayList<>(connectedParcelle);
             for (Position pos : tempList) {
                 for (Direction d : Direction.values()) {
                     ParcelleInactive tmp = this.getParcelle(pos.getPositionByDirection(d));
@@ -181,7 +182,7 @@ public class Plateau {
                 }
             }
         } while (size < connectedParcelle.size());
-        return new ArrayList<Position>(connectedParcelle);
+        return new ArrayList<>(connectedParcelle);
     }
 
     /**
@@ -222,6 +223,40 @@ public class Plateau {
             if(bordurePosee.contains(unit)) return true;
         }
         return false;
+    }
+
+    public Set<Position> getParcellesIrriguees() {
+        Set<Position> res = new HashSet<>();
+        for(Position p : parcellePosee){
+            if(!getParcelle(p).estParcelleOriginelle()) {
+                if (((Parcelle)getParcelle(p)).estIrrigue()) res.add(p);
+            }
+        }
+        return res;
+    }
+
+    public Set<Position> getParcellesPosables(){
+        Set<Position> res = new HashSet<>();
+        for(Position p : parcellePosee){
+            if(!getParcelle(p).estParcelleOriginelle()){
+                if(((Parcelle) getParcelle(p)).pouvoirAugmenter()) {
+                    res.add(p);
+                }
+            }
+        }
+        return res;
+    }
+
+    public Set<Position> getParcellesAmenageables(){
+        Set<Position> res = new HashSet<>();
+        for(Position p : parcellePosee){
+            if(!getParcelle(p).estParcelleOriginelle()){
+                if(((Parcelle) getParcelle(p)).getNbBamboo()==0 && ((Parcelle) getParcelle(p)).getAmenagement().getType()== AmenagementType.EMPTY){
+                    res.add(p);
+                }
+            }
+        }
+        return res;
     }
 
     public static int getTaille(){return TAILLE;}

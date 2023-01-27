@@ -1,12 +1,14 @@
 package ps5.takenoko.joueur;
 
 import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.Meteo;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
 import ps5.takenoko.plateau.Position;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public abstract class Joueur implements Comparable<Joueur>{
@@ -53,6 +55,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public int[] getBambousObtenus() {return bambousObtenus;}
     public ArrayList<Objectif> getObjectifs() {return objectifs;}
     public void setParcelles(ArrayList<Parcelle> parcelles) {this.parcelles = parcelles;}
+    public ArrayList<Amenagement> getAmenagements() {return amenagements;}
 
     public Plateau getPlateau() {return plateau;}
 
@@ -148,7 +151,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public int nbBambousParCouleur(Couleur c){
         return bambousObtenus[c.ordinal()];
     }
-
+    public abstract Position choisirParcelleAPousser(Set<Position> positions);
 
     /***
      *
@@ -168,11 +171,15 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
 
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
-
-    //TODO:
+    public abstract Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements);
+    public void addAmenagement(Amenagement amenagement){
+        amenagements.add(amenagement);
+    }
+    public abstract ChoixAmenagement choisirPositionAmenagement( Set<Position> positions, ArrayList<Amenagement>amenagements);
     public void placerIrrigation(){
         this.nbIrrigations--;
     }
+    public abstract Meteo choisirMeteo(ArrayList<Meteo> meteos);
 
 
 
