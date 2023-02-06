@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ComparateurVictoires {
-
     public static void run(int nbparties, ArrayList<Joueur> joueurSet) {
         ArrayList<Float> points = new ArrayList<>();
         ArrayList<Float> victoires = new ArrayList<>();
