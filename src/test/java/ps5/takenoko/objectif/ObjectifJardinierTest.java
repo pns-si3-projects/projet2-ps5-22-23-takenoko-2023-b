@@ -52,7 +52,6 @@ class ObjectifJardinierTest {
         Objectif objGreenMult= new ObjectifJardinier(TypeObjJardinier.OBJMULTVERT,Couleur.VERT);
         Objectif objRedMult= new ObjectifJardinier(TypeObjJardinier.OBJMULTROSE,Couleur.ROSE);
         Objectif objYellowMult= new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE,Couleur.JAUNE);
-        System.out.println(game.affichePlateau());
 
         assertTrue(objRedNoA.verifie(player));
         assertTrue(objGreenNoA.verifie(player));

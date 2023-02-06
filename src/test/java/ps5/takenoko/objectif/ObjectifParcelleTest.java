@@ -74,12 +74,6 @@ class ObjectifParcelleTest {
         game3.setPlateau(boardCourbe);
         game4.setPlateau(boardTriangle);
         game5.setPlateau(boardLosange);
-
-        System.out.println((game1.affichePlateau()));
-        System.out.println((game2.affichePlateau()));
-        System.out.println((game3.affichePlateau()));
-        System.out.println((game4.affichePlateau()));
-        System.out.println((game5.affichePlateau()));
     }
     @Test
     void verifieLigne() {
@@ -186,8 +180,6 @@ class ObjectifParcelleTest {
         boardLigne.addParcelle(rose,new Position(15,17));
         boardLigne.addParcelle(jaune,new Position(13,14));
         boardLigne.addParcelle(vert,new Position(16,14));
-
-        System.out.println("Adjacent: "+boardLigne.nextToOrigin(new Position(13,14)));
     }
     private void initCourbeBoard(Parcelle rose,Parcelle jaune, Parcelle vert) throws IllegalAccessException {
 
