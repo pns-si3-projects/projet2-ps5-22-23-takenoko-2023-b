@@ -10,49 +10,21 @@ import ps5.takenoko.plateau.*;
 
 import java.util.*;
 
-public class JoueurMoyen extends Joueur{
+public class JoueurMoyen extends JoueurRandom{
     Random random = new Random();
     public JoueurMoyen(int id) {
         super(id);
     }
-    @Override
-    public Position choisirParcelleAPousser(Set<Position> positions) {
-        //TODO
-        return getRandomPosition(positions);
-    }
-    @Override
-    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
-        //TODO
-        Collections.shuffle(amenagements);
-        return amenagements.get(0);
-    }
+
+
+
 
     @Override
-    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
-        //TODO
-        return new ChoixAmenagement(choisirAmenagement(amenagements),getRandomPosition(positions));
-    }
-    @Override
-    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
-        //TODO
-        Collections.shuffle(meteos);
-        return meteos.get(0);
-    }
-    @Override
     public void validerObjectifs() {
-        //TODO
         ArrayList<Objectif>validables = objectifsValidable();
         for(Objectif o : validables){
-            if(random.nextInt(2) == 0){//50-50% chance
-                completerObjectif(o);
-            }
+            completerObjectif(o);
         }
-    }
-    @Override
-    public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
-        //TODO
-        Collections.shuffle(objectifs);
-        return objectifs.get(0);
     }
 
     @Override
