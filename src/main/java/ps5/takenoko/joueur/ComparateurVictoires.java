@@ -13,7 +13,7 @@ public class ComparateurVictoires {
     private static int nbparties = 10000;
     private static int nbJoueurs = 2;
 
-    public static void main(String... args) {
+    public void run(){
         ArrayList<Float> points = new ArrayList<>();
         ArrayList<Float> victoires = new ArrayList<>();
         ArrayList<ArrayList<Float>> objectifs = new ArrayList<>();
