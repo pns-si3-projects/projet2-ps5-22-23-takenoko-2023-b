@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class ComparateurVictoires {
 
-    private static int nbparties = 10000;
+    private static int nbparties = 2000;
 
-    public static void main(String... args) {
+    public void main() {
         ArrayList<Float> points = new ArrayList<>();
         points.add((float) 0);
         points.add((float) 0);

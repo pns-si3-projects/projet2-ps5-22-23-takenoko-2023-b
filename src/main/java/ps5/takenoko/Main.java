@@ -2,6 +2,7 @@ package ps5.takenoko;
 
 import com.beust.jcommander.JCommander;
 import ps5.takenoko.jeu.Jeu;
+import ps5.takenoko.joueur.ComparateurVictoires;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.option.Args;
@@ -25,7 +26,9 @@ public class Main {
             System.out.println("Le gagnant est le joueur " + j.calculGagnants().get(0).getId());
         }
         if (arguments.isTwoThousand()) {
-            // TODO : lancer 2000 parties de bots vs bots
+            //run ComparateurVictoires
+            ComparateurVictoires comparateurVictoires = new ComparateurVictoires();
+            comparateurVictoires.main();
         }
         if (arguments.isCsv()) {
             // TODO : lancer des parties de bots vs bots et enregistrer les résultats dans un fichier csv
