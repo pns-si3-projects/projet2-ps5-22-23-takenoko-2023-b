@@ -16,10 +16,6 @@ public class Main {
                 .build()
                 .parse(args);
 
-        System.out.println("2thousands: " + arguments.isTwoThousand());
-        System.out.println("demo: " + arguments.isDemo());
-        System.out.println("csv: " + arguments.isCsv());
-
         if (arguments.isDemo()) {
             ArrayList<Joueur> joueurs = new ArrayList<>();
             joueurs.add(new JoueurRandom(1));
@@ -27,6 +23,12 @@ public class Main {
             Jeu j = new Jeu(joueurs);
             j.lancer();
             System.out.println("Le gagnant est le joueur " + j.calculGagnants().get(0).getId());
+        }
+        if (arguments.isTwoThousand()) {
+            // TODO : lancer 2000 parties de bots vs bots
+        }
+        if (arguments.isCsv()) {
+            // TODO : lancer des parties de bots vs bots et enregistrer les résultats dans un fichier csv
         }
     }
 }
