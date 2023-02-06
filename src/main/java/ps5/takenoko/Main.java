@@ -20,11 +20,13 @@ public class Main {
         System.out.println("demo: " + arguments.isDemo());
         System.out.println("csv: " + arguments.isCsv());
 
-       /* ArrayList<Joueur> joueurs = new ArrayList<>();
-        joueurs.add(new JoueurRandom(1));
-        joueurs.add(new JoueurRandom(2));
-        Jeu j = new Jeu(joueurs);
-        j.lancer();*/
-        //System.out.println("Le gagnant est le joueur " + j.calculGagnants().get(0).getId());
+        if (arguments.isDemo()) {
+            ArrayList<Joueur> joueurs = new ArrayList<>();
+            joueurs.add(new JoueurRandom(1));
+            joueurs.add(new JoueurRandom(2));
+            Jeu j = new Jeu(joueurs);
+            j.lancer();
+            System.out.println("Le gagnant est le joueur " + j.calculGagnants().get(0).getId());
+        }
     }
 }
