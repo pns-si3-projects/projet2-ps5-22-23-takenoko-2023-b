@@ -14,24 +14,10 @@ public class Args {
     public boolean isTwoThousand() {
         return twoThousand;
     }
-
-    public void setTwoThousand(boolean twoThousand) {
-        this.twoThousand = twoThousand;
-    }
-
     public boolean isDemo() {
         return demo;
     }
-
-    public void setDemo(boolean demo) {
-        this.demo = demo;
-    }
-
     public boolean isCsv() {
         return csv;
-    }
-
-    public void setCsv(boolean csv) {
-        this.csv = csv;
     }
 }
