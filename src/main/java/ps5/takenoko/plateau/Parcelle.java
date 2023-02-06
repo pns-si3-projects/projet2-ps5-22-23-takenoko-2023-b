@@ -3,6 +3,7 @@ package ps5.takenoko.plateau;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 public class Parcelle extends ParcelleInactive{
@@ -14,7 +15,7 @@ public class Parcelle extends ParcelleInactive{
 
 
     public Parcelle() {
-        Random R = new Random();
+        SecureRandom R = new SecureRandom();
         this.couleur = Couleur.values()[R.nextInt(3)];
     }
 

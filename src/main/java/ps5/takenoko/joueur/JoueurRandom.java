@@ -7,10 +7,10 @@ import ps5.takenoko.plateau.Bordure;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Position;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class JoueurRandom extends Joueur{
-    Random random = new Random();
 
     public JoueurRandom(int id) {
         super(id);

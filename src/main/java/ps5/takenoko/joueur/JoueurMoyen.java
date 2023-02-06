@@ -8,10 +8,10 @@ import ps5.takenoko.objectif.ObjectifPanda;
 import ps5.takenoko.objectif.ObjectifParcelle;
 import ps5.takenoko.plateau.*;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class JoueurMoyen extends Joueur{
-    Random random = new Random();
     public JoueurMoyen(int id) {
         super(id);
     }

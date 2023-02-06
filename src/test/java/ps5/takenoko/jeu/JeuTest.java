@@ -2,6 +2,7 @@ package ps5.takenoko.jeu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.plateau.Couleur;
@@ -9,6 +10,7 @@ import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
 import ps5.takenoko.plateau.Position;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,5 +67,8 @@ class JeuTest {
                 "                                                         \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m     \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m                                                \n",jeu.affichePlateau());
     }
 
+    @Test
+    void test() {
 
+    }
 }
