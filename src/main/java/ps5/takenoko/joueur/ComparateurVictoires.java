@@ -10,10 +10,11 @@ import java.util.ArrayList;
 
 public class ComparateurVictoires {
 
-    private static int nbparties = 10000;
+    private static int nbparties = 2000;
     private static int nbJoueurs = 2;
 
-    public void run(){
+    public void main() {
+
         ArrayList<Float> points = new ArrayList<>();
         ArrayList<Float> victoires = new ArrayList<>();
         ArrayList<ArrayList<Float>> objectifs = new ArrayList<>();
