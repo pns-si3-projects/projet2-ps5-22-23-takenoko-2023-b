@@ -11,6 +11,8 @@ import ps5.takenoko.plateau.Position;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class JeuTest {
 
     Jeu jeu;
@@ -50,6 +52,17 @@ class JeuTest {
         jeu = new Jeu(players);
         jeu.setPlateau(plateau);
         System.out.println(jeu.affichePlateau());
+        assertEquals("                                                         \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                                          \n" +
+                "                                                        \u001B[30m|\u001B[0m \u001B[31m2 \u001B[0m\u001B[30m|\u001B[0m                                                       \n" +
+                "                                                   \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                                      \n" +
+                "                                                  \u001B[30m|\u001B[0m \u001B[31m0 \u001B[0m\u001B[30m|\u001B[0m \u001B[31m1 \u001B[0m| \u001B[32m1 \u001B[0m\u001B[30m|\u001B[0m                                                       \n" +
+                "                                                   \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \\ \u001B[34m/\u001B[0m\u001B[35mJ\u001B[0m\u001B[34m\\\u001B[0m / \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                                  \n" +
+                "                                                    \u001B[30m|\u001B[0m \u001B[33m4 \u001B[0m\u001B[34m|\u001B[0m\u001B[34m E \u001B[0m\u001B[34m|\u001B[0m \u001B[33m1 \u001B[0m\u001B[30m|\u001B[0m \u001B[31m2 \u001B[0m\u001B[30m|\u001B[0m                                               \n" +
+                "                                                     \u001B[30m\\\u001B[0m / \u001B[34m\\\u001B[0m\u001B[35mP\u001B[0m\u001B[34m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                              \n" +
+                "                                                      \u001B[30m|\u001B[0m \u001B[32m1 \u001B[0m\u001B[30m|\u001B[0m   \u001B[30m|\u001B[0m \u001B[31m0 \u001B[0m\u001B[30m|\u001B[0m \u001B[33m1 \u001B[0m\u001B[30m|\u001B[0m                                               \n" +
+                "                                                       \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m   \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m                                                \n" +
+                "                                                        \u001B[30m|\u001B[0m \u001B[31m0 \u001B[0m\u001B[30m|\u001B[0m   \u001B[30m|\u001B[0m \u001B[33m1 \u001B[0m\u001B[30m|\u001B[0m                                               \n" +
+                "                                                         \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m     \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m                                                \n",jeu.affichePlateau());
     }
 
 
