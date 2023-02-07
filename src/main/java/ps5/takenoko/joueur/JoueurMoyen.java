@@ -19,28 +19,11 @@ public class JoueurMoyen extends JoueurRandom{
         return new JoueurMoyen(this.getId());
     }
 
-    @Override
-    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
-        Collections.shuffle(amenagements);
-        return amenagements.get(0);
-    }
-
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements, Parcelle p) {
         for(Objectif o: objectifs){
             if(o instanceof ObjectifJardinier) {
-                ObjectifJardinier jar = (ObjectifJardinier) o;
-                for (Amenagement a : amenagements) {
-                    if (a.getType() == AmenagementType.ENCLOS && jar.getType() == TypeObjJardinier.OBJENCLOS) {
-                        return a;
-                    }
-                    if (a.getType() == AmenagementType.ENGRAIS && jar.getType() == TypeObjJardinier.OBJENGRAIS) {
-                        return a;
-                    }
-                    if (a.getType() == AmenagementType.BASSIN && jar.getType() == TypeObjJardinier.OBJBASSIN) {
-                        return a;
-                    }
-
-                }
+                Amenagement res=getSameAmenagements(amenagements, (ObjectifJardinier) o);
+                if (res != null)return res;
                 for (Amenagement a : amenagements) {
                     if (a.getType() == AmenagementType.ENCLOS && !p.estIrrigue()) {
                         return a;
@@ -60,9 +43,37 @@ public class JoueurMoyen extends JoueurRandom{
                 }
             }
         }
-        Collections.shuffle(amenagements);
-        return amenagements.get(0);
+        return super.choisirAmenagement(amenagements);
     }
+
+    @Override
+    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements){
+        for (Objectif o : objectifs){
+            if(o instanceof ObjectifJardinier) {
+                Amenagement a=getSameAmenagements(amenagements, (ObjectifJardinier) o);
+                if(a != null)return a;
+            }
+        }
+        return super.choisirAmenagement(amenagements);
+    }
+
+    private Amenagement getSameAmenagements(ArrayList<Amenagement> amenagements, ObjectifJardinier o) {
+        ObjectifJardinier jar = o;
+        for (Amenagement a : amenagements) {
+            if (a.getType() == AmenagementType.ENCLOS && jar.getType() == TypeObjJardinier.OBJENCLOS) {
+                return a;
+            }
+            if (a.getType() == AmenagementType.ENGRAIS && jar.getType() == TypeObjJardinier.OBJENGRAIS) {
+                return a;
+            }
+            if (a.getType() == AmenagementType.BASSIN && jar.getType() == TypeObjJardinier.OBJBASSIN) {
+                return a;
+            }
+        }
+        Collections.shuffle(amenagements);
+        return null;
+    }
+
 
     @Override
     public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
@@ -211,7 +222,7 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        if(objectifs.size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
+        if(objectifs.size() < MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
         if(actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
@@ -223,7 +234,9 @@ public class JoueurMoyen extends JoueurRandom{
         if(actionsPossibles.contains(Action.JARDINIER)){
             return Action.JARDINIER;
         }
-
+        if(this.getNbIrrigations() <3 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){
+            return Action.PIOCHER_CANAL_DIRRIGATION;
+        }
         Collections.shuffle(actionsPossibles);
         return actionsPossibles.get(0);
     }

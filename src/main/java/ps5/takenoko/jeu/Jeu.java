@@ -97,7 +97,7 @@ public class Jeu {
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
                 }
-                else if(!plateau.getParcellesAmenageables().isEmpty()){
+                else{
                     executerNuage(j);
                 }
             }
@@ -121,10 +121,10 @@ public class Jeu {
 
             switch(actionChoisi){
                 case PIOCHER_CANAL_DIRRIGATION:
-                    nbActions++;
                     j.ajouteIrrigation();
                     break;
                 case POSER_CANAL_DIRRIGATION:
+                    nbActions++;
                     j.placerIrrigation();
                     break;
                 case PIOCHER_PARCELLES:
