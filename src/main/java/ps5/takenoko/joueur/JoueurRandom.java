@@ -17,6 +17,11 @@ public class JoueurRandom extends Joueur{
     }
 
     @Override
+    public JoueurRandom clone(){
+        return new JoueurRandom(this.getId());
+    }
+
+    @Override
     public Position choisirParcelleAPousser(Set<Position> positions) {
         return getRandomPosition(positions);
     }

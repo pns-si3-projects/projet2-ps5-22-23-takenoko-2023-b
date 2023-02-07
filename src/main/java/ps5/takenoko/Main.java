@@ -35,6 +35,7 @@ public class Main {
             joueurs.add(new JoueurMoyen(2));
             ComparateurTerminal comparateurVictoires = new ComparateurTerminal();
             comparateurVictoires.run(2000, joueurs);
+
         }
         if (arguments.isCsv()) {
             ArrayList<Joueur> joueurs = new ArrayList<>();

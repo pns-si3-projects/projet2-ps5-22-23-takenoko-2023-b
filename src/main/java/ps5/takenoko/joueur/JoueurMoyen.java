@@ -16,7 +16,10 @@ public class JoueurMoyen extends JoueurRandom{
         super(id);
     }
 
-
+    @Override
+    public JoueurMoyen clone(){
+        return new JoueurMoyen(this.getId());
+    }
 
 
     @Override
