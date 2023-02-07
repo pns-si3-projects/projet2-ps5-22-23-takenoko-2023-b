@@ -14,6 +14,7 @@ import ps5.takenoko.plateau.Position;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,11 +65,11 @@ class JoueurMoyenTest {
     }
 
     @Test
-    void deplacerPandaTests() {
+    void placerIrrigationTests() {
     }
 
     @Test
-    void placerIrrigationTests() {
+    void deplacerPandaTests() {
         Parcelle green0 = new Parcelle(Couleur.VERT);
         Parcelle pink0 = new Parcelle(Couleur.ROSE);
         Parcelle yellow0 = new Parcelle(Couleur.JAUNE);
@@ -97,14 +98,19 @@ class JoueurMoyenTest {
         Objectif objM = new ObjectifPanda(1,Couleur.values(),3);
         Objectif[] obj = {objG,objP,objY,objM};
         Position[] pos = {posG,posP,posY};
+
         for(int i=0;i<4;i++){
             player.objectifs = new ArrayList<>();
             player.objectifs.add(obj[i]);
-            player.deplacerPanda();
+            Position selected = player.deplacerPanda(Set.of(pos1, posG, pos2, posP, pos3, posY));
             if(i<3){
-
+                assertEquals(pos[i],selected);
             }else{
-
+                boolean found = false;
+                for(Position possible: pos){
+                    if(possible == selected) found = true;
+                }
+                assertTrue(found);
             }
         }
 
