@@ -115,7 +115,6 @@ public class JeuLanceur {
         }
     }
 
-
     public int getNbparties() {
         return nbparties;
     }
@@ -123,22 +122,4 @@ public class JeuLanceur {
     public void setNbparties(int nbparties) {
         this.nbparties = nbparties;
     }
-
-    public ArrayList<Joueur> getJoueurs() {
-        return joueurs;
-    }
-
-    public void setJoueurs(ArrayList<Joueur> joueurs) {
-        this.joueurs = joueurs;
-    }
-
-    public Statistics getStats() {
-        return stats;
-    }
-
-    public void setStats(Statistics stats) {
-        this.stats = stats;
-    }
-
-
 }
