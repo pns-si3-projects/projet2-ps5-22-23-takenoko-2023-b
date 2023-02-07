@@ -11,7 +11,7 @@ import ps5.takenoko.plateau.*;
 import java.security.SecureRandom;
 import java.util.*;
 
-public class JoueurMoyen extends Joueur{
+public class JoueurMoyen extends JoueurRandom{
     public JoueurMoyen(int id) {
         super(id);
     }
