@@ -8,6 +8,7 @@ import java.util.Objects;
 public class ObjectifParcelle extends Objectif {
     private Shape figure;
 
+    public ObjectifParcelle(Shape figure, Couleur couleur){this(figure, new Couleur[]{couleur});}
     public ObjectifParcelle(Shape figure, Couleur[] couleurs) {
         super(figure.getPoint(), couleurs);
         this.figure = figure;

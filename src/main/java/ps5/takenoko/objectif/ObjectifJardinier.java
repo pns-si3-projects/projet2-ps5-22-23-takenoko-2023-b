@@ -8,7 +8,6 @@ import java.util.Objects;
 public class ObjectifJardinier extends Objectif {
     private TypeObjJardinier type;
 
-
     public ObjectifJardinier(TypeObjJardinier type, Couleur color) {
         super(type.getPoint(), new Couleur[]{color});
         switch(type){

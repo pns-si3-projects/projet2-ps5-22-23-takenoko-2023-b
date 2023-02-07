@@ -3,18 +3,13 @@ package ps5.takenoko.joueur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.objectif.Objectif;
-import ps5.takenoko.objectif.ObjectifPanda;
-import ps5.takenoko.objectif.ObjectifParcelle;
-import ps5.takenoko.objectif.Shape;
+import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
 import ps5.takenoko.plateau.Position;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,15 +52,58 @@ class JoueurMoyenTest {
 
     @Test
     void getRandomPositionTests() {
+        Position pos = new Position(14,14);
+        Set<Position> positions = new HashSet<>();
+        positions.addAll(List.of(new Position[]{pos, new Position(14, 15), new Position(16, 15), new Position(15, 16), new Position(15, 14)}));
+        for(int i=0;i<positions.size();i++){
+            Position choosen = player.getRandomPosition(positions);
+            assertTrue(positions.contains(choosen));
+            positions.remove(choosen);
+        }
 
     }
 
     @Test
     void deplacerJardinierTests() {
+        Parcelle green0 = new Parcelle(Couleur.VERT);
+        Parcelle pink0 = new Parcelle(Couleur.ROSE);
+        Parcelle yellow0 = new Parcelle(Couleur.JAUNE);
+        Parcelle green1 = new Parcelle(Couleur.VERT);
+        Parcelle pink1 = new Parcelle(Couleur.ROSE);
+        Parcelle yellow1 = new Parcelle(Couleur.JAUNE);
+        Position posG = new Position(15, 14);
+        Position posY = new Position(16, 15);
+        Position posP = new Position(15, 16);
+        Position pos1 = new Position(14, 16);
+        Position pos2 = new Position(14, 15);
+        Position pos3 = new Position(14, 14);
+
+        board.addParcelle(green1, posG);
+        board.addParcelle(pink1, posP);
+        board.addParcelle(yellow1, posY);
+        board.addParcelle(green0, pos1);
+        board.addParcelle(pink0, pos2);
+        board.addParcelle(yellow0, pos3);
+        green0.setNbBamboo(4);
+        pink0.setNbBamboo(4);
+        yellow0.setNbBamboo(4);
+        Objectif objG = new ObjectifJardinier(TypeObjJardinier.OBJMULTVERT,Couleur.JAUNE);
+        Objectif objP = new ObjectifJardinier(TypeObjJardinier.OBJMULTROSE,Couleur.JAUNE);
+        Objectif objY = new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE,Couleur.JAUNE);
+        Objectif[] obj = {objG,objP,objY};
+        Position[] pos = {posG,posP,posY};
+
+        for(int i=0;i<3;i++){
+            player.objectifs = new ArrayList<>();
+            player.objectifs.add(obj[i]);
+            Position selected = player.deplacerJardinier(Set.of(pos1, posG, pos2, posP, pos3, posY));
+            assertEquals(pos[i],selected);
+        }
     }
 
     @Test
     void placerIrrigationTests() {
+        //TODO quand le bot Moyen ne les posera plus au hasard
     }
 
     @Test

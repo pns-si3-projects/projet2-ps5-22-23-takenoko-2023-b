@@ -15,11 +15,9 @@ import java.util.*;
 public abstract class Joueur implements Comparable<Joueur>{
     protected SecureRandom random = new SecureRandom();
     protected final static int MAX_OBJECTIFS = 5 ;
-    
-    private final static int MAX_PARCELLES =12;
+
     private final int id;
     private Plateau plateau;
-    private ArrayList<Parcelle> parcelles = new ArrayList<>(MAX_PARCELLES);
     protected ArrayList<Objectif> objectifs = new ArrayList<>(MAX_OBJECTIFS);
     private ArrayList<Objectif> objectifsObtenus= new ArrayList<>();
 
@@ -55,10 +53,8 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
     public int getId() {return id;}
     public ArrayList<Objectif> getObjectifsObtenus() {return objectifsObtenus;}
-    public ArrayList<Parcelle> getParcelles() {return parcelles;}
     public int[] getBambousObtenus() {return bambousObtenus;}
     public ArrayList<Objectif> getObjectifs() {return objectifs;}
-    public void setParcelles(ArrayList<Parcelle> parcelles) {this.parcelles = parcelles;}
     public ArrayList<Amenagement> getAmenagements() {return amenagements;}
 
     public Plateau getPlateau() {return plateau;}
@@ -129,12 +125,6 @@ public abstract class Joueur implements Comparable<Joueur>{
         nbIrrigations++;
     }
 
-    public Parcelle donnerParcelle() {
-        Parcelle res=this.parcelles.get(0);
-        this.parcelles.remove(0);
-        return res;
-    }
-
     public abstract void poserParcelle(Parcelle p);
     public void ajouteBambou(Couleur c){
         bambousObtenus[c.ordinal()]++;
@@ -168,7 +158,6 @@ public abstract class Joueur implements Comparable<Joueur>{
     public void reset(){
         objectifsObtenus.clear();
         objectifs.clear();
-        parcelles.clear();
         amenagements.clear();
         nbIrrigations=0;
         bambousObtenus = new int[]{0,0,0};
