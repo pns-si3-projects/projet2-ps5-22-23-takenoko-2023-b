@@ -1,6 +1,7 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.lanceur;
 
 import ps5.takenoko.jeu.Jeu;
+import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.ObjectifPanda;
@@ -9,7 +10,8 @@ import ps5.takenoko.objectif.ObjectifParcelle;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ComparateurVictoires {
+public class ComparateurTerminal {
+
     public static void run(int nbparties, ArrayList<Joueur> joueurSet) {
         ArrayList<Float> points = new ArrayList<>();
         ArrayList<Float> victoires = new ArrayList<>();
@@ -38,8 +40,7 @@ public class ComparateurVictoires {
             } else {
                 if (g.size() > 1) {
                     victoires.set(0, victoires.get(0) + 1);
-                }
-                else {
+                } else {
                     for (Joueur gagnants : g) {
                         victoires.set(gagnants.getId(), victoires.get(gagnants.getId()) + 1);
                     }
