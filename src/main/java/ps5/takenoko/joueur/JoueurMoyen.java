@@ -18,7 +18,6 @@ public class JoueurMoyen extends JoueurRandom{
     public JoueurMoyen clone(){
         return new JoueurMoyen(this.getId());
     }
-
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements, Parcelle p) {
         for(Objectif o: objectifs){
             if(o instanceof ObjectifJardinier) {
@@ -70,11 +69,8 @@ public class JoueurMoyen extends JoueurRandom{
                 return a;
             }
         }
-        Collections.shuffle(amenagements);
         return null;
     }
-
-
     @Override
     public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
         for (Objectif o : objectifs){
