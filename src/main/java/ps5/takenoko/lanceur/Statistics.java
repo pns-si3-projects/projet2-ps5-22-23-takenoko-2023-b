@@ -48,20 +48,20 @@ public class Statistics {
             scores[i][2] += joueurs.get(i).getObjectifsObtenus().size();
         }
     }
-    public int getGagne(Joueur joueur){
-        return scores[joueurs.indexOf(joueur)][0];
+    public int getGagne(int index){
+        return scores[index][0];
     }
 
-    public int getPerdu(Joueur joueur, int nbParties){
-        return nbParties-scores[joueurs.indexOf(joueur)][0]-egalite;
+    public int getPerdu(int index, int nbParties){
+        return nbParties-scores[index][0]-egalite;
     }
 
     public int getEgalite(){
         return egalite;
     }
 
-    public float getScoreMoyenne(Joueur joueur, int nbParties){
-        return (float)(scores[joueurs.indexOf(joueur)][1])/nbParties;
+    public float getScoreMoyenne(int index, int nbParties){
+        return (float)(scores[index][1])/nbParties;
     }
 
     public float getObjectifMoyenne(Joueur joueur, int nbParties){
@@ -70,6 +70,20 @@ public class Statistics {
 
     public float getPourcentage(int score, int nbParties){
         return (float)score/nbParties*100;
+    }
+
+    public String[] getStats(Joueur joueur, int nbParties){
+        int index = joueurs.indexOf(joueur);
+        String[] stats = new String[8];
+        stats[0] = joueur.getClass().getSimpleName(); //name
+        stats[1]= String.valueOf(getGagne(index)); //gagne
+        stats[2]= String.valueOf(getPourcentage(getGagne(index),nbParties))+"%"; //pourcentGagne
+        stats[3]= String.valueOf(getPerdu(index,nbParties)); //perdu
+        stats[4] = String.valueOf(getPourcentage(getPerdu(index,nbParties),nbParties))+"%"; //pourcentPerdu
+        stats[5] = String.valueOf(getEgalite()); //nulle
+        stats[6] = String.valueOf(getPourcentage(getPerdu(index,nbParties),nbParties))+"%"; //pourcentNulle
+        stats[7] = String.valueOf(getScoreMoyenne(index,nbParties)); //scoreMoyen
+        return stats;
     }
 
 }
