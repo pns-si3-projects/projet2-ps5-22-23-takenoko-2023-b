@@ -172,12 +172,8 @@ public class Plateau {
             for (Position pos : tempList) {
                 for (Direction d : Direction.values()) {
                     ParcelleInactive tmp = this.getParcelle(pos.getPositionByDirection(d));
-                    if (tmp != null) {
-                        if (tmp instanceof Parcelle) {
-                            if(((Parcelle) tmp).getCouleur() == couleur) {
-                                connectedParcelle.add(pos.getPositionByDirection(d));
-                            }
-                        }
+                    if (tmp instanceof Parcelle valid && valid.getCouleur() == couleur) {
+                            connectedParcelle.add(pos.getPositionByDirection(d));
                     }
                 }
             }
@@ -185,6 +181,12 @@ public class Plateau {
         return new ArrayList<>(connectedParcelle);
     }
 
+    /**
+     * Essaye d'ajouter une irrigation sur la position cible, renvois true si elle a reussis sinon renvois faux
+     * @param bordure bordure que l'on veut tester
+     * @return boolean si l'irrigation a ete pose.
+     */
+    public boolean addBordure(Bordure bordure){ return addBordure(bordure.getPos1(),bordure.getPos2());}
     /**
      * Essaye d'ajouter une irrigation sur la position cible, renvois true si elle a reussis sinon renvois faux
      * @param pos1 position d'une parcelle existante

@@ -11,6 +11,7 @@ import ps5.takenoko.personnage.Jardinier;
 import ps5.takenoko.personnage.Panda;
 import ps5.takenoko.plateau.*;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 
@@ -226,7 +227,8 @@ public class Jeu {
 
 
     private Meteo getRandomMeteo(){
-        return Meteo.values()[(int)(Math.random()*Meteo.values().length)];
+        SecureRandom random = new SecureRandom();
+        return Meteo.values()[random.nextInt(Meteo.values().length)];
     }
 
         private ArrayList<Action> getActionsPossibles(Joueur j){

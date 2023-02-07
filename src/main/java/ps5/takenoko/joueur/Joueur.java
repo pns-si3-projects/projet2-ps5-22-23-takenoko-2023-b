@@ -9,9 +9,11 @@ import ps5.takenoko.plateau.Plateau;
 import ps5.takenoko.plateau.Position;
 
 import java.lang.reflect.Array;
+import java.security.SecureRandom;
 import java.util.*;
 
 public abstract class Joueur implements Comparable<Joueur>{
+    protected SecureRandom random = new SecureRandom();
     protected final static int MAX_OBJECTIFS = 5 ;
     
     private final static int MAX_PARCELLES =12;
@@ -42,9 +44,8 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.nbIrrigations = nbIrrigations;
     }
 
-    public Joueur clone(){
-        return null;
-    }
+    public abstract Joueur clone();
+
     public void setPlateau(Plateau plateau) {
         this.plateau = plateau;
     }

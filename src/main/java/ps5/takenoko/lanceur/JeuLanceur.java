@@ -78,7 +78,7 @@ public class JeuLanceur {
         String fileName = CSV_FILE_NAME;
         int fileNo=0;
         while(new File(fileName).exists()){
-            if(fileName==CSV_FILE_NAME){
+            if(fileName.equals(CSV_FILE_NAME)){
                 fileName= fileName.replaceAll(".csv",fileNo+".csv");
             }
             else{
