@@ -28,7 +28,6 @@ public class JeuLanceur {
         this.joueurs = joueurs;
     }
 
-
     //TODO: Change the main to a specific method
     public void lancer() throws IOException {
         int egalite = 0;
@@ -48,26 +47,28 @@ public class JeuLanceur {
                 joueur.reset();
             }
         }
-        StringBuilder sb = new StringBuilder();
+        LOGGER.setUseParentHandlers(false);
+        CustomHandler customHandler = new CustomHandler();
+        LOGGER.addHandler(customHandler);
         String[] logs = new String[joueurs.size()+1];
-        logs[0]="   JoueurType   ,   Gagne   ,   %Gagne   ,   Perdu   ,   %Perdu   ,   Nulle   ,   %Nulle   ,   ScoreMoyen   ";
-        sb.append(logs[0].replace(",", "|")+"\n");
-        sb.append("-------------------------------------------------------------------------------------------------------------------------------\n");
+        logs[0]="JoueurType,Gagne,%Gagne,Perdu,%Perdu,Nulle,%Nulle,ScoreMoyen";
+        String[] init = logs[0].split(",");
+        LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
+                init[0], init[1], init[2], init[3], init[4], init[5], init[6], init[7]));
+        LOGGER.info("--------------------------------------------------------------------------------------------------------------------------");
         for (int i = 1, j=0; i <= joueurs.size(); i++,j++) {
-            logs[i]= joueurs.get(j).getClass().getSimpleName()+"   ,   "
-                    + stats.getGagne(joueurs.get(j))+"   ,   "
-                    +stats.getPourcentage(stats.getGagne(joueurs.get(i-1)),nbparties)+"%   ,   "
-                    +stats.getPerdu(joueurs.get(j),nbparties)+" , "
-                    +stats.getPourcentage(stats.getPerdu(joueurs.get(i-1),nbparties),nbparties)+"%   ,   "
-                    +stats.getEgalite()+"   ,   "
-                    +stats.getPourcentage(stats.getEgalite(),nbparties)+"%   ,   "
-                    +stats.getScoreMoyenne(joueurs.get(j),nbparties);
-            sb.append(logs[i].replace(",", "|")+"\n");
+            String[] statsRes = stats.getStats(joueurs.get(j), nbparties);
+            logs[i]="";
+            for(int k=0;k<statsRes.length;k++){
+                logs[i]+=statsRes[k]+",";
+            }
+            LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
+                    statsRes[0], statsRes[1], statsRes[2], statsRes[3], statsRes[4], statsRes[5], statsRes[6], statsRes[7]));
             if(csv){
-                logs[i]+=","+stats.getObjectifMoyenne(joueurs.get(j),nbparties);
+                logs[i]+=stats.getObjectifMoyenne(joueurs.get(j),nbparties);
             }
         }
-        LOGGER.info(sb.toString());
+
         if(csv){
             logs[0]+= ",ObjectifMoyen";
             writeToCsv(logs);
@@ -92,5 +93,4 @@ public class JeuLanceur {
         }
         writer.close();
     }
-
 }
