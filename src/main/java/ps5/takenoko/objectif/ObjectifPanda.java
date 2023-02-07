@@ -8,6 +8,7 @@ import java.util.Objects;
 public class ObjectifPanda extends Objectif{
     private int nbParcelles;
 
+    public ObjectifPanda(int point, Couleur couleurs, int nbParcelles){this(point, new Couleur[]{couleurs},nbParcelles);}
     public ObjectifPanda(int point, Couleur[] couleurs, int nbParcelles) {
         super( point, couleurs);
         this.nbParcelles = nbParcelles;
