@@ -12,7 +12,7 @@ import java.util.logging.*;
 
 public class JeuLanceur {
     private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
-    private static final String CSV_FILE_NAME = "./src/main/java/ps5/takenoko/stats/gamestats.csv";
+    private static final String CSV_FILE_NAME = "./stats/gamestats.csv";
     private int nbparties = 1000;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
     private boolean csv = false;
