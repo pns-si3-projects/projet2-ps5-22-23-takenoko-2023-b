@@ -17,19 +17,21 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JoueurMoyenTest {
-    Joueur player;
-    Joueur player2;
+    JoueurMoyen player;
+    JoueurMoyen player2;
     Jeu game;
     Plateau board;
     @BeforeEach
     void init(){
         ArrayList<Joueur> players = new ArrayList<>();
         player = new JoueurMoyen(0);
-        player = new JoueurMoyen(1);
+        player2 = new JoueurMoyen(1);
         players.add(player);
         players.add(player2);
         game = new Jeu(players);
         board = game.getPlateau();
+        player.setPlateau(board);
+        player2.setPlateau(board);
     }
 
     @Test
@@ -40,21 +42,20 @@ class JoueurMoyenTest {
         board.addParcelle(Green3,new Position(15,14));
         board.addParcelle(Green3,new Position(14,14));
         board.addParcelle(Green3,new Position(15,17));
+
         player2.objectifs.add(objCourbeVerte);
         player.validerObjectifs();
         assertEquals(0,player.objectifs.size());
         player.objectifs.add(objCourbeVerte);
+
         player.validerObjectifs();
-        assertEquals(1,player.objectifs.size());
+        assertEquals(1,player.getNombreObjectifsObtenus());
 
     }
 
     @Test
     void getRandomPositionTests() {
-    }
 
-    @Test
-    void piocherParcelleTests() {
     }
 
     @Test
@@ -71,16 +72,46 @@ class JoueurMoyenTest {
     }
     @Test
     void piocherPoserParcelle(){
-        Parcelle parcelle = new Parcelle();
+        Objectif objG= new ObjectifParcelle(Shape.LIGNE,new Couleur[]{Couleur.VERT});
+        Parcelle parcelleG = new Parcelle(Couleur.VERT);
+        Parcelle parcelleR = new Parcelle(Couleur.ROSE);
         ArrayList<Parcelle> pioche = new ArrayList<>();
-        pioche.add(parcelle);
+        pioche.add(parcelleG);
+        pioche.add(parcelleR);
+        player.objectifs.add(objG);
+        Parcelle found;
 
-        assertEquals(0,player.getParcelles().size());
-        player.piocherParcelle(pioche);
-        assertEquals(1,player.getParcelles().size());
-        assertEquals(parcelle,player.getParcelles().get(0));
-        player.poserParcelle(parcelle);
-        assertEquals(0,player.getParcelles().size());
+        assertEquals(2,pioche.size());
+
+        found = player.piocherParcelle(pioche);
+        pioche.remove(found);
+        player.poserParcelle(found);
+
+        assertEquals(1,pioche.size());
+        assertTrue(pioche.contains(parcelleR));
+        assertEquals(2,board.getParcellePosee().size());
+
+        Boolean ok = false;
+        for(Position pos : board.getParcellePosee()){
+            if (board.getParcelle(pos).equals(parcelleG)){
+                ok=true;
+            }
+        }
+        assertTrue(ok);
+
+        found = player.piocherParcelle(pioche);
+        pioche.remove(found);
+        player.poserParcelle(found);
+        assertEquals(0,pioche.size());
+        assertEquals(3,board.getParcellePosee().size());
+
+        ok = false;
+        for(Position pos : board.getParcellePosee()){
+            if (board.getParcelle(pos).equals(parcelleR)){
+                ok=true;
+            }
+        }
+        assertTrue(ok);
     }
     @Test
     void jouerTests() {

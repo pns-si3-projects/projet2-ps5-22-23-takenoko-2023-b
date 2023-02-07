@@ -43,9 +43,7 @@ public class JoueurMoyen extends Joueur{
         //TODO
         ArrayList<Objectif>validables = objectifsValidable();
         for(Objectif o : validables){
-            if(random.nextInt(2) == 0){//50-50% chance
-                completerObjectif(o);
-            }
+            completerObjectif(o);
         }
     }
     @Override
@@ -57,25 +55,19 @@ public class JoueurMoyen extends Joueur{
 
     @Override
     public void poserParcelle(Parcelle p) {
-        getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
         Set<Position> pospos = getPlateau().getEndroitsPosables();
-        boolean b = false;
         //foreach pospos
         for(Position pos : pospos){
             for(Direction d : Direction.values()) {
-                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle) {
-                    Parcelle par = (Parcelle) getPlateau().getParcelle(pos.getPositionByDirection(d));
+                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle par) {
                     if(par.getCouleur().equals(p.getCouleur())){
                         getPlateau().addParcelle(p, pos);
-                        b = true;
                         return ;
                     }
                 }
             }
         }
-        if(!b){
-            getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
-        }
+        getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
     }
 
     public Position getRandomPosition(Set<Position> positions){
