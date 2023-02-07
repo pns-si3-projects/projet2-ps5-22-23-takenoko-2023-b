@@ -22,10 +22,6 @@ public class Statistics {
     }
 
     public void updateStats(ArrayList<Joueur> gagnants){
-        updateGagnants(gagnants);
-    }
-
-    private void updateGagnants(ArrayList<Joueur> gagnants){
         if(gagnants.size()==joueurs.size()){
             egalite++;
         }
@@ -74,7 +70,7 @@ public class Statistics {
 
     public String[] getStats(Joueur joueur, int nbParties){
         int index = joueurs.indexOf(joueur);
-        String[] stats = new String[8];
+        String[] stats = new String[9];
         stats[0] = joueur.getClass().getSimpleName(); //name
         stats[1]= String.valueOf(getGagne(index)); //gagne
         stats[2]= String.valueOf(getPourcentage(getGagne(index),nbParties))+"%"; //pourcentGagne
@@ -83,6 +79,7 @@ public class Statistics {
         stats[5] = String.valueOf(getEgalite()); //nulle
         stats[6] = String.valueOf(getPourcentage(getPerdu(index,nbParties),nbParties))+"%"; //pourcentNulle
         stats[7] = String.valueOf(getScoreMoyenne(index,nbParties)); //scoreMoyen
+        stats[8] = String.valueOf(getObjectifMoyenne(joueur,nbParties)); //objectifMoyen
         return stats;
     }
 

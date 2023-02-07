@@ -3,6 +3,7 @@ package ps5.takenoko.lanceur;
 import com.opencsv.CSVWriter;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.option.Args;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,25 +14,28 @@ import java.util.logging.*;
 public class JeuLanceur {
     private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
     private static final String CSV_FILE_NAME = "./stats/gamestats.csv";
-    private int nbparties = 1000;
+    private int nbparties;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
-    private boolean csv = false;
+    Args arguments = new Args();
+    private Statistics stats;
 
-    public JeuLanceur(int nbparties, ArrayList<Joueur> joueurs, boolean csv) {
-        this.nbparties = nbparties;
+    public JeuLanceur(ArrayList<Joueur> joueurs, Args arguments) {
         this.joueurs = joueurs;
-        this.csv = csv;
-    }
-
-    public JeuLanceur(int nbparties, ArrayList<Joueur> joueurs) {
-        this.nbparties = nbparties;
-        this.joueurs = joueurs;
+        this.arguments = arguments;
+        if(arguments.isCsv()||arguments.isTwoThousand()){
+            nbparties = 1000;
+        }
+        else if(arguments.isDemo()){
+            nbparties = 1;
+        }
+        else{
+            throw new IllegalArgumentException("Arguments non valides");
+        }
+        this.stats = new Statistics(joueurs);
     }
 
     //TODO: Change the main to a specific method
-    public void lancer() throws IOException {
-        int egalite = 0;
-        Statistics stats = new Statistics(joueurs);
+    public void lancer(){
         for (int i = 0; i < nbparties; i++) {
             if (i % 100 == 0) System.out.println(i);
             Jeu jeu = new Jeu(joueurs);
@@ -47,32 +51,7 @@ public class JeuLanceur {
                 joueur.reset();
             }
         }
-        LOGGER.setUseParentHandlers(false);
-        CustomHandler customHandler = new CustomHandler();
-        LOGGER.addHandler(customHandler);
-        String[] logs = new String[joueurs.size()+1];
-        logs[0]="JoueurType,Gagne,%Gagne,Perdu,%Perdu,Nulle,%Nulle,ScoreMoyen";
-        String[] init = logs[0].split(",");
-        LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
-                init[0], init[1], init[2], init[3], init[4], init[5], init[6], init[7]));
-        LOGGER.info("--------------------------------------------------------------------------------------------------------------------------");
-        for (int i = 1, j=0; i <= joueurs.size(); i++,j++) {
-            String[] statsRes = stats.getStats(joueurs.get(j), nbparties);
-            logs[i]="";
-            for(int k=0;k<statsRes.length;k++){
-                logs[i]+=statsRes[k]+",";
-            }
-            LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
-                    statsRes[0], statsRes[1], statsRes[2], statsRes[3], statsRes[4], statsRes[5], statsRes[6], statsRes[7]));
-            if(csv){
-                logs[i]+=stats.getObjectifMoyenne(joueurs.get(j),nbparties);
-            }
-        }
-
-        if(csv){
-            logs[0]+= ",ObjectifMoyen";
-            writeToCsv(logs);
-        }
+        affichageStats();
     }
     private void writeToCsv(String[] data) throws IOException {
         String fileName = CSV_FILE_NAME;
@@ -93,4 +72,47 @@ public class JeuLanceur {
         }
         writer.close();
     }
+    private void affichageStats(){
+        LOGGER.setUseParentHandlers(false);
+        LOGGER.addHandler(new CustomHandler());
+        String[] logs = new String[joueurs.size()+1];
+        if(arguments.isDemo()){
+            logs[0]="JoueurType,Gagne,Perdu,Nulle,Score,NbObjectifs";
+            String[] init = logs[0].split(",");
+            LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
+                    init[0], init[1], init[2], init[3], init[4], init[5]));
+        }
+        else{logs[0]="JoueurType,Gagne,%Gagne,Perdu,%Perdu,Nulle,%Nulle,ScoreMoyen";
+            String[] init = logs[0].split(",");
+            LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
+                    init[0], init[1], init[2], init[3], init[4], init[5], init[6], init[7]));
+        }
+        LOGGER.info("--------------------------------------------------------------------------------------------------------------------------");
+
+
+        for (int i = 1, j=0; i <= joueurs.size(); i++,j++) {
+            String[] statsRes = stats.getStats(joueurs.get(j), nbparties);
+            logs[i]="";
+            for(int k=0;k<statsRes.length;k++){
+                logs[i]+=statsRes[k]+",";
+            }
+            if(arguments.isDemo()){
+                LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
+                        statsRes[0], statsRes[1], statsRes[3], statsRes[5], statsRes[7], statsRes[8]));
+            }
+            else{
+                LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
+                        statsRes[0], statsRes[1], statsRes[2], statsRes[3], statsRes[4], statsRes[5], statsRes[6], statsRes[7]));
+            }
+        }
+        if(arguments.isCsv()){
+            logs[0]+= ",NbObjectifsMoyen";
+            try {
+                writeToCsv(logs);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 }
