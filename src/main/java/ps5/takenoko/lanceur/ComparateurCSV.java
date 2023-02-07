@@ -3,19 +3,18 @@ package ps5.takenoko.lanceur;
 import com.opencsv.CSVWriter;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurRandom;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.*;
 
-public class ComparateurVictoires {
-    private static final Logger LOGGER = Logger.getLogger(ComparateurVictoires.class.getSimpleName());
+public class ComparateurCSV {
+    private static final Logger LOGGER = Logger.getLogger(ComparateurCSV.class.getSimpleName());
     private static int nbparties = 10000;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
 
-    public ComparateurVictoires(ArrayList<Joueur> joueurs) {
+    public ComparateurCSV(ArrayList<Joueur> joueurs) {
         this.joueurs = joueurs;
     }
 
