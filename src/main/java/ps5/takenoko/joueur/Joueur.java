@@ -44,6 +44,9 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.nbIrrigations = nbIrrigations;
     }
 
+    public Joueur clone(){
+        return null;
+    }
     public void setPlateau(Plateau plateau) {
         this.plateau = plateau;
     }
@@ -101,19 +104,10 @@ public abstract class Joueur implements Comparable<Joueur>{
             if(!(objectifs.contains(obj))){
                 throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
             }
-            if (obj instanceof ObjectifJardinier){
-                //TODO ?
-            }
             else if (obj instanceof ObjectifPanda) {
                 for (int i = 0; i < obj.getCouleurs().length; i++) {
                     enleverBambous(((ObjectifPanda) obj).getNbParcelles(),obj.getCouleurs()[i]);
                 }
-            }
-            else if (obj instanceof ObjectifParcelle) {
-                //TODO ?
-            }
-            else{
-                throw new IllegalArgumentException("Type d'objectif inconnu");
             }
             objectifs.remove(obj);
             objectifsObtenus.add(obj);
@@ -172,6 +166,14 @@ public abstract class Joueur implements Comparable<Joueur>{
         return Integer.compare( this.calculPointPanda(),other.calculPointPanda());
     }
 
+    public void reset(){
+        objectifsObtenus.clear();
+        objectifs.clear();
+        parcelles.clear();
+        amenagements.clear();
+        nbIrrigations=0;
+        bambousObtenus = new int[]{0,0,0};
+    }
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
     public abstract Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements);
     public void addAmenagement(Amenagement amenagement){

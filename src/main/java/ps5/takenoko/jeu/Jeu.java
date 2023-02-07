@@ -164,7 +164,7 @@ public class Jeu {
                             ((Parcelle) plateau.getParcelle(choixAmenagement.getPosition())).setAmenagement(choixAmenagement.getAmenagement());
                             j.getAmenagements().remove(choixAmenagement.getAmenagement());
                         } else {
-                            throw new IllegalArgumentException("La position choisie n'est pas amenagemable");
+                            throw new IllegalArgumentException("La position choisie n'est pas amenageable");
                         }
                     }
                     else{
@@ -281,7 +281,7 @@ public class Jeu {
                 //TODO: implement the case of a draw >=3 joueurs
             }
             else if(gagnants.isEmpty()){
-                System.out.println("Draw");
+                System.out.println("Game went too far");
             }
             else{
                 System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
