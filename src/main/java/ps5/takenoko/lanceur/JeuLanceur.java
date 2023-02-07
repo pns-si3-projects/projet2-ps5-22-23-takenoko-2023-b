@@ -27,6 +27,7 @@ public class JeuLanceur {
         }
         else if(arguments.isDemo()){
             nbparties = 1;
+            LOGGER.setLevel(Level.FINER);
         }
         else{
             throw new IllegalArgumentException("Arguments non valides");
