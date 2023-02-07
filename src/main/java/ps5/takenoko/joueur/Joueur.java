@@ -44,9 +44,8 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.nbIrrigations = nbIrrigations;
     }
 
-    public Joueur clone(){
-        return null;
-    }
+    public abstract Joueur clone();
+
     public void setPlateau(Plateau plateau) {
         this.plateau = plateau;
     }
