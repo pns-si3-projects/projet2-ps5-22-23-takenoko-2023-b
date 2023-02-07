@@ -163,7 +163,7 @@ public class JoueurMoyen extends Joueur{
             bordure = iterator.next();
             R--;
         }
-        getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
+        getPlateau().addBordure(bordure);
         super.placerIrrigation();
     }
 
