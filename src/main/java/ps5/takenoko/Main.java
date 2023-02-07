@@ -29,8 +29,11 @@ public class Main {
         }
         if (arguments.isTwoThousand()) {
             //run ComparateurVictoires
-            ComparateurVictoires comparateurVictoires = new ComparateurVictoires();
-            comparateurVictoires.main();
+            ArrayList<Joueur> joueurs = new ArrayList<>();
+            joueurs.add(new JoueurRandom(1));
+            joueurs.add(new JoueurMoyen(2));
+            joueurs.add(new JoueurMoyen(3));
+            ComparateurVictoires.run(10000,joueurs);
         }
         if (arguments.isCsv()) {
             // TODO : lancer des parties de bots vs bots et enregistrer les résultats dans un fichier csv
