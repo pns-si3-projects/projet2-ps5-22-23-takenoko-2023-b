@@ -37,7 +37,7 @@ public class JeuLanceur {
     //TODO: Change the main to a specific method
     public void lancer(){
         for (int i = 0; i < nbparties; i++) {
-            if (i % 100 == 0) System.out.println(i);
+            //if (i % 100 == 0) System.out.println(i);
             Jeu jeu = new Jeu(joueurs);
             jeu.setAffichage(false);
             jeu.lancer();

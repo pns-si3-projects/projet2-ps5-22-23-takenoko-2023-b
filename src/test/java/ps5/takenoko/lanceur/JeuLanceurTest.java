@@ -8,6 +8,7 @@ import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.option.Args;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +18,8 @@ class JeuLanceurTest {
 
     @Test
     void lancer() {
+        LOGGER.setLevel(Level.OFF);
+
         Args arguments = new Args();
         JCommander.newBuilder()
                 .addObject(arguments)
@@ -28,6 +31,7 @@ class JeuLanceurTest {
         JeuLanceur jeuLanceurCsv = new JeuLanceur(joueurs, arguments);
 
         assertTrue(jeuLanceurCsv.getNbparties() == 1000);
+
 
         jeuLanceurCsv.setNbparties(1);
         jeuLanceurCsv.lancer();
