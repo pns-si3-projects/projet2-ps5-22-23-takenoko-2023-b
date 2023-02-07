@@ -1,6 +1,7 @@
 package ps5.takenoko;
 
 import com.beust.jcommander.JCommander;
+import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.joueur.JoueurMoyen;
@@ -26,12 +27,10 @@ public class Main {
         joueurs.add(new JoueurMoyen(2));
 
         if (arguments.isDemo()) {
-            JeuLanceur jeuLanceurDemo = new JeuLanceur(1, joueurs);
-            try {
-                jeuLanceurDemo.lancer();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Jeu j = new Jeu(joueurs);
+            j.setAffichage(false);
+            j.lancer();
+            LOGGER.info("Partie entre JoueurRandom et JoueurMoyen. \nLe gagnant est " + j.calculGagnants().get(0).getClass().getSimpleName());
         }
         if (arguments.isTwoThousand()) {
             JeuLanceur jeuLanceurTwoThousand = new JeuLanceur(1000, joueurs);
