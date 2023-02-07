@@ -34,6 +34,6 @@ class ParcelleListTest {
         ParcelleList parcelleList2 = new ParcelleList();
         ArrayList<Parcelle> parcelles = parcelleList.getParcelles(10);
         parcelleList2.addAtEnd(parcelles);
-        assertEquals(37, parcelleList.size());
+        assertEquals(37, parcelleList2.size());
     }
 }
