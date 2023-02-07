@@ -1,11 +1,9 @@
 package ps5.takenoko.joueur;
 
 import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.objectif.Objectif;
-import ps5.takenoko.objectif.ObjectifJardinier;
-import ps5.takenoko.objectif.ObjectifPanda;
-import ps5.takenoko.objectif.ObjectifParcelle;
+import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.*;
 
 import java.security.SecureRandom;
@@ -21,6 +19,81 @@ public class JoueurMoyen extends JoueurRandom{
         return new JoueurMoyen(this.getId());
     }
 
+    @Override
+    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
+        Collections.shuffle(amenagements);
+        return amenagements.get(0);
+    }
+
+    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements, Parcelle p) {
+        for(Objectif o: objectifs){
+            if(o instanceof ObjectifJardinier) {
+                ObjectifJardinier jar = (ObjectifJardinier) o;
+                for (Amenagement a : amenagements) {
+                    if (a.getType() == AmenagementType.ENCLOS && jar.getType() == TypeObjJardinier.OBJENCLOS) {
+                        return a;
+                    }
+                    if (a.getType() == AmenagementType.ENGRAIS && jar.getType() == TypeObjJardinier.OBJENGRAIS) {
+                        return a;
+                    }
+                    if (a.getType() == AmenagementType.BASSIN && jar.getType() == TypeObjJardinier.OBJBASSIN) {
+                        return a;
+                    }
+
+                }
+                for (Amenagement a : amenagements) {
+                    if (a.getType() == AmenagementType.ENCLOS && !p.estIrrigue()) {
+                        return a;
+                    }
+                }
+            }
+            else if(o instanceof ObjectifPanda) {
+                if (p.getCouleur().equals(o.getCouleurs())) {
+                    for(Amenagement a:amenagements){
+                        if(a.getType()== AmenagementType.BASSIN&&!p.estIrrigue()){
+                            return a;
+                        }
+                        if(a.getType()== AmenagementType.ENGRAIS&&p.estIrrigue()){
+                            return a;
+                        }
+                    }
+                }
+            }
+        }
+        Collections.shuffle(amenagements);
+        return amenagements.get(0);
+    }
+
+    @Override
+    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
+        for (Objectif o : objectifs){
+            if(o instanceof ObjectifJardinier){
+                ObjectifJardinier jar = (ObjectifJardinier) o;
+                for(Position p : positions){
+                    if(this.getPlateau().getParcelle(p).estOccupe()){
+                        Parcelle par=(Parcelle)this.getPlateau().getParcelle(p);
+                        if(par.getCouleur().equals(jar.getCouleurs())&&jar.getType()!= TypeObjJardinier.OBJVIDE){
+                            return new ChoixAmenagement(choisirAmenagement(amenagements,par),p);
+                        }
+                    }
+                }
+            }
+            else if(o instanceof ObjectifPanda){
+                ObjectifPanda pan = (ObjectifPanda) o;
+                for(Position p : positions){
+                    if(this.getPlateau().getParcelle(p).estOccupe()){
+                        Parcelle par=(Parcelle)this.getPlateau().getParcelle(p);
+                        if(par.getCouleur().equals(pan.getCouleurs())){
+                            return new ChoixAmenagement(choisirAmenagement(amenagements,par),p);
+                        }
+                    }else{
+                        throw new IllegalArgumentException();
+                    }
+                }
+            }
+        }
+        return new ChoixAmenagement(choisirAmenagement(amenagements),getRandomPosition(positions));
+    }
 
     @Override
     public void validerObjectifs() {
