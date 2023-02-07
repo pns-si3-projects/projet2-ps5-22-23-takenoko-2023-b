@@ -32,7 +32,7 @@ public class Jeu {
     private ParcelleList parcellesList = new ParcelleList();
     private AmenagementList amenagementList = new AmenagementList();
 
-    private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(Jeu.class.getSimpleName());
 
     private Boolean affichage = true;
 
@@ -71,14 +71,14 @@ public class Jeu {
                     tourJoueur(j, false);
                 }
                 if(this.affichage) {
-                    LOGGER.log(Level.FINER,this.affichePlateau());
+                    LOGGER.info(this.affichePlateau());
                 }
             }
         }
         if(this.affichage) {
             afficheResultat();
             for (Joueur j : joueurs) {
-                LOGGER.log(Level.FINER,"Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
+                LOGGER.info("Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
             }
         }
     }
@@ -174,7 +174,7 @@ public class Jeu {
                     throw new IllegalArgumentException("Action non valide");
 
             }
-            LOGGER.log(Level.FINER,msg);
+            LOGGER.info(msg);
             actionsPossibles = getActionsPossibles(j);
             if(meteoTour!=Meteo.VENT){
                 actionsPossibles.removeAll(actionChoisis);
@@ -278,10 +278,10 @@ public class Jeu {
                 //TODO: implement the case of a draw >=3 joueurs
             }
             else if(gagnants.isEmpty()){
-                LOGGER.log(Level.FINER,"Game went too far");
+                LOGGER.info("Game went too far");
             }
             else{
-                LOGGER.log(Level.FINER,"Joueur " + gagnants.get(0).getId() + " a gagne");
+                LOGGER.info("Joueur " + gagnants.get(0).getId() + " a gagne");
             }
         }
 

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class Main {
-    private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
     public static void main(String[] args) {
         Args arguments = new Args();
         JCommander.newBuilder()
