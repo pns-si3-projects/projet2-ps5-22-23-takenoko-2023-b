@@ -8,10 +8,10 @@ import ps5.takenoko.objectif.ObjectifPanda;
 import ps5.takenoko.objectif.ObjectifParcelle;
 import ps5.takenoko.plateau.*;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class JoueurMoyen extends JoueurRandom{
-    Random random = new Random();
     public JoueurMoyen(int id) {
         super(id);
     }
@@ -32,25 +32,19 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public void poserParcelle(Parcelle p) {
-        getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
         Set<Position> pospos = getPlateau().getEndroitsPosables();
-        boolean b = false;
         //foreach pospos
         for(Position pos : pospos){
             for(Direction d : Direction.values()) {
-                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle) {
-                    Parcelle par = (Parcelle) getPlateau().getParcelle(pos.getPositionByDirection(d));
+                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle par) {
                     if(par.getCouleur().equals(p.getCouleur())){
                         getPlateau().addParcelle(p, pos);
-                        b = true;
                         return ;
                     }
                 }
             }
         }
-        if(!b){
-            getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
-        }
+        getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
     }
 
     public Position getRandomPosition(Set<Position> positions){
@@ -138,7 +132,7 @@ public class JoueurMoyen extends JoueurRandom{
             bordure = iterator.next();
             R--;
         }
-        getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
+        getPlateau().addBordure(bordure);
         super.placerIrrigation();
     }
 

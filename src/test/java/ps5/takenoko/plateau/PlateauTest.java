@@ -2,8 +2,11 @@ package ps5.takenoko.plateau;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.joueur.JoueurMoyen;
 import ps5.takenoko.joueur.JoueurRandom;
 
 import java.util.ArrayList;
@@ -155,6 +158,88 @@ class PlateauTest {
             if(adjacentCenter.contains(current)) assertTrue(plateau.nextToOrigin(current));
             else assertFalse(plateau.nextToOrigin(current));
         }
+    }
+
+    @Test
+    void parcellesIrrigue(){
+        plateau.addParcelle(new Parcelle(),new Position(14,14));
+        plateau.addParcelle(new Parcelle(),new Position(15,14));
+        plateau.addParcelle(new Parcelle(),new Position(16,15));
+        plateau.addParcelle(new Parcelle(),new Position(15,13));
+        plateau.addParcelle(new Parcelle(),new Position(16,14));
+
+        plateau.addBordure(new Position(14,14), new Position(15,14));
+        plateau.addBordure(new Position(15,14), Direction.NORD_OUEST);
+        plateau.addBordure(new Position(15,14), Direction.SUD_EST);
+
+        Set<Position> pos = plateau.getParcellesIrriguees();
+
+        assertTrue(pos.contains(new Position(14,14)));
+        assertTrue(pos.contains(new Position(15,14)));
+        assertTrue(pos.contains(new Position(16,15)));
+        assertTrue(pos.contains(new Position(15,13)));
+
+        assertFalse(pos.contains(new Position(15,15)));
+        assertFalse(pos.contains(new Position(16,14)));
+        assertFalse(pos.contains(new Position(17,17)));
+
+    }
+
+    @Test
+    void adjacentIrrigue(){
+        plateau.addParcelle(new Parcelle(),new Position(14,14));
+        plateau.addParcelle(new Parcelle(),new Position(15,14));
+        plateau.addParcelle(new Parcelle(),new Position(16,15));
+        plateau.addParcelle(new Parcelle(),new Position(15,13));
+        plateau.addParcelle(new Parcelle(),new Position(16,13));
+        Bordure borderClose = new Bordure(new Position(14,14),new Position(15,14));
+        Bordure borderFar = new Bordure(new Position(15,14),Direction.NORD_OUEST);
+
+        assertTrue(plateau.adjacentIrrigue(borderClose));
+        assertFalse(plateau.adjacentIrrigue(borderFar));
+
+        plateau.addBordure(borderClose);
+        plateau.addBordure(borderFar);
+
+        assertFalse(plateau.adjacentIrrigue(new Bordure(new Position(16,17),new Position(17,17))));
+        assertTrue(plateau.adjacentIrrigue(borderFar));
+
+    }
+
+    @Test
+    void parcellesPosable(){
+        plateau.addParcelle(new Parcelle(), new Position(15,14));
+        plateau.addParcelle(new Parcelle(), new Position(14,14));
+
+        assertFalse(plateau.positionPosable(new Position(14,14)));
+        assertFalse(plateau.positionPosable(new Position(15,14)));
+        assertFalse(plateau.positionPosable(new Position(15,15)));
+        assertFalse(plateau.positionPosable(new Position(17,17)));
+
+        assertTrue(plateau.positionPosable(new Position(14,15)));
+        assertTrue(plateau.positionPosable(new Position(16,15)));
+        assertTrue(plateau.positionPosable(new Position(14,16)));
+        assertTrue(plateau.positionPosable(new Position(15,16)));
+        assertTrue(plateau.positionPosable(new Position(15,13)));
+    }
+    @Test
+    void parcellesAmenageable() {
+        Parcelle parcelle = new Parcelle(Couleur.JAUNE);
+        Parcelle parcelleVide = new Parcelle(Couleur.ROSE);
+        parcelle.setAmenagement(new Amenagement(AmenagementType.BASSIN));
+        plateau.addParcelle(parcelle, new Position(16, 15));//Bassin
+        parcelle.setAmenagement(new Amenagement(AmenagementType.ENCLOS));
+        plateau.addParcelle(parcelle, new Position(15, 14));//Enclos
+        parcelle.setAmenagement(new Amenagement(AmenagementType.ENGRAIS));
+        plateau.addParcelle(parcelle, new Position(14, 14));//Engrais
+        Position pos1 = new Position(16, 13);
+        Position pos2 = new Position(15, 13);
+        plateau.addParcelle(parcelleVide, pos1);//Vide non-Irrigue
+        plateau.addParcelle(parcelleVide, pos2);//Vide Irrigue
+
+        Set<Position> got = plateau.getParcellesAmenageables();
+        assertTrue(got.contains(pos1));
+        assertTrue(got.contains(pos2));
     }
 
 }
