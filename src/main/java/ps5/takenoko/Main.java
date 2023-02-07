@@ -2,13 +2,14 @@ package ps5.takenoko;
 
 import com.beust.jcommander.JCommander;
 import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.joueur.ComparateurVictoires;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.joueur.JoueurMoyen;
+import ps5.takenoko.lanceur.ComparateurVictoires;
 import ps5.takenoko.option.Args;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
@@ -28,9 +29,15 @@ public class Main {
             System.out.println("Le gagnant est le joueur " + j.calculGagnants().get(0).getId());
         }
         if (arguments.isTwoThousand()) {
-            //run ComparateurVictoires
-            ComparateurVictoires comparateurVictoires = new ComparateurVictoires();
-            comparateurVictoires.main();
+            ArrayList<Joueur> joueurs = new ArrayList<>();
+            joueurs.add(new JoueurRandom(1));
+            joueurs.add(new JoueurMoyen(2));
+            ComparateurVictoires comparateurVictoires = new ComparateurVictoires(joueurs);
+            try {
+                comparateurVictoires.lancer();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         if (arguments.isCsv()) {
             // TODO : lancer des parties de bots vs bots et enregistrer les résultats dans un fichier csv

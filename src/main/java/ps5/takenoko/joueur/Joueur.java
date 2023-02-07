@@ -161,6 +161,14 @@ public abstract class Joueur implements Comparable<Joueur>{
         return Integer.compare( this.calculPointPanda(),other.calculPointPanda());
     }
 
+    public void reset(){
+        objectifsObtenus.clear();
+        objectifs.clear();
+        parcelles.clear();
+        amenagements.clear();
+        nbIrrigations=0;
+        bambousObtenus = new int[]{0,0,0};
+    }
     public abstract Action jouer(ArrayList<Action> actionsPossibles);
     public abstract Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements);
     public void addAmenagement(Amenagement amenagement){
