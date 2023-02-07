@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Statistics {
     private final ArrayList<Joueur> joueurs;
-    private float[][]scores; //victoire|scoreTotal
+    private int[][]scores; //victoire|scoreTotal
     private  int egalite;
 
     public Statistics(ArrayList<Joueur> joueurs) {
 
         this.joueurs = joueurs;
-        scores = new float[joueurs.size()][2];
+        scores = new int[joueurs.size()][2];
         for (int i = 0; i < joueurs.size(); i++){
             for (int j = 0; j < 2; j++){
                 scores[i][j] = 0;
@@ -42,17 +42,24 @@ public class Statistics {
             scores[i][1] += joueurs.get(i).calculPoint();
         }
     }
+    public int getGagne(Joueur joueur){
+        return (int) scores[joueurs.indexOf(joueur)][0];
+    }
 
-    public float getScoreMoyenne(Joueur joueur, int nbParties){
-        return (scores[joueurs.indexOf(joueur)][1])/nbParties;
+    public int getPerdu(Joueur joueur, int nbParties){
+        return nbParties-scores[joueurs.indexOf(joueur)][0]-egalite;
     }
 
     public int getEgalite(){
         return egalite;
     }
 
-    public float getPourcentageVictoires(Joueur joueur, int nbParties){
-        return scores[joueurs.indexOf(joueur)][0]/nbParties*100;
+    public float getScoreMoyenne(Joueur joueur, int nbParties){
+        return (float)(scores[joueurs.indexOf(joueur)][1])/nbParties;
+    }
+
+    public float getPourcentage(int score, int nbParties){
+        return (float)score/nbParties*100;
     }
 
 }

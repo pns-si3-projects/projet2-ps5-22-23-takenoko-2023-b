@@ -38,51 +38,23 @@ public class ComparateurVictoires {
                 joueur.reset();
             }
         }
-        System.out.println("\nDraw : " + stats.getEgalite() + "%" + "\n");
-        for (Joueur joueur : joueurs) {
-            System.out.println(joueur.getClass().getSimpleName() + " : " + stats.getScoreMoyenne(joueur,nbparties) + " points");
-            System.out.println(joueur.getClass().getSimpleName() + " : " + stats.getPourcentageVictoires(joueur, nbparties) + "% of victories");
+
+        String[] logs = new String[joueurs.size()+1];
+        logs[0]="JoueurType, Gagne, %Gagne , Perdu, %Perdu, Nulle, %Nulle, ScoreMoyen";
+        LOGGER.info(logs[0]);
+        for (int i = 1; i <= joueurs.size(); i++) {
+            logs[i]= joueurs.get(i-1).getClass().getSimpleName()+","+ stats.getGagne(joueurs.get(i-1))+","+stats.getPourcentage(stats.getGagne(joueurs.get(i-1)),nbparties)+","+stats.getPerdu(joueurs.get(i-1),nbparties)+","+stats.getPourcentage(stats.getPerdu(joueurs.get(i-1),nbparties),nbparties)+","+stats.getEgalite()+","+stats.getPourcentage(stats.getEgalite(),nbparties)+","+stats.getScoreMoyenne(joueurs.get(i-1),nbparties);
+            LOGGER.info(logs[i]);
         }
-        String[] logs = {};
         writeToCsv(logs);
-
-
-//        String[] logs = {};
-//        logs[0]="Joueur, Score Moyen, %Victoires";
-//        for (int i = 0; i <= nbJoueurs; i++) {
-//            float scoreMoyen = victoires.get(0) / nbparties * 100;
-//            float pourcentageVictoires = points.get(1) / nbparties;
-//            if(i==0){
-//                logs[i]= "Draw,"+ scoreMoyen+","+ pourcentageVictoires;
-//            }
-//            else{
-//                logs[i]= "Joueur "+i+","+ scoreMoyen+","+ pourcentageVictoires;
-//            }
-//        }
-//        bld.append("\nDraw : " + (victoires.get(0) / nbparties * 100)  + "%" + "\n");
-//        bld.append("Joueur Random : " + (victoires.get(1) / nbparties * 100)  + "% victoires score moyen: " + (points.get(1) / nbparties)+"\n");
-//        bld.append("Joueur Moyen : " + (victoires.get(2) / nbparties * 100)  + "% victoires score moyen: " + (points.get(2) / nbparties)+"\n");
-//        LOGGER.info(bld.toString());
-//        String[] logs = {};
-//        logs[0]="Joueur, Score Moyen, %Victoires";
-//        logs[1]="JoueurRandom, "
-
-//        logs[1]=(victoires.get(0) / nbparties * 100)+ "%", (victoires.get(1) / nbparties * 100)+"", (victoires.get(2) / nbparties * 100)+"";
-//        writeToCsv(logs);
-//
-//        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(new File("./src/main/java/ps5/takenoko/stats/gamestats.csv")));
-//        CSVWriter csvWriter = new CSVWriter(fileWriter);
-//        String[] logMessage = {LOGGER.getName(), LOGGER.getLevel().toString(), bld.toString()};
-//        csvWriter.writeNext(logMessage);
-//        csvWriter.close();
-//        writeToCsv(logs);
-//
-//    }
     }
     private void writeToCsv(String[] data) throws IOException {
         CSVWriter writer = new CSVWriter(new FileWriter("./src/main/java/ps5/takenoko/stats/gamestats.csv"));
-        String[] record = "2,Rahul,Vaidya,India,35555".split(",");
-        writer.writeNext(record, false);
+        for(String line : data){
+            writer.writeNext(line.split(","));
+        }
+//       String[] record = "2,Rahul,Vaidya,India,35555".split(",");
+//        writer.writeNext(record, false);
         writer.close();
     }
 
