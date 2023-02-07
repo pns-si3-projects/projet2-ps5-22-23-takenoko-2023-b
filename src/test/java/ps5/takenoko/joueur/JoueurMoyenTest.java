@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.Objectif;
+import ps5.takenoko.objectif.ObjectifPanda;
 import ps5.takenoko.objectif.ObjectifParcelle;
 import ps5.takenoko.objectif.Shape;
 import ps5.takenoko.plateau.Couleur;
@@ -68,6 +69,44 @@ class JoueurMoyenTest {
 
     @Test
     void placerIrrigationTests() {
+        Parcelle green0 = new Parcelle(Couleur.VERT);
+        Parcelle pink0 = new Parcelle(Couleur.ROSE);
+        Parcelle yellow0 = new Parcelle(Couleur.JAUNE);
+        Parcelle green1 = new Parcelle(Couleur.VERT);
+        Parcelle pink1 = new Parcelle(Couleur.ROSE);
+        Parcelle yellow1 = new Parcelle(Couleur.JAUNE);
+        Position posG = new Position(15, 14);
+        Position posY = new Position(16, 15);
+        Position posP = new Position(15, 16);
+        Position pos1 = new Position(14, 16);
+        Position pos2 = new Position(14, 15);
+        Position pos3 = new Position(14, 14);
+
+        board.addParcelle(green1, posG);
+        board.addParcelle(pink1, posP);
+        board.addParcelle(yellow1, posY);
+        board.addParcelle(green0, pos1);
+        board.addParcelle(pink0, pos2);
+        board.addParcelle(yellow0, pos3);
+        green0.setNbBamboo(0);
+        pink0.setNbBamboo(0);
+        yellow0.setNbBamboo(0);
+        Objectif objG = new ObjectifPanda(1,new Couleur[]{Couleur.VERT},3);
+        Objectif objP = new ObjectifPanda(1,new Couleur[]{Couleur.ROSE},3);
+        Objectif objY = new ObjectifPanda(1,new Couleur[]{Couleur.JAUNE},3);
+        Objectif objM = new ObjectifPanda(1,Couleur.values(),3);
+        Objectif[] obj = {objG,objP,objY,objM};
+        Position[] pos = {posG,posP,posY};
+        for(int i=0;i<4;i++){
+            player.objectifs = new ArrayList<>();
+            player.objectifs.add(obj[i]);
+            player.deplacerPanda();
+            if(i<3){
+
+            }else{
+
+            }
+        }
 
     }
     @Test
