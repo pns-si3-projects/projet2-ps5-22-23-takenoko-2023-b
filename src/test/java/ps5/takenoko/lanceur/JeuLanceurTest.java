@@ -29,12 +29,15 @@ class JeuLanceurTest {
         joueurs.add(new JoueurRandom(1));
         joueurs.add(new JoueurMoyen(2));
         JeuLanceur jeuLanceurCsv = new JeuLanceur(joueurs, arguments);
-
         assertTrue(jeuLanceurCsv.getNbparties() == 1000);
 
-
-        jeuLanceurCsv.setNbparties(1);
-        jeuLanceurCsv.lancer();
+        arguments = new Args();
+        JCommander.newBuilder()
+                .addObject(arguments)
+                .build()
+                .parse("--demo");
+        jeuLanceurCsv = new JeuLanceur(joueurs, arguments);
+        assertTrue(jeuLanceurCsv.getNbparties() == 1);
 
     }
 
