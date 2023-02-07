@@ -38,14 +38,23 @@ public class ComparateurVictoires {
                 joueur.reset();
             }
         }
-
+        StringBuilder sb = new StringBuilder();
         String[] logs = new String[joueurs.size()+1];
-        logs[0]="JoueurType, Gagne, %Gagne , Perdu, %Perdu, Nulle, %Nulle, ScoreMoyen";
-        LOGGER.info(logs[0]);
+        logs[0]="   JoueurType   ,   Gagne   ,   %Gagne   ,   Perdu   ,   %Perdu   ,   Nulle   ,   %Nulle   ,   ScoreMoyen   ";
+        sb.append(logs[0].replace(",", "|")+"\n");
+        sb.append("-------------------------------------------------------------------------------------------------------------------------------\n");
         for (int i = 1; i <= joueurs.size(); i++) {
-            logs[i]= joueurs.get(i-1).getClass().getSimpleName()+","+ stats.getGagne(joueurs.get(i-1))+","+stats.getPourcentage(stats.getGagne(joueurs.get(i-1)),nbparties)+","+stats.getPerdu(joueurs.get(i-1),nbparties)+","+stats.getPourcentage(stats.getPerdu(joueurs.get(i-1),nbparties),nbparties)+","+stats.getEgalite()+","+stats.getPourcentage(stats.getEgalite(),nbparties)+","+stats.getScoreMoyenne(joueurs.get(i-1),nbparties);
-            LOGGER.info(logs[i]);
+            logs[i]= joueurs.get(i-1).getClass().getSimpleName()+"   ,   "
+                    + stats.getGagne(joueurs.get(i-1))+"   ,   "
+                    +stats.getPourcentage(stats.getGagne(joueurs.get(i-1)),nbparties)+"%   ,   "
+                    +stats.getPerdu(joueurs.get(i-1),nbparties)+" , "
+                    +stats.getPourcentage(stats.getPerdu(joueurs.get(i-1),nbparties),nbparties)+"%   ,   "
+                    +stats.getEgalite()+"   ,   "
+                    +stats.getPourcentage(stats.getEgalite(),nbparties)+"%   ,   "
+                    +stats.getScoreMoyenne(joueurs.get(i-1),nbparties);
+            sb.append(logs[i].replace(",", "|")+"\n");
         }
+        LOGGER.info(sb.toString());
         writeToCsv(logs);
     }
     private void writeToCsv(String[] data) throws IOException {
