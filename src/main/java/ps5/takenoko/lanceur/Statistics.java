@@ -7,15 +7,15 @@ import java.util.List;
 
 public class Statistics {
     private final ArrayList<Joueur> joueurs;
-    private int[][]scores; //victoire|scoreTotal
+    private int[][]scores; //victoire|scoreTotal|objectifs
     private  int egalite;
 
     public Statistics(ArrayList<Joueur> joueurs) {
 
         this.joueurs = joueurs;
-        scores = new int[joueurs.size()][2];
+        scores = new int[joueurs.size()][3];
         for (int i = 0; i < joueurs.size(); i++){
-            for (int j = 0; j < 2; j++){
+            for (int j = 0; j < 3; j++){
                 scores[i][j] = 0;
             }
         }
@@ -34,6 +34,7 @@ public class Statistics {
                 scores[joueurs.indexOf(gagnant)][0]+=1;
             }
             updateScores();
+            updateNbObjectifs();
         }
     }
 
@@ -42,8 +43,13 @@ public class Statistics {
             scores[i][1] += joueurs.get(i).calculPoint();
         }
     }
+    private void updateNbObjectifs(){
+        for(int i = 0; i < joueurs.size(); i++){
+            scores[i][2] += joueurs.get(i).getObjectifsObtenus().size();
+        }
+    }
     public int getGagne(Joueur joueur){
-        return (int) scores[joueurs.indexOf(joueur)][0];
+        return scores[joueurs.indexOf(joueur)][0];
     }
 
     public int getPerdu(Joueur joueur, int nbParties){
@@ -56,6 +62,10 @@ public class Statistics {
 
     public float getScoreMoyenne(Joueur joueur, int nbParties){
         return (float)(scores[joueurs.indexOf(joueur)][1])/nbParties;
+    }
+
+    public float getObjectifMoyenne(Joueur joueur, int nbParties){
+        return (float)(scores[joueurs.indexOf(joueur)][2])/nbParties;
     }
 
     public float getPourcentage(int score, int nbParties){

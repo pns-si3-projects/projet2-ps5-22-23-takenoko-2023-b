@@ -4,19 +4,30 @@ import com.opencsv.CSVWriter;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.joueur.Joueur;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.*;
 
-public class ComparateurCSV {
-    private static final Logger LOGGER = Logger.getLogger(ComparateurCSV.class.getSimpleName());
-    private static int nbparties = 10000;
+public class JeuLanceur {
+    private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
+    private static final String CSV_FILE_NAME = "./src/main/java/ps5/takenoko/stats/gamestats.csv";
+    private int nbparties = 1000;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
+    private boolean csv = false;
 
-    public ComparateurCSV(ArrayList<Joueur> joueurs) {
+    public JeuLanceur(int nbparties, ArrayList<Joueur> joueurs, boolean csv) {
+        this.nbparties = nbparties;
+        this.joueurs = joueurs;
+        this.csv = csv;
+    }
+
+    public JeuLanceur(int nbparties, ArrayList<Joueur> joueurs) {
+        this.nbparties = nbparties;
         this.joueurs = joueurs;
     }
+
 
     //TODO: Change the main to a specific method
     public void lancer() throws IOException {
@@ -42,27 +53,43 @@ public class ComparateurCSV {
         logs[0]="   JoueurType   ,   Gagne   ,   %Gagne   ,   Perdu   ,   %Perdu   ,   Nulle   ,   %Nulle   ,   ScoreMoyen   ";
         sb.append(logs[0].replace(",", "|")+"\n");
         sb.append("-------------------------------------------------------------------------------------------------------------------------------\n");
-        for (int i = 1; i <= joueurs.size(); i++) {
-            logs[i]= joueurs.get(i-1).getClass().getSimpleName()+"   ,   "
-                    + stats.getGagne(joueurs.get(i-1))+"   ,   "
+        for (int i = 1, j=0; i <= joueurs.size(); i++,j++) {
+            logs[i]= joueurs.get(j).getClass().getSimpleName()+"   ,   "
+                    + stats.getGagne(joueurs.get(j))+"   ,   "
                     +stats.getPourcentage(stats.getGagne(joueurs.get(i-1)),nbparties)+"%   ,   "
-                    +stats.getPerdu(joueurs.get(i-1),nbparties)+" , "
+                    +stats.getPerdu(joueurs.get(j),nbparties)+" , "
                     +stats.getPourcentage(stats.getPerdu(joueurs.get(i-1),nbparties),nbparties)+"%   ,   "
                     +stats.getEgalite()+"   ,   "
                     +stats.getPourcentage(stats.getEgalite(),nbparties)+"%   ,   "
-                    +stats.getScoreMoyenne(joueurs.get(i-1),nbparties);
+                    +stats.getScoreMoyenne(joueurs.get(j),nbparties);
             sb.append(logs[i].replace(",", "|")+"\n");
+            if(csv){
+                logs[i]+=","+stats.getObjectifMoyenne(joueurs.get(j),nbparties);
+            }
         }
         LOGGER.info(sb.toString());
-        writeToCsv(logs);
+        if(csv){
+            logs[0]+= ",ObjectifMoyen";
+            writeToCsv(logs);
+        }
     }
     private void writeToCsv(String[] data) throws IOException {
-        CSVWriter writer = new CSVWriter(new FileWriter("./src/main/java/ps5/takenoko/stats/gamestats.csv"));
+        String fileName = CSV_FILE_NAME;
+        int fileNo=0;
+        while(new File(fileName).exists()){
+            if(fileName==CSV_FILE_NAME){
+                fileName= fileName.replaceAll(".csv",fileNo+".csv");
+            }
+            else{
+                fileName= fileName.replaceAll((fileNo-1)+".csv",fileNo+".csv");
+            }
+            fileNo++;
+        }
+        CSVWriter writer = new CSVWriter(new FileWriter(fileName));
+
         for(String line : data){
             writer.writeNext(line.split(","));
         }
-//       String[] record = "2,Rahul,Vaidya,India,35555".split(",");
-//        writer.writeNext(record, false);
         writer.close();
     }
 
