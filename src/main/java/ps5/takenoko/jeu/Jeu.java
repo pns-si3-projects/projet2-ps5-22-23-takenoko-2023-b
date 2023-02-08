@@ -77,15 +77,21 @@ public class Jeu {
         int nbActions = NB_ACTIONS;
         if(lanceMeteo){
             meteoTour = getRandomMeteo();
-            LOGGER.info("Tour " + cpt + " : Meteo " + meteoTour);
+            if(this.affichage) {
+                LOGGER.info("Tour " + cpt + " : Meteo " + meteoTour);
+            }
             if (meteoTour == Meteo.CHOIX_LIBRE){
                 meteoTour= choisirMeteo(j);
-                LOGGER.info("Le joueur a choisit la météo : " + meteoTour);
+                if(this.affichage) {
+                    LOGGER.info("Le joueur a choisit la météo : " + meteoTour);
+                }
             }
             if (meteoTour == Meteo.NUAGES){
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
-                    LOGGER.info("Plus d'aménagements ! Le joueur choisit la météo : " + meteoTour);
+                    if(this.affichage) {
+                        LOGGER.info("Plus d'aménagements ! Le joueur choisit la météo : " + meteoTour);
+                    }
                 }
                 else{
                     executerNuage(j);
