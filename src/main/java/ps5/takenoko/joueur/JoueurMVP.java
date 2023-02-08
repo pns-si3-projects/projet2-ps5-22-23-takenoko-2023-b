@@ -11,32 +11,34 @@ import java.util.*;
 
 public class JoueurMVP extends JoueurRandom
 {
-    private List<Map<Action,Object>> actionMap = new ArrayList<>();
+    //private List<Map<Action,Object>> actionMap = new ArrayList<>();
 
     public JoueurMVP(int id)
     {
         super(id);
     }
-    public void ajoutAction(Action action, Object object)
-    {
-        Map<Action,Object> map = new HashMap<>();
-        map.put(action,object);
-        actionMap.add(map);
-    }
-    public void clearAction()
-    {
-        actionMap.clear();
-    }
-    public void reset()
-    {
-        super.reset();
-        clearAction();
-    }
+//    public void ajoutAction(Action action, Object object)
+//    {
+//        Map<Action,Object> map = new HashMap<>();
+//        map.put(action,object);
+//        actionMap.add(map);
+//    }
+//    public void clearAction()
+//    {
+//        actionMap.clear();
+//    }
 
 //    @Override
-//    public Joueur clone() {
-//
+//    public void reset()
+//    {
+//        //clearAction();
+//        super.reset();
 //    }
+    @Override
+    public JoueurMVP clone(){
+        return new JoueurMVP(this.getId());
+    }
+
 //    Il récupère un maximum de bambous, même s’il n’a pas de cartes avec la couleur correspondante.
 //    • Il essaie d’avoir 5 cartes objectif en main tout le temps. Les deux premiers mouvements du bot
 //    devraient donc être de prendre une carte objectif et de prendre un canal d’irrigation.
@@ -48,36 +50,33 @@ public class JoueurMVP extends JoueurRandom
 //    réalisation.
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        Action actionChoisie = null;
-        Object object = null;
-        if(actionMap.isEmpty()){
-            if(actionsPossibles.contains(Action.OBJECTIFS)){
-
-            }
-        }
-        if(actionsPossibles.contains(Action.OBJECTIFS)||actionMap.isEmpty()){
-            if(objectifs.size()<5){
-                actionChoisie= Action.OBJECTIFS;
-            }
-        }
-        if(actionsPossibles.contains(Action.PANDA)){
-            for(Position p: jeu.getPanda().posPossibles(getPlateau())){
-                if(((Parcelle)(getPlateau().getParcelle(p))).getNbBamboo()>0){
-                    actionChoisie= Action.PANDA;
-                    object = p;
-                }
-            }
-        }
-    return null;
+//        Action actionChoisie = null;
+//        Object object = null;
+//        if(actionsPossibles.contains(Action.OBJECTIFS)||actionMap.isEmpty()){
+//            if(objectifs.size()<5){
+//                actionChoisie= Action.OBJECTIFS;
+//            }
+//        }
+//        if(actionsPossibles.contains(Action.PANDA)){
+//            for(Position p: jeu.getPanda().posPossibles(getPlateau())){
+//                if(!getPlateau().getParcelle(p).estParcelleOriginelle()){
+//                    if(((Parcelle)(getPlateau().getParcelle(p))).getNbBamboo()>0){
+//                        actionChoisie= Action.PANDA;
+//                        object = p;
+//                    }
+//                }
+//            }
+//        }
+    return super.jouer(actionsPossibles);
     }
     @Override
     public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
-        if(actionMap.size()<=2 && getAmenagements().contains(AmenagementType.BASSIN)){
-            return Meteo.NUAGES;
-        }
-        else{
+//        if(actionMap.size()<=2 && getAmenagements().contains(AmenagementType.BASSIN)){
+//            return Meteo.NUAGES;
+//        }
+//        else{
             return super.choisirMeteo(meteos);
-        }
+    //    }
     }
 
     @Override
@@ -98,34 +97,34 @@ public class JoueurMVP extends JoueurRandom
 
     @Override
     public Position choisirParcelleAPousser(Set<Position> positions) {
-        return null;
+        return super.choisirParcelleAPousser(positions);
     }
 
     @Override
     public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
-        return null;
+        return super.piocherParcelle(parcelles);
     }
 
     @Override
     public Position deplacerJardinier(Set<Position> positionsPossibles) {
-        return null;
+        return super.deplacerJardinier(positionsPossibles);
     }
 
     @Override
     public Position deplacerPanda(Set<Position> positionsPossibles) {
-        return null;
+        return super.deplacerPanda(positionsPossibles);
     }
 
     @Override
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
-        return null;
+        return super.choisirObjectif(objectifs);
     }
 
 
 
     @Override
     public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
-        return null;
+        return super.choisirPositionAmenagement(positions, amenagements);
     }
 
 

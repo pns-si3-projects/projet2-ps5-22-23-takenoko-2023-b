@@ -172,7 +172,9 @@ public class Jeu {
                     throw new IllegalArgumentException("Action non valide");
 
             }
-            LOGGER.info(msg);
+            if(this.affichage){
+                LOGGER.info(msg);
+            }
             actionsPossibles = getActionsPossibles(j);
             if(meteoTour!=Meteo.VENT){
                 actionsPossibles.removeAll(actionChoisis);
