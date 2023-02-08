@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Statistics {
     private final ArrayList<Joueur> joueurs;
-    private float[][]scores; //victoire|scoreTotal|objectifs
+    private int[][]scores; //victoire|scoreTotal|objectifs
     private  int egalite;
 
     public Statistics(ArrayList<Joueur> joueurs) {
 
         this.joueurs = joueurs;
-        scores = new float[joueurs.size()][3];
+        scores = new int[joueurs.size()][3];
         for (int i = 0; i < joueurs.size(); i++){
             for (int j = 0; j < 3; j++){
                 scores[i][j] = 0;
