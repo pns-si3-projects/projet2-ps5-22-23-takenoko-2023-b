@@ -120,8 +120,9 @@ class JeuTest {
         Jeu jeu2;
         ArrayList<Joueur> players = new ArrayList<Joueur>();
         JoueurRandom joueur1 = new JoueurMoyen(0);
+        players.add(joueur1);
         players.add(new JoueurRandom(1));
-        jeu2 = new Jeu(players,plateau,new Jardinier(), new Panda(), new ObjectifList(), new ParcelleList(), 9);
+        jeu2 = new Jeu(players);
         jeu2.tourJoueur(joueur1,false);
         assertTrue(joueur1.getObjectifs().size() == 1);
     }
