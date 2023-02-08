@@ -189,7 +189,7 @@ public class Jeu {
         return res;
     }
 
-    private void executerPluie(Joueur j){
+    public void executerPluie(Joueur j){
         Set<Position> parcellesIrriguees = plateau.getParcellesPosables();
         if(!parcellesIrriguees.isEmpty()){
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
@@ -202,7 +202,7 @@ public class Jeu {
         }
     }
 
-    private void executerNuage(Joueur j){
+    public void executerNuage(Joueur j){
         Amenagement amenagement = j.choisirAmenagement(amenagementList);
         if(amenagementList.contains(amenagement)){
             j.addAmenagement(amenagement);
@@ -308,6 +308,10 @@ public class Jeu {
 
         public ParcelleList getParcellesList() {
             return parcellesList;
+        }
+
+        public AmenagementList getAmenagementList() {
+            return amenagementList;
         }
 
         public String affichePlateau(){
