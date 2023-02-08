@@ -6,7 +6,6 @@ import ps5.takenoko.element.Meteo;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.*;
 
-import java.security.SecureRandom;
 import java.util.*;
 
 public class JoueurMoyen extends JoueurRandom{
@@ -18,6 +17,35 @@ public class JoueurMoyen extends JoueurRandom{
     public JoueurMoyen clone(){
         return new JoueurMoyen(this.getId());
     }
+
+    @Override
+    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
+        int objPan = 0;
+        int objJar = 0;
+        for(Objectif o: objectifs) {
+            if (o instanceof ObjectifJardinier) {
+                objJar +=1;
+            }
+            if( o instanceof ObjectifPanda) {
+                objPan +=1;
+            }
+        }
+        if (objPan>0){
+            return Meteo.ORAGE;
+        }
+        if (objJar>0){
+            if (meteos.contains(Meteo.NUAGES)){
+                return Meteo.NUAGES;
+            }else{
+                return Meteo.PLUIE;
+            }
+        }
+        if (objectifs.size()==0){
+            return Meteo.VENT;
+        }
+        return Meteo.SOLEIL;
+    }
+
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements, Parcelle p) {
         for(Objectif o: objectifs){
             if(o instanceof ObjectifJardinier) {

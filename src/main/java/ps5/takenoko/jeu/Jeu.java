@@ -107,6 +107,10 @@ public class Jeu {
             if(meteoTour == Meteo.PLUIE){
                 executerPluie(j);
             }
+            if(meteoTour == Meteo.ORAGE){
+                executerOrage(j);
+            }
+
         }
         ArrayList<Action> actionChoisis = new ArrayList<Action>();
         ArrayList<Action> actionsPossibles = getActionsPossibles(j);
@@ -145,12 +149,7 @@ public class Jeu {
                     break;
                 case PANDA:
                     Position p;
-                    if(meteoTour!=Meteo.ORAGE){
-                        p = j.deplacerPanda(panda.posPossibles(plateau));
-                    }
-                    else{
-                        p = j.deplacerPanda(plateau.getParcellePosee());
-                    }
+                    p = j.deplacerPanda(panda.posPossibles(plateau));
                     msg += " et a déplacé le panda en " + p;
                     if(panda.deplacer(p,plateau)){
                         j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
@@ -186,6 +185,12 @@ public class Jeu {
             j.validerObjectifs();
         }
         return true;
+    }
+
+    private void executerOrage(Joueur j) {
+        Position p = j.deplacerPanda(plateau.getParcellePosee());
+        panda.deplacer(p,this.plateau);
+
     }
 
     private Meteo choisirMeteo(Joueur j){
