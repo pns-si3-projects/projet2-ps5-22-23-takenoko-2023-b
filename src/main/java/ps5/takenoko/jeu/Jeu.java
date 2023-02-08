@@ -189,7 +189,7 @@ public class Jeu {
 
     }
 
-    private Meteo choisirMeteo(Joueur j){
+    public Meteo choisirMeteo(Joueur j){
         ArrayList<Meteo> meteoList = new ArrayList<>(Arrays.asList(Meteo.values()));
         meteoList.remove(Meteo.CHOIX_LIBRE);
         if(amenagementList.isEmpty()){

@@ -96,6 +96,19 @@ class JeuTest {
     }
 
     @Test
+    void testchoisirMeteo() {
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurRandom(0);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        Meteo m = jeu2.choisirMeteo(joueur1);
+        assertTrue(m == Meteo.SOLEIL || m == Meteo.PLUIE || m == Meteo.ORAGE || m == Meteo.VENT || m == Meteo.NUAGES);
+
+    }
+
+    @Test
     void affichePlateauTest() {
         try{
             plateau.addParcelle(new Parcelle(Couleur.ROSE,2),new Position(15,13));
