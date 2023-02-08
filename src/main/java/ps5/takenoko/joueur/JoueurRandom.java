@@ -29,8 +29,7 @@ public class JoueurRandom extends Joueur{
 
     @Override
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
-        Collections.shuffle(amenagements);
-        return amenagements.get(0);
+        return (Amenagement) randomList(amenagements);
     }
 
     @Override
@@ -39,8 +38,7 @@ public class JoueurRandom extends Joueur{
     }
     @Override
     public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
-        Collections.shuffle(meteos);
-        return meteos.get(0);
+        return (Meteo)randomList(meteos);
     }
     @Override
     public void validerObjectifs() {
@@ -59,14 +57,7 @@ public class JoueurRandom extends Joueur{
 
 
     public Position getRandomPosition(Set<Position> positions){
-        int r = random.nextInt(positions.size());
-        Iterator<Position> iterator = positions.iterator(); //iterator is already random by itself
-        Position position = iterator.next();
-        while(r>0){
-            position = iterator.next();
-            r--;
-        }
-        return position;
+        return (Position)randomSet(positions);
     }
 
     /***
@@ -96,14 +87,12 @@ public class JoueurRandom extends Joueur{
 
     @Override
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
-        Collections.shuffle(objectifs);
-        return objectifs.get(0);
+        return (Class<? extends Objectif>)randomList(objectifs);
     }
 
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        Collections.shuffle(actionsPossibles);
-        return actionsPossibles.get(0);
+        return (Action)randomList(actionsPossibles);
     }
 
     @Override
@@ -111,14 +100,24 @@ public class JoueurRandom extends Joueur{
         if(getNbIrrigations()<=0) throw new InaccessibleObjectException();
         Set<Bordure> bordures = getPlateau().getBordureDisponible();
         int r = random.nextInt(bordures.size());
-        Iterator<Bordure> iterator = bordures.iterator(); //iterator is already random by itself
-        Bordure bordure = iterator.next();
-        while(r>0){
-            bordure = iterator.next();
-            r--;
-        }
+        Bordure bordure = (Bordure) randomSet(bordures);
         getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
         super.placerIrrigation();
     }
 
+    public Object randomList(List list){
+        Collections.shuffle(list);
+        return list.get(0);
+    }
+
+    public Object randomSet(Set set){
+        int r = random.nextInt(set.size());
+        Iterator iterator = set.iterator(); //iterator is already random by itself
+        Object o = iterator.next();
+        while(r>0){
+            o = iterator.next();
+            r--;
+        }
+        return o;
+    }
 }

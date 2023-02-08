@@ -32,8 +32,6 @@ class JoueurTest {
         players.add(player1);
         game = new Jeu(players);
         board = game.getPlateau();
-        for (Joueur player : players) player.setPlateau(board);
-
 
     }
     /* Pas possible tant que c'est aleatoire l'obtention des objectifs

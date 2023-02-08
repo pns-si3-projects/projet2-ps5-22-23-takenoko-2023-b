@@ -37,6 +37,7 @@ public class Jeu {
     private Boolean affichage = true;
 
     public Jeu(ArrayList<Joueur> joueurs) {
+        for(Joueur player : joueurs) player.setJeu(this);
         this.joueurs = joueurs;
         setNbObjectifFin();
 
@@ -51,6 +52,7 @@ public class Jeu {
         objectifList = objList;
         parcellesList = parcelleList;
         nbObjectifFin = nbObjFin;
+        for(Joueur player : joueurs) player.setJeu(this);
     }
 
     public Plateau getPlateau() {
@@ -58,9 +60,6 @@ public class Jeu {
     }
 
     public void lancer() {
-        for(Joueur j: this.joueurs){
-            j.setPlateau(this.plateau);
-        }
         while (!estTermine()) {
             cpt++;
             for(Joueur j: joueurs){
@@ -107,7 +106,6 @@ public class Jeu {
             if(meteoTour == Meteo.ORAGE){
                 executerOrage(j);
             }
-
         }
         ArrayList<Action> actionChoisis = new ArrayList<Action>();
         ArrayList<Action> actionsPossibles = getActionsPossibles(j);
@@ -146,8 +144,8 @@ public class Jeu {
                     jardinier.deplacer(posJardinier,plateau);
                     break;
                 case PANDA:
-                    Position p;
-                    p = j.deplacerPanda(panda.posPossibles(plateau));
+                    Position p = j.deplacerPanda(panda.posPossibles(plateau));
+
                     msg += " et a déplacé le panda en " + p;
                     if(panda.deplacer(p,plateau)){
                         j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
@@ -172,7 +170,9 @@ public class Jeu {
                     throw new IllegalArgumentException("Action non valide");
 
             }
-            LOGGER.info(msg);
+            if(this.affichage){
+                LOGGER.info(msg);
+            }
             actionsPossibles = getActionsPossibles(j);
             if(meteoTour!=Meteo.VENT){
                 actionsPossibles.removeAll(actionChoisis);
@@ -182,7 +182,6 @@ public class Jeu {
         }
         return true;
     }
-
     private void executerOrage(Joueur j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
@@ -429,12 +428,13 @@ public class Jeu {
 
         public void setPlateau(Plateau value) {
             plateau = value;
-            for (Joueur player : joueurs){
-                player.setPlateau(value);
-            }
         }
 
         public void setAffichage(Boolean value) {
             affichage = value;
         }
+
+    public Panda getPanda() {
+        return panda;
     }
+}
