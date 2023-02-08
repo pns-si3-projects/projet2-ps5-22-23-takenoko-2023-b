@@ -2,6 +2,8 @@ package ps5.takenoko.jeu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.joueur.JoueurMoyen;
@@ -175,6 +177,19 @@ class JeuTest {
                 "                                                       \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m   \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m                                                \n" +
                 "                                                        \u001B[30m|\u001B[0m \u001B[31m0 \u001B[0m\u001B[30m|\u001B[0m   \u001B[30m|\u001B[0m \u001B[33m1 \u001B[0m\u001B[30m|\u001B[0m                                               \n" +
                 "                                                         \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m     \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m                                                \n",jeu.affichePlateau());
+    }
+
+
+    @Test
+    void pluie(){
+        Parcelle farAway= new Parcelle(Couleur.VERT);
+
+        jeu.getPlateau().addParcelle(farAway,new Position(18,18));
+        farAway.setAmenagement(new Amenagement(AmenagementType.BASSIN));
+
+        assertEquals(1,farAway.getNbBamboo());
+        jeu.executerPluie(players.get(0));
+        assertEquals(2,farAway.getNbBamboo());
     }
 
 }
