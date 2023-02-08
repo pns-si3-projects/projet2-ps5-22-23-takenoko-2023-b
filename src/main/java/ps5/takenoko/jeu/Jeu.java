@@ -59,9 +59,6 @@ public class Jeu {
     }
 
     public void lancer() {
-        for(Joueur j: this.joueurs){
-            j.setJeu(this);
-        }
         while (!estTermine()) {
             cpt++;
             for(Joueur j: joueurs){
@@ -446,4 +443,8 @@ public class Jeu {
         public void setAffichage(Boolean value) {
             affichage = value;
         }
+
+    public Panda getPanda() {
+        return panda;
     }
+}
