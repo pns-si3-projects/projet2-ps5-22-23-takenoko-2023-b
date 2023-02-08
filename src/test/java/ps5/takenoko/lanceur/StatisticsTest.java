@@ -47,15 +47,14 @@ class StatisticsTest {
         winner.add(new JoueurRandom(1));
         stats.updateStats(winner);
 
-        assertEquals(stats.getStats(joueur1,2)[0], "JoueurMoyen");
-        assertEquals(stats.getStats(joueur1,2)[1], "1");
-        assertEquals(stats.getStats(joueur1,2)[2], "50.0%");
-        assertEquals(stats.getStats(joueur1,2)[3], "0");
-        assertEquals(stats.getStats(joueur1,2)[4], "0.0%");
-        assertEquals(stats.getStats(joueur1,2)[5], "1");
-        assertEquals(stats.getStats(joueur1,2)[6], "50.0%");
-        assertEquals(stats.getStats(joueur1,2)[7], "0.0");
-        assertEquals(stats.getStats(joueur1,2)[8], "0.0");
+        assertEquals(stats.getStats(joueur1,2)[0], (float)1);
+        assertEquals(stats.getStats(joueur1,2)[1], (float) 50);
+        assertEquals(stats.getStats(joueur1,2)[2], (float)0);
+        assertEquals(stats.getStats(joueur1,2)[3], (float)0);
+        assertEquals(stats.getStats(joueur1,2)[4], (float)1);
+        assertEquals(stats.getStats(joueur1,2)[5], (float)50);
+        assertEquals(stats.getStats(joueur1,2)[6], (float)0);
+        assertEquals(stats.getStats(joueur1,2)[7], (float)0);
     }
 
 }
