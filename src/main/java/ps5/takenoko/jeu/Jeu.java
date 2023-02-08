@@ -95,7 +95,7 @@ public class Jeu {
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
                 }
-                else if(!plateau.getParcellesAmenageables().isEmpty()){
+                else{
                     executerNuage(j);
                 }
             }
@@ -105,6 +105,10 @@ public class Jeu {
             if(meteoTour == Meteo.PLUIE){
                 executerPluie(j);
             }
+            if(meteoTour == Meteo.ORAGE){
+                executerOrage(j);
+            }
+
         }
         ArrayList<Action> actionChoisis = new ArrayList<Action>();
         ArrayList<Action> actionsPossibles = getActionsPossibles(j);
@@ -120,10 +124,10 @@ public class Jeu {
 
             switch(actionChoisi){
                 case PIOCHER_CANAL_DIRRIGATION:
-                    nbActions++;
                     j.ajouteIrrigation();
                     break;
                 case POSER_CANAL_DIRRIGATION:
+                    nbActions++;
                     j.placerIrrigation();
                     break;
                 case PIOCHER_PARCELLES:
@@ -144,12 +148,7 @@ public class Jeu {
                     break;
                 case PANDA:
                     Position p;
-                    if(meteoTour!=Meteo.ORAGE){
-                        p = j.deplacerPanda(panda.posPossibles(plateau));
-                    }
-                    else{
-                        p = j.deplacerPanda(plateau.getParcellePosee());
-                    }
+                    p = j.deplacerPanda(panda.posPossibles(plateau));
                     msg += " et a déplacé le panda en " + p;
                     if(panda.deplacer(p,plateau)){
                         j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
@@ -183,6 +182,12 @@ public class Jeu {
             j.validerObjectifs();
         }
         return true;
+    }
+
+    private void executerOrage(Joueur j) {
+        Position p = j.deplacerPanda(plateau.getParcellePosee());
+        panda.deplacer(p,this.plateau);
+
     }
 
     private Meteo choisirMeteo(Joueur j){

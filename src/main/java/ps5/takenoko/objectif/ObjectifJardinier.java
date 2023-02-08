@@ -63,6 +63,11 @@ public class ObjectifJardinier extends Objectif {
         }
         return false;
     }
+
+    public TypeObjJardinier getType() {
+        return type;
+    }
+
     @Override
     public int getPoint(){
         if(type.isMultiple()) return super.getPoint();
