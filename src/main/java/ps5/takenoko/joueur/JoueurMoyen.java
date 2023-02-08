@@ -58,7 +58,8 @@ public class JoueurMoyen extends JoueurRandom{
                 }
             }
             else if(o instanceof ObjectifPanda) {
-                if (p.getCouleur().equals(o.getCouleurs())) {
+                for(Couleur c:o.getCouleurs())
+                if (p.getCouleur().equals(c)) {
                     for(Amenagement a:amenagements){
                         if(a.getType()== AmenagementType.BASSIN&&!p.estIrrigue()){
                             return a;
@@ -85,15 +86,14 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     private Amenagement getSameAmenagements(ArrayList<Amenagement> amenagements, ObjectifJardinier o) {
-        ObjectifJardinier jar = o;
         for (Amenagement a : amenagements) {
-            if (a.getType() == AmenagementType.ENCLOS && jar.getType() == TypeObjJardinier.OBJENCLOS) {
+            if ((a.getType() == AmenagementType.ENCLOS) && (o.getType() == TypeObjJardinier.OBJENCLOS)) {
                 return a;
             }
-            if (a.getType() == AmenagementType.ENGRAIS && jar.getType() == TypeObjJardinier.OBJENGRAIS) {
+            if ((a.getType() == AmenagementType.ENGRAIS) && (o.getType() == TypeObjJardinier.OBJENGRAIS)) {
                 return a;
             }
-            if (a.getType() == AmenagementType.BASSIN && jar.getType() == TypeObjJardinier.OBJBASSIN) {
+            if ((a.getType() == AmenagementType.BASSIN) && (o.getType() == TypeObjJardinier.OBJBASSIN)) {
                 return a;
             }
         }
@@ -102,24 +102,27 @@ public class JoueurMoyen extends JoueurRandom{
     @Override
     public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
         for (Objectif o : objectifs){
-            if(o instanceof ObjectifJardinier){
-                ObjectifJardinier jar = (ObjectifJardinier) o;
+            if(o instanceof ObjectifJardinier jar){
                 for(Position p : positions){
                     if(this.getPlateau().getParcelle(p).estOccupe()){
                         Parcelle par=(Parcelle)this.getPlateau().getParcelle(p);
-                        if(par.getCouleur().equals(jar.getCouleurs())&&jar.getType()!= TypeObjJardinier.OBJVIDE){
-                            return new ChoixAmenagement(choisirAmenagement(amenagements,par),p);
+                        for(Couleur c:jar.getCouleurs()){
+                            if(par.getCouleur().equals(c)&&jar.getType()!= TypeObjJardinier.OBJVIDE){
+                                return new ChoixAmenagement(choisirAmenagement(amenagements,par),p);
+                            }
                         }
+
                     }
                 }
             }
-            else if(o instanceof ObjectifPanda){
-                ObjectifPanda pan = (ObjectifPanda) o;
+            else if(o instanceof ObjectifPanda pan){
                 for(Position p : positions){
                     if(this.getPlateau().getParcelle(p).estOccupe()){
                         Parcelle par=(Parcelle)this.getPlateau().getParcelle(p);
-                        if(par.getCouleur().equals(pan.getCouleurs())){
-                            return new ChoixAmenagement(choisirAmenagement(amenagements,par),p);
+                        for(Couleur c:pan.getCouleurs()){
+                            if(par.getCouleur().equals(c)) {
+                                return new ChoixAmenagement(choisirAmenagement(amenagements, par), p);
+                            }
                         }
                     }else{
                         throw new IllegalArgumentException();
@@ -232,15 +235,6 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public void placerIrrigation(){
-        Set<Bordure> bordures = getPlateau().getBordureDisponible();
-        int R = random.nextInt(bordures.size());
-        Iterator<Bordure> iterator = bordures.iterator(); //iterator is already random by itself
-        Bordure bordure = iterator.next();
-        while(R>0){
-            bordure = iterator.next();
-            R--;
-        }
-        getPlateau().addBordure(bordure);
         super.placerIrrigation();
     }
 
