@@ -32,12 +32,12 @@ public class JoueurMVP extends JoueurRandom
         super.reset();
         clearAction();
     }
+    @Override
+    public JoueurMVP clone(){
+        return new JoueurMVP(this.getId());
+    }
 
-    //    @Override
-//    public Joueur clone() {
-//
-//    }
-//    Il récupère un maximum de bambous, même s’il n’a pas de cartes avec la couleur correspondante.
+    //    Il récupère un maximum de bambous, même s’il n’a pas de cartes avec la couleur correspondante.
 //    • Il essaie d’avoir 5 cartes objectif en main tout le temps. Les deux premiers mouvements du bot
 //    devraient donc être de prendre une carte objectif et de prendre un canal d’irrigation.
 //• Quand il tire une la météo « ? » dans les premiers tours, il prend une irrigation.
@@ -70,63 +70,63 @@ public class JoueurMVP extends JoueurRandom
         }
         return null;
     }
-    @Override
-    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
-        if(actionMap.size()<=2 && getAmenagements().contains(AmenagementType.BASSIN)){
-            return Meteo.NUAGES;
-        }
-        else{
-            return super.choisirMeteo(meteos);
-        }
-    }
-
-    @Override
-    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
-        return super.choisirAmenagement(amenagements);
-    }
-
-
-    @Override
-    public void validerObjectifs() {
-        super.validerObjectifs();
-    }
-
-    @Override
-    public void poserParcelle(Parcelle p) {
-        super.poserParcelle(p);
-    }
-
-    @Override
-    public Position choisirParcelleAPousser(Set<Position> positions) {
-        return null;
-    }
-
-    @Override
-    public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
-        return null;
-    }
-
-    @Override
-    public Position deplacerJardinier(Set<Position> positionsPossibles) {
-        return null;
-    }
-
-    @Override
-    public Position deplacerPanda(Set<Position> positionsPossibles) {
-        return null;
-    }
-
-    @Override
-    public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
-        return null;
-    }
-
-
-
-    @Override
-    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
-        return null;
-    }
+//    @Override
+//    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
+//        if(actionMap.size()<=2 && getAmenagements().contains(AmenagementType.BASSIN)){
+//            return Meteo.NUAGES;
+//        }
+//        else{
+//            return super.choisirMeteo(meteos);
+//        }
+//    }
+//
+//    @Override
+//    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
+//        return super.choisirAmenagement(amenagements);
+//    }
+//
+//
+//    @Override
+//    public void validerObjectifs() {
+//        super.validerObjectifs();
+//    }
+//
+//    @Override
+//    public void poserParcelle(Parcelle p) {
+//        super.poserParcelle(p);
+//    }
+//
+//    @Override
+//    public Position choisirParcelleAPousser(Set<Position> positions) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Position deplacerJardinier(Set<Position> positionsPossibles) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Position deplacerPanda(Set<Position> positionsPossibles) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
+//        return null;
+//    }
+//
+//
+//
+//    @Override
+//    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
+//        return null;
+//    }
 
 
 }
