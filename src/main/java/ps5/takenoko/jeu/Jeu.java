@@ -59,7 +59,7 @@ public class Jeu {
 
     public void lancer() {
         for(Joueur j: this.joueurs){
-            j.setPlateau(this.plateau);
+            j.setJeu(this);
         }
         while (!estTermine()) {
             cpt++;
@@ -440,9 +440,6 @@ public class Jeu {
 
         public void setPlateau(Plateau value) {
             plateau = value;
-            for (Joueur player : joueurs){
-                player.setPlateau(value);
-            }
         }
 
         public void setAffichage(Boolean value) {
