@@ -115,7 +115,7 @@ public class ObjectifParcelle extends Objectif {
 
         ObjectifParcelle that = (ObjectifParcelle) o;
         if(that.couleurs.length!=couleurs.length)return false;
-        
+
         for(int i=0;i<couleurs.length;i++){
             if(couleurs[i] != that.couleurs[i])return false;
         }

@@ -268,12 +268,20 @@ class ObjectifParcelleTest {
         assertEquals(4,new ObjectifParcelle(Shape.TRIANGLE,Couleur.ROSE).getPoint());
 
         assertEquals(3,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT}).getPoint());
-        assertEquals(4,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.JAUNE}).getPoint());
-        assertEquals(5,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.ROSE,Couleur.ROSE}).getPoint());
-
         assertEquals(3,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.VERT}).getPoint());
+
+        assertEquals(4,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.JAUNE}).getPoint());
         assertEquals(4,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.ROSE,Couleur.VERT}).getPoint());
+
+        assertEquals(5,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.ROSE,Couleur.ROSE}).getPoint());
         assertEquals(5,new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE}).getPoint());
+        try{
+            new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.JAUNE}).getPoint();
+            new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.JAUNE}).getPoint();
+            fail();
+        }catch(Exception e){
+
+        }
     }
 
     @Test
