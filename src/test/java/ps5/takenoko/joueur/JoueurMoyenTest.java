@@ -2,6 +2,7 @@ package ps5.takenoko.joueur;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.element.Meteo;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.Couleur;
@@ -198,8 +199,7 @@ class JoueurMoyenTest {
     }
     @Test
     void jouerTests() {
-        ArrayList<Action> actions = new ArrayList<>();
-        actions.addAll(Arrays.asList(Action.values()));
+        ArrayList<Action> actions = new ArrayList<>(Arrays.asList(Action.values()));
 
         assertEquals(Action.OBJECTIFS ,player.jouer(actions));
         actions.remove(Action.OBJECTIFS);
@@ -217,5 +217,15 @@ class JoueurMoyenTest {
             assertTrue(actions.contains(act));
             actions.remove(act);
         }
+    }
+
+    @Test
+    void choisirMeteoTests(){
+        ArrayList<Meteo> meteos = new ArrayList<>(Arrays.asList(Meteo.values()));
+        meteos.remove(Meteo.CHOIX_LIBRE);
+        meteos.remove(Meteo.NUAGES);
+        player.addObjectif(new ObjectifPanda(4,Couleur.ROSE,3));
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
+        assertEquals(player.choisirMeteo(meteos),Meteo.ORAGE);
     }
 }
