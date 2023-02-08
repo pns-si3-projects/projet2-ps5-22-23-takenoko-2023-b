@@ -56,7 +56,7 @@ class ObjectifTest {
         ObjectifConcret objectif1 = new ObjectifConcret("objectif1",1,Couleur.VERT);
         ObjectifConcret objectif2 = new ObjectifConcret("objectif1",1, new Couleur[]{Couleur.VERT, Couleur.JAUNE});
 
-        assertEquals("ObjectifConcret de couleur VERT. Cette objectif vaut 1 points.", objectif1.toString());
-        assertEquals("ObjectifConcret de couleur VERT et JAUNE. Cette objectif vaut 1 points.", objectif2.toString());
+        assertEquals("ObjectifConcret de couleur VERT. Cet objectif vaut 1 points", objectif1.toString());
+        assertEquals("ObjectifConcret de couleur VERT et JAUNE. Cet objectif vaut 1 points", objectif2.toString());
     }
 }
