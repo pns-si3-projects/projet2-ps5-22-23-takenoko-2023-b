@@ -25,7 +25,6 @@ class ParcelleListTest {
         for(Parcelle p : parcelles){
             assertFalse(parcelleList.contains(p));
         }
-        System.out.println(parcelleList);
         assertEquals(7, parcelleList.size());
     }
 
