@@ -5,6 +5,7 @@ import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Action;
 import ps5.takenoko.joueur.ChoixAmenagement;
 import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.lanceur.CustomHandler;
 import ps5.takenoko.lanceur.JeuLanceur;
 import ps5.takenoko.objectif.Empereur;
 import ps5.takenoko.objectif.Objectif;
@@ -48,6 +49,8 @@ public class Jeu {
     }
 
     public void lancer() {
+        LOGGER.setUseParentHandlers(false);
+        LOGGER.addHandler(new CustomHandler());
         while (!estTermine()) {
             cpt++;
             for(Joueur j: joueurs){
@@ -74,12 +77,21 @@ public class Jeu {
         int nbActions = NB_ACTIONS;
         if(lanceMeteo){
             meteoTour = getRandomMeteo();
+            if(this.affichage) {
+                LOGGER.info("Tour " + cpt + " : Meteo " + meteoTour);
+            }
             if (meteoTour == Meteo.CHOIX_LIBRE){
                 meteoTour= choisirMeteo(j);
+                if(this.affichage) {
+                    LOGGER.info("Le joueur a choisit la météo : " + meteoTour);
+                }
             }
             if (meteoTour == Meteo.NUAGES){
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
+                    if(this.affichage) {
+                        LOGGER.info("Plus d'aménagements ! Le joueur choisit la météo : " + meteoTour);
+                    }
                 }
                 else{
                     executerNuage(j);

@@ -83,4 +83,7 @@ public class Statistics {
         return stats;
     }
 
+    public int[][] getScores() {
+        return scores;
+    }
 }
