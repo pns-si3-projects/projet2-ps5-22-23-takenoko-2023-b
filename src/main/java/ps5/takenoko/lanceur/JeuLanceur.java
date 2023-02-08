@@ -34,12 +34,13 @@ public class JeuLanceur {
         this.stats = new Statistics(joueurs);
     }
 
-    //TODO: Change the main to a specific method
     public void lancer(){
         for (int i = 0; i < nbparties; i++) {
             //if (i % 100 == 0) System.out.println(i);
             Jeu jeu = new Jeu(joueurs);
-            jeu.setAffichage(false);
+            if(!arguments.isDemo()){
+                jeu.setAffichage(false);
+            }
             jeu.lancer();
             ArrayList<Joueur> gagnants = jeu.calculGagnants();
             if (gagnants.size() != 1) {//Case where the game surpass the number of turns
