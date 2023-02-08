@@ -37,6 +37,7 @@ public class Jeu {
     private Boolean affichage = true;
 
     public Jeu(ArrayList<Joueur> joueurs) {
+        for(Joueur player : joueurs) player.setJeu(this);
         this.joueurs = joueurs;
         setNbObjectifFin();
 
