@@ -59,6 +59,6 @@ public abstract class Objectif {
         String stringCouleur;
         if(couleurs.length==1) stringCouleur = ""+couleurs[0];
         else stringCouleur = couleurs[0]+" et "+couleurs[1];
-        return getClass().getSimpleName() + " de couleur " + stringCouleur +". Cette objectif vaut " + point +" points." ;
+        return getClass().getSimpleName() + " de couleur " + stringCouleur +". Cet objectif vaut " + point +" points" ;
     }
 }

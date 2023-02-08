@@ -10,4 +10,9 @@ public class Empereur extends Objectif {
     public boolean verifie(Joueur j) {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Empereur";
+    }
 }
