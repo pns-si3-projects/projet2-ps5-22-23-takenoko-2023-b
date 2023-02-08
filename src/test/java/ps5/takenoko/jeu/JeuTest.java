@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.TypeObjJardinier;
 import ps5.takenoko.plateau.Couleur;
@@ -15,8 +16,7 @@ import ps5.takenoko.plateau.Position;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JeuTest {
 
@@ -30,6 +30,23 @@ class JeuTest {
         players.add(new JoueurRandom(1));
         jeu = new Jeu(players);
         plateau = new Plateau();
+    }
+
+    @Test
+    void testEstTermine(){
+        assertFalse(jeu.estTermine());
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Objectif> objectifs = new ArrayList<>();
+        for(int i=0; i<10; i++){
+            objectifs.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE, Couleur.ROSE));
+        }
+        joueur1.setObjectifsObtenus(objectifs);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        assertTrue(jeu2.estTermine());
     }
 
     @Test
