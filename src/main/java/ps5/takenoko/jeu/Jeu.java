@@ -52,6 +52,7 @@ public class Jeu {
         objectifList = objList;
         parcellesList = parcelleList;
         nbObjectifFin = nbObjFin;
+        for(Joueur player : joueurs) player.setJeu(this);
     }
 
     public Plateau getPlateau() {
