@@ -19,10 +19,40 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     @Override
-    public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
-        if (objectifs.contains(ObjectifPanda.class)){
-            return ObjectifPanda.class;
+    public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifsTypes) {
+        int cptPan=0;
+        int cptPar=0;
+        int cptJar=0;
+        for(Objectif o: this.objectifs){
+            if(o instanceof ObjectifPanda){
+                cptPan++;
+            }
+            if(o instanceof ObjectifJardinier){
+                cptJar++;
+            }
+            if(o instanceof ObjectifParcelle){
+                cptPar++;
+            }
         }
+        if (getPlateau().getParcellePosee().size() <= 7 && cptPar<3) {
+            if (objectifsTypes.contains(ObjectifParcelle.class)) {
+                return ObjectifParcelle.class;
+            }
+        }else if (cptPan<2) {
+            if (objectifsTypes.contains(ObjectifPanda.class)) {
+                return ObjectifPanda.class;
+            }
+        }else if (cptJar<2) {
+            if (objectifsTypes.contains(ObjectifJardinier.class)) {
+                    return ObjectifJardinier.class;
+            }
+        }else if (cptPar<1) {
+        if (objectifsTypes.contains(ObjectifParcelle.class)) {
+            return ObjectifParcelle.class;
+        }
+    }
+        return super.choisirObjectif(objectifsTypes);
+
     }
 
     @Override
@@ -152,16 +182,30 @@ public class JoueurMoyen extends JoueurRandom{
     @Override
     public void poserParcelle(Parcelle p) {
         Set<Position> pospos = getPlateau().getEndroitsPosables();
-        //foreach pospos
+        List<Position> goodPos = new ArrayList<>();
+        int max=0;
         for(Position pos : pospos){
+            int cpt=0;
             for(Direction d : Direction.values()) {
                 if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle par) {
                     if(par.getCouleur().equals(p.getCouleur())){
-                        getPlateau().addParcelle(p, pos);
-                        return ;
+                        cpt++;
                     }
                 }
             }
+            if (cpt>max){
+                max=cpt;
+                goodPos.clear();
+                goodPos.add(pos);
+            }
+            if (cpt==max) {
+                goodPos.add(pos);
+            }
+        }
+        if(goodPos.size()>=0){
+            Collections.shuffle(goodPos);
+            getPlateau().addParcelle(p,goodPos.get(0));
+            return ;
         }
         getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
     }
@@ -301,7 +345,7 @@ public class JoueurMoyen extends JoueurRandom{
         return max>=4;
 
     }
-    public Action choisirActionBasique(){
+    public Action choisirActionBasique(ArrayList<Action> actionsPossibles){
         int cptPan=0;
         int cptPar=0;
         int cptJar=0;
@@ -316,10 +360,10 @@ public class JoueurMoyen extends JoueurRandom{
                 cptPar++;
             }
         }
-        if(cptPar>=cptJar&&cptPar>=cptPan){
+        if(cptPar>=cptJar&&cptPar>=cptPan&&actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
             return Action.PIOCHER_PARCELLES;
         }
-        else if(cptPan>=cptJar){
+        else if(cptPan>=cptJar&&actionsPossibles.contains(Action.PANDA)){
             return Action.PANDA;
         }
         return Action.JARDINIER;
@@ -336,17 +380,11 @@ public class JoueurMoyen extends JoueurRandom{
         if(this.getAmenagements().size()>0 && actionsPossibles.contains(Action.POSER_AMENAGEMENT)){
             return Action.POSER_AMENAGEMENT;
         }
-        if(getPlateau().getBordurePosee().size()<=12&&BonneIrrigation()&&actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION)){
+        if(this.getPlateau().getBordurePosee().size()>=12&&BonneIrrigation()&&actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION)){
             return Action.POSER_CANAL_DIRRIGATION;
         }
-        if(getPlateau().getParcellePosee().size()<=10&&actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
-            return Action.PIOCHER_PARCELLES;
-        }
-        if(actionsPossibles.contains(choisirActionBasique())){
-            return choisirActionBasique();
-        }
-        if(BonneIrrigation()&&actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION)){
-            return Action.POSER_CANAL_DIRRIGATION;
+        if(actionsPossibles.contains(choisirActionBasique(actionsPossibles))){
+            return choisirActionBasique(actionsPossibles);
         }
         Collections.shuffle(actionsPossibles);
         return actionsPossibles.get(0);
