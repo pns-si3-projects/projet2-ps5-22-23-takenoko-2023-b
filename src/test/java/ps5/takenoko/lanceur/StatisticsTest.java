@@ -16,17 +16,20 @@ class StatisticsTest {
         ArrayList<Joueur> players = new ArrayList<Joueur>();
         ArrayList<Joueur> winner = new ArrayList<Joueur>();
         JoueurRandom joueur1 = new JoueurMoyen(0);
-
         players.add(joueur1);
         players.add(new JoueurRandom(1));
-
         winner.add(joueur1);
         Statistics stats = new Statistics(players);
-        assertEquals(stats.getScores()[0][0], 0);
 
+        assertEquals(stats.getScores()[0][0], 0);
         stats.updateStats(winner);
         assertEquals(stats.getScores()[0][0], 1);
         assertEquals(stats.getScores()[1][0], 0);
+
+        assertEquals(stats.getEgalite(),0);
+        winner.add(new JoueurRandom(1));
+        stats.updateStats(winner);
+        assertEquals(stats.getEgalite(),1);
     }
 
 }
