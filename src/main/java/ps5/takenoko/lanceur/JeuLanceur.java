@@ -14,7 +14,7 @@ import java.util.logging.*;
 public class JeuLanceur {
     private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
     private static final String CSV_FILE_NAME = "./stats/gamestats.csv";
-    private int nbparties;
+    private int nbparties=0;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
     Args arguments = new Args();
     private Statistics stats;
@@ -27,9 +27,6 @@ public class JeuLanceur {
         }
         else if(arguments.isDemo()){
             nbparties = 1;
-        }
-        else{
-            throw new IllegalArgumentException("Arguments non valides");
         }
         this.stats = new Statistics(joueurs);
     }
