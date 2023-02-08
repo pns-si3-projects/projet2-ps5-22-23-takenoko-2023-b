@@ -128,6 +128,21 @@ class JeuTest {
     }
 
     @Test
+    void executerNuage(){
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurMoyen(0);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        assertEquals(jeu2.getAmenagementList().size(), 9);
+        assertEquals(joueur1.getAmenagements().size(), 0);
+        jeu2.executerNuage(joueur1);
+        assertEquals(jeu2.getAmenagementList().size(), 8);
+        assertEquals(joueur1.getAmenagements().size(), 1);
+    }
+
+    @Test
     void affichePlateauTest() {
         try{
             plateau.addParcelle(new Parcelle(Couleur.ROSE,2),new Position(15,13));
