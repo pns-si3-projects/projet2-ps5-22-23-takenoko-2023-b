@@ -77,7 +77,7 @@ public class Statistics {
         stats[3]= String.valueOf(getPerdu(index,nbParties)); //perdu
         stats[4] = String.valueOf(getPourcentage(getPerdu(index,nbParties),nbParties))+"%"; //pourcentPerdu
         stats[5] = String.valueOf(getEgalite()); //nulle
-        stats[6] = String.valueOf(getPourcentage(getPerdu(index,nbParties),nbParties))+"%"; //pourcentNulle
+        stats[6] = String.valueOf(getPourcentage(getEgalite(),nbParties))+"%"; //pourcentNulle
         stats[7] = String.valueOf(getScoreMoyenne(index,nbParties)); //scoreMoyen
         stats[8] = String.valueOf(getObjectifMoyenne(joueur,nbParties)); //objectifMoyen
         return stats;

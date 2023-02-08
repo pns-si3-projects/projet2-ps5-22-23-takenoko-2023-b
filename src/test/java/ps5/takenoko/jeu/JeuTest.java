@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.TypeObjJardinier;
 import ps5.takenoko.plateau.Couleur;
@@ -15,8 +16,7 @@ import ps5.takenoko.plateau.Position;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JeuTest {
 
@@ -24,13 +24,96 @@ class JeuTest {
     Plateau plateau;
     ArrayList<Joueur> players = new ArrayList<Joueur>();
 
-
     @BeforeEach
     void init(){
         players.add(new JoueurRandom(0));
         players.add(new JoueurRandom(1));
         jeu = new Jeu(players);
         plateau = new Plateau();
+    }
+
+    @Test
+    void testEstTermine(){
+        assertFalse(jeu.estTermine());
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Objectif> objectifs = new ArrayList<>();
+        for(int i=0; i<10; i++){
+            objectifs.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE, Couleur.ROSE));
+        }
+        joueur1.setObjectifsObtenus(objectifs);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        assertTrue(jeu2.estTermine());
+    }
+
+    @Test
+    void CalculGagnats(){
+        assertEquals(jeu.calculGagnants().size(), 2);
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Objectif> objectifs = new ArrayList<>();
+        for(int i=0; i<10; i++){
+            objectifs.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE, Couleur.ROSE));
+        }
+        joueur1.setObjectifsObtenus(objectifs);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        assertEquals(jeu2.calculGagnants().size(), 1);
+        assertTrue(jeu2.calculGagnants().contains(joueur1));
+    }
+
+    @Test
+    void testpiocherObjectifs(){
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurRandom(0);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        jeu2.piocherObjectifs(joueur1);
+        assertEquals(joueur1.getObjectifs().size(), 1);
+        jeu2.piocherObjectifs(joueur1);
+        assertEquals(joueur1.getObjectifs().size(), 2);
+    }
+
+    @Test
+    void affichePlateauTest() {
+        try{
+            plateau.addParcelle(new Parcelle(Couleur.ROSE,2),new Position(15,13));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(14,14));
+            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(15,14));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE,3),new Position(14,15));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE),new Position(16,15));
+            plateau.addParcelle(new Parcelle(Couleur.VERT),new Position(14,16));
+
+            plateau.addParcelle(new Parcelle(Couleur.ROSE,2),new Position(17,15));
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(15,17));
+
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(13,14));
+
+            plateau.addParcelle(new Parcelle(Couleur.ROSE),new Position(16,16));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE,1),new Position(17,16));
+            plateau.addParcelle(new Parcelle(Couleur.JAUNE,1),new Position(17,17));
+
+        }catch(Exception e){System.out.println(e);}
+        jeu = new Jeu(players);
+        jeu.setPlateau(plateau);
+        assertEquals("                                                         \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                                          \n" +
+                "                                                        \u001B[30m|\u001B[0m \u001B[31m2 \u001B[0m\u001B[30m|\u001B[0m                                                       \n" +
+                "                                                   \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                                      \n" +
+                "                                                  \u001B[30m|\u001B[0m \u001B[31m0 \u001B[0m\u001B[30m|\u001B[0m \u001B[31m1 \u001B[0m| \u001B[32m1 \u001B[0m\u001B[30m|\u001B[0m                                                       \n" +
+                "                                                   \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \\ \u001B[34m/\u001B[0m\u001B[35mJ\u001B[0m\u001B[34m\\\u001B[0m / \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                                  \n" +
+                "                                                    \u001B[30m|\u001B[0m \u001B[33m4 \u001B[0m\u001B[34m|\u001B[0m\u001B[34m E \u001B[0m\u001B[34m|\u001B[0m \u001B[33m1 \u001B[0m\u001B[30m|\u001B[0m \u001B[31m2 \u001B[0m\u001B[30m|\u001B[0m                                               \n" +
+                "                                                     \u001B[30m\\\u001B[0m / \u001B[34m\\\u001B[0m\u001B[35mP\u001B[0m\u001B[34m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m                                              \n" +
+                "                                                      \u001B[30m|\u001B[0m \u001B[32m1 \u001B[0m\u001B[30m|\u001B[0m   \u001B[30m|\u001B[0m \u001B[31m0 \u001B[0m\u001B[30m|\u001B[0m \u001B[33m1 \u001B[0m\u001B[30m|\u001B[0m                                               \n" +
+                "                                                       \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m   \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m                                                \n" +
+                "                                                        \u001B[30m|\u001B[0m \u001B[31m0 \u001B[0m\u001B[30m|\u001B[0m   \u001B[30m|\u001B[0m \u001B[33m1 \u001B[0m\u001B[30m|\u001B[0m                                               \n" +
+                "                                                         \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m     \u001B[30m\\\u001B[0m \u001B[30m/\u001B[0m                                                \n",jeu.affichePlateau());
     }
 
 }

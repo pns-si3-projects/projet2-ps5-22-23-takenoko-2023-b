@@ -14,7 +14,7 @@ import java.util.logging.*;
 public class JeuLanceur {
     private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
     private static final String CSV_FILE_NAME = "./stats/gamestats.csv";
-    private int nbparties;
+    private int nbparties=0;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
     Args arguments = new Args();
     private Statistics stats;
@@ -28,18 +28,16 @@ public class JeuLanceur {
         else if(arguments.isDemo()){
             nbparties = 1;
         }
-        else{
-            throw new IllegalArgumentException("Arguments non valides");
-        }
         this.stats = new Statistics(joueurs);
     }
 
-    //TODO: Change the main to a specific method
     public void lancer(){
         for (int i = 0; i < nbparties; i++) {
-            if (i % 100 == 0) System.out.println(i);
+            //if (i % 100 == 0) System.out.println(i);
             Jeu jeu = new Jeu(joueurs);
-            jeu.setAffichage(true);
+            if(!arguments.isDemo()){
+                jeu.setAffichage(false);
+            }
             jeu.lancer();
             ArrayList<Joueur> gagnants = jeu.calculGagnants();
             if (gagnants.size() != 1) {//Case where the game surpass the number of turns
@@ -115,4 +113,11 @@ public class JeuLanceur {
         }
     }
 
+    public int getNbparties() {
+        return nbparties;
+    }
+
+    public void setNbparties(int nbparties) {
+        this.nbparties = nbparties;
+    }
 }

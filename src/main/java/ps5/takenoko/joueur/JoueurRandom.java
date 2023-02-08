@@ -7,6 +7,7 @@ import ps5.takenoko.plateau.Bordure;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Position;
 
+import java.lang.reflect.InaccessibleObjectException;
 import java.security.SecureRandom;
 import java.util.*;
 
@@ -25,6 +26,7 @@ public class JoueurRandom extends Joueur{
     public Position choisirParcelleAPousser(Set<Position> positions) {
         return getRandomPosition(positions);
     }
+
     @Override
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
         Collections.shuffle(amenagements);
@@ -106,6 +108,7 @@ public class JoueurRandom extends Joueur{
 
     @Override
     public void placerIrrigation(){
+        if(getNbIrrigations()<=0) throw new InaccessibleObjectException();
         Set<Bordure> bordures = getPlateau().getBordureDisponible();
         int r = random.nextInt(bordures.size());
         Iterator<Bordure> iterator = bordures.iterator(); //iterator is already random by itself

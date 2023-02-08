@@ -5,6 +5,7 @@ import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Action;
 import ps5.takenoko.joueur.ChoixAmenagement;
 import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.lanceur.JeuLanceur;
 import ps5.takenoko.objectif.Empereur;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.personnage.Jardinier;
@@ -13,6 +14,8 @@ import ps5.takenoko.plateau.*;
 
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Jeu {
@@ -28,6 +31,8 @@ public class Jeu {
     private ObjectifList objectifList = new ObjectifList();
     private ParcelleList parcellesList = new ParcelleList();
     private AmenagementList amenagementList = new AmenagementList();
+
+    private static final Logger LOGGER = Logger.getLogger(Jeu.class.getSimpleName());
 
     private Boolean affichage = true;
 
@@ -66,21 +71,14 @@ public class Jeu {
                     tourJoueur(j, false);
                 }
                 if(this.affichage) {
-                    System.out.println(this.affichePlateau());
+                    LOGGER.info(this.affichePlateau());
                 }
-            }
-            if(cpt > NB_TOUR_MAX) {
-                //System.out.println(this.affichePlateau());
-                for(Joueur j: joueurs){
-                    //System.out.println(j.getObjectifs());
-                }
-                break;
             }
         }
         if(this.affichage) {
             afficheResultat();
             for (Joueur j : joueurs) {
-                System.out.println("Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
+                LOGGER.info("Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
             }
         }
     }
@@ -121,6 +119,7 @@ public class Jeu {
         while(nbActions>0 && !stop){
             Action actionChoisi = j.jouer(actionsPossibles);
             actionChoisis.add(actionChoisi);
+
             String msg = "Joueur "+j.getId()+" a choisi action " + actionChoisi.toString();
 
             switch(actionChoisi){
@@ -174,9 +173,7 @@ public class Jeu {
                     throw new IllegalArgumentException("Action non valide");
 
             }
-            if(this.affichage) {
-                System.out.println(msg);
-            }
+            LOGGER.info(msg);
             actionsPossibles = getActionsPossibles(j);
             if(meteoTour!=Meteo.VENT){
                 actionsPossibles.removeAll(actionChoisis);
@@ -286,14 +283,14 @@ public class Jeu {
                 //TODO: implement the case of a draw >=3 joueurs
             }
             else if(gagnants.isEmpty()){
-                System.out.println("Game went too far");
+                LOGGER.info("Game went too far");
             }
             else{
-                System.out.println("Joueur " + gagnants.get(0).getId() + " a gagne");
+                LOGGER.info("Joueur " + gagnants.get(0).getId() + " a gagne");
             }
         }
 
-        private boolean estTermine(){
+        public boolean estTermine(){
             for(Joueur j: joueurs){
                 if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
                     j.completerObjectif(new Empereur());
@@ -320,7 +317,7 @@ public class Jeu {
         }
 
 
-        Parcelle piocherParcelles(Joueur j) {
+        public Parcelle piocherParcelles(Joueur j) {
             ArrayList<Parcelle> parcelles = parcellesList.getParcelles(3);
             Parcelle p = j.piocherParcelle(parcelles);
             parcellesList.remove(p);
@@ -329,7 +326,7 @@ public class Jeu {
             return p;
         }
 
-        private void piocherObjectifs(Joueur j) {
+        public void piocherObjectifs(Joueur j) {
             List<Class<?extends Objectif>> objectifs = objectifList.objectifTypeDisponible();
             Class<? extends Objectif> o = j.choisirObjectif(objectifs);
             if(!objectifs.contains(o)){
