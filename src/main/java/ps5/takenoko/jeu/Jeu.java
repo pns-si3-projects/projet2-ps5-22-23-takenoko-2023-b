@@ -330,6 +330,10 @@ public class Jeu {
             j.addObjectif(objectifList.getList().get(o).remove(0));
         }
 
+        public ParcelleList getParcellesList() {
+            return parcellesList;
+        }
+
         public String affichePlateau(){
             String result="";
 

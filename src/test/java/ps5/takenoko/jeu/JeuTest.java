@@ -82,6 +82,20 @@ class JeuTest {
     }
 
     @Test
+    void testpiocherParcelles() {
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurRandom(0);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        assertEquals(jeu2.getParcellesList().size(),27);
+        Parcelle p = jeu2.piocherParcelles(joueur1);
+        assertFalse(jeu2.getParcellesList().contains(p));
+        assertEquals(jeu2.getParcellesList().size(),26);
+    }
+
+    @Test
     void affichePlateauTest() {
         try{
             plateau.addParcelle(new Parcelle(Couleur.ROSE,2),new Position(15,13));
