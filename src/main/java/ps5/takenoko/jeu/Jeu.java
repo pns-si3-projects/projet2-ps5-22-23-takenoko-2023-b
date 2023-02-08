@@ -284,7 +284,7 @@ public class Jeu {
             }
         }
 
-        private boolean estTermine(){
+        public boolean estTermine(){
             for(Joueur j: joueurs){
                 if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
                     j.completerObjectif(new Empereur());

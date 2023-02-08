@@ -162,8 +162,12 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
     public abstract Meteo choisirMeteo(ArrayList<Meteo> meteos);
 
-
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
     }
+
+    public void setObjectifsObtenus(ArrayList<Objectif> objectifsObtenus) {
+        this.objectifsObtenus = objectifsObtenus;
+    }
+
 }
