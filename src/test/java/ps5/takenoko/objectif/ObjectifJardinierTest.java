@@ -26,7 +26,6 @@ class ObjectifJardinierTest {
         Jeu game = new Jeu(players);
         game.setPlateau(board);
 
-
         Parcelle tileRed3 = new Parcelle(Couleur.ROSE);
         tileRed3.setNbBamboo(2);
         Parcelle tileYellow3 = new Parcelle(Couleur.JAUNE);

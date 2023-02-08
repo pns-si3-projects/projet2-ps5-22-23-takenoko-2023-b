@@ -37,7 +37,6 @@ public class Jeu {
     private Boolean affichage = true;
 
     public Jeu(ArrayList<Joueur> joueurs) {
-        for(Joueur player : joueurs) player.setJeu(this);
         this.joueurs = joueurs;
         setNbObjectifFin();
 
@@ -59,6 +58,9 @@ public class Jeu {
     }
 
     public void lancer() {
+        for(Joueur j: this.joueurs){
+            j.setPlateau(this.plateau);
+        }
         while (!estTermine()) {
             cpt++;
             for(Joueur j: joueurs){
@@ -427,13 +429,12 @@ public class Jeu {
 
         public void setPlateau(Plateau value) {
             plateau = value;
+            for (Joueur player : joueurs){
+                player.setPlateau(value);
+            }
         }
 
         public void setAffichage(Boolean value) {
             affichage = value;
         }
-
-    public Panda getPanda() {
-        return panda;
     }
-}

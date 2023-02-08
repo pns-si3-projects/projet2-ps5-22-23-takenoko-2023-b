@@ -32,6 +32,7 @@ class JoueurTest {
         players.add(player1);
         game = new Jeu(players);
         board = game.getPlateau();
+        for (Joueur player : players) player.setPlateau(board);
 
 
     }

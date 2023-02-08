@@ -27,6 +27,8 @@ class JoueurMoyenTest {
         players.add(player2);
         game = new Jeu(players);
         board = game.getPlateau();
+        player.setPlateau(board);
+        player2.setPlateau(board);
     }
 
     @Test
