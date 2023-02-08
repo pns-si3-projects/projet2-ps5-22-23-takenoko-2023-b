@@ -2,6 +2,7 @@ package ps5.takenoko.joueur;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.element.Meteo;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.Couleur;
@@ -18,6 +19,7 @@ class JoueurMoyenTest {
     JoueurMoyen player2;
     Jeu game;
     Plateau board;
+
     @BeforeEach
     void init(){
         ArrayList<Joueur> players = new ArrayList<>();
@@ -27,8 +29,6 @@ class JoueurMoyenTest {
         players.add(player2);
         game = new Jeu(players);
         board = game.getPlateau();
-        player.setPlateau(board);
-        player2.setPlateau(board);
     }
 
     @Test
@@ -153,6 +153,7 @@ class JoueurMoyenTest {
         }
 
     }
+
     @Test
     void piocherPoserParcelle(){
         Objectif objG= new ObjectifParcelle(Shape.LIGNE,new Couleur[]{Couleur.VERT});
@@ -196,6 +197,7 @@ class JoueurMoyenTest {
         }
         assertTrue(ok);
     }
+
     @Test
     void jouerTests() {
         ArrayList<Action> actions = new ArrayList<>();
@@ -215,4 +217,5 @@ class JoueurMoyenTest {
             actions.remove(act);
         }
     }
+
 }
