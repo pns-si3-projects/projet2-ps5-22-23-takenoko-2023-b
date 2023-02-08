@@ -46,7 +46,7 @@ public class CSVStats {
             return data2;
         }
         else{
-            return String.valueOf((Float.parseFloat(data1) + Float.parseFloat(data2))/2);
+            return String.valueOf((Double.parseDouble(data1) + Double.parseDouble(data2))/2);
         }
     }
 
@@ -54,7 +54,7 @@ public class CSVStats {
         if(data1 == null){
             return data2;
         }
-        return String.valueOf(Float.parseFloat(data1) + Float.parseFloat(data2));
+        return String.valueOf(Double.parseDouble(data1) + Double.parseDouble(data2));
     }
 
     public String[] toStringArray(){

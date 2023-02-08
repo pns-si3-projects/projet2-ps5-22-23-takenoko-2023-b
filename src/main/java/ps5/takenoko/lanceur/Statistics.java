@@ -7,16 +7,15 @@ import java.util.List;
 
 public class Statistics {
     private final ArrayList<Joueur> joueurs;
-    private float[][]scores; //victoire|scoreTotal|objectifs
+    private double[][]scores; //victoire|scoreTotal|objectifs
     private  int egalite;
 
     public Statistics(ArrayList<Joueur> joueurs) {
-
         this.joueurs = joueurs;
-        scores = new float[joueurs.size()][3];
+        scores = new double[joueurs.size()][3];
         for (int i = 0; i < joueurs.size(); i++){
             for (int j = 0; j < 3; j++){
-                scores[i][j] = 0;
+                scores[i][j] = 0.;
             }
         }
     }
@@ -44,33 +43,33 @@ public class Statistics {
             scores[i][2] += joueurs.get(i).getObjectifsObtenus().size();
         }
     }
-    public float getGagne(int index){
+    public double getGagne(int index){
         return scores[index][0];
     }
 
-    public float getPerdu(int index, int nbParties){
+    public double getPerdu(int index, int nbParties){
         return nbParties-scores[index][0]-egalite;
     }
 
-    public float getEgalite(){
+    public double getEgalite(){
         return egalite;
     }
 
-    public float getScoreMoyenne(int index, int nbParties){
-        return (float)(scores[index][1])/nbParties;
+    public double getScoreMoyenne(int index, int nbParties){
+        return (double)(scores[index][1])/nbParties;
     }
 
-    public float getObjectifMoyenne(Joueur joueur, int nbParties){
+    public double getObjectifMoyenne(Joueur joueur, int nbParties){
         return (scores[joueurs.indexOf(joueur)][2])/nbParties;
     }
 
-    public float getPourcentage(float score, int nbParties){
+    public double getPourcentage(double score, int nbParties){
         return score/nbParties*100;
     }
 
-    public Float[] getStats(Joueur joueur, int nbParties){
+    public double[] getStats(Joueur joueur, int nbParties){
         int index = joueurs.indexOf(joueur);
-        Float[] stats = new Float[8];
+        double[] stats = new double[8];
         stats[0]= getGagne(index); //gagne
         stats[1]= getPourcentage(getGagne(index),nbParties); //pourcentGagne
         stats[2]=getPerdu(index,nbParties); //perdu
