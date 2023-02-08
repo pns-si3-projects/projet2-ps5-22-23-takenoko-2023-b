@@ -83,7 +83,7 @@ class ParcelleTest {
         assertEquals(2,parcelle.getNbBamboo());
         assertEquals(2,bassin.getNbBamboo());
         assertEquals(2,enclos.getNbBamboo());
-        assertEquals(3,engrais.getNbBamboo());
+        assertEquals(4,engrais.getNbBamboo());
     }
 
     @Test
@@ -96,7 +96,7 @@ class ParcelleTest {
         assertEquals(1,parcelle.getNbBamboo());
         assertEquals(1,bassin.getNbBamboo());
         assertEquals(2,enclos.getNbBamboo());
-        assertEquals(2,engrais.getNbBamboo());
+        assertEquals(3,engrais.getNbBamboo());
 
     }
 
