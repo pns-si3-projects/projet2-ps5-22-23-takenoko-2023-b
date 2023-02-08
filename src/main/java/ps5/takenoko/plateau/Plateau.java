@@ -235,7 +235,7 @@ public class Plateau {
         return res;
     }
 
-    public Set<Position> getParcellesPosables(){
+    public Set<Position> getParcellesAugmentables(){
         Set<Position> res = new HashSet<>();
         for(Position p : parcellePosee){
             if(!getParcelle(p).estParcelleOriginelle()){

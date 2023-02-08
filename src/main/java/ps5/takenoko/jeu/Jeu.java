@@ -6,7 +6,6 @@ import ps5.takenoko.joueur.Action;
 import ps5.takenoko.joueur.ChoixAmenagement;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.lanceur.CustomHandler;
-import ps5.takenoko.lanceur.JeuLanceur;
 import ps5.takenoko.objectif.Empereur;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.personnage.Jardinier;
@@ -15,7 +14,6 @@ import ps5.takenoko.plateau.*;
 
 import java.security.SecureRandom;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -203,7 +201,7 @@ public class Jeu {
     }
 
     public void executerPluie(Joueur j){
-        Set<Position> parcellesIrriguees = plateau.getParcellesPosables();
+        Set<Position> parcellesIrriguees = plateau.getParcellesAugmentables();
         if(!parcellesIrriguees.isEmpty()){
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
             if(parcellesIrriguees.contains(p)){

@@ -85,6 +85,35 @@ public class JoueurMoyen extends JoueurRandom{
         return Meteo.SOLEIL;
     }
 
+    @Override
+    public Position choisirParcelleAPousser(Set<Position> positions) {
+        int max=0;
+        List<Position> goodPos = new ArrayList<>();
+        for(Position p:positions){
+            int cpt=0;
+            if(getPlateau().getParcelle(p)instanceof Parcelle par){
+                for(Objectif o:objectifs){
+                    for(Couleur c:o.getCouleurs()){
+                        if(par.getCouleur().equals(c)){
+                            cpt++;
+                        }
+                    }
+                }
+            }
+            if (cpt>max){
+                max=cpt;
+                goodPos.clear();
+                goodPos.add(p);
+            }
+            if (cpt==max) {
+                goodPos.add(p);
+            }
+
+        }
+        Collections.shuffle(goodPos);
+        return goodPos.get(0);
+    }
+
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements, Parcelle p) {
         for(Objectif o: objectifs){
             if(o instanceof ObjectifJardinier) {
