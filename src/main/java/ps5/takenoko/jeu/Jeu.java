@@ -39,7 +39,6 @@ public class Jeu {
     public Jeu(ArrayList<Joueur> joueurs) {
         this.joueurs = joueurs;
         setNbObjectifFin();
-
     }
 
     //For tests purpose
@@ -58,8 +57,8 @@ public class Jeu {
     }
 
     public void lancer() {
-        for(Joueur j: this.joueurs){
-            j.setPlateau(this.plateau);
+        for(Joueur j: joueurs){
+            j.setJeu(this);
         }
         while (!estTermine()) {
             cpt++;
@@ -444,4 +443,5 @@ public class Jeu {
         public void setAffichage(Boolean value) {
             affichage = value;
         }
-    }
+
+}

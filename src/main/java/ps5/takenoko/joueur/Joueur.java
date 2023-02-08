@@ -2,6 +2,7 @@ package ps5.takenoko.joueur;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.Meteo;
+import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
@@ -17,7 +18,8 @@ public abstract class Joueur implements Comparable<Joueur>{
     protected final static int MAX_OBJECTIFS = 5 ;
 
     private final int id;
-    private Plateau plateau;
+
+    protected Jeu jeu;
     protected ArrayList<Objectif> objectifs = new ArrayList<>(MAX_OBJECTIFS);
     private ArrayList<Objectif> objectifsObtenus= new ArrayList<>();
 
@@ -35,18 +37,7 @@ public abstract class Joueur implements Comparable<Joueur>{
         this.id=id;
     }
 
-    public Joueur(int id, ArrayList<Objectif> objectifs, ArrayList<Objectif> objectifsObtenus, int nbIrrigations) {
-        this.id=id;
-        this.objectifs = objectifs;
-        this.objectifsObtenus = objectifsObtenus;
-        this.nbIrrigations = nbIrrigations;
-    }
-
     public abstract Joueur clone();
-
-    public void setPlateau(Plateau plateau) {
-        this.plateau = plateau;
-    }
 
     public int getNbIrrigations() {
         return nbIrrigations;
@@ -56,8 +47,6 @@ public abstract class Joueur implements Comparable<Joueur>{
     public int[] getBambousObtenus() {return bambousObtenus;}
     public ArrayList<Objectif> getObjectifs() {return objectifs;}
     public ArrayList<Amenagement> getAmenagements() {return amenagements;}
-
-    public Plateau getPlateau() {return plateau;}
 
     public int calculPoint(){
         int res=0;
@@ -174,5 +163,7 @@ public abstract class Joueur implements Comparable<Joueur>{
     public abstract Meteo choisirMeteo(ArrayList<Meteo> meteos);
 
 
-
+    public void setJeu(Jeu jeu) {
+        this.jeu = jeu;
+    }
 }

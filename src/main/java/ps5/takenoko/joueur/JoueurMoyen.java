@@ -32,19 +32,19 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public void poserParcelle(Parcelle p) {
-        Set<Position> pospos = getPlateau().getEndroitsPosables();
+        Set<Position> pospos = jeu.getPlateau().getEndroitsPosables();
         //foreach pospos
         for(Position pos : pospos){
             for(Direction d : Direction.values()) {
-                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle par) {
+                if (jeu.getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle par) {
                     if(par.getCouleur().equals(p.getCouleur())){
-                        getPlateau().addParcelle(p, pos);
+                        jeu.getPlateau().addParcelle(p, pos);
                         return ;
                     }
                 }
             }
         }
-        getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
+        jeu.getPlateau().addParcelle(p, getRandomPosition(jeu.getPlateau().getEndroitsPosables()));
     }
 
     public Position getRandomPosition(Set<Position> positions){
@@ -91,8 +91,8 @@ public class JoueurMoyen extends JoueurRandom{
             if(o instanceof ObjectifJardinier) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
-                        if(!getPlateau().getParcelle(p).estParcelleOriginelle()) {
-                            Parcelle par = (Parcelle) getPlateau().getParcelle(p);
+                        if(!jeu.getPlateau().getParcelle(p).estParcelleOriginelle()) {
+                            Parcelle par = (Parcelle) jeu.getPlateau().getParcelle(p);
                             if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() < 4 && par.estIrrigue()) {
                                 return p;
                             }
@@ -109,8 +109,8 @@ public class JoueurMoyen extends JoueurRandom{
             if(o instanceof ObjectifPanda) {
                 for(Position p : positionsPossibles){
                     for(int i = 0; i < o.getCouleurs().length; i++) {
-                        if(!getPlateau().getParcelle(p).estParcelleOriginelle()) {
-                            Parcelle par = (Parcelle) getPlateau().getParcelle(p);
+                        if(!jeu.getPlateau().getParcelle(p).estParcelleOriginelle()) {
+                            Parcelle par = (Parcelle) jeu.getPlateau().getParcelle(p);
                             if(par.getCouleur() == o.getCouleurs()[i] && par.getNbBamboo() > 0) {
                                 return p;
                             }
@@ -124,7 +124,7 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public void placerIrrigation(){
-        Set<Bordure> bordures = getPlateau().getBordureDisponible();
+        Set<Bordure> bordures = jeu.getPlateau().getBordureDisponible();
         int R = random.nextInt(bordures.size());
         Iterator<Bordure> iterator = bordures.iterator(); //iterator is already random by itself
         Bordure bordure = iterator.next();
@@ -132,7 +132,7 @@ public class JoueurMoyen extends JoueurRandom{
             bordure = iterator.next();
             R--;
         }
-        getPlateau().addBordure(bordure);
+        jeu.getPlateau().addBordure(bordure);
         super.placerIrrigation();
     }
 
