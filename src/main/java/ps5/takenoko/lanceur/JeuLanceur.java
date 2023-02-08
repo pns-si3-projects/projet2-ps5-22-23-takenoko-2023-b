@@ -113,7 +113,7 @@ public class JeuLanceur {
 
 
         for (int i = 1, j=0; i <= joueurs.size(); i++,j++) {
-            double[] statsRes = stats.getStats(joueurs.get(j), nbparties);
+            Float[] statsRes = stats.getStats(joueurs.get(j), nbparties);
             logs[i]=joueurs.get(j).getClass().getSimpleName()+",";
             for(int k=0;k<statsRes.length;k++){
                 logs[i]+=statsRes[k]+",";
