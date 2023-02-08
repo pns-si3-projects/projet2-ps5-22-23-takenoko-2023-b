@@ -152,12 +152,13 @@ public class Jeu {
                     }
                     break;
                 case POSER_AMENAGEMENT:
-                    Set<Position>parcellesAmenageables = plateau.getParcellesAmenageables();
+                    Set<Position> parcellesAmenageables = plateau.getParcellesAmenageables();
                     if(!parcellesAmenageables.isEmpty()) {
                         ChoixAmenagement choixAmenagement = j.choisirPositionAmenagement(parcellesAmenageables, j.getAmenagements());
                         if (parcellesAmenageables.contains(choixAmenagement.getPosition())) {
                             ((Parcelle) plateau.getParcelle(choixAmenagement.getPosition())).setAmenagement(choixAmenagement.getAmenagement());
                             j.getAmenagements().remove(choixAmenagement.getAmenagement());
+                            nbActions++;
                         } else {
                             throw new IllegalArgumentException("La position choisie n'est pas amenageable");
                         }

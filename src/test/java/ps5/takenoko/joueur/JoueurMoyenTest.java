@@ -200,17 +200,15 @@ class JoueurMoyenTest {
 
     @Test
     void jouerTests() {
-        ArrayList<Action> actions = new ArrayList<>();
-        actions.addAll(Arrays.asList(Action.values()));
+        ArrayList<Action> actions = new ArrayList<>(Arrays.asList(Action.values()));
 
         assertEquals(Action.OBJECTIFS ,player.jouer(actions));
         actions.remove(Action.OBJECTIFS);
+        assertEquals(Action.PIOCHER_CANAL_DIRRIGATION ,player.jouer(actions));
+        actions.remove(Action.PIOCHER_CANAL_DIRRIGATION);
         assertEquals(Action.PIOCHER_PARCELLES ,player.jouer(actions));
         actions.remove(Action.PIOCHER_PARCELLES);
-        assertEquals(Action.PANDA ,player.jouer(actions));
-        actions.remove(Action.PANDA);
-        assertEquals(Action.JARDINIER ,player.jouer(actions));
-        actions.remove(Action.JARDINIER);
+
         for(int i=0;i<actions.size();i++){
             Action act = player.jouer(actions);
             assertTrue(actions.contains(act));
@@ -218,4 +216,17 @@ class JoueurMoyenTest {
         }
     }
 
+
+    @Test
+    void choisirMeteoTests(){
+        ArrayList<Meteo> meteos = new ArrayList<>(Arrays.asList(Meteo.values()));
+        meteos.remove(Meteo.CHOIX_LIBRE);
+        player.addObjectif(new ObjectifPanda(4,Couleur.ROSE,3));
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
+        assertEquals(player.choisirMeteo(meteos),Meteo.NUAGES);
+        meteos.remove(Meteo.NUAGES);
+        assertEquals(player.choisirMeteo(meteos),Meteo.ORAGE);
+        player.objectifs.remove(0);
+        assertEquals(player.choisirMeteo(meteos),Meteo.PLUIE);
+    }
 }
