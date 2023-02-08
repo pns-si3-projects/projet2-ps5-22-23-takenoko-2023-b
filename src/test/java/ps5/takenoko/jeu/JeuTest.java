@@ -50,6 +50,24 @@ class JeuTest {
     }
 
     @Test
+    void CalculGagnats(){
+        assertEquals(jeu.calculGagnants().size(), 2);
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Objectif> objectifs = new ArrayList<>();
+        for(int i=0; i<10; i++){
+            objectifs.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE, Couleur.ROSE));
+        }
+        joueur1.setObjectifsObtenus(objectifs);
+        players.add(joueur1);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players);
+        assertEquals(jeu2.calculGagnants().size(), 1);
+        assertTrue(jeu2.calculGagnants().contains(joueur1));
+    }
+
+    @Test
     void affichePlateauTest() {
         try{
             plateau.addParcelle(new Parcelle(Couleur.ROSE,2),new Position(15,13));
