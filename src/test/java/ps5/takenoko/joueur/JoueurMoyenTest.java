@@ -19,6 +19,7 @@ class JoueurMoyenTest {
     JoueurMoyen player2;
     Jeu game;
     Plateau board;
+
     @BeforeEach
     void init(){
         ArrayList<Joueur> players = new ArrayList<>();
@@ -28,8 +29,6 @@ class JoueurMoyenTest {
         players.add(player2);
         game = new Jeu(players);
         board = game.getPlateau();
-        player.setPlateau(board);
-        player2.setPlateau(board);
     }
 
     @Test
@@ -154,6 +153,7 @@ class JoueurMoyenTest {
         }
 
     }
+
     @Test
     void piocherPoserParcelle(){
         Objectif objG= new ObjectifParcelle(Shape.LIGNE,new Couleur[]{Couleur.VERT});
@@ -197,6 +197,7 @@ class JoueurMoyenTest {
         }
         assertTrue(ok);
     }
+
     @Test
     void jouerTests() {
         ArrayList<Action> actions = new ArrayList<>(Arrays.asList(Action.values()));
@@ -214,6 +215,7 @@ class JoueurMoyenTest {
             actions.remove(act);
         }
     }
+
 
     @Test
     void choisirMeteoTests(){

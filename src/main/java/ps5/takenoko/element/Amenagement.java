@@ -1,5 +1,7 @@
 package ps5.takenoko.element;
 
+import java.util.Objects;
+
 public class Amenagement {
     private AmenagementType type;
     private int nbBambouAManger=1;
@@ -36,5 +38,16 @@ public class Amenagement {
     public int getNbBambouAPousser() {return nbBambouAPousser;}
     public void setType(AmenagementType type) {this.type = type;}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Amenagement that = (Amenagement) o;
+        return nbBambouAManger == that.nbBambouAManger && nbBambouAPousser == that.nbBambouAPousser && type == that.type;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, nbBambouAManger, nbBambouAPousser);
+    }
 }

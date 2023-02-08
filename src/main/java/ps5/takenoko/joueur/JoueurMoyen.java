@@ -1,11 +1,14 @@
 package ps5.takenoko.joueur;
 
 import ps5.takenoko.element.Amenagement;
-import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.objectif.*;
+import ps5.takenoko.objectif.Objectif;
+import ps5.takenoko.objectif.ObjectifJardinier;
+import ps5.takenoko.objectif.ObjectifPanda;
+import ps5.takenoko.objectif.ObjectifParcelle;
 import ps5.takenoko.plateau.*;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class JoueurMoyen extends JoueurRandom{
@@ -371,7 +374,7 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        if(objectifs.size() < MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
+        if(objectifs.size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
         if(this.getNbIrrigations() <2 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){

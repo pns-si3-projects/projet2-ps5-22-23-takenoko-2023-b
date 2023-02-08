@@ -112,9 +112,15 @@ public class ObjectifParcelle extends Objectif {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+
         ObjectifParcelle that = (ObjectifParcelle) o;
-        return figure == that.figure;
+        if(that.couleurs.length!=couleurs.length)return false;
+
+        for(int i=0;i<couleurs.length;i++){
+            if(couleurs[i] != that.couleurs[i])return false;
+        }
+        return this.figure.equals(that.figure);
+
     }
 
     @Override

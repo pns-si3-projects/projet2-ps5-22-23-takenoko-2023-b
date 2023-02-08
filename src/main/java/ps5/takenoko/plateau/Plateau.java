@@ -35,8 +35,6 @@ public class Plateau {
         parcellePosee.add(centre);
         for(Direction d : Direction.values()) {
             parcelleDisponible.add(centre.getPositionByDirection(d));
-        }
-        for(Direction d : Direction.values()) {
             Bordure initial = new Bordure (centre,centre.getPositionByDirection(d));
             bordurePosee.add(initial);
             miseAJourBordurePosable(initial);

@@ -5,6 +5,7 @@ import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Action;
 import ps5.takenoko.joueur.ChoixAmenagement;
 import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.lanceur.CustomHandler;
 import ps5.takenoko.lanceur.JeuLanceur;
 import ps5.takenoko.objectif.Empereur;
 import ps5.takenoko.objectif.Objectif;
@@ -37,20 +38,10 @@ public class Jeu {
     private Boolean affichage = true;
 
     public Jeu(ArrayList<Joueur> joueurs) {
+        for(Joueur player : joueurs) player.setJeu(this);
         this.joueurs = joueurs;
         setNbObjectifFin();
 
-    }
-
-    //For tests purpose
-    public Jeu(ArrayList<Joueur> joueurs,Plateau plateau, Jardinier pawnJardinier, Panda pawnPanda, ObjectifList objList, ParcelleList parcelleList, int nbObjFin) {
-        this.joueurs = joueurs;
-        this.plateau = plateau;
-        jardinier = pawnJardinier;
-        panda = pawnPanda;
-        objectifList = objList;
-        parcellesList = parcelleList;
-        nbObjectifFin = nbObjFin;
     }
 
     public Plateau getPlateau() {
@@ -58,9 +49,8 @@ public class Jeu {
     }
 
     public void lancer() {
-        for(Joueur j: this.joueurs){
-            j.setPlateau(this.plateau);
-        }
+        LOGGER.setUseParentHandlers(false);
+        LOGGER.addHandler(new CustomHandler());
         while (!estTermine()) {
             cpt++;
             for(Joueur j: joueurs){
@@ -76,24 +66,32 @@ public class Jeu {
             }
         }
         if(this.affichage) {
-            afficheResultat();
             for (Joueur j : joueurs) {
                 LOGGER.info("Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
             }
         }
     }
 
-    private boolean tourJoueur(Joueur j, boolean lanceMeteo) {
+    public boolean tourJoueur(Joueur j, boolean lanceMeteo) {
         Meteo meteoTour = null;
         int nbActions = NB_ACTIONS;
         if(lanceMeteo){
             meteoTour = getRandomMeteo();
+            if(this.affichage) {
+                LOGGER.info("Tour " + cpt + " : Meteo " + meteoTour);
+            }
             if (meteoTour == Meteo.CHOIX_LIBRE){
                 meteoTour= choisirMeteo(j);
+                if(this.affichage) {
+                    LOGGER.info("Le joueur a choisit la météo : " + meteoTour);
+                }
             }
             if (meteoTour == Meteo.NUAGES){
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
+                    if(this.affichage) {
+                        LOGGER.info("Plus d'aménagements ! Le joueur choisit la météo : " + meteoTour);
+                    }
                 }
                 else{
                     executerNuage(j);
@@ -108,7 +106,6 @@ public class Jeu {
             if(meteoTour == Meteo.ORAGE){
                 executerOrage(j);
             }
-
         }
         ArrayList<Action> actionChoisis = new ArrayList<Action>();
         ArrayList<Action> actionsPossibles = getActionsPossibles(j);
@@ -147,8 +144,8 @@ public class Jeu {
                     jardinier.deplacer(posJardinier,plateau);
                     break;
                 case PANDA:
-                    Position p;
-                    p = j.deplacerPanda(panda.posPossibles(plateau));
+                    Position p = j.deplacerPanda(panda.posPossibles(plateau));
+
                     msg += " et a déplacé le panda en " + p;
                     if(panda.deplacer(p,plateau)){
                         j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
@@ -174,7 +171,9 @@ public class Jeu {
                     throw new IllegalArgumentException("Action non valide");
 
             }
-            LOGGER.info(msg);
+            if(this.affichage){
+                LOGGER.info(msg);
+            }
             actionsPossibles = getActionsPossibles(j);
             if(meteoTour!=Meteo.VENT){
                 actionsPossibles.removeAll(actionChoisis);
@@ -184,14 +183,13 @@ public class Jeu {
         }
         return true;
     }
-
     private void executerOrage(Joueur j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
 
     }
 
-    private Meteo choisirMeteo(Joueur j){
+    public Meteo choisirMeteo(Joueur j){
         ArrayList<Meteo> meteoList = new ArrayList<>(Arrays.asList(Meteo.values()));
         meteoList.remove(Meteo.CHOIX_LIBRE);
         if(amenagementList.isEmpty()){
@@ -204,7 +202,7 @@ public class Jeu {
         return res;
     }
 
-    private void executerPluie(Joueur j){
+    public void executerPluie(Joueur j){
         Set<Position> parcellesIrriguees = plateau.getParcellesPosables();
         if(!parcellesIrriguees.isEmpty()){
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
@@ -217,7 +215,7 @@ public class Jeu {
         }
     }
 
-    private void executerNuage(Joueur j){
+    public void executerNuage(Joueur j){
         Amenagement amenagement = j.choisirAmenagement(amenagementList);
         if(amenagementList.contains(amenagement)){
             j.addAmenagement(amenagement);
@@ -276,21 +274,6 @@ public class Jeu {
             return gagnants;
         }
 
-
-
-        private void afficheResultat(){
-            ArrayList<Joueur> gagnants = calculGagnants();
-            if(gagnants.size()>1 ) {
-                //TODO: implement the case of a draw >=3 joueurs
-            }
-            else if(gagnants.isEmpty()){
-                LOGGER.info("Game went too far");
-            }
-            else{
-                LOGGER.info("Joueur " + gagnants.get(0).getId() + " a gagne");
-            }
-        }
-
         public boolean estTermine(){
             for(Joueur j: joueurs){
                 if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
@@ -334,6 +317,14 @@ public class Jeu {
                 throw new IllegalArgumentException("Le joueur a choisi un objectif qui n'est pas disponible");
             }
             j.addObjectif(objectifList.getList().get(o).remove(0));
+        }
+
+        public ParcelleList getParcellesList() {
+            return parcellesList;
+        }
+
+        public AmenagementList getAmenagementList() {
+            return amenagementList;
         }
 
         public String affichePlateau(){
@@ -442,12 +433,13 @@ public class Jeu {
 
         public void setPlateau(Plateau value) {
             plateau = value;
-            for (Joueur player : joueurs){
-                player.setPlateau(value);
-            }
         }
 
         public void setAffichage(Boolean value) {
             affichage = value;
         }
+
+    public Panda getPanda() {
+        return panda;
     }
+}
