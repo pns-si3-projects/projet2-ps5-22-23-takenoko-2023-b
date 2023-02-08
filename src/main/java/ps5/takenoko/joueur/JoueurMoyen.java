@@ -1,11 +1,9 @@
 package ps5.takenoko.joueur;
 
 import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.objectif.Objectif;
-import ps5.takenoko.objectif.ObjectifJardinier;
-import ps5.takenoko.objectif.ObjectifPanda;
-import ps5.takenoko.objectif.ObjectifParcelle;
+import ps5.takenoko.objectif.*;
 import ps5.takenoko.plateau.*;
 
 import java.security.SecureRandom;
