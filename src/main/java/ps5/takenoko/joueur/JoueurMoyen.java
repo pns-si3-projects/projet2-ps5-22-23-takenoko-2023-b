@@ -243,6 +243,12 @@ public class JoueurMoyen extends JoueurRandom{
         if(objectifs.size() < MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
+        if(this.getNbIrrigations() <3 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){
+            return Action.PIOCHER_CANAL_DIRRIGATION;
+        }
+        if(this.getAmenagements().size()>0 && actionsPossibles.contains(Action.POSER_AMENAGEMENT)){
+            return Action.POSER_AMENAGEMENT;
+        }
         if(actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
             return Action.PIOCHER_PARCELLES;
         }
@@ -251,9 +257,6 @@ public class JoueurMoyen extends JoueurRandom{
         }
         if(actionsPossibles.contains(Action.JARDINIER)){
             return Action.JARDINIER;
-        }
-        if(this.getNbIrrigations() <3 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){
-            return Action.PIOCHER_CANAL_DIRRIGATION;
         }
         Collections.shuffle(actionsPossibles);
         return actionsPossibles.get(0);

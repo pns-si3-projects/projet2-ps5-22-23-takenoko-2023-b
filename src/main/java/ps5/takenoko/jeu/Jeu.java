@@ -155,7 +155,7 @@ public class Jeu {
                     }
                     break;
                 case POSER_AMENAGEMENT:
-                    Set<Position>parcellesAmenageables = plateau.getParcellesAmenageables();
+                    Set<Position> parcellesAmenageables = plateau.getParcellesAmenageables();
                     if(!parcellesAmenageables.isEmpty()) {
                         ChoixAmenagement choixAmenagement = j.choisirPositionAmenagement(parcellesAmenageables, j.getAmenagements());
                         if (parcellesAmenageables.contains(choixAmenagement.getPosition())) {

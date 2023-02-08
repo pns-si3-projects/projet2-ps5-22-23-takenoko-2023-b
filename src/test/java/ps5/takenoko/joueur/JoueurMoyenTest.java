@@ -203,12 +203,15 @@ class JoueurMoyenTest {
 
         assertEquals(Action.OBJECTIFS ,player.jouer(actions));
         actions.remove(Action.OBJECTIFS);
+        assertEquals(Action.PIOCHER_CANAL_DIRRIGATION ,player.jouer(actions));
+        actions.remove(Action.PIOCHER_CANAL_DIRRIGATION);
         assertEquals(Action.PIOCHER_PARCELLES ,player.jouer(actions));
         actions.remove(Action.PIOCHER_PARCELLES);
         assertEquals(Action.PANDA ,player.jouer(actions));
         actions.remove(Action.PANDA);
         assertEquals(Action.JARDINIER ,player.jouer(actions));
         actions.remove(Action.JARDINIER);
+
         for(int i=0;i<actions.size();i++){
             Action act = player.jouer(actions);
             assertTrue(actions.contains(act));
