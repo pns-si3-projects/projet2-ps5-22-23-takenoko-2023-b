@@ -4,10 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.joueur.JoueurMoyen;
 import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.TypeObjJardinier;
+import ps5.takenoko.personnage.Jardinier;
+import ps5.takenoko.personnage.Panda;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
@@ -15,6 +18,8 @@ import ps5.takenoko.plateau.Position;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -106,6 +111,20 @@ class JeuTest {
         Meteo m = jeu2.choisirMeteo(joueur1);
         assertTrue(m == Meteo.SOLEIL || m == Meteo.PLUIE || m == Meteo.ORAGE || m == Meteo.VENT || m == Meteo.NUAGES);
 
+    }
+
+    @Test
+    void testtourJoueur(){
+        Logger LOGGER = Logger.getLogger(Jeu.class.getSimpleName());
+        LOGGER.setLevel(Level.OFF);
+        Jeu jeu2;
+        ArrayList<Joueur> players = new ArrayList<Joueur>();
+        JoueurRandom joueur1 = new JoueurMoyen(0);
+        joueur1.setPlateau(plateau);
+        players.add(new JoueurRandom(1));
+        jeu2 = new Jeu(players,plateau,new Jardinier(), new Panda(), new ObjectifList(), new ParcelleList(), 9);
+        jeu2.tourJoueur(joueur1,false);
+        assertTrue(joueur1.getObjectifs().size() == 1);
     }
 
     @Test

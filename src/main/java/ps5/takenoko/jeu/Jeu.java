@@ -82,7 +82,7 @@ public class Jeu {
         }
     }
 
-    private boolean tourJoueur(Joueur j, boolean lanceMeteo) {
+    public boolean tourJoueur(Joueur j, boolean lanceMeteo) {
         Meteo meteoTour = null;
         int nbActions = NB_ACTIONS;
         if(lanceMeteo){
