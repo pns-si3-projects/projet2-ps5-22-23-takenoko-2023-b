@@ -312,7 +312,7 @@ public class Jeu {
         }
 
 
-        Parcelle piocherParcelles(Joueur j) {
+        public Parcelle piocherParcelles(Joueur j) {
             ArrayList<Parcelle> parcelles = parcellesList.getParcelles(3);
             Parcelle p = j.piocherParcelle(parcelles);
             parcellesList.remove(p);
@@ -321,7 +321,7 @@ public class Jeu {
             return p;
         }
 
-        private void piocherObjectifs(Joueur j) {
+        public void piocherObjectifs(Joueur j) {
             List<Class<?extends Objectif>> objectifs = objectifList.objectifTypeDisponible();
             Class<? extends Objectif> o = j.choisirObjectif(objectifs);
             if(!objectifs.contains(o)){
