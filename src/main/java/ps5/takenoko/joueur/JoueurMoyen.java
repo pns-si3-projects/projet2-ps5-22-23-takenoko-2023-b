@@ -19,6 +19,13 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     @Override
+    public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
+        if (objectifs.contains(ObjectifPanda.class)){
+            return ObjectifPanda.class;
+        }
+    }
+
+    @Override
     public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
         if (objectifs.size()==0){
             return Meteo.VENT;
@@ -246,10 +253,10 @@ public class JoueurMoyen extends JoueurRandom{
                 Parcelle p2 = (Parcelle) this.getPlateau().getParcelle(b.getPos2());
                 for(Objectif o: objectifs){
                     for (Couleur c : o.getCouleurs()){
-                        if(p1.getCouleur()==c){
+                        if(p1.getCouleur()==c && !p1.estIrrigue()){
                             cpt++;
                         }
-                        if(p2.getCouleur()==c){
+                        if(p2.getCouleur()==c && !p2.estIrrigue()){
                             cpt++;
                         }
                     }
@@ -268,25 +275,78 @@ public class JoueurMoyen extends JoueurRandom{
         }
     }
 
+    public boolean BonneIrrigation(){
+        Set<Bordure> bordureDisponibles = this.getPlateau().getBordureDisponible();
+        int max = 0;
+        for(Bordure b : bordureDisponibles){
+            int cpt =0;
+            if(this.getPlateau().getParcelle(b.getPos1()).estOccupe()&&this.getPlateau().getParcelle(b.getPos2()).estOccupe()){
+                Parcelle p1 = (Parcelle) this.getPlateau().getParcelle(b.getPos1());
+                Parcelle p2 = (Parcelle) this.getPlateau().getParcelle(b.getPos2());
+                for(Objectif o: objectifs){
+                    for (Couleur c : o.getCouleurs()){
+                        if(p1.getCouleur()==c && !p1.estIrrigue()){
+                            cpt++;
+                        }
+                        if(p2.getCouleur()==c && !p2.estIrrigue()){
+                            cpt++;
+                        }
+                    }
+                }
+            }
+            if (cpt>max){
+                max=cpt;
+            }
+        }
+        return max>=4;
+
+    }
+    public Action choisirActionBasique(){
+        int cptPan=0;
+        int cptPar=0;
+        int cptJar=0;
+        for(Objectif o: objectifs){
+            if(o instanceof ObjectifPanda){
+                cptPan++;
+            }
+            if(o instanceof ObjectifJardinier){
+                cptJar++;
+            }
+            if(o instanceof ObjectifParcelle){
+                cptPar++;
+            }
+        }
+        if(cptPar>=cptJar&&cptPar>=cptPan){
+            return Action.PIOCHER_PARCELLES;
+        }
+        else if(cptPan>=cptJar){
+            return Action.PANDA;
+        }
+        return Action.JARDINIER;
+    }
+
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
         if(objectifs.size() < MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
-        if(this.getNbIrrigations() <3 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){
+        if(this.getNbIrrigations() <2 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){
             return Action.PIOCHER_CANAL_DIRRIGATION;
         }
         if(this.getAmenagements().size()>0 && actionsPossibles.contains(Action.POSER_AMENAGEMENT)){
             return Action.POSER_AMENAGEMENT;
         }
-        if(actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
+        if(getPlateau().getBordurePosee().size()<=12&&BonneIrrigation()&&actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION)){
+            return Action.POSER_CANAL_DIRRIGATION;
+        }
+        if(getPlateau().getParcellePosee().size()<=10&&actionsPossibles.contains(Action.PIOCHER_PARCELLES)){
             return Action.PIOCHER_PARCELLES;
         }
-        if(actionsPossibles.contains(Action.PANDA)){
-            return Action.PANDA;
+        if(actionsPossibles.contains(choisirActionBasique())){
+            return choisirActionBasique();
         }
-        if(actionsPossibles.contains(Action.JARDINIER)){
-            return Action.JARDINIER;
+        if(BonneIrrigation()&&actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION)){
+            return Action.POSER_CANAL_DIRRIGATION;
         }
         Collections.shuffle(actionsPossibles);
         return actionsPossibles.get(0);
