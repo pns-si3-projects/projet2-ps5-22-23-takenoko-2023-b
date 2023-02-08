@@ -76,7 +76,6 @@ public class Jeu {
             }
         }
         if(this.affichage) {
-            afficheResultat();
             for (Joueur j : joueurs) {
                 LOGGER.info("Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
             }
@@ -273,21 +272,6 @@ public class Jeu {
                 return error;
             }
             return gagnants;
-        }
-
-
-
-        private void afficheResultat(){
-            ArrayList<Joueur> gagnants = calculGagnants();
-            if(gagnants.size()>1 ) {
-                //TODO: implement the case of a draw >=3 joueurs
-            }
-            else if(gagnants.isEmpty()){
-                LOGGER.info("Game went too far");
-            }
-            else{
-                LOGGER.info("Joueur " + gagnants.get(0).getId() + " a gagne");
-            }
         }
 
         public boolean estTermine(){
