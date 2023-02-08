@@ -169,7 +169,15 @@ public abstract class Joueur implements Comparable<Joueur>{
     }
     public abstract ChoixAmenagement choisirPositionAmenagement( Set<Position> positions, ArrayList<Amenagement>amenagements);
     public void placerIrrigation(){
-        this.nbIrrigations--;
+        useIrrigation();
+    }
+
+    public void useIrrigation(){
+        if(this.nbIrrigations>0) {
+            this.nbIrrigations--;
+        }else{
+            throw new IllegalArgumentException("Le joueur n'a pas d'irrigations");
+        }
     }
     public abstract Meteo choisirMeteo(ArrayList<Meteo> meteos);
 

@@ -223,9 +223,12 @@ class JoueurMoyenTest {
     void choisirMeteoTests(){
         ArrayList<Meteo> meteos = new ArrayList<>(Arrays.asList(Meteo.values()));
         meteos.remove(Meteo.CHOIX_LIBRE);
-        meteos.remove(Meteo.NUAGES);
         player.addObjectif(new ObjectifPanda(4,Couleur.ROSE,3));
         player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
+        assertEquals(player.choisirMeteo(meteos),Meteo.NUAGES);
+        meteos.remove(Meteo.NUAGES);
         assertEquals(player.choisirMeteo(meteos),Meteo.ORAGE);
+        player.objectifs.remove(0);
+        assertEquals(player.choisirMeteo(meteos),Meteo.PLUIE);
     }
 }

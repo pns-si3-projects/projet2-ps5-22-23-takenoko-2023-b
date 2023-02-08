@@ -20,11 +20,19 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
+        if (objectifs.size()==0){
+            return Meteo.VENT;
+        }
         int objPan = 0;
         int objJar = 0;
         for(Objectif o: objectifs) {
-            if (o instanceof ObjectifJardinier) {
+            if (o instanceof ObjectifJardinier jar) {
                 objJar +=1;
+                if((jar.getType() == TypeObjJardinier.OBJENCLOS)||(jar.getType() == TypeObjJardinier.OBJENGRAIS)||(jar.getType() == TypeObjJardinier.OBJBASSIN)){
+                    if (meteos.contains(Meteo.NUAGES)){
+                        return Meteo.NUAGES;
+                    }
+                }
             }
             if( o instanceof ObjectifPanda) {
                 objPan +=1;
@@ -34,14 +42,7 @@ public class JoueurMoyen extends JoueurRandom{
             return Meteo.ORAGE;
         }
         if (objJar>0){
-            if (meteos.contains(Meteo.NUAGES)){
-                return Meteo.NUAGES;
-            }else{
                 return Meteo.PLUIE;
-            }
-        }
-        if (objectifs.size()==0){
-            return Meteo.VENT;
         }
         return Meteo.SOLEIL;
     }
@@ -235,7 +236,36 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public void placerIrrigation(){
-        super.placerIrrigation();
+        Set<Bordure> bordureDisponibles = this.getPlateau().getBordureDisponible();
+        Bordure meilleurChoix = null;
+        int max = 0;
+        for(Bordure b : bordureDisponibles){
+            int cpt =0;
+            if(this.getPlateau().getParcelle(b.getPos1()).estOccupe()&&this.getPlateau().getParcelle(b.getPos2()).estOccupe()){
+                Parcelle p1 = (Parcelle) this.getPlateau().getParcelle(b.getPos1());
+                Parcelle p2 = (Parcelle) this.getPlateau().getParcelle(b.getPos2());
+                for(Objectif o: objectifs){
+                    for (Couleur c : o.getCouleurs()){
+                        if(p1.getCouleur()==c){
+                            cpt++;
+                        }
+                        if(p2.getCouleur()==c){
+                            cpt++;
+                        }
+                    }
+                }
+            }
+            if (cpt>max){
+                max=cpt;
+                meilleurChoix = b;
+            }
+        }
+        if(meilleurChoix!=null) {
+            getPlateau().addBordure(meilleurChoix);
+            this.useIrrigation();
+        }else{
+            super.placerIrrigation();
+        }
     }
 
     @Override
