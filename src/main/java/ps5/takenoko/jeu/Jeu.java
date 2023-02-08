@@ -43,18 +43,6 @@ public class Jeu {
 
     }
 
-    //For tests purpose
-    public Jeu(ArrayList<Joueur> joueurs,Plateau plateau, Jardinier pawnJardinier, Panda pawnPanda, ObjectifList objList, ParcelleList parcelleList, int nbObjFin) {
-        this.joueurs = joueurs;
-        this.plateau = plateau;
-        jardinier = pawnJardinier;
-        panda = pawnPanda;
-        objectifList = objList;
-        parcellesList = parcelleList;
-        nbObjectifFin = nbObjFin;
-        for(Joueur player : joueurs) player.setJeu(this);
-    }
-
     public Plateau getPlateau() {
         return plateau;
     }
