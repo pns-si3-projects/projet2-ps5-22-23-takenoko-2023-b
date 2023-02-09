@@ -7,7 +7,6 @@ import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
-import ps5.takenoko.personnage.Jardinier;
 import ps5.takenoko.plateau.*;
 
 import java.util.*;
@@ -206,6 +205,8 @@ class JoueurMoyenTest {
         actions.remove(Action.OBJECTIFS);
         assertEquals(Action.PIOCHER_CANAL_DIRRIGATION ,player.jouer(actions));
         actions.remove(Action.PIOCHER_CANAL_DIRRIGATION);
+        assertEquals(Action.POSER_CANAL_DIRRIGATION ,player.jouer(actions));
+        actions.remove(Action.POSER_CANAL_DIRRIGATION);
         assertEquals(Action.PIOCHER_PARCELLES ,player.jouer(actions));
         actions.remove(Action.PIOCHER_PARCELLES);
 

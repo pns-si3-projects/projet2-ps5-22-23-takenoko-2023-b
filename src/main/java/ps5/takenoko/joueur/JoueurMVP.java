@@ -21,7 +21,7 @@ public class JoueurMVP extends JoueurMoyen
     
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        if(actionsPossibles.contains(Action.OBJECTIFS)||jeu.getCompteurTour()==1){
+        if(actionsPossibles.contains(Action.OBJECTIFS)){
             if(objectifs.size()<5){
                 return Action.OBJECTIFS;
             }
@@ -39,7 +39,7 @@ public class JoueurMVP extends JoueurMoyen
                 }
             }
         }
-        if(actionsPossibles.contains(Action.PIOCHER_PARCELLES) && objectifPrincipale()==ObjectifParcelle.class){
+        if(actionsPossibles.contains(Action.PIOCHER_PARCELLES) && objectifPrincipale()== ObjectifParcelle.class){
             return Action.PIOCHER_PARCELLES;
         }
         return super.jouer(actionsPossibles);

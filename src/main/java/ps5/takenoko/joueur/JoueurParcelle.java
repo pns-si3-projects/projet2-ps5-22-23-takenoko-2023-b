@@ -1,7 +1,6 @@
 package ps5.takenoko.joueur;
 
 import ps5.takenoko.objectif.Objectif;
-import ps5.takenoko.objectif.ObjectifPanda;
 import ps5.takenoko.objectif.ObjectifParcelle;
 
 import java.util.List;
