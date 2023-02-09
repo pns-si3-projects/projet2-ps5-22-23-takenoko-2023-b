@@ -169,7 +169,7 @@ public class Jeu {
             nbActions--;
             List<Objectif> valide = j.validerObjectifs();
             for(Objectif o : valide){
-                LOGGER.info("Joueur "+j.getId()+" a validé l'objectif "+o);
+                LOGGER.info("Bot "+j.getId()+" a validé l'objectif "+o);
             }
         }
         return true;
@@ -177,7 +177,7 @@ public class Jeu {
     public void executerOrage(Bot j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
-        LOGGER.info("Joueur "+j.getId()+" déplace le panda en "+p);
+        LOGGER.info("Bot "+j.getId()+"a déplacé le panda en "+p);
     }
 
     public Meteo choisirMeteo(Bot j){
@@ -199,7 +199,7 @@ public class Jeu {
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
             if(parcellesIrriguees.contains(p)){
                 ((Parcelle)plateau.getParcelle(p)).augmenteBamboo();
-                LOGGER.info("Joueur "+j.getId()+" a été augmenté en "+p);
+                LOGGER.info("Bot "+j.getId()+" a augmenté le bambou en "+p);
             }
             else{
                 throw new IllegalArgumentException("La parcelle choisie n'est pas irriguée");
