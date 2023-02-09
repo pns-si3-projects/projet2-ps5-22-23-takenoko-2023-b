@@ -299,21 +299,8 @@ public class JoueurMoyen extends JoueurRandom{
         ArrayList<Bordure> meilleurChoix = new ArrayList<>();
         int max = 0;
         for(Bordure b : bordureDisponibles){
-            int cpt =0;
-            if(this.getPlateau().getParcelle(b.getPos1()).estOccupe()&&this.getPlateau().getParcelle(b.getPos2()).estOccupe()){
-                Parcelle p1 = (Parcelle) this.getPlateau().getParcelle(b.getPos1());
-                Parcelle p2 = (Parcelle) this.getPlateau().getParcelle(b.getPos2());
-                for(Objectif o: objectifs){
-                    for (Couleur c : o.getCouleurs()){
-                        if(p1.getCouleur()==c && !p1.estIrrigue()){
-                            cpt++;
-                        }
-                        if(p2.getCouleur()==c && !p2.estIrrigue()){
-                            cpt++;
-                        }
-                    }
-                }
-            }
+            int cpt = evalueIrrigation(b);
+
             if(cpt>=4) {
                 if (cpt > max) {
                     max = cpt;
@@ -326,6 +313,31 @@ public class JoueurMoyen extends JoueurRandom{
         getPlateau().addBordure(meilleurChoix.get(0));
         this.useIrrigation();
         placerIrrigation();
+    }
+
+    private int evalueIrrigation(Bordure b){
+        int cpt = 0;
+        if(this.getPlateau().getParcelle(b.getPos1()).estOccupe()&&this.getPlateau().getParcelle(b.getPos2()).estOccupe()){
+            Parcelle p1 = (Parcelle) this.getPlateau().getParcelle(b.getPos1());
+            Parcelle p2 = (Parcelle) this.getPlateau().getParcelle(b.getPos2());
+            for(Objectif o: objectifs){
+                for (Couleur c : o.getCouleurs()){
+                    if(p1.getCouleur()==c && !p1.estIrrigue()){
+                        cpt++;
+                    }
+                    if(p2.getCouleur()==c && !p2.estIrrigue()){
+                        cpt++;
+                    }
+                }
+            }
+        }
+        return cpt;
+    }
+
+    private boolean irrigationInteressante() {
+        Set<Bordure> bordureDisponibles = this.getPlateau().getBordureDisponible();
+        for(Bordure b : bordureDisponibles)if(evalueIrrigation(b)>=4)return true;
+        return false;
     }
 
     public Action choisirActionBasique(ArrayList<Action> actionsPossibles){
@@ -363,10 +375,8 @@ public class JoueurMoyen extends JoueurRandom{
         if(this.getAmenagements().size()>0 && actionsPossibles.contains(Action.POSER_AMENAGEMENT)){
             return Action.POSER_AMENAGEMENT;
         }
-        if(actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION)){
-            int before = getPlateau().getBordurePosee().size();
-            placerIrrigation();
-            if(before != getPlateau().getBordurePosee().size()) return Action.POSER_CANAL_DIRRIGATION;
+        if(actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION) && irrigationInteressante()){
+            return Action.POSER_CANAL_DIRRIGATION;
         }
         if(actionsPossibles.contains(choisirActionBasique(actionsPossibles))){
             return choisirActionBasique(actionsPossibles);
@@ -374,4 +384,5 @@ public class JoueurMoyen extends JoueurRandom{
         Collections.shuffle(actionsPossibles);
         return actionsPossibles.get(0);
     }
+
 }

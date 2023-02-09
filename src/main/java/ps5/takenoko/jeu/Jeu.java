@@ -122,8 +122,8 @@ public class Jeu {
                     j.ajouteIrrigation();
                     break;
                 case POSER_CANAL_DIRRIGATION:
-                    nbActions++;
                     j.placerIrrigation();
+                    nbActions++;
                     break;
                 case PIOCHER_PARCELLES:
                     Parcelle parcellePioche = this.piocherParcelles(j);
