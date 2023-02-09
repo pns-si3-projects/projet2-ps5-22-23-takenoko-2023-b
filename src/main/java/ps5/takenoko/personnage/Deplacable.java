@@ -10,11 +10,11 @@ import java.util.Set;
 public abstract class Deplacable {
     private Position position = new Position(15,15);
 
-    public Deplacable(Position position) {
+    protected Deplacable(Position position) {
         this.position = position;
     }
 
-    public Deplacable() {
+    protected Deplacable() {
         this.position = new Position(15,15);
     }
 
