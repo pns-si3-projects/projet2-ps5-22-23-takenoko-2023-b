@@ -136,7 +136,7 @@ public class JoueurMoyen extends JoueurRandom{
         for (Objectif o : objectifs){
             if(o instanceof ObjectifJardinier obj) {
                 Amenagement a=getSameAmenagements(amenagements, obj);
-                if(a != null)return a;
+                if(a != null) return a;
             }
         }
         return super.choisirAmenagement(amenagements);
@@ -168,7 +168,6 @@ public class JoueurMoyen extends JoueurRandom{
                                 return new ChoixAmenagement(choisirAmenagement(amenagements,par),p);
                             }
                         }
-
                     }
                 }
             }

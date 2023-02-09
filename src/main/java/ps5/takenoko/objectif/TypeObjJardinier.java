@@ -73,6 +73,10 @@ public enum TypeObjJardinier {
         return description;
     }
 
+    public AmenagementType getAmenagementType() {
+        return amenagementType;
+    }
+
     public boolean isMultiple(){
         return ordinal() == OBJMULTROSE.ordinal()
                 || ordinal() == OBJMULTJAUNE.ordinal()

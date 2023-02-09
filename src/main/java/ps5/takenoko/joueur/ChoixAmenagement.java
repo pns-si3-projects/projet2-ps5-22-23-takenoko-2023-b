@@ -3,6 +3,8 @@ package ps5.takenoko.joueur;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.plateau.Position;
 
+import java.util.Objects;
+
 public class ChoixAmenagement {
     private Amenagement amenagement;
     private Position position;
@@ -14,6 +16,19 @@ public class ChoixAmenagement {
 
     public Amenagement getAmenagement() {
         return amenagement;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChoixAmenagement that = (ChoixAmenagement) o;
+        return Objects.equals(amenagement, that.amenagement) && Objects.equals(position, that.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amenagement, position);
     }
 
     public Position getPosition() {
