@@ -11,6 +11,8 @@ import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.option.Args;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.*;
@@ -75,6 +77,7 @@ public class JeuLanceur {
         return strategy;
     }
     private void writeToCsv(String[] data) throws IOException {
+        Files.createDirectories(Paths.get(CSV_FILE_NAME.replace("/gamestats.csv", "")));
         if(fichierExists()){
             CSVReader csvReader = new CSVReader(new FileReader(CSV_FILE_NAME));
             CsvToBean csv = new CsvToBean();
