@@ -1,7 +1,7 @@
 package ps5.takenoko.objectif;
 
 
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.plateau.Couleur;
 
 import java.util.Arrays;
@@ -54,7 +54,7 @@ public abstract class Objectif {
         return point;
     }
 
-    public abstract boolean verifie(Joueur j);
+    public abstract boolean verifie(Bot j);
     public String toString() {
         String stringCouleur;
         if(couleurs.length==1) stringCouleur = ""+couleurs[0];

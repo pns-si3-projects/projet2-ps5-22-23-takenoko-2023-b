@@ -1,8 +1,7 @@
 package ps5.takenoko.objectif;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.plateau.Couleur;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +20,7 @@ class ObjectifTest {
         }
 
         @Override
-        public boolean verifie(Joueur j) {
+        public boolean verifie(Bot j) {
             return false;
         }
     }

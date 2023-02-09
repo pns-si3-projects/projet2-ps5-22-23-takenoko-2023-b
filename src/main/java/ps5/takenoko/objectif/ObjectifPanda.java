@@ -1,6 +1,6 @@
 package ps5.takenoko.objectif;
 
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.plateau.Couleur;
 
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class ObjectifPanda extends Objectif{
     }
     public int getNbParcelles() {return nbParcelles;}
     @Override
-    public boolean verifie(Joueur j) {
+    public boolean verifie(Bot j) {
         for(int i=0; i<couleurs.length;i++){
             if(j.nbBambousParCouleur(couleurs[i]) < nbParcelles){
                 return false;

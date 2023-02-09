@@ -1,4 +1,4 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
@@ -8,15 +8,15 @@ import ps5.takenoko.plateau.*;
 
 import java.util.*;
 
-public class JoueurMVP extends JoueurMoyen
+public class BotMVP extends BotMoyen
 {
-    public JoueurMVP(int id)
+    public BotMVP(int id)
     {
         super(id);
     }
     @Override
-    public JoueurMVP clone(){
-        return new JoueurMVP(this.getId());
+    public BotMVP clone(){
+        return new BotMVP(this.getId());
     }
     
     @Override
@@ -88,9 +88,9 @@ public class JoueurMVP extends JoueurMoyen
 
 
     public Class<? extends Objectif> objectifPrincipale(){
-        List<Joueur> joueurs = jeu.getJoueurs();
+        List<Bot> bots = jeu.getJoueurs();
         ArrayList<Class<? extends Objectif>> objectifs = new ArrayList<>();
-        for(Joueur j : joueurs){
+        for(Bot j : bots){
             objectifs.addAll(j.getObjectifsTypes());
         }
         int max=0;

@@ -1,10 +1,10 @@
 package ps5.takenoko.jeu;
 
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.joueur.Action;
-import ps5.takenoko.joueur.ChoixAmenagement;
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Action;
+import ps5.takenoko.Bot.ChoixAmenagement;
 import ps5.takenoko.lanceur.CustomHandler;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.personnage.Jardinier;
@@ -22,7 +22,7 @@ public class Jeu {
     private int compteurTour = 0;
     private static final int NB_ACTIONS = 2;
     private int nbObjectifFin;
-    private final ArrayList<Joueur> joueurs = new ArrayList<>();
+    private final ArrayList<Bot> bots = new ArrayList<>();
     private Plateau plateau= new Plateau();
     private Jardinier jardinier = new Jardinier();
     private Panda panda = new Panda();
@@ -34,9 +34,9 @@ public class Jeu {
 
     private boolean affichage = true;
 
-    public Jeu(List<Joueur> joueurs) {
-        for(Joueur player : joueurs) player.setJeu(this);
-        this.joueurs.addAll(joueurs);
+    public Jeu(List<Bot> bots) {
+        for(Bot player : bots) player.setJeu(this);
+        this.bots.addAll(bots);
         setNbObjectifFin();
 
     }
@@ -50,7 +50,7 @@ public class Jeu {
         LOGGER.addHandler(new CustomHandler());
         while (!estTermine()) {
             compteurTour++;
-            for(Joueur j: joueurs){
+            for(Bot j: bots){
                 tourJoueur(j, compteurTour !=1);
 
                 if(affichage) {
@@ -59,13 +59,13 @@ public class Jeu {
             }
         }
         if(this.affichage) {
-            for (Joueur j : joueurs) {
-                LOGGER.info("Joueur " + j.getId() + " : " + j.getObjectifsObtenus().toString());
+            for (Bot j : bots) {
+                LOGGER.info("Bot " + j.getId() + " : " + j.getObjectifsObtenus().toString());
             }
         }
     }
 
-    public boolean tourJoueur(Joueur j, boolean lanceMeteo) {
+    public boolean tourJoueur(Bot j, boolean lanceMeteo) {
         Meteo meteoTour = null;
         int nbActions = NB_ACTIONS;
         if(lanceMeteo){
@@ -76,14 +76,14 @@ public class Jeu {
             if (meteoTour == Meteo.CHOIX_LIBRE){
                 meteoTour= choisirMeteo(j);
                 if(this.affichage) {
-                    LOGGER.info("Le joueur a choisit la météo : " + meteoTour);
+                    LOGGER.info("Le Bot a choisit la météo : " + meteoTour);
                 }
             }
             if (meteoTour == Meteo.NUAGES){
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
                     if(this.affichage) {
-                        LOGGER.info("Plus d'aménagements ! Le joueur choisit la météo : " + meteoTour);
+                        LOGGER.info("Plus d'aménagements ! Le Bot choisit la météo : " + meteoTour);
                     }
                 }
                 else{
@@ -110,7 +110,7 @@ public class Jeu {
             Action actionChoisi = j.jouer(actionsPossibles);
             actionChoisis.add(actionChoisi);
 
-            String msg = "Joueur "+j.getId()+" a choisi action " + actionChoisi.toString();
+            String msg = "Bot "+j.getId()+" a choisi action " + actionChoisi.toString();
 
             switch (actionChoisi) {
                 case PIOCHER_CANAL_DIRRIGATION -> j.ajouteIrrigation();
@@ -170,13 +170,13 @@ public class Jeu {
         }
         return true;
     }
-    public void executerOrage(Joueur j) {
+    public void executerOrage(Bot j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
 
     }
 
-    public Meteo choisirMeteo(Joueur j){
+    public Meteo choisirMeteo(Bot j){
         ArrayList<Meteo> meteoList = new ArrayList<>(Arrays.asList(Meteo.values()));
         meteoList.remove(Meteo.CHOIX_LIBRE);
         if(amenagementList.isEmpty()){
@@ -189,7 +189,7 @@ public class Jeu {
         return res;
     }
 
-    public void executerPluie(Joueur j){
+    public void executerPluie(Bot j){
         Set<Position> parcellesIrriguees = plateau.getParcellesAugmentables();
         if(!parcellesIrriguees.isEmpty()){
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
@@ -202,7 +202,7 @@ public class Jeu {
         }
     }
 
-    public void executerNuage(Joueur j){
+    public void executerNuage(Bot j){
         Amenagement amenagement = j.choisirAmenagement(amenagementList);
         if(amenagementList.contains(amenagement)){
             j.addAmenagement(amenagement);
@@ -219,7 +219,7 @@ public class Jeu {
         return Meteo.values()[random.nextInt(Meteo.values().length)];
     }
 
-        private ArrayList<Action> getActionsPossibles(Joueur j){
+        private ArrayList<Action> getActionsPossibles(Bot j){
             ArrayList<Action> actionsPossibles = new ArrayList<>();
             if(plateau.getParcellePosee().size()>1){
                 actionsPossibles.add(Action.PANDA);
@@ -241,14 +241,14 @@ public class Jeu {
             return actionsPossibles;
         }
 
-        public List<Joueur> calculGagnants() {
-            ArrayList<Joueur> js = new ArrayList<>(joueurs);
+        public List<Bot> calculGagnants() {
+            ArrayList<Bot> js = new ArrayList<>(bots);
             js.sort(Collections.reverseOrder());
-            Joueur maxRanking = js.get(0);
-            ArrayList<Joueur> gagnants = new ArrayList<>();
-            for (Joueur joueur : js) {
-                if (joueur.compareTo(maxRanking) == 0) {
-                    gagnants.add(joueur);
+            Bot maxRanking = js.get(0);
+            ArrayList<Bot> gagnants = new ArrayList<>();
+            for (Bot bot : js) {
+                if (bot.compareTo(maxRanking) == 0) {
+                    gagnants.add(bot);
                 } else {
                     break;
                 }
@@ -263,7 +263,7 @@ public class Jeu {
             if(compteurTour>NB_TOUR_MAX){
                 return true;
             }
-            for(Joueur j: joueurs){
+            for(Bot j: bots){
                 if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
                     j.completerObjectif(new Empereur());
                     return true;
@@ -273,7 +273,7 @@ public class Jeu {
         }
 
         private void setNbObjectifFin(){
-            switch(joueurs.size()){
+            switch(bots.size()){
                 case 2:
                     nbObjectifFin=9;
                     break;
@@ -284,12 +284,12 @@ public class Jeu {
                     nbObjectifFin=7;
                     break;
                 default:
-                    throw new IllegalArgumentException("Le nombre de Joueur doit etre entre 2 et 4");
+                    throw new IllegalArgumentException("Le nombre de Bot doit etre entre 2 et 4");
             }
         }
 
 
-        public Parcelle piocherParcelles(Joueur j) {
+        public Parcelle piocherParcelles(Bot j) {
             List<Parcelle> parcelles = parcellesList.getParcelles(3);
             Parcelle p = j.piocherParcelle(parcelles);
             parcellesList.remove(p);
@@ -298,11 +298,11 @@ public class Jeu {
             return p;
         }
 
-        public void piocherObjectifs(Joueur j) {
+        public void piocherObjectifs(Bot j) {
             List<Class<?extends Objectif>> objectifs = objectifList.objectifTypeDisponible();
             Class<? extends Objectif> o = j.choisirObjectif(objectifs);
             if(!objectifs.contains(o)){
-                throw new IllegalArgumentException("Le joueur a choisi un objectif qui n'est pas disponible");
+                throw new IllegalArgumentException("Le Bot a choisi un objectif qui n'est pas disponible");
             }
             j.addObjectif(objectifList.getList().get(o).remove(0));
         }
@@ -436,8 +436,8 @@ public class Jeu {
     public void setJardinier(Jardinier value) {
         jardinier = value;
     }
-    public List<Joueur> getJoueurs() {
-        return joueurs;
+    public List<Bot> getJoueurs() {
+        return bots;
     }
 
     public void setPanda(Panda value) {

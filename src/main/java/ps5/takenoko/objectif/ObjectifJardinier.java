@@ -1,6 +1,6 @@
 package ps5.takenoko.objectif;
 
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.plateau.*;
 
 import java.util.Objects;
@@ -27,7 +27,7 @@ public class ObjectifJardinier extends Objectif {
     }
 
     @Override
-    public boolean verifie(Joueur player) {
+    public boolean verifie(Bot player) {
         Plateau board = player.getPlateau();
         if (!type.isMultiple()) {
             for (Position pos : board.getParcellePosee()) {

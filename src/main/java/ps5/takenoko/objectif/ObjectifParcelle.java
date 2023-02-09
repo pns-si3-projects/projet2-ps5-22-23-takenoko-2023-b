@@ -1,6 +1,6 @@
 package ps5.takenoko.objectif;
 
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.plateau.*;
 
 import java.util.Objects;
@@ -45,7 +45,7 @@ public class ObjectifParcelle extends Objectif {
     }
 
     @Override
-    public boolean verifie(Joueur j) {
+    public boolean verifie(Bot j) {
         Plateau plateau = j.getPlateau();
             //Pour chaque position du tableau avec une parcelle dessus
         for (Position pos : plateau.getParcellePosee()) {

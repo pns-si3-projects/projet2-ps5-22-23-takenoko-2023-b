@@ -3,11 +3,9 @@ package ps5.takenoko.lanceur;
 import com.beust.jcommander.JCommander;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import ps5.takenoko.element.Meteo;
-import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurMoyen;
-import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.Bot.BotMoyen;
+import ps5.takenoko.Bot.BotRandom;
 import ps5.takenoko.option.Args;
 
 import java.util.ArrayList;
@@ -29,10 +27,10 @@ class JeuLanceurTest {
                 .addObject(arguments)
                 .build()
                 .parse("--csv");
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        joueurs.add(new JoueurRandom(1));
-        joueurs.add(new JoueurMoyen(2));
-        JeuLanceur jeuLanceurCsv = new JeuLanceur(joueurs, arguments);
+        ArrayList<Bot> bots = new ArrayList<>();
+        bots.add(new BotRandom(1));
+        bots.add(new BotMoyen(2));
+        JeuLanceur jeuLanceurCsv = new JeuLanceur(bots, arguments);
         assertTrue(jeuLanceurCsv.getNbparties() == 1000);
 
         arguments = new Args();
@@ -40,7 +38,7 @@ class JeuLanceurTest {
                 .addObject(arguments)
                 .build()
                 .parse("--demo");
-        jeuLanceurCsv = new JeuLanceur(joueurs, arguments);
+        jeuLanceurCsv = new JeuLanceur(bots, arguments);
         assertTrue(jeuLanceurCsv.getNbparties() == 1);
 
     }
@@ -60,10 +58,10 @@ class JeuLanceurTest {
                 .addObject(arguments)
                 .build()
                 .parse("--2thousands");
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        joueurs.add(new JoueurRandom(1));
-        joueurs.add(new JoueurMoyen(2));
-        JeuLanceur jeuLanceur = Mockito.spy(new JeuLanceur(joueurs, arguments));
+        ArrayList<Bot> bots = new ArrayList<>();
+        bots.add(new BotRandom(1));
+        bots.add(new BotMoyen(2));
+        JeuLanceur jeuLanceur = Mockito.spy(new JeuLanceur(bots, arguments));
         jeuLanceur.setNbparties(0);
         when(jeuLanceur.twoThousandPartTwo()).thenReturn(new JeuLanceur(new ArrayList<>(), new Args()));
         jeuLanceur.lancer();

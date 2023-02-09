@@ -1,14 +1,13 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import ps5.takenoko.objectif.Objectif;
-import ps5.takenoko.objectif.ObjectifPanda;
 import ps5.takenoko.objectif.ObjectifParcelle;
 
 import java.util.List;
 
-public class JoueurParcelle extends JoueurMoyen{
+public class BotParcelle extends BotMoyen {
 
-    public JoueurParcelle(int id) {
+    public BotParcelle(int id) {
         super(id);
     }
 

@@ -1,13 +1,12 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
-import ps5.takenoko.objectif.ObjectifPanda;
 
 import java.util.List;
 
-public class JoueurJardinier extends JoueurMoyen{
-    public JoueurJardinier(int id) {
+public class BotJardinier extends BotMoyen {
+    public BotJardinier(int id) {
         super(id);
     }
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifsTypes) {

@@ -4,10 +4,10 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
+import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.Bot.BotMVP;
+import ps5.takenoko.Bot.BotMoyen;
 import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurMoyen;
-import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.option.Args;
 
 import java.io.*;
@@ -21,14 +21,14 @@ public class JeuLanceur {
     private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
     private static final String CSV_FILE_NAME = "./stats/gamestats.csv";
     private int nbparties=0;
-    private ArrayList<Joueur> joueurs = new ArrayList<>();
+    private ArrayList<Bot> bots = new ArrayList<>();
     Args arguments = new Args();
     private Statistics stats;
     public int getNbparties() {return nbparties;}
     public void setNbparties(int nbparties) {this.nbparties = nbparties;}
 
-    public JeuLanceur(ArrayList<Joueur> joueurs, Args arguments) {
-        this.joueurs = joueurs;
+    public JeuLanceur(ArrayList<Bot> bots, Args arguments) {
+        this.bots = bots;
         this.arguments = arguments;
         if(arguments.isCsv()||arguments.isTwoThousand()){
             nbparties = 1000;
@@ -36,24 +36,24 @@ public class JeuLanceur {
         else if(arguments.isDemo()){
             nbparties = 1;
         }
-        this.stats = new Statistics(joueurs);
+        this.stats = new Statistics(bots);
     }
 
     public void lancer(){
         for (int i = 0; i < nbparties; i++) {
-            Jeu jeu = new Jeu(joueurs);
+            Jeu jeu = new Jeu(bots);
             if(!arguments.isDemo()){
                 jeu.setAffichage(false);
             }
             jeu.lancer();
-            ArrayList<Joueur> gagnants = new ArrayList<>(jeu.calculGagnants());
+            ArrayList<Bot> gagnants = new ArrayList<>(jeu.calculGagnants());
             if (gagnants.size() == 0) {//Case where the game surpass the number of turns
                 i--;
             } else {
                 stats.updateStats(gagnants);
             }
-            for (Joueur joueur : joueurs) {
-                joueur.reset();
+            for (Bot bot : bots) {
+                bot.reset();
             }
         }
         affichageStats();
@@ -64,12 +64,12 @@ public class JeuLanceur {
 
     public JeuLanceur twoThousandPartTwo() {
         LOGGER.log(Level.INFO, String.format("\n Second set de 1000 parties :"));
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        joueurs.add(new JoueurMoyen(1));
-        joueurs.add(new JoueurMoyen(2));
-        joueurs.add(new JoueurMoyen(3));
-        joueurs.add(new JoueurMoyen(4));
-        JeuLanceur jeuLanceur = new JeuLanceur(joueurs, new Args());
+        ArrayList<Bot> bots = new ArrayList<>();
+        bots.add(new BotMVP(1));
+        bots.add(new BotMVP(2));
+        bots.add(new BotMVP(1));
+        bots.add(new BotMVP(2));
+        JeuLanceur jeuLanceur = new JeuLanceur(bots, new Args());
         jeuLanceur.setNbparties(1000);
         return jeuLanceur;
     }
@@ -124,7 +124,7 @@ public class JeuLanceur {
         }
         LOGGER.setUseParentHandlers(false);
         LOGGER.addHandler(new CustomHandler());
-        String[] logs = new String[joueurs.size()+1];
+        String[] logs = new String[bots.size()+1];
         if(arguments.isDemo()){
             logs[0]="JoueurType,Gagne,Perdu,Null,Score,NbObjectifs";
             String[] init = logs[0].split(",");
@@ -138,19 +138,19 @@ public class JeuLanceur {
         LOGGER.info("--------------------------------------------------------------------------------------------------------------------------");
 
 
-        for (int i = 1, j=0; i <= joueurs.size(); i++,j++) {
-            Float[] statsRes = stats.getStats(joueurs.get(j), nbparties);
-            logs[i]=joueurs.get(j).getClass().getSimpleName()+",";
+        for (int i = 1, j = 0; i <= bots.size(); i++,j++) {
+            Float[] statsRes = stats.getStats(bots.get(j), nbparties);
+            logs[i]= bots.get(j).getClass().getSimpleName()+",";
             for(int k=0;k<statsRes.length;k++){
                 logs[i]+=statsRes[k]+",";
             }
             if(arguments.isDemo()){
                 LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
-                        joueurs.get(j).getClass().getSimpleName(), statsRes[0], statsRes[2], statsRes[4], statsRes[6], statsRes[7]));
+                        bots.get(j).getClass().getSimpleName(), statsRes[0], statsRes[2], statsRes[4], statsRes[6], statsRes[7]));
             }
             else{
                 LOGGER.log(Level.INFO, String.format(" %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s | %-13s ",
-                        joueurs.get(j).getClass().getSimpleName(), statsRes[0], statsRes[1]+"%", statsRes[2], statsRes[3]+"%", statsRes[4], statsRes[5]+"%", statsRes[6]));
+                        bots.get(j).getClass().getSimpleName(), statsRes[0], statsRes[1]+"%", statsRes[2], statsRes[3]+"%", statsRes[4], statsRes[5]+"%", statsRes[6]));
             }
         }
         if(arguments.isCsv()){
@@ -163,8 +163,8 @@ public class JeuLanceur {
         }
     }
 
-    public ArrayList<Joueur> getJoueurs() {
-        return joueurs;
+    public ArrayList<Bot> getJoueurs() {
+        return bots;
     }
 }
 

@@ -1,9 +1,9 @@
 package ps5.takenoko.objectif;
 
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.Bot.BotRandom;
 import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
@@ -20,8 +20,8 @@ class ObjectifJardinierTest {
     @Test
     void verifie() {
         Plateau board = new Plateau();
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        Joueur player = new JoueurRandom(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        Bot player = new BotRandom(0);
         players.add(player);players.add(player);
         Jeu game = new Jeu(players);
         game.setPlateau(board);

@@ -1,4 +1,4 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 public enum Action {
     PIOCHER_PARCELLES,

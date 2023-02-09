@@ -1,4 +1,4 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.Meteo;
@@ -9,11 +9,10 @@ import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
 import ps5.takenoko.plateau.Position;
 
-import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.*;
 
-public abstract class Joueur implements Comparable<Joueur> {
+public abstract class Bot implements Comparable<Bot> {
     protected SecureRandom random = new SecureRandom();
     protected static final int MAX_OBJECTIFS = 5;
 
@@ -33,11 +32,11 @@ public abstract class Joueur implements Comparable<Joueur> {
 
     // private boolean estDerniere (est le dernier qui valide le dernier
     // object->avoir empereur)
-    public Joueur(int id) {
+    public Bot(int id) {
         this.id = id;
     }
 
-    public abstract Joueur clone();
+    public abstract Bot clone();
 
     public int getNbIrrigations() {
         return nbIrrigations;
@@ -80,7 +79,7 @@ public abstract class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * En cas d’égalité, le joueur qui a le plus de points sur ses
+     * En cas d’égalité, le Bot qui a le plus de points sur ses
      * cartes objectif « Panda » remporte la victoire
      */
     public int calculPointPanda() {
@@ -107,7 +106,7 @@ public abstract class Joueur implements Comparable<Joueur> {
             objectifsObtenus.add(obj);
         } else {
             if (!(objectifs.contains(o))) {
-                throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
+                throw new IllegalArgumentException("Bot n'a pas de cet objectif");
             } else if (o instanceof ObjectifPanda obj) {
                 for (int i = 0; i < obj.getCouleurs().length; i++) {
                     enleverBambous(obj.getNbParcelles(), obj.getCouleurs()[i]);
@@ -163,7 +162,7 @@ public abstract class Joueur implements Comparable<Joueur> {
     public abstract Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs);
 
     @Override
-    public int compareTo(Joueur other) {
+    public int compareTo(Bot other) {
         int result = Integer.compare(this.calculPoint(), other.calculPoint());
         if (result != 0) {
             return result;
@@ -196,7 +195,7 @@ public abstract class Joueur implements Comparable<Joueur> {
         if(this.nbIrrigations>0) {
             this.nbIrrigations--;
         }else{
-            throw new IllegalArgumentException("Le joueur n'a pas d'irrigations");
+            throw new IllegalArgumentException("Le Bot n'a pas d'irrigations");
         }
     }
 

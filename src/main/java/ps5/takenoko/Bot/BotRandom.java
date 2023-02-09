@@ -1,26 +1,24 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.objectif.Objectif;
-import ps5.takenoko.objectif.ObjectifPanda;
 import ps5.takenoko.plateau.Bordure;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Position;
 
 import java.lang.reflect.InaccessibleObjectException;
-import java.security.SecureRandom;
 import java.util.*;
 
-public class JoueurRandom extends Joueur{
+public class BotRandom extends Bot {
 
-    public JoueurRandom(int id) {
+    public BotRandom(int id) {
         super(id);
     }
 
     @Override
-    public JoueurRandom clone(){
-        return new JoueurRandom(this.getId());
+    public BotRandom clone(){
+        return new BotRandom(this.getId());
     }
 
     @Override
