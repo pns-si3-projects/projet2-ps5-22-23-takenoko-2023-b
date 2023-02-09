@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class Jeu {
 
-    public static final int NB_TOUR_MAX = 5000;
+    public static final int NB_TOUR_MAX = 500;
     private int compteurTour = 0;
     private static final int NB_ACTIONS = 2;
     private int nbObjectifFin;
@@ -273,6 +273,9 @@ public class Jeu {
         }
 
         public boolean estTermine(){
+            if(compteurTour>NB_TOUR_MAX){
+                return true;
+            }
             for(Joueur j: joueurs){
                 if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
                     j.completerObjectif(new Empereur());
