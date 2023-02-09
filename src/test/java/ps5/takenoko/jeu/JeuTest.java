@@ -24,6 +24,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class JeuTest {
 
@@ -127,6 +129,9 @@ class JeuTest {
         jeu2 = new Jeu(players);
         jeu2.tourJoueur(joueur1,false);
         assertTrue(joueur1.getObjectifs().size() == 1);
+
+        Jeu jeu3 = mock(Jeu.class);
+        when(jeu3.getRandomMeteo()).thenReturn(Meteo.VENT);
     }
 
     @Test

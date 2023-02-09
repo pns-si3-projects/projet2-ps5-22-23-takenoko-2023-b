@@ -225,7 +225,7 @@ public class Jeu {
     }
 
 
-    private Meteo getRandomMeteo(){
+    public Meteo getRandomMeteo(){
         SecureRandom random = new SecureRandom();
         return Meteo.values()[random.nextInt(Meteo.values().length)];
     }
