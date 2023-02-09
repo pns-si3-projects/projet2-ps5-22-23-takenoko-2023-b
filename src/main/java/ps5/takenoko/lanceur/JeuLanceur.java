@@ -111,7 +111,7 @@ public class JeuLanceur {
         return file.exists()&&file.isFile()&&file.length()!=0;
     }
 
-    private void affichageStats(){
+    public void affichageStats(){
         //remove all in logger
         Handler[] handlers = LOGGER.getHandlers();
         for (Handler handler : handlers) {
