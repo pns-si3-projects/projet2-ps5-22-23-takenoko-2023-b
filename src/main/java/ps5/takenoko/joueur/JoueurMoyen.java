@@ -354,13 +354,13 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public Action jouer(ArrayList<Action> actionsPossibles) {
-        if(objectifs.size() < this.MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
+        if(objectifs.size() < MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }
         if(this.getNbIrrigations() <2 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){
             return Action.PIOCHER_CANAL_DIRRIGATION;
         }
-        if(this.getAmenagements().size()>0 && actionsPossibles.contains(Action.POSER_AMENAGEMENT)){
+        if(!this.getAmenagements().isEmpty() && actionsPossibles.contains(Action.POSER_AMENAGEMENT)){
             return Action.POSER_AMENAGEMENT;
         }
         if(actionsPossibles.contains(Action.POSER_CANAL_DIRRIGATION)){

@@ -291,4 +291,21 @@ class JoueurMoyenTest {
         player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
         assertEquals(bassin,player.choisirAmenagement(tousAmenagement,parcelleIrrigue));
     }
+
+    @Test
+    void choisirParcelleAPousserTests(){
+        Set<Position> positions = new HashSet<>();
+        Parcelle pV = new Parcelle(Couleur.VERT);
+        Parcelle pR = new Parcelle(Couleur.ROSE);
+        Position p1 = new Position(15,16);
+        Position p2 = new Position(15,14);
+        positions.add(p1);
+        board.addParcelle(pV, p1);
+        assertEquals(player.choisirParcelleAPousser(positions),new Position(15,16));
+        player.addObjectif(new ObjectifParcelle(Shape.LIGNE,Couleur.ROSE));
+        positions.add(p2);
+        board.addParcelle(pR, p2);
+        assertEquals(player.choisirParcelleAPousser(positions),new Position(15,14));
+    }
+
 }
