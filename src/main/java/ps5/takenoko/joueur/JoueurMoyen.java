@@ -350,7 +350,6 @@ public class JoueurMoyen extends JoueurRandom{
             }
         }
         return max>=4;
-
     }
     public Action choisirActionBasique(ArrayList<Action> actionsPossibles){
         int cptPan=0;

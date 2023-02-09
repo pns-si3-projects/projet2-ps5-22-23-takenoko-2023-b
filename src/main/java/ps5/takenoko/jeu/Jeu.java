@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class Jeu {
 
     public static final int NB_TOUR_MAX = 5000;
-    private int cpt = 0;
+    private int compteurTour = 0;
     private static final int NB_ACTIONS = 2;
     private int nbObjectifFin;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
@@ -50,9 +50,9 @@ public class Jeu {
         LOGGER.setUseParentHandlers(false);
         LOGGER.addHandler(new CustomHandler());
         while (!estTermine()) {
-            cpt++;
+            compteurTour++;
             for(Joueur j: joueurs){
-                if(cpt!=1){
+                if(compteurTour !=1){
                     tourJoueur(j, true);
                 }
                 else{
@@ -76,7 +76,7 @@ public class Jeu {
         if(lanceMeteo){
             meteoTour = getRandomMeteo();
             if(this.affichage) {
-                LOGGER.info("Tour " + cpt + " : Meteo " + meteoTour);
+                LOGGER.info("Tour " + compteurTour + " : Meteo " + meteoTour);
             }
             if (meteoTour == Meteo.CHOIX_LIBRE){
                 meteoTour= choisirMeteo(j);
@@ -265,7 +265,7 @@ public class Jeu {
                     break;
                 }
             }
-            if(cpt > NB_TOUR_MAX){
+            if(compteurTour > NB_TOUR_MAX){
                 ArrayList<Joueur> error = new ArrayList<Joueur>();
                 return error;
             }
@@ -440,4 +440,6 @@ public class Jeu {
     public Panda getPanda() {
         return panda;
     }
+
+    public int getCompteurTour() {return compteurTour;}
 }
