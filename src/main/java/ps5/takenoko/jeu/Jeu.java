@@ -448,4 +448,8 @@ public class Jeu {
     public ArrayList<Joueur> getJoueurs() {
         return joueurs;
     }
+
+    public void setPanda(Panda value) {
+        panda = value;
+    }
 }
