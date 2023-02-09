@@ -1,7 +1,7 @@
 package ps5.takenoko.objectif;
 
 
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.plateau.Couleur;
 
 import java.util.Arrays;
@@ -12,6 +12,14 @@ public abstract class Objectif {
     private final int point;
     Couleur[] couleurs;
 
+    public Objectif(String description, int point, Couleur couleur){
+        this(description, point, new Couleur[]{couleur});
+        this.description = description;
+    }
+    public Objectif(String description, int point, Couleur[] couleurs){
+        this(point,couleurs);
+        this.description = description;
+    }
     public Objectif(int point, Couleur[] couleurs) {
         this.description = this.getClass().getSimpleName();
         this.point = point;
@@ -46,9 +54,11 @@ public abstract class Objectif {
         return point;
     }
 
-    public abstract boolean verifie(Joueur j);
-
+    public abstract boolean verifie(Bot j);
     public String toString() {
-        return getClass().getSimpleName() + " de valeur " + point;
+        String stringCouleur;
+        if(couleurs.length==1) stringCouleur = ""+couleurs[0];
+        else stringCouleur = couleurs[0]+" et "+couleurs[1];
+        return getClass().getSimpleName() + " de couleur " + stringCouleur +". Cet objectif vaut " + point +" points" ;
     }
 }

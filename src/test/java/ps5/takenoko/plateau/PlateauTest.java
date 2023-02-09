@@ -2,12 +2,11 @@ package ps5.takenoko.plateau;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.Bot.Bot;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurMoyen;
-import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.Bot.BotRandom;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -108,9 +107,9 @@ class PlateauTest {
 
     @Test
     void initialBorders(){
-        JoueurRandom rdm0 = new JoueurRandom(0);
-        JoueurRandom rdm1 = new JoueurRandom(11);
-        ArrayList<Joueur> players = new ArrayList<>();
+        BotRandom rdm0 = new BotRandom(0);
+        BotRandom rdm1 = new BotRandom(11);
+        ArrayList<Bot> players = new ArrayList<>();
         players.add(rdm0); players.add(rdm1);
         Jeu game = new Jeu(players);
         Plateau plateau = game.getPlateau();
@@ -242,4 +241,9 @@ class PlateauTest {
         assertTrue(got.contains(pos2));
     }
 
+    @Test
+    void testDirection() {
+        Direction dir = Direction.NORD_EST;
+        assertEquals(dir.numDirection(), 0);
+    }
 }

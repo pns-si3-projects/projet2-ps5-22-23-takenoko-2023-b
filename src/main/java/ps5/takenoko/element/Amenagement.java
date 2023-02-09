@@ -1,28 +1,24 @@
 package ps5.takenoko.element;
 
+import java.util.Objects;
+
 public class Amenagement {
-    private AmenagementType type;
+    private AmenagementType type = null;
     private int nbBambouAManger=1;
     private int nbBambouAPousser=1;
     public Amenagement(){
         this.type = AmenagementType.EMPTY;
-        this.nbBambouAPousser = 1;
-        this.nbBambouAManger = 1;
     }
     public Amenagement(AmenagementType type) {
         this.type = type;
         switch (type){
             case ENCLOS:
                 this.nbBambouAManger = 0;
-                this.nbBambouAPousser = 1;
                 break;
             case ENGRAIS:
                 this.nbBambouAPousser = 2;
-                this.nbBambouAManger = 1;
                 break;
             case EMPTY:
-                this.nbBambouAManger = 1;
-                this.nbBambouAPousser = 1;
                 break;
             case BASSIN:
                 break;
@@ -36,5 +32,18 @@ public class Amenagement {
     public int getNbBambouAPousser() {return nbBambouAPousser;}
     public void setType(AmenagementType type) {this.type = type;}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Amenagement that = (Amenagement) o;
+        return nbBambouAManger == that.nbBambouAManger
+                && nbBambouAPousser == that.nbBambouAPousser
+                && type == that.type;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, nbBambouAManger, nbBambouAPousser);
+    }
 }

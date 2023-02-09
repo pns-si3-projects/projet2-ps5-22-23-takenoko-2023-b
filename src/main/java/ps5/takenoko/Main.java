@@ -1,19 +1,13 @@
 package ps5.takenoko;
 
 import com.beust.jcommander.JCommander;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurRandom;
-import ps5.takenoko.joueur.JoueurMoyen;
+import ps5.takenoko.Bot.*;
+import ps5.takenoko.Bot.BotMoyen;
 import ps5.takenoko.lanceur.JeuLanceur;
 import ps5.takenoko.option.Args;
-
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class Main {
-    private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
     public static void main(String[] args) {
         Args arguments = new Args();
         JCommander.newBuilder()
@@ -21,33 +15,22 @@ public class Main {
                 .build()
                 .parse(args);
 
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        joueurs.add(new JoueurRandom(1));
-        joueurs.add(new JoueurMoyen(2));
-
-        if (arguments.isDemo()) {
-            JeuLanceur jeuLanceurDemo = new JeuLanceur(1, joueurs);
-            try {
-                jeuLanceurDemo.lancer();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        ArrayList<Bot> bots = new ArrayList<>();
+        if(arguments.isDemo()){
+            bots.add(new BotMVP(1));
+            bots.add(new BotParcelle(2));
+            bots.add(new BotMoyen(3));
+            bots.add(new BotRandom(4));
+        } else if(arguments.isFocus()) {
+            bots.add(new BotJardinier(1));
+            bots.add(new BotParcelle(2));
+            bots.add(new BotPanda(3));
         }
-        if (arguments.isTwoThousand()) {
-            JeuLanceur jeuLanceurTwoThousand = new JeuLanceur(1000, joueurs);
-            try {
-                jeuLanceurTwoThousand.lancer();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        else{
+            bots.add(new BotMVP(1));
+            bots.add(new BotMoyen(2));
         }
-        if (arguments.isCsv()) {
-            JeuLanceur jeuLanceurCsv = new JeuLanceur(1000, joueurs, true);
-            try {
-                jeuLanceurCsv.lancer();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        JeuLanceur jeuLanceur = new JeuLanceur(bots, arguments);
+        jeuLanceur.lancer();
     }
 }

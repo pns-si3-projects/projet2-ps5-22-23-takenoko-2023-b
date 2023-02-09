@@ -35,8 +35,6 @@ public class Plateau {
         parcellePosee.add(centre);
         for(Direction d : Direction.values()) {
             parcelleDisponible.add(centre.getPositionByDirection(d));
-        }
-        for(Direction d : Direction.values()) {
             Bordure initial = new Bordure (centre,centre.getPositionByDirection(d));
             bordurePosee.add(initial);
             miseAJourBordurePosable(initial);
@@ -237,7 +235,7 @@ public class Plateau {
         return res;
     }
 
-    public Set<Position> getParcellesPosables(){
+    public Set<Position> getParcellesAugmentables(){
         Set<Position> res = new HashSet<>();
         for(Position p : parcellePosee){
             if(!getParcelle(p).estParcelleOriginelle()){
@@ -263,4 +261,7 @@ public class Plateau {
 
     public static int getTaille(){return TAILLE;}
 
+    public void setBordureDisponible(Set<Bordure> bordureDisponible) {
+        this.bordureDisponible = bordureDisponible;
+    }
 }

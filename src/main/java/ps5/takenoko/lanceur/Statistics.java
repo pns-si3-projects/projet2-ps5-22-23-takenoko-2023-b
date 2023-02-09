@@ -1,37 +1,32 @@
 package ps5.takenoko.lanceur;
 
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Statistics {
-    private final ArrayList<Joueur> joueurs;
+    private final ArrayList<Bot> bots;
     private int[][]scores; //victoire|scoreTotal|objectifs
     private  int egalite;
 
-    public Statistics(ArrayList<Joueur> joueurs) {
+    public Statistics(ArrayList<Bot> bots) {
 
-        this.joueurs = joueurs;
-        scores = new int[joueurs.size()][3];
-        for (int i = 0; i < joueurs.size(); i++){
+        this.bots = bots;
+        scores = new int[bots.size()][3];
+        for (int i = 0; i < bots.size(); i++){
             for (int j = 0; j < 3; j++){
                 scores[i][j] = 0;
             }
         }
     }
 
-    public void updateStats(ArrayList<Joueur> gagnants){
-        updateGagnants(gagnants);
-    }
-
-    private void updateGagnants(ArrayList<Joueur> gagnants){
-        if(gagnants.size()==joueurs.size()){
+    public void updateStats(ArrayList<Bot> gagnants){
+        if(gagnants.size()== bots.size()){
             egalite++;
         }
         else {
-            for (Joueur gagnant : gagnants) {
-                scores[joueurs.indexOf(gagnant)][0]+=1;
+            for (Bot gagnant : gagnants) {
+                scores[bots.indexOf(gagnant)][0]+=1;
             }
             updateScores();
             updateNbObjectifs();
@@ -39,37 +34,54 @@ public class Statistics {
     }
 
     private void updateScores(){
-        for(int i = 0; i < joueurs.size(); i++){
-            scores[i][1] += joueurs.get(i).calculPoint();
+        for(int i = 0; i < bots.size(); i++){
+            scores[i][1] += bots.get(i).calculPoint();
         }
     }
     private void updateNbObjectifs(){
-        for(int i = 0; i < joueurs.size(); i++){
-            scores[i][2] += joueurs.get(i).getObjectifsObtenus().size();
+        for(int i = 0; i < bots.size(); i++){
+            scores[i][2] += bots.get(i).getObjectifsObtenus().size();
         }
     }
-    public int getGagne(Joueur joueur){
-        return scores[joueurs.indexOf(joueur)][0];
+    public float getGagne(int index){
+        return scores[index][0];
     }
 
-    public int getPerdu(Joueur joueur, int nbParties){
-        return nbParties-scores[joueurs.indexOf(joueur)][0]-egalite;
+    public float getPerdu(int index, int nbParties){
+        return nbParties-(float)(scores[index][0])-egalite;
     }
 
-    public int getEgalite(){
+    public float getEgalite(){
         return egalite;
     }
 
-    public float getScoreMoyenne(Joueur joueur, int nbParties){
-        return (float)(scores[joueurs.indexOf(joueur)][1])/nbParties;
+    public float getScoreMoyenne(int index, int nbParties){
+        return (float)(scores[index][1])/nbParties;
     }
 
-    public float getObjectifMoyenne(Joueur joueur, int nbParties){
-        return (float)(scores[joueurs.indexOf(joueur)][2])/nbParties;
+    public float getObjectifMoyenne(Bot bot, int nbParties){
+        return (float)(scores[bots.indexOf(bot)][2])/nbParties;
     }
 
-    public float getPourcentage(int score, int nbParties){
-        return (float)score/nbParties*100;
+    public float getPourcentage(float score, int nbParties){
+        return score/nbParties*100;
     }
 
+    public Float[] getStats(Bot bot, int nbParties){
+        int index = bots.indexOf(bot);
+        Float[] stats = new Float[8];
+        stats[0]= getGagne(index); //gagne
+        stats[1]= getPourcentage(getGagne(index),nbParties); //pourcentGagne
+        stats[2]=getPerdu(index,nbParties); //perdu
+        stats[3] =getPourcentage(getPerdu(index,nbParties),nbParties); //pourcentPerdu
+        stats[4] = getEgalite(); //nulle
+        stats[5] = getPourcentage(getEgalite(),nbParties); //pourcentNulle
+        stats[6] = getScoreMoyenne(index,nbParties); //scoreMoyen
+        stats[7] = getObjectifMoyenne(bot,nbParties); //objectifMoyen
+        return stats;
+    }
+
+    public int[][] getScores() {
+        return scores;
+    }
 }
