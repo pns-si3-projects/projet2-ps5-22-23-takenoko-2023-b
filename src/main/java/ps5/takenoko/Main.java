@@ -19,7 +19,7 @@ public class Main {
                 .parse(args);
 
         ArrayList<Joueur> joueurs = new ArrayList<>();
-        joueurs.add(new JoueurRandom(1));
+        joueurs.add(new JoueurMoyen(1));
         joueurs.add(new JoueurMoyen(2));
         JeuLanceur jeuLanceur = new JeuLanceur(joueurs, arguments);
         jeuLanceur.lancer();

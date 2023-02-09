@@ -300,7 +300,7 @@ public class JoueurMoyen extends JoueurRandom{
         for(Bordure b : bordureDisponibles){
             int cpt = evalueIrrigation(b);
 
-            if(cpt>=4) {
+            if(cpt>=3) {
                 if (cpt > max) {
                     max = cpt;
                     meilleurChoix = new ArrayList<>();
@@ -335,7 +335,7 @@ public class JoueurMoyen extends JoueurRandom{
 
     private boolean irrigationInteressante() {
         Set<Bordure> bordureDisponibles = this.getPlateau().getBordureDisponible();
-        for(Bordure b : bordureDisponibles) if(evalueIrrigation(b)>=4)return true;
+        for(Bordure b : bordureDisponibles)if(evalueIrrigation(b)>=3)return true;
         return false;
     }
 

@@ -6,8 +6,7 @@ import ps5.takenoko.joueur.Action;
 import ps5.takenoko.joueur.ChoixAmenagement;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.lanceur.CustomHandler;
-import ps5.takenoko.objectif.Empereur;
-import ps5.takenoko.objectif.Objectif;
+import ps5.takenoko.objectif.*;
 import ps5.takenoko.personnage.Jardinier;
 import ps5.takenoko.personnage.Panda;
 import ps5.takenoko.plateau.*;
@@ -19,7 +18,7 @@ import java.util.logging.Logger;
 
 public class Jeu {
 
-    public static final int NB_TOUR_MAX = 5000;
+    public static final int NB_TOUR_MAX = 500;
     private int compteurTour = 0;
     private static final int NB_ACTIONS = 2;
     private int nbObjectifFin;
@@ -273,6 +272,9 @@ public class Jeu {
         }
 
         public boolean estTermine(){
+            if(compteurTour>NB_TOUR_MAX){
+                return true;
+            }
             for(Joueur j: joueurs){
                 if(j.getNombreObjectifsObtenus()>=nbObjectifFin){
                     j.completerObjectif(new Empereur());
@@ -442,4 +444,15 @@ public class Jeu {
     }
 
     public int getCompteurTour() {return compteurTour;}
+
+    public void setJardinier(Jardinier value) {
+        jardinier = value;
+    }
+    public ArrayList<Joueur> getJoueurs() {
+        return joueurs;
+    }
+
+    public void setPanda(Panda value) {
+        panda = value;
+    }
 }
