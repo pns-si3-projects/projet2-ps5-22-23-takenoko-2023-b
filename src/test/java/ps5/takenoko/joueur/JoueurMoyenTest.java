@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
+import ps5.takenoko.personnage.Jardinier;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
@@ -228,5 +229,27 @@ class JoueurMoyenTest {
         assertEquals(player.choisirMeteo(meteos),Meteo.ORAGE);
         player.objectifs.remove(0);
         assertEquals(player.choisirMeteo(meteos),Meteo.PLUIE);
+    }
+
+    @Test
+    void choisirObj(){
+        List<Class<? extends Objectif>> ordre = List.of(ObjectifPanda.class, ObjectifPanda.class, ObjectifJardinier.class, ObjectifJardinier.class, ObjectifParcelle.class);
+        Objectif[] objToAdd = {new ObjectifPanda(1,Couleur.VERT,1), new ObjectifPanda(2,Couleur.ROSE,1), new ObjectifJardinier(TypeObjJardinier.OBJVIDE,Couleur.JAUNE), new ObjectifJardinier(TypeObjJardinier.OBJVIDE,Couleur.JAUNE), new ObjectifParcelle(Shape.LIGNE,Couleur.ROSE)};
+
+        for(int i=0;i<3;i++){
+            assertEquals(ObjectifParcelle.class,player.choisirObjectif(List.of(ObjectifParcelle.class,ObjectifJardinier.class,ObjectifPanda.class)));
+        }
+
+        for(int i=0;i<8;i++) board.addParcelle(new Parcelle(),new Position(15-i,15+i));
+        player.objectifs = new ArrayList<>();
+
+        for(int i=0;i<5;i++){
+            assertEquals(ordre.get(i),player.choisirObjectif(List.of(ObjectifParcelle.class,ObjectifJardinier.class,ObjectifPanda.class)));
+            player.addObjectif(objToAdd[i]);
+        }
+
+        assertEquals(ObjectifParcelle.class,player2.choisirObjectif(List.of(ObjectifParcelle.class)));
+        assertEquals(ObjectifJardinier.class,player2.choisirObjectif(List.of(ObjectifJardinier.class)));
+        assertEquals(ObjectifPanda.class,player2.choisirObjectif(List.of(ObjectifPanda.class)));
     }
 }

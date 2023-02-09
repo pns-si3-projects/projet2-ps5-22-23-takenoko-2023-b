@@ -35,23 +35,12 @@ public class JoueurMoyen extends JoueurRandom{
                 cptPar++;
             }
         }
-        if (getPlateau().getParcellePosee().size() <= 7 && cptPar<3) {
-            if (objectifsTypes.contains(ObjectifParcelle.class)) {
-                return ObjectifParcelle.class;
-            }
-        }else if (cptPan<2) {
-            if (objectifsTypes.contains(ObjectifPanda.class)) {
-                return ObjectifPanda.class;
-            }
-        }else if (cptJar<2) {
-            if (objectifsTypes.contains(ObjectifJardinier.class)) {
-                    return ObjectifJardinier.class;
-            }
-        }else if (cptPar<1) {
-        if (objectifsTypes.contains(ObjectifParcelle.class)) {
-            return ObjectifParcelle.class;
-        }
-    }
+        if (getPlateau().getParcellePosee().size() <= 7 && cptPar<3
+            && objectifsTypes.contains(ObjectifParcelle.class)) return ObjectifParcelle.class;
+        else if (cptPan<2 && objectifsTypes.contains(ObjectifPanda.class)) return ObjectifPanda.class;
+        else if (cptJar<2 && objectifsTypes.contains(ObjectifJardinier.class)) return ObjectifJardinier.class;
+        else if (cptPar<1 && objectifsTypes.contains(ObjectifParcelle.class)) return ObjectifParcelle.class;
+
         return super.choisirObjectif(objectifsTypes);
 
     }
