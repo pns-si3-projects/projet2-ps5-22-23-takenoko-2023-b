@@ -228,17 +228,6 @@ public class JoueurMoyen extends JoueurRandom{
         getPlateau().addParcelle(p, getRandomPosition(getPlateau().getEndroitsPosables()));
     }
 
-    public Position getRandomPosition(Set<Position> positions){
-        int r = random.nextInt(positions.size());
-        Iterator<Position> iterator = positions.iterator(); //iterator is already random by itself
-        Position position = iterator.next();
-        while(r>0){
-            position = iterator.next();
-            r--;
-        }
-        return position;
-    }
-
     /***
      *
      * Choisir 1 parcelle parmi les 3 et puis le poser sur le plateau
