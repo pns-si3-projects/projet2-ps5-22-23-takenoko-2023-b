@@ -74,8 +74,8 @@ class JeuLanceurTest {
     void twoThousandsPartTwo() {
         JeuLanceur jeuLanceur = new JeuLanceur(new ArrayList<>(), new Args());
         JeuLanceur jeuLanceur2 = jeuLanceur.twoThousandPartTwo();
-        assertTrue(jeuLanceur2.getNbparties() == 1000);
-        assertTrue(jeuLanceur2.getJoueurs().size() == 4);
+        assertEquals(1000, jeuLanceur2.getNbparties());
+        assertEquals(4, jeuLanceur2.getJoueurs().size());
     }
 
     }

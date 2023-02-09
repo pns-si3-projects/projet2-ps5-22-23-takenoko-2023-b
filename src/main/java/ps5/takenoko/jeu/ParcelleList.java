@@ -6,6 +6,7 @@ import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParcelleList extends ArrayList<Parcelle> {
     public ParcelleList() {
@@ -39,8 +40,8 @@ public class ParcelleList extends ArrayList<Parcelle> {
         this.add(new Parcelle(Couleur.JAUNE, new Amenagement(AmenagementType.ENGRAIS)));
     }
 
-    public ArrayList<Parcelle> getParcelles(int nbParcelles){
-        ArrayList<Parcelle> parcellesRandoms = new ArrayList<Parcelle>();
+    public List<Parcelle> getParcelles(int nbParcelles){
+        ArrayList<Parcelle> parcellesRandoms = new ArrayList<>();
         for(int i=0; i<nbParcelles; i++){
             parcellesRandoms.add(this.get(i));
         }
@@ -48,10 +49,8 @@ public class ParcelleList extends ArrayList<Parcelle> {
         return parcellesRandoms;
     }
 
-    public void addAtEnd(ArrayList<Parcelle> parcelles){
-        for(Parcelle p : parcelles){
-            this.add(p);
-        }
+    public void addAtEnd(List<Parcelle> parcelles){
+        this.addAll(parcelles);
     }
 
 

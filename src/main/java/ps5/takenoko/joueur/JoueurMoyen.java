@@ -46,8 +46,8 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     @Override
-    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
-        if (objectifs.size()==0){
+    public Meteo choisirMeteo(List<Meteo> meteos) {
+        if (objectifs.isEmpty()){
             return Meteo.VENT;
         }
         int objPan = 0;
@@ -103,7 +103,7 @@ public class JoueurMoyen extends JoueurRandom{
         return goodPos.get(0);
     }
 
-    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements, Parcelle p) {
+    public Amenagement choisirAmenagement(List<Amenagement> amenagements, Parcelle p) {
         for(Objectif o: objectifs){
             if(o instanceof ObjectifJardinier obj) {
                 Amenagement res=getSameAmenagements(amenagements, obj);
@@ -115,14 +115,15 @@ public class JoueurMoyen extends JoueurRandom{
                 }
             }
             else if(o instanceof ObjectifPanda obj) {
-                for(Couleur c : obj.getCouleurs())
-                if (p.getCouleur().equals(c)) {
-                    for(Amenagement a:amenagements){
-                        if(a.getType()== AmenagementType.BASSIN&&!p.estIrrigue()){
-                            return a;
-                        }
-                        if(a.getType()== AmenagementType.ENGRAIS&&p.estIrrigue()){
-                            return a;
+                for(Couleur c : obj.getCouleurs()) {
+                    if (p.getCouleur().equals(c)) {
+                        for (Amenagement a : amenagements) {
+                            if (a.getType() == AmenagementType.BASSIN && !p.estIrrigue()) {
+                                return a;
+                            }
+                            if (a.getType() == AmenagementType.ENGRAIS && p.estIrrigue()) {
+                                return a;
+                            }
                         }
                     }
                 }
@@ -132,7 +133,7 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     @Override
-    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements){
+    public Amenagement choisirAmenagement(List<Amenagement> amenagements){
         for (Objectif o : objectifs){
             if(o instanceof ObjectifJardinier obj) {
                 Amenagement a=getSameAmenagements(amenagements, obj);
@@ -142,7 +143,7 @@ public class JoueurMoyen extends JoueurRandom{
         return super.choisirAmenagement(amenagements);
     }
 
-    private Amenagement getSameAmenagements(ArrayList<Amenagement> amenagements, ObjectifJardinier o) {
+    private Amenagement getSameAmenagements(List<Amenagement> amenagements, ObjectifJardinier o) {
         for (Amenagement a : amenagements) {
             if ((a.getType() == AmenagementType.ENCLOS) && (o.getType() == TypeObjJardinier.OBJENCLOS)) {
                 return a;
@@ -157,7 +158,7 @@ public class JoueurMoyen extends JoueurRandom{
         return null;
     }
     @Override
-    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
+    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, List<Amenagement> amenagements) {
         for (Objectif o : objectifs){
             if(o instanceof ObjectifJardinier jar){
                 for(Position p : positions){
@@ -191,7 +192,7 @@ public class JoueurMoyen extends JoueurRandom{
 
     @Override
     public void validerObjectifs() {
-        ArrayList<Objectif>validables = objectifsValidable();
+        List<Objectif>validables = objectifsValidable();
         for(Objectif o : validables){
             completerObjectif(o);
         }
@@ -228,12 +229,10 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     /***
-     *
      * Choisir 1 parcelle parmi les 3 et puis le poser sur le plateau
-     * @return
      */
     @Override
-    public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
+    public Parcelle piocherParcelle(List<Parcelle> parcelles) {
         Collections.shuffle(parcelles);
         for(Objectif o : objectifs) {
             if(o instanceof ObjectifParcelle) {
@@ -339,7 +338,7 @@ public class JoueurMoyen extends JoueurRandom{
         return false;
     }
 
-    public Action choisirActionBasique(ArrayList<Action> actionsPossibles){
+    public Action choisirActionBasique(List<Action> actionsPossibles){
         int cptPan=0;
         int cptPar=0;
         int cptJar=0;
@@ -364,7 +363,7 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     @Override
-    public Action jouer(ArrayList<Action> actionsPossibles) {
+    public Action jouer(List<Action> actionsPossibles) {
         if(objectifs.size() < MAX_OBJECTIFS && actionsPossibles.contains(Action.OBJECTIFS)){
             return Action.OBJECTIFS;
         }

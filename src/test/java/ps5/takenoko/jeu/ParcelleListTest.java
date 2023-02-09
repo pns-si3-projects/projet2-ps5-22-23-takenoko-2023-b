@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ps5.takenoko.plateau.Parcelle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +22,7 @@ class ParcelleListTest {
     void getParcelles() {
         assertEquals(27, parcelleList.size());
         assertEquals(10, parcelleList.getParcelles(10).size());
-        ArrayList<Parcelle> parcelles = parcelleList.getParcelles(10);
+        List<Parcelle> parcelles = parcelleList.getParcelles(10);
         for(Parcelle p : parcelles){
             assertFalse(parcelleList.contains(p));
         }
@@ -31,7 +32,7 @@ class ParcelleListTest {
     @Test
     void addAtEnd() {
         ParcelleList parcelleList2 = new ParcelleList();
-        ArrayList<Parcelle> parcelles = parcelleList.getParcelles(10);
+        List<Parcelle> parcelles = parcelleList.getParcelles(10);
         parcelleList2.addAtEnd(parcelles);
         assertEquals(37, parcelleList2.size());
     }

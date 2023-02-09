@@ -20,7 +20,7 @@ public class JoueurMVP extends JoueurMoyen
     }
     
     @Override
-    public Action jouer(ArrayList<Action> actionsPossibles) {
+    public Action jouer(List<Action> actionsPossibles) {
         if(actionsPossibles.contains(Action.OBJECTIFS)||jeu.getCompteurTour()==1){
             if(objectifs.size()<5){
                 return Action.OBJECTIFS;
@@ -46,14 +46,14 @@ public class JoueurMVP extends JoueurMoyen
     }
 
     @Override
-    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
+    public Meteo choisirMeteo(List<Meteo> meteos) {
         if(meteos.contains(Meteo.NUAGES) && jeu.getCompteurTour()<=5){
             return Meteo.NUAGES;
         }
        return super.choisirMeteo(meteos);
     }
     @Override
-    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
+    public Amenagement choisirAmenagement(List<Amenagement> amenagements) {
         if(jeu.getCompteurTour()<=5){
             for(Amenagement a: amenagements){
                 if(a.getType()== AmenagementType.BASSIN){
@@ -88,7 +88,7 @@ public class JoueurMVP extends JoueurMoyen
 
 
     public Class<? extends Objectif> objectifPrincipale(){
-        ArrayList<Joueur> joueurs = jeu.getJoueurs();
+        List<Joueur> joueurs = jeu.getJoueurs();
         ArrayList<Class<? extends Objectif>> objectifs = new ArrayList<>();
         for(Joueur j : joueurs){
             objectifs.addAll(j.getObjectifsTypes());

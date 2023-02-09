@@ -6,8 +6,8 @@ import ps5.takenoko.plateau.Position;
 import java.util.Objects;
 
 public class ChoixAmenagement {
-    private Amenagement amenagement;
-    private Position position;
+    private final Amenagement amenagement;
+    private final Position position;
 
     public ChoixAmenagement(Amenagement amenagement, Position position) {
         this.amenagement = amenagement;

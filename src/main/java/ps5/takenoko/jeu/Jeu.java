@@ -22,21 +22,21 @@ public class Jeu {
     private int compteurTour = 0;
     private static final int NB_ACTIONS = 2;
     private int nbObjectifFin;
-    private ArrayList<Joueur> joueurs = new ArrayList<>();
+    private final ArrayList<Joueur> joueurs = new ArrayList<>();
     private Plateau plateau= new Plateau();
     private Jardinier jardinier = new Jardinier();
     private Panda panda = new Panda();
-    private ObjectifList objectifList = new ObjectifList();
-    private ParcelleList parcellesList = new ParcelleList();
-    private AmenagementList amenagementList = new AmenagementList();
+    private final ObjectifList objectifList = new ObjectifList();
+    private final ParcelleList parcellesList = new ParcelleList();
+    private final AmenagementList amenagementList = new AmenagementList();
 
     private static final Logger LOGGER = Logger.getLogger(Jeu.class.getSimpleName());
 
-    private Boolean affichage = true;
+    private boolean affichage = true;
 
-    public Jeu(ArrayList<Joueur> joueurs) {
+    public Jeu(List<Joueur> joueurs) {
         for(Joueur player : joueurs) player.setJeu(this);
-        this.joueurs = joueurs;
+        this.joueurs.addAll(joueurs);
         setNbObjectifFin();
 
     }
@@ -51,13 +51,9 @@ public class Jeu {
         while (!estTermine()) {
             compteurTour++;
             for(Joueur j: joueurs){
-                if(compteurTour !=1){
-                    tourJoueur(j, true);
-                }
-                else{
-                    tourJoueur(j, false);
-                }
-                if(this.affichage) {
+                tourJoueur(j, compteurTour !=1);
+
+                if(affichage) {
                     LOGGER.info(this.affichePlateau());
                 }
             }
@@ -104,7 +100,7 @@ public class Jeu {
                 executerOrage(j);
             }
         }
-        ArrayList<Action> actionChoisis = new ArrayList<Action>();
+        ArrayList<Action> actionChoisis = new ArrayList<>();
         ArrayList<Action> actionsPossibles = getActionsPossibles(j);
         boolean stop=false; //for later with more complicated stuff
         if(actionsPossibles.isEmpty()){
@@ -116,41 +112,38 @@ public class Jeu {
 
             String msg = "Joueur "+j.getId()+" a choisi action " + actionChoisi.toString();
 
-            switch(actionChoisi){
-                case PIOCHER_CANAL_DIRRIGATION:
-                    j.ajouteIrrigation();
-                    break;
-                case POSER_CANAL_DIRRIGATION:
+            switch (actionChoisi) {
+                case PIOCHER_CANAL_DIRRIGATION -> j.ajouteIrrigation();
+                case POSER_CANAL_DIRRIGATION -> {
                     j.placerIrrigation();
                     nbActions++;
-                    break;
-                case PIOCHER_PARCELLES:
+                }
+                case PIOCHER_PARCELLES -> {
                     Parcelle parcellePioche = this.piocherParcelles(j);
                     msg += " et a pioché une " + parcellePioche + " puis l'a placé sur le plateau";
                     j.poserParcelle(parcellePioche);
                     parcellesList.remove(parcellePioche);
-                    //affichage plateau
-                    break;
-                case OBJECTIFS:
+                }
+                //affichage plateau
+                case OBJECTIFS -> {
                     msg += " et a pioché un objectif";
                     this.piocherObjectifs(j);
-                    break;
-                case JARDINIER:
+                }
+                case JARDINIER -> {
                     Position posJardinier = j.deplacerJardinier(jardinier.posPossibles(plateau));
                     msg += " et a déplacé le jardinier en " + posJardinier;
-                    jardinier.deplacer(posJardinier,plateau);
-                    break;
-                case PANDA:
+                    jardinier.deplacer(posJardinier, plateau);
+                }
+                case PANDA -> {
                     Position p = j.deplacerPanda(panda.posPossibles(plateau));
-
                     msg += " et a déplacé le panda en " + p;
-                    if(panda.deplacer(p,plateau)){
-                        j.ajouteBambou(((Parcelle)plateau.getParcelle(p)).getCouleur());
+                    if (panda.deplacer(p, plateau)) {
+                        j.ajouteBambou(((Parcelle) plateau.getParcelle(p)).getCouleur());
                     }
-                    break;
-                case POSER_AMENAGEMENT:
+                }
+                case POSER_AMENAGEMENT -> {
                     Set<Position> parcellesAmenageables = plateau.getParcellesAmenageables();
-                    if(!parcellesAmenageables.isEmpty()) {
+                    if (!parcellesAmenageables.isEmpty()) {
                         ChoixAmenagement choixAmenagement = j.choisirPositionAmenagement(parcellesAmenageables, j.getAmenagements());
                         if (parcellesAmenageables.contains(choixAmenagement.getPosition())) {
                             ((Parcelle) plateau.getParcelle(choixAmenagement.getPosition())).setAmenagement(choixAmenagement.getAmenagement());
@@ -159,14 +152,11 @@ public class Jeu {
                         } else {
                             throw new IllegalArgumentException("La position choisie n'est pas amenageable");
                         }
-                    }
-                    else{
+                    } else {
                         throw new IllegalArgumentException("Il n'y a pas de parcelle amenageable");
                     }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Action non valide");
-
+                }
+                default -> throw new IllegalArgumentException("Action non valide");
             }
             if(this.affichage){
                 LOGGER.info(msg);
@@ -230,7 +220,7 @@ public class Jeu {
     }
 
         private ArrayList<Action> getActionsPossibles(Joueur j){
-            ArrayList<Action> actionsPossibles = new ArrayList<Action>();
+            ArrayList<Action> actionsPossibles = new ArrayList<>();
             if(plateau.getParcellePosee().size()>1){
                 actionsPossibles.add(Action.PANDA);
                 actionsPossibles.add(Action.JARDINIER);
@@ -238,11 +228,11 @@ public class Jeu {
             if(parcellesList.size()>=3){
                 actionsPossibles.add(Action.PIOCHER_PARCELLES);
             }
-            if(objectifList.objectifTypeDisponible().size()>0 && j.getObjectifs().size()<5){
+            if(!objectifList.objectifTypeDisponible().isEmpty() && j.getObjectifs().size()<5){
                 actionsPossibles.add(Action.OBJECTIFS);
             }
             actionsPossibles.add(Action.PIOCHER_CANAL_DIRRIGATION);
-            if(j.getNbIrrigations() > 0 && this.plateau.getBordureDisponible().size() > 0) {
+            if(j.getNbIrrigations() > 0 && !this.plateau.getBordureDisponible().isEmpty()) {
                 actionsPossibles.add(Action.POSER_CANAL_DIRRIGATION);
             }
             if(!j.getAmenagements().isEmpty() && !this.plateau.getParcellesAmenageables().isEmpty()){
@@ -251,9 +241,8 @@ public class Jeu {
             return actionsPossibles;
         }
 
-        public ArrayList<Joueur> calculGagnants() {
-            ArrayList<Joueur> js = new ArrayList<Joueur>();
-            js.addAll(joueurs);
+        public List<Joueur> calculGagnants() {
+            ArrayList<Joueur> js = new ArrayList<>(joueurs);
             js.sort(Collections.reverseOrder());
             Joueur maxRanking = js.get(0);
             ArrayList<Joueur> gagnants = new ArrayList<>();
@@ -265,8 +254,7 @@ public class Jeu {
                 }
             }
             if(compteurTour > NB_TOUR_MAX){
-                ArrayList<Joueur> error = new ArrayList<Joueur>();
-                return error;
+                return new ArrayList<>();
             }
             return gagnants;
         }
@@ -302,7 +290,7 @@ public class Jeu {
 
 
         public Parcelle piocherParcelles(Joueur j) {
-            ArrayList<Parcelle> parcelles = parcellesList.getParcelles(3);
+            List<Parcelle> parcelles = parcellesList.getParcelles(3);
             Parcelle p = j.piocherParcelle(parcelles);
             parcellesList.remove(p);
             parcelles.remove(p);
@@ -330,7 +318,7 @@ public class Jeu {
         public String affichePlateau(){
             String result="";
 
-            for(int y=0;y<plateau.getTaille()-1;y++) {
+            for(int y = 0; y< Plateau.getTaille()-1; y++) {
                 String[] lignes = ligneToString(y);
                 if(!lignes[0].matches("^\s+$")) result+=lignes[0]+"\n";
                 if(!lignes[1].matches("^\s+$")) result+=lignes[1]+"\n";
@@ -448,7 +436,7 @@ public class Jeu {
     public void setJardinier(Jardinier value) {
         jardinier = value;
     }
-    public ArrayList<Joueur> getJoueurs() {
+    public List<Joueur> getJoueurs() {
         return joueurs;
     }
 

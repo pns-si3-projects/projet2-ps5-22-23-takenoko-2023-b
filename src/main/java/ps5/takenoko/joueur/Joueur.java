@@ -15,7 +15,7 @@ import java.util.*;
 
 public abstract class Joueur implements Comparable<Joueur> {
     protected SecureRandom random = new SecureRandom();
-    protected final static int MAX_OBJECTIFS = 5;
+    protected static final int MAX_OBJECTIFS = 5;
 
     private final int id;
 
@@ -23,7 +23,7 @@ public abstract class Joueur implements Comparable<Joueur> {
     protected ArrayList<Objectif> objectifs = new ArrayList<>(MAX_OBJECTIFS);
     private ArrayList<Objectif> objectifsObtenus = new ArrayList<>();
 
-    private ArrayList<Amenagement> amenagements = new ArrayList<>();
+    private final ArrayList<Amenagement> amenagements = new ArrayList<>();
     private int nbIrrigations;
     private int[] bambousObtenus = new int[] { 0, 0, 0 };
 
@@ -47,7 +47,7 @@ public abstract class Joueur implements Comparable<Joueur> {
         return id;
     }
 
-    public ArrayList<Objectif> getObjectifsObtenus() {
+    public List<Objectif> getObjectifsObtenus() {
         return objectifsObtenus;
     }
 
@@ -55,11 +55,11 @@ public abstract class Joueur implements Comparable<Joueur> {
         return bambousObtenus;
     }
 
-    public ArrayList<Objectif> getObjectifs() {
+    public List<Objectif> getObjectifs() {
         return objectifs;
     }
 
-    public ArrayList<Amenagement> getAmenagements() {
+    public List<Amenagement> getAmenagements() {
         return amenagements;
     }
 
@@ -101,30 +101,30 @@ public abstract class Joueur implements Comparable<Joueur> {
      *
      * Depacer objectif de ArrayList objectifs -> ArrayList objectifs obtenus
      */
-    public void completerObjectif(Objectif obj) {
-        Objects.requireNonNull(obj, "Objectif ne doit pas etre NULL");
-        if (obj instanceof Empereur) {
+    public void completerObjectif(Objectif o) {
+        Objects.requireNonNull(o, "Objectif ne doit pas etre NULL");
+        if (o instanceof Empereur obj) {
             objectifsObtenus.add(obj);
         } else {
-            if (!(objectifs.contains(obj))) {
+            if (!(objectifs.contains(o))) {
                 throw new IllegalArgumentException("Joueur n'a pas de cet objectif");
-            } else if (obj instanceof ObjectifPanda) {
+            } else if (o instanceof ObjectifPanda obj) {
                 for (int i = 0; i < obj.getCouleurs().length; i++) {
-                    enleverBambous(((ObjectifPanda) obj).getNbParcelles(), obj.getCouleurs()[i]);
+                    enleverBambous(obj.getNbParcelles(), obj.getCouleurs()[i]);
                 }
             }
-            objectifs.remove(obj);
-            objectifsObtenus.add(obj);
+            objectifs.remove(o);
+            objectifsObtenus.add(o);
         }
     }
 
     public abstract void validerObjectifs();
 
-    public ArrayList<Objectif> objectifsValidable() {
+    public List<Objectif> objectifsValidable() {
         ArrayList<Objectif> objectifsValidable = new ArrayList<>();
-        for (int i = 0; i < objectifs.size(); i++) {
-            if (objectifs.get(i).verifie(this)) {
-                objectifsValidable.add(objectifs.get(i));
+        for (Objectif objectif : objectifs) {
+            if (objectif.verifie(this)) {
+                objectifsValidable.add(objectif);
             }
         }
         return objectifsValidable;
@@ -154,7 +154,7 @@ public abstract class Joueur implements Comparable<Joueur> {
      *
      * @return 1 Parcelle choisi
      */
-    public abstract Parcelle piocherParcelle(ArrayList<Parcelle> parcelles);
+    public abstract Parcelle piocherParcelle(List<Parcelle> parcelles);
 
     public abstract Position deplacerJardinier(Set<Position> positionsPossibles);
 
@@ -179,15 +179,15 @@ public abstract class Joueur implements Comparable<Joueur> {
         bambousObtenus = new int[] { 0, 0, 0 };
     }
 
-    public abstract Action jouer(ArrayList<Action> actionsPossibles);
+    public abstract Action jouer(List<Action> actionsPossibles);
 
-    public abstract Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements);
+    public abstract Amenagement choisirAmenagement(List<Amenagement> amenagements);
 
     public void addAmenagement(Amenagement amenagement) {
         amenagements.add(amenagement);
     }
     
-    public abstract ChoixAmenagement choisirPositionAmenagement( Set<Position> positions, ArrayList<Amenagement>amenagements);
+    public abstract ChoixAmenagement choisirPositionAmenagement( Set<Position> positions, List<Amenagement>amenagements);
     public void placerIrrigation(){
         useIrrigation();
     }
@@ -200,13 +200,13 @@ public abstract class Joueur implements Comparable<Joueur> {
         }
     }
 
-    public abstract Meteo choisirMeteo(ArrayList<Meteo> meteos);
+    public abstract Meteo choisirMeteo(List<Meteo> meteos);
 
-    public void setObjectifsObtenus(ArrayList<Objectif> objectifsObtenus) {
-        this.objectifsObtenus = objectifsObtenus;
+    public void setObjectifsObtenus(List<Objectif> objectifsObtenus) {
+        this.objectifsObtenus = new ArrayList<>(objectifsObtenus);
     }
 
-    public ArrayList<Class<? extends Objectif>> getObjectifsTypes(){
+    public List<Class<? extends Objectif>> getObjectifsTypes(){
         ArrayList<Class<? extends Objectif>> objectifsTypes = new ArrayList<>();
         for(Objectif o : objectifs){
             objectifsTypes.add(o.getClass());
