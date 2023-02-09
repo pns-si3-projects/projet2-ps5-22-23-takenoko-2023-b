@@ -205,6 +205,8 @@ class BotMoyenTest {
         actions.remove(Action.OBJECTIFS);
         assertEquals(Action.PIOCHER_CANAL_DIRRIGATION ,player.jouer(actions));
         actions.remove(Action.PIOCHER_CANAL_DIRRIGATION);
+        assertEquals(Action.POSER_CANAL_DIRRIGATION ,player.jouer(actions));
+        actions.remove(Action.POSER_CANAL_DIRRIGATION);
         assertEquals(Action.PIOCHER_PARCELLES ,player.jouer(actions));
         actions.remove(Action.PIOCHER_PARCELLES);
 

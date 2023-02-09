@@ -306,7 +306,10 @@ public class BotMoyen extends BotRandom {
                 meilleurChoix.add(b);
             }
         }
-        if(meilleurChoix.isEmpty())return;
+        if(meilleurChoix.isEmpty()) {
+            super.placerIrrigation();
+            return;
+        }
         getPlateau().addBordure(meilleurChoix.get(0));
         this.useIrrigation();
         placerIrrigation();
@@ -332,6 +335,7 @@ public class BotMoyen extends BotRandom {
     }
 
     private boolean irrigationInteressante() {
+        if(this.getPlateau().getBordurePosee().size()<=10)return true;
         Set<Bordure> bordureDisponibles = this.getPlateau().getBordureDisponible();
         for(Bordure b : bordureDisponibles)if(evalueIrrigation(b)>=3)return true;
         return false;

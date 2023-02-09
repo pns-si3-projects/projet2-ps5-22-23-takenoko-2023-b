@@ -21,7 +21,7 @@ public class BotMVP extends BotMoyen
     
     @Override
     public Action jouer(List<Action> actionsPossibles) {
-        if(actionsPossibles.contains(Action.OBJECTIFS)||jeu.getCompteurTour()==1){
+        if(actionsPossibles.contains(Action.OBJECTIFS)){
             if(objectifs.size()<5){
                 return Action.OBJECTIFS;
             }
@@ -39,7 +39,7 @@ public class BotMVP extends BotMoyen
                 }
             }
         }
-        if(actionsPossibles.contains(Action.PIOCHER_PARCELLES) && objectifPrincipale()==ObjectifParcelle.class){
+        if(actionsPossibles.contains(Action.PIOCHER_PARCELLES) && objectifPrincipale()== ObjectifParcelle.class){
             return Action.PIOCHER_PARCELLES;
         }
         return super.jouer(actionsPossibles);

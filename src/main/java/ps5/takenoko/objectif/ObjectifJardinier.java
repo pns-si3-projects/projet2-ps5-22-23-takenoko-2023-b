@@ -6,21 +6,16 @@ import ps5.takenoko.plateau.*;
 import java.util.Objects;
 
 public class ObjectifJardinier extends Objectif {
-    private TypeObjJardinier type;
+    private final TypeObjJardinier type;
 
     public ObjectifJardinier(TypeObjJardinier type, Couleur color) {
         super(type.getPoint(), new Couleur[]{color});
-        switch(type){
-            case OBJMULTROSE :
-                super.couleurs = new Couleur[]{Couleur.ROSE};
-                break;
-            case OBJMULTJAUNE :
-                super.couleurs = new Couleur[]{Couleur.JAUNE};
-                break;
-            case OBJMULTVERT :
-                super.couleurs = new Couleur[]{Couleur.VERT};
-                break;
-            default: break;
+        switch (type) {
+            case OBJMULTROSE -> super.couleurs = new Couleur[]{Couleur.ROSE};
+            case OBJMULTJAUNE -> super.couleurs = new Couleur[]{Couleur.JAUNE};
+            case OBJMULTVERT -> super.couleurs = new Couleur[]{Couleur.VERT};
+            default -> {
+            }
         }
         this.type = type;
 
@@ -39,17 +34,11 @@ public class ObjectifJardinier extends Objectif {
                 ) return true;
             }
         } else {
-            int restant;
-            switch (couleurs[0]) {
-                case ROSE:
-                    restant = 2;
-                    break;
-                case JAUNE:
-                    restant = 3;
-                    break;
-                default:
-                    restant = 4;
-            }
+            int restant = switch (couleurs[0]) {
+                case ROSE -> 2;
+                case JAUNE -> 3;
+                default -> 4;
+            };
             for (Position pos : board.getParcellePosee()) {
                 if (!(board.getParcelle(pos) instanceof Parcelle parcelle)) continue;
                 if (
@@ -71,14 +60,11 @@ public class ObjectifJardinier extends Objectif {
     @Override
     public int getPoint(){
         if(type.isMultiple()) return super.getPoint();
-        switch(couleurs[0]){
-            case ROSE :
-                return super.getPoint()+1;
-            case VERT:
-                return super.getPoint()-1;
-            default:
-                return super.getPoint();
-        }
+        return switch (couleurs[0]) {
+            case ROSE -> super.getPoint() + 1;
+            case VERT -> super.getPoint() - 1;
+            default -> super.getPoint();
+        };
     }
 
     @Override
