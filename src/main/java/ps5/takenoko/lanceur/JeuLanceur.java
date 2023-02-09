@@ -6,6 +6,8 @@ import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.joueur.JoueurMoyen;
+import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.option.Args;
 
 import java.io.*;
@@ -43,7 +45,7 @@ public class JeuLanceur {
             }
             jeu.lancer();
             ArrayList<Joueur> gagnants = jeu.calculGagnants();
-            if (gagnants.size() != 1) {//Case where the game surpass the number of turns
+            if (gagnants.size() == 0) {//Case where the game surpass the number of turns
                 i--;
             } else {
                 stats.updateStats(gagnants);
@@ -53,6 +55,17 @@ public class JeuLanceur {
             }
         }
         affichageStats();
+        if(arguments.isTwoThousand()){
+            LOGGER.log(Level.INFO, String.format("\n Second set de 1000 parties :"));
+            ArrayList<Joueur> joueurs = new ArrayList<>();
+            joueurs.add(new JoueurMoyen(1));
+            joueurs.add(new JoueurMoyen(2));
+            joueurs.add(new JoueurMoyen(3));
+            joueurs.add(new JoueurMoyen(4));
+            JeuLanceur jeuLanceur = new JeuLanceur(joueurs, new Args());
+            jeuLanceur.setNbparties(1000);
+            jeuLanceur.lancer();
+        }
     }
     private ColumnPositionMappingStrategy setColumMapping(String[] data) {
         ColumnPositionMappingStrategy strategy = new ColumnPositionMappingStrategy();
@@ -96,6 +109,11 @@ public class JeuLanceur {
     }
 
     private void affichageStats(){
+        //remove all in logger
+        Handler[] handlers = LOGGER.getHandlers();
+        for (Handler handler : handlers) {
+            LOGGER.removeHandler(handler);
+        }
         LOGGER.setUseParentHandlers(false);
         LOGGER.addHandler(new CustomHandler());
         String[] logs = new String[joueurs.size()+1];
