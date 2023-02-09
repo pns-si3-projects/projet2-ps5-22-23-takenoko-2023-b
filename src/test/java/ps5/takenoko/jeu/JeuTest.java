@@ -2,6 +2,9 @@ package ps5.takenoko.jeu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
@@ -24,8 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class JeuTest {
 
@@ -127,11 +129,16 @@ class JeuTest {
         players.add(joueur1);
         players.add(new JoueurRandom(1));
         jeu2 = new Jeu(players);
-        jeu2.tourJoueur(joueur1,false);
+        jeu2.tourJoueur(joueur1,true);
         assertTrue(joueur1.getObjectifs().size() == 1);
 
-        Jeu jeu3 = mock(Jeu.class);
-        when(jeu3.getRandomMeteo()).thenReturn(Meteo.VENT);
+        Jeu jeuM = Mockito.spy(new Jeu(players));
+        when(jeuM.getRandomMeteo()).thenReturn(Meteo.CHOIX_LIBRE);
+        when(jeuM.choisirMeteo(joueur1)).thenReturn(Meteo.PLUIE);
+
+        jeuM.tourJoueur(joueur1,true);
+        Mockito.verify(jeuM, Mockito.times(1)).choisirMeteo(joueur1);
+        Mockito.verify(jeuM).executerPluie(joueur1);
     }
 
     @Test
