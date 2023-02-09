@@ -442,4 +442,8 @@ public class Jeu {
     }
 
     public int getCompteurTour() {return compteurTour;}
+
+    public void setJardinier(Jardinier value) {
+        jardinier = value;
+    }
 }

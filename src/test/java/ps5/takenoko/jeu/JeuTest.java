@@ -163,6 +163,23 @@ class JeuTest {
     }
 
     @Test
+    void Jardinier() {
+        ArrayList<Joueur> players3 = new ArrayList<Joueur>();
+        JoueurRandom joueurRandom2 = mock(JoueurRandom.class);
+        players3.add(joueurRandom2);
+        players3.add(new JoueurRandom(1));
+        Jeu jeuM4 = new Jeu(players3);
+        Jardinier jardiner = mock(Jardinier.class);
+        when(jardiner.deplacer(any(), any())).thenReturn(true);
+        jeuM4.setJardinier(jardiner);
+        when(joueurRandom2.jouer(any())).thenReturn(Action.JARDINIER);
+        when(joueurRandom2.deplacerJardinier(any())).thenReturn(new Position(0,0));
+        jeuM4.tourJoueur(joueurRandom2,false);
+        //check if deplacerJardinier is called twice
+        Mockito.verify(joueurRandom2, Mockito.times(2)).deplacerJardinier(any());
+    }
+
+    @Test
     void executerNuage(){
         Jeu jeu2;
         ArrayList<Joueur> players = new ArrayList<Joueur>();
