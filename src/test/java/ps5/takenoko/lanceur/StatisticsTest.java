@@ -1,9 +1,9 @@
 package ps5.takenoko.lanceur;
 
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurMoyen;
-import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.Bot.BotMoyen;
+import ps5.takenoko.Bot.BotRandom;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,11 @@ class StatisticsTest {
 
     @Test
     void updateStats() {
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        ArrayList<Joueur> winner = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurMoyen(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        ArrayList<Bot> winner = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotMoyen(0);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         winner.add(joueur1);
         Statistics stats = new Statistics(players);
 
@@ -27,24 +27,24 @@ class StatisticsTest {
         assertEquals(stats.getScores()[1][0], 0);
 
         assertEquals(stats.getEgalite(),0);
-        winner.add(new JoueurRandom(1));
+        winner.add(new BotRandom(1));
         stats.updateStats(winner);
         assertEquals(stats.getEgalite(),1);
     }
 
     @Test
     void getStats(){
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        ArrayList<Joueur> winner = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurMoyen(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        ArrayList<Bot> winner = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotMoyen(0);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         winner.add(joueur1);
         Statistics stats = new Statistics(players);
 
         stats.updateStats(winner);
 
-        winner.add(new JoueurRandom(1));
+        winner.add(new BotRandom(1));
         stats.updateStats(winner);
 
         assertEquals(stats.getStats(joueur1,2)[0], (float)1);

@@ -1,4 +1,4 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,17 +13,17 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JoueurMoyenTest {
-    JoueurMoyen player;
-    JoueurMoyen player2;
+class BotMoyenTest {
+    BotMoyen player;
+    BotMoyen player2;
     Jeu game;
     Plateau board;
 
     @BeforeEach
     void init(){
-        ArrayList<Joueur> players = new ArrayList<>();
-        player = new JoueurMoyen(0);
-        player2 = new JoueurMoyen(1);
+        ArrayList<Bot> players = new ArrayList<>();
+        player = new BotMoyen(0);
+        player2 = new BotMoyen(1);
         players.add(player);
         players.add(player2);
         game = new Jeu(players);

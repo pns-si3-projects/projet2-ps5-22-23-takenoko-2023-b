@@ -1,4 +1,4 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,19 +16,19 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JoueurTest {
-    JoueurRandom player0;
-    JoueurMoyen player1;
+class BotTest {
+    BotRandom player0;
+    BotMoyen player1;
     Jeu game;
-    ArrayList<Joueur> players;
+    ArrayList<Bot> players;
     Plateau board;
 
 
     @BeforeEach
     void init(){
-        ArrayList<Joueur> players = new ArrayList<>();
-        player0 = new JoueurRandom(0);
-        player1 = new JoueurMoyen(1);
+        ArrayList<Bot> players = new ArrayList<>();
+        player0 = new BotRandom(0);
+        player1 = new BotMoyen(1);
         players.add(player0);
         players.add(player1);
         game = new Jeu(players);
@@ -43,7 +43,7 @@ class JoueurTest {
 
     @Test
     void testClone() {
-        JoueurRandom fake = player0.clone();
+        BotRandom fake = player0.clone();
         assertEquals(fake.getClass(),player0.getClass());
         assertEquals(fake.getId(),player0.getId());
         /* Element qui ne sont pas copie

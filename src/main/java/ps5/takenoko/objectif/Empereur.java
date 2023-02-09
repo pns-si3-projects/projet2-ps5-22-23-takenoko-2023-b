@@ -1,13 +1,13 @@
 package ps5.takenoko.objectif;
 
-import ps5.takenoko.joueur.Joueur;
+import ps5.takenoko.Bot.Bot;
 
 public class Empereur extends Objectif {
     public Empereur() {
         super("Empereur", 2);
     }
     @Override
-    public boolean verifie(Joueur j) {
+    public boolean verifie(Bot j) {
         return true;
     }
 

@@ -1,4 +1,4 @@
-package ps5.takenoko.joueur;
+package ps5.takenoko.Bot;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
@@ -8,14 +8,14 @@ import ps5.takenoko.plateau.*;
 
 import java.util.*;
 
-public class JoueurMoyen extends JoueurRandom{
-    public JoueurMoyen(int id) {
+public class BotMoyen extends BotRandom {
+    public BotMoyen(int id) {
         super(id);
     }
 
     @Override
-    public JoueurMoyen clone(){
-        return new JoueurMoyen(this.getId());
+    public BotMoyen clone(){
+        return new BotMoyen(this.getId());
     }
 
     @Override

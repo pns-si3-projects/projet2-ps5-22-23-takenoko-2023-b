@@ -1,8 +1,8 @@
 package ps5.takenoko.objectif;
 
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.Bot.BotRandom;
 import ps5.takenoko.plateau.Couleur;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ObjectifPandaTest {
     @Test
     void verifie() {
-        Joueur player = new JoueurRandom(0);
+        Bot player = new BotRandom(0);
         player.ajouteBambou(Couleur.ROSE);
         player.ajouteBambou(Couleur.ROSE);
         player.ajouteBambou(Couleur.ROSE);

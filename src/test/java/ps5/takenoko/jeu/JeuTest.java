@@ -2,13 +2,11 @@ package ps5.takenoko.jeu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.joueur.*;
+import ps5.takenoko.Bot.*;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.TypeObjJardinier;
@@ -19,7 +17,6 @@ import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
 import ps5.takenoko.plateau.Position;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,12 +28,12 @@ class JeuTest {
 
     Jeu jeu;
     Plateau plateau;
-    ArrayList<Joueur> players = new ArrayList<Joueur>();
+    ArrayList<Bot> players = new ArrayList<Bot>();
 
     @BeforeEach
     void init(){
-        players.add(new JoueurRandom(0));
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(0));
+        players.add(new BotRandom(1));
         jeu = new Jeu(players);
         plateau = new Plateau();
     }
@@ -45,15 +42,15 @@ class JeuTest {
     void testEstTermine(){
         assertFalse(jeu.estTermine());
         Jeu jeu2;
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotRandom(0);
         ArrayList<Objectif> objectifs = new ArrayList<>();
         for(int i=0; i<10; i++){
             objectifs.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE, Couleur.ROSE));
         }
         joueur1.setObjectifsObtenus(objectifs);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         assertTrue(jeu2.estTermine());
     }
@@ -62,15 +59,15 @@ class JeuTest {
     void CalculGagnats(){
         assertEquals(jeu.calculGagnants().size(), 2);
         Jeu jeu2;
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotRandom(0);
         ArrayList<Objectif> objectifs = new ArrayList<>();
         for(int i=0; i<10; i++){
             objectifs.add(new ObjectifJardinier(TypeObjJardinier.OBJMULTJAUNE, Couleur.ROSE));
         }
         joueur1.setObjectifsObtenus(objectifs);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         assertEquals(jeu2.calculGagnants().size(), 1);
         assertTrue(jeu2.calculGagnants().contains(joueur1));
@@ -79,10 +76,10 @@ class JeuTest {
     @Test
     void testpiocherObjectifs(){
         Jeu jeu2;
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotRandom(0);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         jeu2.piocherObjectifs(joueur1);
         assertEquals(joueur1.getObjectifs().size(), 1);
@@ -93,10 +90,10 @@ class JeuTest {
     @Test
     void testpiocherParcelles() {
         Jeu jeu2;
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotRandom(0);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         assertEquals(jeu2.getParcellesList().size(),27);
         Parcelle p = jeu2.piocherParcelles(joueur1);
@@ -107,10 +104,10 @@ class JeuTest {
     @Test
     void testchoisirMeteo() {
         Jeu jeu2;
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurRandom(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotRandom(0);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         Meteo m = jeu2.choisirMeteo(joueur1);
         assertTrue(m == Meteo.SOLEIL || m == Meteo.PLUIE || m == Meteo.ORAGE || m == Meteo.VENT || m == Meteo.NUAGES);
@@ -122,10 +119,10 @@ class JeuTest {
         Logger LOGGER = Logger.getLogger(Jeu.class.getSimpleName());
         LOGGER.setLevel(Level.OFF);
         Jeu jeu2;
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurMVP joueur1 = new JoueurMVP(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        BotMVP joueur1 = new BotMVP(0);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         jeu2.tourJoueur(joueur1,false);
         assertEquals(joueur1.getObjectifs().size(), 1);
@@ -142,11 +139,11 @@ class JeuTest {
         jeuM2.tourJoueur(joueur1,true);
         Mockito.verify(jeuM2).executerOrage(joueur1);
 
-        ArrayList<Joueur> players2 = new ArrayList<Joueur>();
-        JoueurRandom joueurRandom = mock(JoueurRandom.class);
+        ArrayList<Bot> players2 = new ArrayList<Bot>();
+        BotRandom joueurRandom = mock(BotRandom.class);
         when(joueurRandom.jouer(any())).thenReturn(Action.POSER_AMENAGEMENT);
         players2.add(joueurRandom);
-        players2.add(new JoueurRandom(1));
+        players2.add(new BotRandom(1));
         Jeu jeu3 = new Jeu(players2);
         String exeption = "";
         try {
@@ -164,10 +161,10 @@ class JeuTest {
 
     @Test
     void Jardinier() {
-        ArrayList<Joueur> players3 = new ArrayList<Joueur>();
-        JoueurRandom joueurRandom2 = mock(JoueurRandom.class);
+        ArrayList<Bot> players3 = new ArrayList<Bot>();
+        BotRandom joueurRandom2 = mock(BotRandom.class);
         players3.add(joueurRandom2);
-        players3.add(new JoueurRandom(1));
+        players3.add(new BotRandom(1));
         Jeu jeuM4 = new Jeu(players3);
         Jardinier jardiner = mock(Jardinier.class);
         when(jardiner.deplacer(any(), any())).thenReturn(true);
@@ -181,10 +178,10 @@ class JeuTest {
 
     @Test
     void Panda() {
-        ArrayList<Joueur> players3 = new ArrayList<Joueur>();
-        JoueurRandom joueurRandom2 = mock(JoueurRandom.class);
+        ArrayList<Bot> players3 = new ArrayList<Bot>();
+        BotRandom joueurRandom2 = mock(BotRandom.class);
         players3.add(joueurRandom2);
-        players3.add(new JoueurRandom(1));
+        players3.add(new BotRandom(1));
         Jeu jeuM4 = new Jeu(players3);
         Panda panda = mock(Panda.class);
         when(panda.deplacer(any(), any())).thenReturn(false);
@@ -199,10 +196,10 @@ class JeuTest {
     @Test
     void executerNuage(){
         Jeu jeu2;
-        ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurMoyen(0);
+        ArrayList<Bot> players = new ArrayList<Bot>();
+        BotRandom joueur1 = new BotMoyen(0);
         players.add(joueur1);
-        players.add(new JoueurRandom(1));
+        players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         assertEquals(jeu2.getAmenagementList().size(), 9);
         assertEquals(joueur1.getAmenagements().size(), 0);

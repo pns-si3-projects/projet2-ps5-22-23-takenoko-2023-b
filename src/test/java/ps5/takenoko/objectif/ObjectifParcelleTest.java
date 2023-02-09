@@ -2,9 +2,9 @@ package ps5.takenoko.objectif;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.Bot.BotRandom;
 import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurRandom;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Plateau;
@@ -40,11 +40,11 @@ class ObjectifParcelleTest {
     Jeu game3;
     Jeu game4;
     Jeu game5;
-    JoueurRandom player = new JoueurRandom(0);
-    JoueurRandom playerLigne = new JoueurRandom(1);
-    JoueurRandom playerCourbe = new JoueurRandom(2);
-    JoueurRandom playerTriangle = new JoueurRandom(3);
-    JoueurRandom playerLosange = new JoueurRandom(4);
+    BotRandom player = new BotRandom(0);
+    BotRandom playerLigne = new BotRandom(1);
+    BotRandom playerCourbe = new BotRandom(2);
+    BotRandom playerTriangle = new BotRandom(3);
+    BotRandom playerLosange = new BotRandom(4);
 
     @BeforeEach
     void init() throws IllegalAccessException {
@@ -54,11 +54,11 @@ class ObjectifParcelleTest {
         parcelleR.irrigue();
         parcelleJ.irrigue();
         parcelleV.irrigue();
-        ArrayList<Joueur> players1 = new ArrayList<Joueur>(); players1.add(player);         players1.add(new JoueurRandom(6));
-        ArrayList<Joueur> players2 = new ArrayList<Joueur>(); players2.add(playerLigne);    players2.add(new JoueurRandom(6));
-        ArrayList<Joueur> players3 = new ArrayList<Joueur>(); players3.add(playerCourbe);   players3.add(new JoueurRandom(6));
-        ArrayList<Joueur> players4 = new ArrayList<Joueur>(); players4.add(playerTriangle); players4.add(new JoueurRandom(6));
-        ArrayList<Joueur> players5 = new ArrayList<Joueur>(); players5.add(playerLosange);  players5.add(new JoueurRandom(6));
+        ArrayList<Bot> players1 = new ArrayList<Bot>(); players1.add(player);         players1.add(new BotRandom(6));
+        ArrayList<Bot> players2 = new ArrayList<Bot>(); players2.add(playerLigne);    players2.add(new BotRandom(6));
+        ArrayList<Bot> players3 = new ArrayList<Bot>(); players3.add(playerCourbe);   players3.add(new BotRandom(6));
+        ArrayList<Bot> players4 = new ArrayList<Bot>(); players4.add(playerTriangle); players4.add(new BotRandom(6));
+        ArrayList<Bot> players5 = new ArrayList<Bot>(); players5.add(playerLosange);  players5.add(new BotRandom(6));
         Jeu game1 = new Jeu(players1);
         Jeu game2 = new Jeu(players2);
         Jeu game3 = new Jeu(players3);
