@@ -2,6 +2,8 @@ package ps5.takenoko.joueur;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
@@ -252,4 +254,21 @@ class JoueurMoyenTest {
         assertEquals(ObjectifJardinier.class,player2.choisirObjectif(List.of(ObjectifJardinier.class)));
         assertEquals(ObjectifPanda.class,player2.choisirObjectif(List.of(ObjectifPanda.class)));
     }
+
+    @Test
+    void choisirParcelleAPousserTests(){
+        Set<Position> positions = new HashSet<>();
+        Parcelle pV = new Parcelle(Couleur.VERT);
+        Parcelle pR = new Parcelle(Couleur.ROSE);
+        Position p1 = new Position(15,16);
+        Position p2 = new Position(15,14);
+        positions.add(p1);
+        board.addParcelle(pV, p1);
+        assertEquals(player.choisirParcelleAPousser(positions),new Position(15,16));
+        player.addObjectif(new ObjectifParcelle(Shape.LIGNE,Couleur.ROSE));
+        positions.add(p2);
+        board.addParcelle(pR, p2);
+        assertEquals(player.choisirParcelleAPousser(positions),new Position(15,14));
+    }
+
 }
