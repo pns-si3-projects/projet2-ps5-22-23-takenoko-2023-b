@@ -8,9 +8,7 @@ import org.mockito.Mockito;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.joueur.Joueur;
-import ps5.takenoko.joueur.JoueurMoyen;
-import ps5.takenoko.joueur.JoueurRandom;
+import ps5.takenoko.joueur.*;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.TypeObjJardinier;
@@ -125,12 +123,13 @@ class JeuTest {
         LOGGER.setLevel(Level.OFF);
         Jeu jeu2;
         ArrayList<Joueur> players = new ArrayList<Joueur>();
-        JoueurRandom joueur1 = new JoueurMoyen(0);
+        JoueurMVP joueur1 = new JoueurMVP(0);
         players.add(joueur1);
         players.add(new JoueurRandom(1));
+
         jeu2 = new Jeu(players);
-        jeu2.tourJoueur(joueur1,true);
-        assertTrue(joueur1.getObjectifs().size() == 1);
+        jeu2.tourJoueur(joueur1,false);
+        assertEquals(joueur1.getObjectifs().size(), 1);
 
         Jeu jeuM = Mockito.spy(new Jeu(players));
         when(jeuM.getRandomMeteo()).thenReturn(Meteo.CHOIX_LIBRE);
@@ -139,6 +138,11 @@ class JeuTest {
         jeuM.tourJoueur(joueur1,true);
         Mockito.verify(jeuM, Mockito.times(1)).choisirMeteo(joueur1);
         Mockito.verify(jeuM).executerPluie(joueur1);
+
+        Jeu jeuM2 = Mockito.spy(new Jeu(players));
+        when(jeuM2.getRandomMeteo()).thenReturn(Meteo.ORAGE);
+        jeuM2.tourJoueur(joueur1,true);
+        Mockito.verify(jeuM2).executerOrage(joueur1);
     }
 
     @Test

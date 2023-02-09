@@ -181,7 +181,7 @@ public class Jeu {
         }
         return true;
     }
-    private void executerOrage(Joueur j) {
+    public void executerOrage(Joueur j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
 
