@@ -3,6 +3,7 @@ package ps5.takenoko.joueur;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.objectif.Objectif;
+import ps5.takenoko.objectif.ObjectifPanda;
 import ps5.takenoko.plateau.Bordure;
 import ps5.takenoko.plateau.Parcelle;
 import ps5.takenoko.plateau.Position;
@@ -87,6 +88,7 @@ public class JoueurRandom extends Joueur{
 
     @Override
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
+        //return ObjectifParcelle.class;
         return (Class<? extends Objectif>)randomList(objectifs);
     }
 
@@ -99,7 +101,6 @@ public class JoueurRandom extends Joueur{
     public void placerIrrigation(){
         if(getNbIrrigations()<=0) throw new InaccessibleObjectException();
         Set<Bordure> bordures = getPlateau().getBordureDisponible();
-        int r = random.nextInt(bordures.size());
         Bordure bordure = (Bordure) randomSet(bordures);
         getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
         super.placerIrrigation();
