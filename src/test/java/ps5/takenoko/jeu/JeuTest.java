@@ -129,9 +129,9 @@ class JeuTest {
         jeu2 = new Jeu(players);
         jeu2.tourJoueur(joueur1,false);
         assertTrue(joueur1.getObjectifs().size() == 1);
-
+/*
         Jeu jeu3 = mock(Jeu.class);
-        when(jeu3.getRandomMeteo()).thenReturn(Meteo.VENT);
+        when(jeu3.getRandomMeteo()).thenReturn(Meteo.VENT);*/
     }
 
     @Test

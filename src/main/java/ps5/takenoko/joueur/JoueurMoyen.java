@@ -322,14 +322,10 @@ public class JoueurMoyen extends JoueurRandom{
                 meilleurChoix.add(b);
             }
         }
-<<<<<<< HEAD
         if(meilleurChoix.isEmpty())return;
         getPlateau().addBordure(meilleurChoix.get(0));
         this.useIrrigation();
         placerIrrigation();
-=======
-        return max>=4;
->>>>>>> d8c1f3905e7163ef5c93ca9e35b79feb91ef584e
     }
 
     public Action choisirActionBasique(ArrayList<Action> actionsPossibles){
