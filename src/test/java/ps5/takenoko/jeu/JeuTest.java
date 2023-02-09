@@ -126,7 +126,6 @@ class JeuTest {
         JoueurMVP joueur1 = new JoueurMVP(0);
         players.add(joueur1);
         players.add(new JoueurRandom(1));
-
         jeu2 = new Jeu(players);
         jeu2.tourJoueur(joueur1,false);
         assertEquals(joueur1.getObjectifs().size(), 1);
@@ -134,7 +133,6 @@ class JeuTest {
         Jeu jeuM = Mockito.spy(new Jeu(players));
         when(jeuM.getRandomMeteo()).thenReturn(Meteo.CHOIX_LIBRE);
         when(jeuM.choisirMeteo(joueur1)).thenReturn(Meteo.PLUIE);
-
         jeuM.tourJoueur(joueur1,true);
         Mockito.verify(jeuM, Mockito.times(1)).choisirMeteo(joueur1);
         Mockito.verify(jeuM).executerPluie(joueur1);
@@ -143,6 +141,20 @@ class JeuTest {
         when(jeuM2.getRandomMeteo()).thenReturn(Meteo.ORAGE);
         jeuM2.tourJoueur(joueur1,true);
         Mockito.verify(jeuM2).executerOrage(joueur1);
+
+        ArrayList<Joueur> players2 = new ArrayList<Joueur>();
+        JoueurRandom joueurRandom = mock(JoueurRandom.class);
+        when(joueurRandom.jouer(any())).thenReturn(Action.POSER_AMENAGEMENT);
+        players2.add(joueurRandom);
+        players2.add(new JoueurRandom(1));
+        Jeu jeu3 = new Jeu(players2);
+        String exeption = "";
+        try {
+            jeu3.tourJoueur(joueurRandom, false);
+        } catch (Exception e) {
+            exeption = e.getMessage();
+        }
+        assertEquals(exeption, "Il n'y a pas de parcelle amenageable");
     }
 
     @Test
