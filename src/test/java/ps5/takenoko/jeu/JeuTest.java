@@ -155,6 +155,11 @@ class JeuTest {
             exeption = e.getMessage();
         }
         assertEquals(exeption, "Il n'y a pas de parcelle amenageable");
+
+        Jeu jeuM3 = Mockito.spy(new Jeu(players));
+        when(jeuM3.getRandomMeteo()).thenReturn(Meteo.NUAGES);
+        jeuM3.tourJoueur(joueur1,true);
+        Mockito.verify(jeuM3).executerNuage(joueur1);
     }
 
     @Test
