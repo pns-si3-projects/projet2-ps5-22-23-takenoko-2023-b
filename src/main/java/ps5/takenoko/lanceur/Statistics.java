@@ -49,7 +49,7 @@ public class Statistics {
     }
 
     public float getPerdu(int index, int nbParties){
-        return (float)nbParties-scores[index][0]-(float)egalite;
+        return nbParties-(float)(scores[index][0])-egalite;
     }
 
     public float getEgalite(){
@@ -61,7 +61,7 @@ public class Statistics {
     }
 
     public float getObjectifMoyenne(Joueur joueur, int nbParties){
-        return (scores[joueurs.indexOf(joueur)][2])/(float)nbParties;
+        return (float)(scores[joueurs.indexOf(joueur)][2])/nbParties;
     }
 
     public float getPourcentage(float score, int nbParties){
