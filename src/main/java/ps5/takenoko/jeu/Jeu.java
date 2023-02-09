@@ -13,6 +13,7 @@ import ps5.takenoko.plateau.*;
 
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -29,10 +30,7 @@ public class Jeu {
     private final ObjectifList objectifList = new ObjectifList();
     private final ParcelleList parcellesList = new ParcelleList();
     private final AmenagementList amenagementList = new AmenagementList();
-
     private static final Logger LOGGER = Logger.getLogger(Jeu.class.getSimpleName());
-
-    private boolean affichage = true;
 
     public Jeu(List<Bot> bots) {
         for(Bot player : bots) player.setJeu(this);
@@ -52,16 +50,11 @@ public class Jeu {
             compteurTour++;
             for(Bot j: bots){
                 tourJoueur(j, compteurTour !=1);
-
-                if(affichage) {
                     LOGGER.info(this.affichePlateau());
-                }
             }
         }
-        if(this.affichage) {
-            for (Bot j : bots) {
-                LOGGER.info("Bot " + j.getId() + " : " + j.getObjectifsObtenus().toString());
-            }
+        for (Bot j : bots) {
+            LOGGER.info("Bot " + j.getId() + " : " + j.getObjectifsObtenus().toString());
         }
     }
 
@@ -70,21 +63,15 @@ public class Jeu {
         int nbActions = NB_ACTIONS;
         if(lanceMeteo){
             meteoTour = getRandomMeteo();
-            if(this.affichage) {
-                LOGGER.info("Tour " + compteurTour + " : Meteo " + meteoTour);
-            }
+            LOGGER.info("Tour " + compteurTour + " : Meteo " + meteoTour);
             if (meteoTour == Meteo.CHOIX_LIBRE){
                 meteoTour= choisirMeteo(j);
-                if(this.affichage) {
-                    LOGGER.info("Le Bot a choisit la météo : " + meteoTour);
-                }
+                LOGGER.info("Le Bot a choisit la météo : " + meteoTour);
             }
             if (meteoTour == Meteo.NUAGES){
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
-                    if(this.affichage) {
-                        LOGGER.info("Plus d'aménagements ! Le Bot choisit la météo : " + meteoTour);
-                    }
+                    LOGGER.info("Plus d'aménagements ! Le Bot choisit la météo : " + meteoTour);
                 }
                 else{
                     executerNuage(j);
@@ -159,9 +146,7 @@ public class Jeu {
                 }
                 default -> throw new IllegalArgumentException("Action non valide");
             }
-            if(this.affichage){
-                LOGGER.info(msg);
-            }
+            LOGGER.info(msg);
             actionsPossibles = getActionsPossibles(j);
             if(meteoTour!=Meteo.VENT){
                 actionsPossibles.removeAll(actionChoisis);
@@ -428,8 +413,8 @@ public class Jeu {
             plateau = value;
         }
 
-        public void setAffichage(Boolean value) {
-            affichage = value;
+        public void desactiverLogger() {
+            LOGGER.setLevel(Level.OFF);
         }
 
     public Panda getPanda() {

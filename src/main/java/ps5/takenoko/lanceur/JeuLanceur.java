@@ -43,7 +43,7 @@ public class JeuLanceur {
         for (int i = 0; i < nbparties; i++) {
             Jeu jeu = new Jeu(bots);
             if(!arguments.isDemo()){
-                jeu.setAffichage(false);
+                jeu.desactiverLogger();
             }
             jeu.lancer();
             ArrayList<Bot> gagnants = new ArrayList<>(jeu.calculGagnants());
