@@ -14,7 +14,7 @@ public enum TypeObjJardinier {
     private int points;
     private int nbBamboo;
     private String description;
-    private AmenagementType amenagementType;
+    private AmenagementType amenagementType = null;
 
     TypeObjJardinier(){
         switch(ordinal()){

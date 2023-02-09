@@ -3,7 +3,7 @@ package ps5.takenoko.element;
 import java.util.Objects;
 
 public class Amenagement {
-    private AmenagementType type;
+    private AmenagementType type = null;
     private int nbBambouAManger=1;
     private int nbBambouAPousser=1;
     public Amenagement(){

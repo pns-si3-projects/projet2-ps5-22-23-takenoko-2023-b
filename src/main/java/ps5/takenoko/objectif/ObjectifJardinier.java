@@ -35,7 +35,7 @@ public class ObjectifJardinier extends Objectif {
                 if (
                         couleurs[0] == parcelle.getCouleur()
                                 && parcelle.getNbBamboo() == type.getNbBamboo()
-                    && parcelle.getAmenagement().getType() == type.getAmenagementType()
+                    && (type.getAmenagementType()==null || parcelle.getAmenagement().getType() == type.getAmenagementType())
                 ) return true;
             }
         } else {
