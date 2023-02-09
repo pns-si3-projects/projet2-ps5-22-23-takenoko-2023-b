@@ -69,7 +69,7 @@ public class ObjectifList {
     public List<Class<? extends Objectif>> objectifTypeDisponible(){
         List<Class<? extends Objectif>> listDispo = new ArrayList<>();
         for(Class<? extends Objectif> type : this.list.keySet()){
-            if(this.list.get(type).size() > 0) listDispo.add(type);
+            if(!this.list.get(type).isEmpty()) listDispo.add(type);
         }
         return listDispo;
     }

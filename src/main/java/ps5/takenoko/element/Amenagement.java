@@ -8,23 +8,17 @@ public class Amenagement {
     private int nbBambouAPousser=1;
     public Amenagement(){
         this.type = AmenagementType.EMPTY;
-        this.nbBambouAPousser = 1;
-        this.nbBambouAManger = 1;
     }
     public Amenagement(AmenagementType type) {
         this.type = type;
         switch (type){
             case ENCLOS:
                 this.nbBambouAManger = 0;
-                this.nbBambouAPousser = 1;
                 break;
             case ENGRAIS:
                 this.nbBambouAPousser = 2;
-                this.nbBambouAManger = 1;
                 break;
             case EMPTY:
-                this.nbBambouAManger = 1;
-                this.nbBambouAPousser = 1;
                 break;
             case BASSIN:
                 break;

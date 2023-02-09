@@ -59,4 +59,11 @@ class ObjectifTest {
         assertEquals("ObjectifConcret de couleur VERT. Cet objectif vaut 1 points", objectif1.toString());
         assertEquals("ObjectifConcret de couleur VERT et JAUNE. Cet objectif vaut 1 points", objectif2.toString());
     }
+
+    @Test
+    void testEmpereur(){
+        Empereur empereur = new Empereur();
+        assertEquals("Empereur", empereur.toString());
+        assertTrue(empereur.verifie(null));
+    }
 }

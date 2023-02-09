@@ -60,4 +60,8 @@ public class CSVStats {
     public String[] toStringArray(){
         return new String[]{JoueurType, Gagne, PourcentageGagne, Perdu, PourcentagePerdu, Null, PourcentageNull, ScoreMoyen, NbObjectifsMoyen};
     }
+
+    public void setJoueurType(String joueurType) {
+        JoueurType = joueurType;
+    }
 }

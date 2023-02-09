@@ -12,6 +12,7 @@ import ps5.takenoko.plateau.Plateau;
 import ps5.takenoko.plateau.Position;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -119,7 +120,7 @@ class JoueurTest {
         board.addParcelle(parcelleRose, new Position(16,15));
 
         parcelleRose.setNbBamboo(4);
-        ArrayList<Objectif> validable = player0.objectifsValidable();
+        List<Objectif> validable = player0.objectifsValidable();
         assertEquals(1,validable.size());
         assertTrue(validable.contains(objR));
 

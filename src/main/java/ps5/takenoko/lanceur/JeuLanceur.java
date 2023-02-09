@@ -46,7 +46,7 @@ public class JeuLanceur {
                 jeu.setAffichage(false);
             }
             jeu.lancer();
-            ArrayList<Joueur> gagnants = jeu.calculGagnants();
+            ArrayList<Joueur> gagnants = new ArrayList<>(jeu.calculGagnants());
             if (gagnants.size() == 0) {//Case where the game surpass the number of turns
                 i--;
             } else {

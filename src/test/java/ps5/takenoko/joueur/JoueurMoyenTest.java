@@ -400,7 +400,6 @@ class JoueurMoyenTest {
                 Couleur.ROSE
         };
         for(int i=0;i<positions.length;i++)board.addParcelle(new Parcelle(couleurs[i]),positions[i]);
-        System.out.println(game.affichePlateau());
         /*
         player.addObjectif(new ObjectifPanda(1,Couleur.ROSE,1));
         assertEquals(new ChoixAmenagement(new Amenagement(Amenagement)), player.choisirPositionAmenagement(posSet,));

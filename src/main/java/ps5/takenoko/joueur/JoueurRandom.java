@@ -29,21 +29,21 @@ public class JoueurRandom extends Joueur{
     }
 
     @Override
-    public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
+    public Amenagement choisirAmenagement(List<Amenagement> amenagements) {
         return (Amenagement) randomList(amenagements);
     }
 
     @Override
-    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, ArrayList<Amenagement> amenagements) {
+    public ChoixAmenagement choisirPositionAmenagement(Set<Position> positions, List<Amenagement> amenagements) {
         return new ChoixAmenagement(choisirAmenagement(amenagements),getRandomPosition(positions));
     }
     @Override
-    public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
+    public Meteo choisirMeteo(List<Meteo> meteos) {
         return (Meteo)randomList(meteos);
     }
     @Override
     public void validerObjectifs() {
-        ArrayList<Objectif>validables = objectifsValidable();
+        List<Objectif>validables = objectifsValidable();
         for(Objectif o : validables){
             if(random.nextInt(2) == 0){//50-50% chance
                 completerObjectif(o);
@@ -64,10 +64,9 @@ public class JoueurRandom extends Joueur{
     /***
      *
      * Choisir 1 parcelle parmi les 3 et puis le poser sur le plateau
-     * @return
      */
     @Override
-    public Parcelle piocherParcelle(ArrayList<Parcelle> parcelles) {
+    public Parcelle piocherParcelle(List<Parcelle> parcelles) {
         Collections.shuffle(parcelles);
         return parcelles.get(0);
     }
@@ -93,7 +92,7 @@ public class JoueurRandom extends Joueur{
     }
 
     @Override
-    public Action jouer(ArrayList<Action> actionsPossibles) {
+    public Action jouer(List<Action> actionsPossibles) {
         return (Action)randomList(actionsPossibles);
     }
 
