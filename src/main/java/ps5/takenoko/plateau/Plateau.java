@@ -261,4 +261,7 @@ public class Plateau {
 
     public static int getTaille(){return TAILLE;}
 
+    public void setBordureDisponible(Set<Bordure> bordureDisponible) {
+        this.bordureDisponible = bordureDisponible;
+    }
 }

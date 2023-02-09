@@ -155,6 +155,45 @@ class JeuTest {
             exeption = e.getMessage();
         }
         assertEquals(exeption, "Il n'y a pas de parcelle amenageable");
+
+        Jeu jeuM3 = Mockito.spy(new Jeu(players));
+        when(jeuM3.getRandomMeteo()).thenReturn(Meteo.NUAGES);
+        jeuM3.tourJoueur(joueur1,true);
+        Mockito.verify(jeuM3).executerNuage(joueur1);
+    }
+
+    @Test
+    void Jardinier() {
+        ArrayList<Joueur> players3 = new ArrayList<Joueur>();
+        JoueurRandom joueurRandom2 = mock(JoueurRandom.class);
+        players3.add(joueurRandom2);
+        players3.add(new JoueurRandom(1));
+        Jeu jeuM4 = new Jeu(players3);
+        Jardinier jardiner = mock(Jardinier.class);
+        when(jardiner.deplacer(any(), any())).thenReturn(true);
+        jeuM4.setJardinier(jardiner);
+        when(joueurRandom2.jouer(any())).thenReturn(Action.JARDINIER);
+        when(joueurRandom2.deplacerJardinier(any())).thenReturn(new Position(0,0));
+        jeuM4.tourJoueur(joueurRandom2,false);
+        //check if deplacerJardinier is called twice
+        Mockito.verify(joueurRandom2, Mockito.times(2)).deplacerJardinier(any());
+    }
+
+    @Test
+    void Panda() {
+        ArrayList<Joueur> players3 = new ArrayList<Joueur>();
+        JoueurRandom joueurRandom2 = mock(JoueurRandom.class);
+        players3.add(joueurRandom2);
+        players3.add(new JoueurRandom(1));
+        Jeu jeuM4 = new Jeu(players3);
+        Panda panda = mock(Panda.class);
+        when(panda.deplacer(any(), any())).thenReturn(false);
+        jeuM4.setPanda(panda);
+        when(joueurRandom2.jouer(any())).thenReturn(Action.PANDA);
+        when(joueurRandom2.deplacerPanda(any())).thenReturn(new Position(0,0));
+        jeuM4.tourJoueur(joueurRandom2,false);
+        //check if deplacerJardinier is called twice
+        Mockito.verify(joueurRandom2, Mockito.times(2)).deplacerPanda(any());
     }
 
     @Test
