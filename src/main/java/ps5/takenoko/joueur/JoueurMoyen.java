@@ -227,12 +227,11 @@ public class JoueurMoyen extends JoueurRandom{
                 max=cpt;
                 goodPos.clear();
                 goodPos.add(pos);
-            }
-            if (cpt==max) {
+            } else if (cpt==max && max>1) {
                 goodPos.add(pos);
             }
         }
-        if(goodPos.size()>=0){
+        if(!goodPos.isEmpty()){
             Collections.shuffle(goodPos);
             getPlateau().addParcelle(p,goodPos.get(0));
             return ;
