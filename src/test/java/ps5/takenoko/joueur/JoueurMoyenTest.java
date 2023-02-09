@@ -238,7 +238,7 @@ class JoueurMoyenTest {
 
         for(int i=0;i<3;i++){
             assertEquals(ObjectifParcelle.class,player.choisirObjectif(List.of(ObjectifParcelle.class,ObjectifJardinier.class,ObjectifPanda.class)));
-            player.addObjectif(objToAdd[4]);
+            player.addObjectif(new ObjectifParcelle(Shape.LIGNE,Couleur.ROSE));
         }
         assertEquals(ObjectifPanda.class,player.choisirObjectif(List.of(ObjectifParcelle.class,ObjectifJardinier.class,ObjectifPanda.class)));
 
