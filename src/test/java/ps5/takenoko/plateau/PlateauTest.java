@@ -242,4 +242,9 @@ class PlateauTest {
         assertTrue(got.contains(pos2));
     }
 
+    @Test
+    void testDirection() {
+        Direction dir = Direction.NORD_EST;
+        assertEquals(dir.numDirection(), 0);
+    }
 }
