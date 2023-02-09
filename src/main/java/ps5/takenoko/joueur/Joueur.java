@@ -206,4 +206,11 @@ public abstract class Joueur implements Comparable<Joueur> {
         this.objectifsObtenus = objectifsObtenus;
     }
 
+    public ArrayList<Class<? extends Objectif>> getObjectifsTypes(){
+        ArrayList<Class<? extends Objectif>> objectifsTypes = new ArrayList<>();
+        for(Objectif o : objectifs){
+            objectifsTypes.add(o.getClass());
+        }
+        return objectifsTypes;
+    }
 }

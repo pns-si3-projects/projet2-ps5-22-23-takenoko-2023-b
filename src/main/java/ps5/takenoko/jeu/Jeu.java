@@ -6,8 +6,7 @@ import ps5.takenoko.joueur.Action;
 import ps5.takenoko.joueur.ChoixAmenagement;
 import ps5.takenoko.joueur.Joueur;
 import ps5.takenoko.lanceur.CustomHandler;
-import ps5.takenoko.objectif.Empereur;
-import ps5.takenoko.objectif.Objectif;
+import ps5.takenoko.objectif.*;
 import ps5.takenoko.personnage.Jardinier;
 import ps5.takenoko.personnage.Panda;
 import ps5.takenoko.plateau.*;
@@ -442,4 +441,8 @@ public class Jeu {
     }
 
     public int getCompteurTour() {return compteurTour;}
+
+    public ArrayList<Joueur> getJoueurs() {
+        return joueurs;
+    }
 }
