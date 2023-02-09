@@ -58,17 +58,22 @@ public class JeuLanceur {
         }
         affichageStats();
         if(arguments.isTwoThousand()){
-            LOGGER.log(Level.INFO, String.format("\n Second set de 1000 parties :"));
-            ArrayList<Joueur> joueurs = new ArrayList<>();
-            joueurs.add(new JoueurMoyen(1));
-            joueurs.add(new JoueurMoyen(2));
-            joueurs.add(new JoueurMoyen(3));
-            joueurs.add(new JoueurMoyen(4));
-            JeuLanceur jeuLanceur = new JeuLanceur(joueurs, new Args());
-            jeuLanceur.setNbparties(1000);
-            jeuLanceur.lancer();
+            this.twoThousandPartTwo().lancer();
         }
     }
+
+    public JeuLanceur twoThousandPartTwo() {
+        LOGGER.log(Level.INFO, String.format("\n Second set de 1000 parties :"));
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        joueurs.add(new JoueurMoyen(1));
+        joueurs.add(new JoueurMoyen(2));
+        joueurs.add(new JoueurMoyen(3));
+        joueurs.add(new JoueurMoyen(4));
+        JeuLanceur jeuLanceur = new JeuLanceur(joueurs, new Args());
+        jeuLanceur.setNbparties(1000);
+        return jeuLanceur;
+    }
+
     private ColumnPositionMappingStrategy setColumMapping(String[] data) {
         ColumnPositionMappingStrategy strategy = new ColumnPositionMappingStrategy();
         strategy.setType(CSVStats.class);
@@ -156,6 +161,10 @@ public class JeuLanceur {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public ArrayList<Joueur> getJoueurs() {
+        return joueurs;
     }
 }
 

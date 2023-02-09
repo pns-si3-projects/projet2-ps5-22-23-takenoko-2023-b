@@ -21,7 +21,7 @@ class JeuLanceurTest {
     private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());
 
     @Test
-    void lancer() {
+    void create() {
         LOGGER.setLevel(Level.OFF);
 
         Args arguments = new Args();
@@ -52,4 +52,30 @@ class JeuLanceurTest {
         Mockito.verify(jeuL).affichageStats();
     }
 
-}
+    @Test
+    void twoThousandsPartTwoActive() {
+        LOGGER.setLevel(Level.OFF);
+        Args arguments = new Args();
+        JCommander.newBuilder()
+                .addObject(arguments)
+                .build()
+                .parse("--2thousands");
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        joueurs.add(new JoueurRandom(1));
+        joueurs.add(new JoueurMoyen(2));
+        JeuLanceur jeuLanceur = Mockito.spy(new JeuLanceur(joueurs, arguments));
+        jeuLanceur.setNbparties(0);
+        when(jeuLanceur.twoThousandPartTwo()).thenReturn(new JeuLanceur(new ArrayList<>(), new Args()));
+        jeuLanceur.lancer();
+        Mockito.verify(jeuLanceur).twoThousandPartTwo();
+    }
+
+    @Test
+    void twoThousandsPartTwo() {
+        JeuLanceur jeuLanceur = new JeuLanceur(new ArrayList<>(), new Args());
+        JeuLanceur jeuLanceur2 = jeuLanceur.twoThousandPartTwo();
+        assertTrue(jeuLanceur2.getNbparties() == 1000);
+        assertTrue(jeuLanceur2.getJoueurs().size() == 4);
+    }
+
+    }
