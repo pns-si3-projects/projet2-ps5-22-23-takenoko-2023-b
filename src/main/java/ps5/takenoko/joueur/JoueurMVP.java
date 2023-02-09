@@ -45,17 +45,17 @@ public class JoueurMVP extends JoueurMoyen
 
     @Override
     public Meteo choisirMeteo(ArrayList<Meteo> meteos) {
-        if(meteos.contains(Meteo.NUAGES) && jeu.getCompteurTour()==1){
+        if(meteos.contains(Meteo.NUAGES) && jeu.getCompteurTour()<=5){
             return Meteo.NUAGES;
         }
        return super.choisirMeteo(meteos);
     }
     @Override
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements) {
-        if(jeu.getCompteurTour()==1){
+        if(jeu.getCompteurTour()<=5){
             for(Amenagement a: amenagements){
                 if(a.getType()== AmenagementType.BASSIN){
-                    return new Amenagement(AmenagementType.BASSIN);
+                    return a;
                 }
             }
         }
