@@ -21,6 +21,10 @@ public class Main {
             bots.add(new BotParcelle(2));
             bots.add(new BotMoyen(3));
             bots.add(new BotRandom(4));
+        } else if(arguments.isFocus()) {
+            bots.add(new BotJardinier(1));
+            bots.add(new BotParcelle(2));
+            bots.add(new BotPanda(3));
         }
         else{
             bots.add(new BotMVP(1));

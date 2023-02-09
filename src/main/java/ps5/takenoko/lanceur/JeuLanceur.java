@@ -30,7 +30,7 @@ public class JeuLanceur {
     public JeuLanceur(ArrayList<Bot> bots, Args arguments) {
         this.bots = bots;
         this.arguments = arguments;
-        if(arguments.isCsv()||arguments.isTwoThousand()){
+        if(arguments.isCsv()||arguments.isTwoThousand()||arguments.isFocus()){
             nbparties = 1000;
         }
         else if(arguments.isDemo()){
