@@ -105,8 +105,8 @@ public class JoueurMoyen extends JoueurRandom{
 
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements, Parcelle p) {
         for(Objectif o: objectifs){
-            if(o instanceof ObjectifJardinier) {
-                Amenagement res=getSameAmenagements(amenagements, (ObjectifJardinier) o);
+            if(o instanceof ObjectifJardinier obj) {
+                Amenagement res=getSameAmenagements(amenagements, obj);
                 if (res != null)return res;
                 for (Amenagement a : amenagements) {
                     if (a.getType() == AmenagementType.ENCLOS && !p.estIrrigue()) {
@@ -114,8 +114,8 @@ public class JoueurMoyen extends JoueurRandom{
                     }
                 }
             }
-            else if(o instanceof ObjectifPanda) {
-                for(Couleur c:o.getCouleurs())
+            else if(o instanceof ObjectifPanda obj) {
+                for(Couleur c : obj.getCouleurs())
                 if (p.getCouleur().equals(c)) {
                     for(Amenagement a:amenagements){
                         if(a.getType()== AmenagementType.BASSIN&&!p.estIrrigue()){
@@ -134,8 +134,8 @@ public class JoueurMoyen extends JoueurRandom{
     @Override
     public Amenagement choisirAmenagement(ArrayList<Amenagement> amenagements){
         for (Objectif o : objectifs){
-            if(o instanceof ObjectifJardinier) {
-                Amenagement a=getSameAmenagements(amenagements, (ObjectifJardinier) o);
+            if(o instanceof ObjectifJardinier obj) {
+                Amenagement a=getSameAmenagements(amenagements, obj);
                 if(a != null)return a;
             }
         }

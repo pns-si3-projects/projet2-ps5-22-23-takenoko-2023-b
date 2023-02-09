@@ -2,6 +2,8 @@ package ps5.takenoko.joueur;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ps5.takenoko.element.Amenagement;
+import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
@@ -253,5 +255,40 @@ class JoueurMoyenTest {
         assertEquals(ObjectifParcelle.class,player.choisirObjectif(List.of(ObjectifParcelle.class)));
         assertEquals(ObjectifJardinier.class,player.choisirObjectif(List.of(ObjectifJardinier.class)));
         assertEquals(ObjectifPanda.class,player.choisirObjectif(List.of(ObjectifPanda.class)));
+    }
+
+    @Test
+    void choisirAmenagement(){
+        Parcelle parcelleIrrigue = new Parcelle(Couleur.VERT); parcelleIrrigue.irrigue();
+        Parcelle parcelleVide = new Parcelle(Couleur.JAUNE);
+        Amenagement bassin = new Amenagement(AmenagementType.BASSIN);
+        Amenagement enclos = new Amenagement(AmenagementType.ENCLOS);
+        Amenagement engrais = new Amenagement(AmenagementType.ENGRAIS);
+        ArrayList<Amenagement> amenagementBassin = new ArrayList<>();
+        ArrayList<Amenagement> amenagementEnclos = new ArrayList<>();
+        ArrayList<Amenagement> amenagementEngrais = new ArrayList<>();
+        ArrayList<Amenagement> tousAmenagement = new ArrayList<>();
+        amenagementBassin.add(bassin); tousAmenagement.add(bassin);
+        amenagementEnclos.add(enclos); tousAmenagement.add(enclos);
+        amenagementEngrais.add(engrais); tousAmenagement.add(engrais);
+
+
+
+
+        //obj Panda
+        player.addObjectif(new ObjectifPanda(1,Couleur.ROSE,1));
+        assertEquals(enclos,player.choisirAmenagement(amenagementEnclos,parcelleVide));
+        player.addObjectif(new ObjectifPanda(1,Couleur.JAUNE,1));
+        assertEquals(bassin,player.choisirAmenagement(tousAmenagement,parcelleVide));
+        player.addObjectif(new ObjectifPanda(1,Couleur.VERT,1));
+        assertEquals(engrais,player.choisirAmenagement(tousAmenagement,parcelleIrrigue));
+
+        player.objectifs = new ArrayList<>();
+        //obj Jardinier
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE,Couleur.ROSE));
+        assertEquals(enclos,player.choisirAmenagement(tousAmenagement,parcelleVide));
+        assertEquals(engrais,player.choisirAmenagement(amenagementEngrais,parcelleIrrigue));
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
+        assertEquals(bassin,player.choisirAmenagement(tousAmenagement,parcelleIrrigue));
     }
 }

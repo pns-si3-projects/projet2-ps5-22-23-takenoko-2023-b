@@ -43,7 +43,9 @@ public class Amenagement {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Amenagement that = (Amenagement) o;
-        return nbBambouAManger == that.nbBambouAManger && nbBambouAPousser == that.nbBambouAPousser && type == that.type;
+        return nbBambouAManger == that.nbBambouAManger
+                && nbBambouAPousser == that.nbBambouAPousser
+                && type == that.type;
     }
 
     @Override
