@@ -238,7 +238,9 @@ class JoueurMoyenTest {
 
         for(int i=0;i<3;i++){
             assertEquals(ObjectifParcelle.class,player.choisirObjectif(List.of(ObjectifParcelle.class,ObjectifJardinier.class,ObjectifPanda.class)));
+            player.addObjectif(objToAdd[4]);
         }
+        assertEquals(ObjectifPanda.class,player.choisirObjectif(List.of(ObjectifParcelle.class,ObjectifJardinier.class,ObjectifPanda.class)));
 
         for(int i=0;i<8;i++) board.addParcelle(new Parcelle(),new Position(15-i,15+i));
         player.objectifs = new ArrayList<>();
@@ -248,8 +250,8 @@ class JoueurMoyenTest {
             player.addObjectif(objToAdd[i]);
         }
 
-        assertEquals(ObjectifParcelle.class,player2.choisirObjectif(List.of(ObjectifParcelle.class)));
-        assertEquals(ObjectifJardinier.class,player2.choisirObjectif(List.of(ObjectifJardinier.class)));
-        assertEquals(ObjectifPanda.class,player2.choisirObjectif(List.of(ObjectifPanda.class)));
+        assertEquals(ObjectifParcelle.class,player.choisirObjectif(List.of(ObjectifParcelle.class)));
+        assertEquals(ObjectifJardinier.class,player.choisirObjectif(List.of(ObjectifJardinier.class)));
+        assertEquals(ObjectifPanda.class,player.choisirObjectif(List.of(ObjectifPanda.class)));
     }
 }
