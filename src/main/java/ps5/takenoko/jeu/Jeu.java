@@ -148,7 +148,7 @@ public class Jeu {
                         if (parcellesAmenageables.contains(choixAmenagement.getPosition())) {
                             ((Parcelle) plateau.getParcelle(choixAmenagement.getPosition())).setAmenagement(choixAmenagement.getAmenagement());
                             j.getAmenagements().remove(choixAmenagement.getAmenagement());
-                            LOGGER.info("aménagement placé en "+choixAmenagement.getPosition());
+                            LOGGER.info("Aménagement placé en "+choixAmenagement.getPosition());
                             nbActions++;
                         } else {
                             throw new IllegalArgumentException("La position choisie n'est pas amenageable");
@@ -167,14 +167,17 @@ public class Jeu {
                 actionsPossibles.removeAll(actionChoisis);
             }
             nbActions--;
-            j.validerObjectifs();
+            List<Objectif> valide = j.validerObjectifs();
+            for(Objectif o : valide){
+                LOGGER.info("Joueur "+j.getId()+" a validé l'objectif "+o);
+            }
         }
         return true;
     }
     public void executerOrage(Joueur j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
-        LOGGER.info("Le joueur déplace le panda en"+p);
+        LOGGER.info("Joueur "+j.getId()+" déplace le panda en "+p);
     }
 
     public Meteo choisirMeteo(Joueur j){
@@ -196,7 +199,7 @@ public class Jeu {
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
             if(parcellesIrriguees.contains(p)){
                 ((Parcelle)plateau.getParcelle(p)).augmenteBamboo();
-                LOGGER.info("le bambou a été augmenté en "+p);
+                LOGGER.info("Joueur "+j.getId()+" a été augmenté en "+p);
             }
             else{
                 throw new IllegalArgumentException("La parcelle choisie n'est pas irriguée");

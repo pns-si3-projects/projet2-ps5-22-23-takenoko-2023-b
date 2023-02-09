@@ -190,11 +190,14 @@ public class JoueurMoyen extends JoueurRandom{
     }
 
     @Override
-    public void validerObjectifs() {
+    public List<Objectif> validerObjectifs() {
         List<Objectif>validables = objectifsValidable();
+        List<Objectif> valide = new ArrayList<>();
         for(Objectif o : validables){
             completerObjectif(o);
+            valide.add(o);
         }
+        return valide;
     }
 
     @Override

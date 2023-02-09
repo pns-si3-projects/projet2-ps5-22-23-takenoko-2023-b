@@ -118,7 +118,7 @@ public abstract class Joueur implements Comparable<Joueur> {
         }
     }
 
-    public abstract void validerObjectifs();
+    public abstract List<Objectif> validerObjectifs();
 
     public List<Objectif> objectifsValidable() {
         ArrayList<Objectif> objectifsValidable = new ArrayList<>();

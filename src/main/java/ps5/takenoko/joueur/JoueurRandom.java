@@ -42,13 +42,16 @@ public class JoueurRandom extends Joueur{
         return (Meteo)randomList(meteos);
     }
     @Override
-    public void validerObjectifs() {
+    public List<Objectif> validerObjectifs() {
         List<Objectif>validables = objectifsValidable();
+        List<Objectif> valide = new ArrayList<>();
         for(Objectif o : validables){
             if(random.nextInt(2) == 0){//50-50% chance
                 completerObjectif(o);
+                valide.add(o);
             }
         }
+        return valide;
     }
 
     @Override
