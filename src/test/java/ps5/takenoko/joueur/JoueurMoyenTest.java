@@ -8,10 +8,7 @@ import ps5.takenoko.element.Meteo;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.personnage.Jardinier;
-import ps5.takenoko.plateau.Couleur;
-import ps5.takenoko.plateau.Parcelle;
-import ps5.takenoko.plateau.Plateau;
-import ps5.takenoko.plateau.Position;
+import ps5.takenoko.plateau.*;
 
 import java.util.*;
 
@@ -306,6 +303,80 @@ class JoueurMoyenTest {
         positions.add(p2);
         board.addParcelle(pR, p2);
         assertEquals(player.choisirParcelleAPousser(positions),new Position(15,14));
+    }
+
+    @Test
+    void evalueIrrigationTest(){
+        setupBoardIrrigation();
+        Bordure borderWeak = new Bordure(new Position(15,5),new Position(16,5));
+        Bordure borderStrong = new Bordure(new Position(15,7),new Position(16,7));
+        assertEquals(1,player.evalueIrrigation(borderWeak));
+        assertEquals(4,player.evalueIrrigation(borderStrong));
+    }
+
+    @Test
+    void placerIrrigation(){
+        setupBoardIrrigation();
+        Bordure borderWeak = new Bordure(new Position(15,5),new Position(16,5));
+        Bordure borderStrong = new Bordure(new Position(15,7),new Position(16,7));
+
+        HashSet<Bordure> dispo = new HashSet<>();
+        dispo.add(borderWeak);
+        dispo.add(borderStrong);
+        board.setBordureDisponible(dispo);
+
+        player.ajouteIrrigation();
+        player.placerIrrigation();
+        assertTrue(board.getBordurePosee().contains(borderStrong));
+        assertFalse(board.getBordurePosee().contains(borderWeak));
+
+    }
+    @Test
+    void placerMoulteIrrigation(){
+        setupBoardIrrigation();
+        Bordure borderWeak = new Bordure(new Position(15,5),new Position(16,5));
+        Bordure borderStrong1 = new Bordure(new Position(15,7),new Position(16,7));
+        Bordure borderStrong2 = new Bordure(new Position(15,9),new Position(16,9));
+        HashSet<Bordure> dispo = new HashSet<>();
+        dispo.add(borderWeak);
+        dispo.add(borderStrong1);
+        dispo.add(borderStrong2);
+        board.setBordureDisponible(dispo);
+
+        player.ajouteIrrigation();
+        player.ajouteIrrigation();
+        Parcelle jaune = new Parcelle(Couleur.JAUNE);
+        Parcelle rose = new Parcelle(Couleur.ROSE); rose.irrigue();
+        board.addParcelle(jaune, new Position(15,9));
+        board.addParcelle(rose, new Position(16,9));
+
+        player.placerIrrigation();
+        assertTrue(board.getBordurePosee().contains(borderStrong1));
+        assertTrue(board.getBordurePosee().contains(borderStrong2));
+        assertFalse(board.getBordurePosee().contains(borderWeak));
+    }
+
+    void setupBoardIrrigation(){
+
+        Parcelle vert = new Parcelle(Couleur.VERT);
+        Parcelle jauneNI = new Parcelle(Couleur.JAUNE);
+        Parcelle jauneIr = new Parcelle(Couleur.JAUNE);
+        Parcelle rose = new Parcelle(Couleur.ROSE);
+        jauneIr.irrigue();
+
+        board.addParcelle(vert, new Position(15,5));
+        board.addParcelle(jauneIr, new Position(16,5));
+
+        board.addParcelle(jauneNI, new Position(15,7));
+        board.addParcelle(rose, new Position(16,7));
+
+
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE, Couleur.JAUNE));
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE, Couleur.JAUNE));
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE, Couleur.JAUNE));
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE, Couleur.JAUNE));
+        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE, Couleur.VERT));
+
     }
 
 }

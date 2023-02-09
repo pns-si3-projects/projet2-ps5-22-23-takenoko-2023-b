@@ -315,7 +315,7 @@ public class JoueurMoyen extends JoueurRandom{
         placerIrrigation();
     }
 
-    private int evalueIrrigation(Bordure b){
+    public int evalueIrrigation(Bordure b){
         int cpt = 0;
         if(this.getPlateau().getParcelle(b.getPos1()).estOccupe()&&this.getPlateau().getParcelle(b.getPos2()).estOccupe()){
             Parcelle p1 = (Parcelle) this.getPlateau().getParcelle(b.getPos1());
@@ -336,7 +336,7 @@ public class JoueurMoyen extends JoueurRandom{
 
     private boolean irrigationInteressante() {
         Set<Bordure> bordureDisponibles = this.getPlateau().getBordureDisponible();
-        for(Bordure b : bordureDisponibles)if(evalueIrrigation(b)>=4)return true;
+        for(Bordure b : bordureDisponibles) if(evalueIrrigation(b)>=4)return true;
         return false;
     }
 

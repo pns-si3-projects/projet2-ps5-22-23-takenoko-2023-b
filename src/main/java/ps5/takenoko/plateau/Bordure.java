@@ -106,4 +106,8 @@ public class Bordure {
     public String toString(){
         return "["+pos1.toString()+","+pos2.toString()+"]";
     }
+
+
+
+
 }
