@@ -20,7 +20,7 @@ public class Main {
 
         ArrayList<Joueur> joueurs = new ArrayList<>();
         joueurs.add(new JoueurRandom(1));
-        joueurs.add(new JoueurMoyen(2));
+        joueurs.add(new JoueurRandom(2));
         JeuLanceur jeuLanceur = new JeuLanceur(joueurs, arguments);
         jeuLanceur.lancer();
     }
