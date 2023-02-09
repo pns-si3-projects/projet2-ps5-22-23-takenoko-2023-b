@@ -6,7 +6,7 @@ import ps5.takenoko.plateau.Couleur;
 import java.util.Objects;
 
 public class ObjectifPanda extends Objectif{
-    private int nbParcelles;
+    private final int nbParcelles;
 
     public ObjectifPanda(int point, Couleur couleurs, int nbParcelles){this(point, new Couleur[]{couleurs},nbParcelles);}
     public ObjectifPanda(int point, Couleur[] couleurs, int nbParcelles) {

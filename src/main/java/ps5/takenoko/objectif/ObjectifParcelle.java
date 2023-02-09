@@ -34,14 +34,12 @@ public class ObjectifParcelle extends Objectif {
 
             }
 
-        }switch(couleurs[0]){
-            case VERT :
-                return super.getPoint() -1;
-            case ROSE :
-                return super.getPoint() +1;
-            default :
-                return super.getPoint() ;
         }
+        return switch (couleurs[0]) {
+            case VERT -> super.getPoint() - 1;
+            case ROSE -> super.getPoint() + 1;
+            default -> super.getPoint();
+        };
     }
 
     @Override
