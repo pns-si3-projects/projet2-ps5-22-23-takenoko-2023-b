@@ -177,7 +177,7 @@ public class Jeu {
     public void executerOrage(Bot j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
-        LOGGER.info("Bot "+j.getId()+"a déplacé le panda en "+p);
+        LOGGER.info("Bot "+j.getId()+" a déplacé le panda en "+p);
     }
 
     public Meteo choisirMeteo(Bot j){
