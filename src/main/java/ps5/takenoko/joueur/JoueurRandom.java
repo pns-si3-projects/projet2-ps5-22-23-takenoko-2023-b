@@ -101,7 +101,6 @@ public class JoueurRandom extends Joueur{
     public void placerIrrigation(){
         if(getNbIrrigations()<=0) throw new InaccessibleObjectException();
         Set<Bordure> bordures = getPlateau().getBordureDisponible();
-        int r = random.nextInt(bordures.size());
         Bordure bordure = (Bordure) randomSet(bordures);
         getPlateau().addBordure(bordure.getPos1(),bordure.getPos2());
         super.placerIrrigation();
