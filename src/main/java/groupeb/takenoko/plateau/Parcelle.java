@@ -14,8 +14,8 @@ public class Parcelle extends ParcelleInactive{
 
 
     public Parcelle() {
-        SecureRandom R = new SecureRandom();
-        this.couleur = Couleur.values()[R.nextInt(3)];
+        SecureRandom secureRandom = new SecureRandom();
+        this.couleur = Couleur.values()[secureRandom.nextInt(3)];
     }
 
 

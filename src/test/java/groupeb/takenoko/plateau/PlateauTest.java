@@ -242,6 +242,6 @@ class PlateauTest {
     @Test
     void testDirection() {
         Direction dir = Direction.NORD_EST;
-        assertEquals(dir.numDirection(), 0);
+        assertEquals(0,dir.numDirection());
     }
 }

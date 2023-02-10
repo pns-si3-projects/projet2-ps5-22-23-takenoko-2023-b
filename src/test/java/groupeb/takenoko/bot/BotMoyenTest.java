@@ -217,11 +217,11 @@ class BotMoyenTest {
         meteos.remove(Meteo.CHOIX_LIBRE);
         player.addObjectif(new ObjectifPanda(4,Couleur.ROSE,3));
         player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
-        assertEquals(player.choisirMeteo(meteos),Meteo.NUAGES);
+        assertEquals(Meteo.NUAGES,player.choisirMeteo(meteos));
         meteos.remove(Meteo.NUAGES);
-        assertEquals(player.choisirMeteo(meteos),Meteo.ORAGE);
+        assertEquals(Meteo.ORAGE,player.choisirMeteo(meteos));
         player.objectifs.remove(0);
-        assertEquals(player.choisirMeteo(meteos),Meteo.PLUIE);
+        assertEquals(Meteo.PLUIE,player.choisirMeteo(meteos));
     }
 
     @Test

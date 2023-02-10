@@ -57,7 +57,7 @@ public class JeuLanceur {
             }
             jeu.lancer();
             ArrayList<Bot> gagnants = new ArrayList<>(jeu.calculGagnants());
-            if (gagnants.size() == 0) {//Case where the game surpass the number of turns
+            if (gagnants.isEmpty()) {//Case where the game surpass the number of turns
                 i--;
             } else {
                 stats.updateStats(gagnants);
@@ -168,7 +168,7 @@ public class JeuLanceur {
             try {
                 writeToCsv(logs);
             } catch (IOException e) {
-                throw new RuntimeException("Erreur lors de l'écriture du fichier CSV");
+                throw new IllegalArgumentException("Erreur lors de l'écriture du fichier CSV");
             }
         }
     }

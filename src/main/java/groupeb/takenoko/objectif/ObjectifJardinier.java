@@ -16,8 +16,7 @@ public class ObjectifJardinier extends Objectif {
             case OBJMULTROSE -> super.couleurs = new Couleur[]{Couleur.ROSE};
             case OBJMULTJAUNE -> super.couleurs = new Couleur[]{Couleur.JAUNE};
             case OBJMULTVERT -> super.couleurs = new Couleur[]{Couleur.VERT};
-            default -> {
-            }
+            default -> {}
         }
         this.type = type;
 
@@ -43,11 +42,11 @@ public class ObjectifJardinier extends Objectif {
             };
             for (Position pos : board.getParcellePosee()) {
                 if (!(board.getParcelle(pos) instanceof Parcelle parcelle)) continue;
-                if (
-                        couleurs[0] == parcelle.getCouleur()
+                if (couleurs[0] == parcelle.getCouleur()
                         && parcelle.getNbBamboo() == type.getNbBamboo()
-                ) {
-                    if (--restant == 0) return true;
+                        && --restant == 0)
+                {
+                    return true;
                 }
             }
 
