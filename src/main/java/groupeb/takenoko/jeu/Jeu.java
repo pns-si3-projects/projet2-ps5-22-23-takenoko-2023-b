@@ -51,7 +51,7 @@ public class Jeu {
             compteurTour++;
             for(Bot j: bots){
                 tourJoueur(j, compteurTour !=1);
-                    LOGGER.info(this.affichePlateau());
+                LOGGER.info(this.affichePlateau());
             }
         }
         for (Bot j : bots) {

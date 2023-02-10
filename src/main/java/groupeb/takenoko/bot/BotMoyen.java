@@ -70,15 +70,6 @@ public class BotMoyen extends BotRandom {
         List<Position> goodPos = new ArrayList<>();
         for(Position p:positions){
             int cpt=compteurCouleur(p);
-            if(getPlateau().getParcelle(p)instanceof Parcelle par){
-                for(Objectif o:objectifs){
-                    for(Couleur c:o.getCouleurs()){
-                        if(par.getCouleur().equals(c)){
-                            cpt++;
-                        }
-                    }
-                }
-            }
             if (cpt>max){
                 max=cpt;
                 goodPos.clear();
@@ -213,10 +204,8 @@ public class BotMoyen extends BotRandom {
         for(Position pos : pospos){
             int cpt=0;
             for(Direction d : Direction.values()) {
-                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle par) {
-                    if(par.getCouleur().equals(p.getCouleur())){
-                        cpt++;
-                    }
+                if (getPlateau().getParcelle(pos.getPositionByDirection(d)) instanceof Parcelle par && par.getCouleur().equals(p.getCouleur())) {
+                    cpt++;
                 }
             }
             if (cpt>max){
@@ -255,7 +244,7 @@ public class BotMoyen extends BotRandom {
         return parcelles.get(0);
     }
 
-
+    @Override
     public Position deplacerPersonnage(Set<Position> positionsPossibles) {
         return getRandomPosition(positionsPossibles);
     }

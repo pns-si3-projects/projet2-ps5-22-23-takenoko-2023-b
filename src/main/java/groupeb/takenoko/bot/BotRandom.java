@@ -83,7 +83,6 @@ public class BotRandom extends Bot {
 
     @Override
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifs) {
-        //return ObjectifParcelle.class;
         return (Class<? extends Objectif>)randomList(objectifs);
     }
 
@@ -101,14 +100,14 @@ public class BotRandom extends Bot {
         super.placerIrrigation();
     }
 
-    public Object randomList(List list){
+    public Object randomList(List<?> list){
         Collections.shuffle(list);
         return list.get(0);
     }
 
-    public Object randomSet(Set set){
+    public Object randomSet(Set<?> set){
         int r = random.nextInt(set.size());
-        Iterator iterator = set.iterator(); //iterator is already random by itself
+        Iterator<?> iterator = set.iterator(); //iterator is already random by itself
         Object o = iterator.next();
         while(r>0){
             o = iterator.next();
