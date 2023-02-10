@@ -9,7 +9,7 @@ public class CustomHandler extends Handler {
         System.out.println(record.getMessage());
     }
     @Override
-    public void flush() {}
+    public void flush() { throw new UnsupportedOperationException();}
     @Override
-    public void close() throws SecurityException {}
+    public void close() throws SecurityException { throw new UnsupportedOperationException();}
 }
