@@ -47,6 +47,7 @@ public class BotFocusTest {
         botPanda.addObjectif(new ObjectifPanda(4, Couleur.ROSE,1));
         botPanda.addObjectif(new ObjectifPanda(4, Couleur.ROSE,1));
         botPanda.addObjectif(new ObjectifPanda(4, Couleur.ROSE,1));
+        botJardinier.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
         assertNotEquals(botPanda.choisirObjectif(objectifsTypes),ObjectifPanda.class);
     }
 
@@ -63,6 +64,7 @@ public class BotFocusTest {
         botJardinier.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
         botJardinier.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
         botJardinier.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
+        botPanda.addObjectif(new ObjectifPanda(4, Couleur.ROSE,1));
         assertNotEquals(botJardinier.choisirObjectif(objectifsTypes),ObjectifJardinier.class);
     }
 
@@ -79,6 +81,7 @@ public class BotFocusTest {
         botParcelle.addObjectif(new ObjectifParcelle(Shape.LIGNE,Couleur.JAUNE));
         botParcelle.addObjectif(new ObjectifParcelle(Shape.LIGNE,Couleur.JAUNE));
         botParcelle.addObjectif(new ObjectifParcelle(Shape.LIGNE,Couleur.JAUNE));
+        botJardinier.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
         assertNotEquals(botParcelle.choisirObjectif(objectifsTypes),ObjectifParcelle.class);
     }
 }
