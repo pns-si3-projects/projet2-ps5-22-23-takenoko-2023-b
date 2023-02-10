@@ -52,10 +52,8 @@ public class BotMoyen extends BotRandom {
         for(Objectif o: objectifs) {
             if (o instanceof ObjectifJardinier jar) {
                 objJar +=1;
-                if((jar.getType() == TypeObjJardinier.OBJENCLOS)||(jar.getType() == TypeObjJardinier.OBJENGRAIS)||(jar.getType() == TypeObjJardinier.OBJBASSIN)){
-                    if (meteos.contains(Meteo.NUAGES)){
+                if(((jar.getType() == TypeObjJardinier.OBJENCLOS)||(jar.getType() == TypeObjJardinier.OBJENGRAIS)||(jar.getType() == TypeObjJardinier.OBJBASSIN))&& meteos.contains(Meteo.NUAGES)){
                         return Meteo.NUAGES;
-                    }
                 }
             }
             if( o instanceof ObjectifPanda) {
@@ -76,7 +74,7 @@ public class BotMoyen extends BotRandom {
         int max=0;
         List<Position> goodPos = new ArrayList<>();
         for(Position p:positions){
-            int cpt=0;
+            int cpt=compteurCouleur(p);
             if(getPlateau().getParcelle(p)instanceof Parcelle par){
                 for(Objectif o:objectifs){
                     for(Couleur c:o.getCouleurs()){
@@ -98,6 +96,20 @@ public class BotMoyen extends BotRandom {
         }
         Collections.shuffle(goodPos);
         return goodPos.get(0);
+    }
+
+    public int compteurCouleur(Position p){
+        int cpt=0;
+        if(getPlateau().getParcelle(p)instanceof Parcelle par){
+            for(Objectif o:objectifs){
+                for(Couleur c:o.getCouleurs()){
+                    if(par.getCouleur().equals(c)){
+                        cpt++;
+                    }
+                }
+            }
+        }
+        return cpt;
     }
 
     public Amenagement choisirAmenagement(List<Amenagement> amenagements, Parcelle p) {
