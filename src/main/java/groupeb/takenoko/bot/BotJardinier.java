@@ -9,6 +9,7 @@ public class BotJardinier extends BotMoyen {
     public BotJardinier(int id) {
         super(id);
     }
+    @Override
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifsTypes) {
         int cptJar=0;
         for(Objectif o: this.objectifs){
