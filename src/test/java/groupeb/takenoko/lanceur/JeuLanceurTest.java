@@ -41,5 +41,5 @@ class JeuLanceurTest {
         jeuL.lancer();
         Mockito.verify(jeuL).affichageStats();
     }
-    
+
     }

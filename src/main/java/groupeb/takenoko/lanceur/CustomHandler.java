@@ -5,8 +5,8 @@ import java.util.logging.LogRecord;
 
 public class CustomHandler extends Handler {
     @Override
-    public void publish(LogRecord record) {
-        System.out.println(record.getMessage());
+    public void publish(LogRecord records) {
+        System.out.println(records.getMessage());
     }
     @Override
     public void flush() { throw new UnsupportedOperationException();}

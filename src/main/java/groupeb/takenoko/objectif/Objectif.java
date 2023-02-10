@@ -12,21 +12,21 @@ public abstract class Objectif {
     private final int point;
     Couleur[] couleurs;
 
-    public Objectif(String description, int point, Couleur couleur){
+    protected Objectif(String description, int point, Couleur couleur){
         this(description, point, new Couleur[]{couleur});
         this.description = description;
     }
-    public Objectif(String description, int point, Couleur[] couleurs){
+    protected Objectif(String description, int point, Couleur[] couleurs){
         this(point,couleurs);
         this.description = description;
     }
-    public Objectif(int point, Couleur[] couleurs) {
+    protected Objectif(int point, Couleur[] couleurs) {
         this.description = this.getClass().getSimpleName();
         this.point = point;
         this.couleurs = couleurs;
     }
 
-    public Objectif(String description, int point) {
+    protected Objectif(String description, int point) {
         this.description = description;
         this.point = point;
     }

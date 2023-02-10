@@ -73,13 +73,13 @@ public class JeuLanceur {
     }
 
     public void twoThousandPartTwo() {
-        LOGGER.log(Level.INFO, String.format("\n Second set de 1000 parties :"));
-        ArrayList<Bot> bots = new ArrayList<>();
-        bots.add(new BotMVP(1));
-        bots.add(new BotMVP(2));
-        bots.add(new BotMVP(1));
-        bots.add(new BotMVP(2));
-        this.setBots(bots);
+        LOGGER.info("\n Second set de 1000 parties :");
+        ArrayList<Bot> bots2 = new ArrayList<>();
+        bots2.add(new BotMVP(1));
+        bots2.add(new BotMVP(2));
+        bots2.add(new BotMVP(3));
+        bots2.add(new BotMVP(4));
+        this.setBots(bots2);
         this.arguments=new Args();
         this.lancer();
     }
@@ -168,7 +168,7 @@ public class JeuLanceur {
             try {
                 writeToCsv(logs);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Erreur lors de l'écriture du fichier CSV");
             }
         }
     }

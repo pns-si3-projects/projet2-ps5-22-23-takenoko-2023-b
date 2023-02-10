@@ -185,7 +185,7 @@ public class Jeu {
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
             if(parcellesIrriguees.contains(p)){
                 ((Parcelle)plateau.getParcelle(p)).augmenteBamboo();
-                LOGGER.info("bot "+j.getId()+" a augmenté le bambou en "+p);
+                LOGGER.info("Bot "+j.getClass().getSimpleName()+" "+ j.getId()+" a augmenté le bambou en "+p);
             }
             else{
                 throw new IllegalArgumentException("La parcelle choisie n'est pas irriguée");
