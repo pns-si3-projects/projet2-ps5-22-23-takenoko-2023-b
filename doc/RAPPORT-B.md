@@ -1,3 +1,4 @@
+# Rapport d'équipe B "Les Gourmands"
 ## 1. Point d'avancement
 ### Un résumé des **fonctionnalités** réalisées
 > Toutes les fonctionnalités ont été réalisées pour le jeu de base. Cependant, les joueurs sont obligés de réaliser la météo, ils n'ont pas le choix.

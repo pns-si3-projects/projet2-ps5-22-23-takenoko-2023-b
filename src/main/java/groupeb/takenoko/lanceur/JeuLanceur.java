@@ -168,7 +168,7 @@ public class JeuLanceur {
             try {
                 writeToCsv(logs);
             } catch (IOException e) {
-                throw new RuntimeException("Erreur lors de l'écriture du fichier CSV");
+                throw new IllegalArgumentException("Erreur lors de l'écriture du fichier CSV");
             }
         }
     }
