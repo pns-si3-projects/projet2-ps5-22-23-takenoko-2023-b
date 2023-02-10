@@ -15,16 +15,16 @@
 
 ### Un résumé de ce qui a été fait pour les bots
 
-> Pour le bot qui nous a été demandé, nous nous sommes basés sur les fonctionnalités que nous proposaient déjà le `bot Moyen`.
+> Pour le bot qui nous a été demandé, nous nous sommes basés sur les fonctionnalités que nous proposaient déjà le `BotMoyen`.
 
 > Pour la fonctionnalité du choix de la météo, nous avons décidé de lui faire choisir la météo nuage afin qu'il puisse prendre un bassin dans les aménagements. Et ce tant que nous sommes avant le tour 5.
 
-> Pour nuire aux autres joueurs, le `bot MVP` va regarder quel type d'objectif est le plus présent parmi ceux que possède tous les autres joueurs et jouer en fonction :
+> Pour nuire aux autres joueurs, le `BotMVP` va regarder quel type d'objectif est le plus présent parmi ceux que possède tous les autres joueurs et jouer en fonction :
 > - S'il y a plus d'objectif panda : il va déplacer le panda sur une parcelle avec peu de bambou. Il va de plus ne pas déplacer le jardinier.
 > - S'il y a plus d'objectif jardinier, il va déplacer le jardinier sur des parcelles avec 3 bambous ou plus.
 > - S'il y a plus d'objectif parcelle : il va poser des parcelles qui vont lui permettre de valider ses objectifs plus rapidement. Comme les objectifs parcelles sont uniques, jouer pour lui va lui permettre d'empêcher les autres joueurs de valider leurs objectifs.
 
-> Le `bot MVP` est meilleur, car lorsqu'il doit prendre des décisions, il va éviter d'aider ses adversaires, contrairement au `bot Moyen` qui lui va seulement jouer pour réaliser ses objectifs sans prendre en compte les autres joueurs. De plus dans le pire des cas il va prendre les décisions que ferait le `bot Moyen`.
+> Le `BotMVP` est meilleur, car lorsqu'il doit prendre des décisions, il va éviter d'aider ses adversaires, contrairement au `BotMoyen` qui lui va seulement jouer pour réaliser ses objectifs sans prendre en compte les autres joueurs. De plus dans le pire des cas il va prendre les décisions que ferait le `BotMoyen`.
 
 > Nous avons par ailleurs réalisé 3 bots similaires au bot moyen dans l'exécution de leurs actions, mais qui vont cependant donner la priorité à un certain type d'objectif.
 
@@ -52,18 +52,18 @@ Il ne fait **aucun choix aléatoire** sauf s'il n'y a pas de bon choix.
 
 Cependant :
 > - Les bots ont trop de responsabilités, car ils choisissent et accomplissent les actions par eux-mêmes, ils gèrent aussi leur inventaire.
-> - Les classes qui ne sont pas bien développer sont les classes `jeu` et `jeuLanceur` car c'est sur ces classes que nous manquons de tests. Cela est dû au fait que les fonctions sont trop complexes ce qui rend la creation de tests complique. La sortie Sonar nous montre bien que ce sont les classes avec le plus de lignes non-couverte par les tests. Pour remédier à cela nous devrions séparer les classes et diminue la complexité des fonctions.
+> - Les classes qui ne sont pas bien développer sont les classes `Jeu` et `JeuLanceur` car c'est sur ces classes que nous manquons de tests. Cela est dû au fait que les fonctions sont trop complexes ce qui rend la creation de tests complique. La sortie Sonar nous montre bien que ce sont les classes avec le plus de lignes non-couverte par les tests. Pour remédier à cela nous devrions séparer les classes et diminue la complexité des fonctions.
 > - Nos méthodes n'ont pas des noms assez explicites
 
 
 ## 3. Processus
 ###  Qui est responsable de quoi / qui a fait quoi ?
 
-> - **Timothée :** ce qui concerne le plateau et le positionnement des parcelles, les personnages. Il a développé les bases du `bot Moyen`. Il s'est occupé de la gestion des arguments grâce à `JCommandeur` ainsi que le `main` et le `lanceur`. Il s'est occupé de faire les tests manquants notamment ceux avec les `Mocks`.
+> - **Timothée :** ce qui concerne le plateau et le positionnement des parcelles, les personnages. Il a développé les bases du `BotMoyen`. Il s'est occupé de la gestion des arguments grâce à `JCommandeur` ainsi que le `Main` et le `JeuLanceur`. Il s'est occupé de faire les tests manquants notamment ceux avec les `Mocks`.
 
- >- **Yael :** Amélioration du `bot Moyen` suite à implementation des nouveaux elements du jeu jusqu'à la version définitive du botMoyen à partir du model de Timothée. Il a travaillé sur le `bot MVP`. Ainsi que revoir les codes qui ont ete produis.
+ >- **Yael :** Amélioration du `BotMoyen` suite à implementation des nouveaux elements du jeu jusqu'à la version définitive du botMoyen à partir du model de Timothée. Il a travaillé sur le `BotMVP`. Ainsi que revoir les codes qui ont ete produis.
 
->- **Tu :** Création et évolution de la classe Jeu qui gère le déroulement de la partie. Elle a travaillé sur l'implémentation des bambous avec les objectifs associés, de la météo ainsi que des aménagements. Elle a mis à jour le `botRandom` à chaque nouvel élément implémenté. Elle a créé un logger et à remplacer les affichages de la console par celui-ci. Elle s'est occupé de la création des Stats et de leur écriture dans un fichier `csv`. Elle a participé à la réalisation du `bot MVP`
+>- **Tu :** Création et évolution de la classe Jeu qui gère le déroulement de la partie. Elle a travaillé sur l'implémentation des bambous avec les objectifs associés, de la météo ainsi que des aménagements. Elle a mis à jour le `BotRandom` à chaque nouvel élément implémenté. Elle a créé un logger et à remplacer les affichages de la console par celui-ci. Elle s'est occupé de la création des Stats et de leur écriture dans un fichier `.csv`. Elle a participé à la réalisation du `BotMVP`
 
 >- **Marco :** S'est occupé de l'implementations des objectifs, notamment parcelles et Jardiniers. Ainsi que de l'implémentation des irrigations. Il a passé une grande partie du projet à réaliser des tests et à refactor des méthodes mal écrites.
 
