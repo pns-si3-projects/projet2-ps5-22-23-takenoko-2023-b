@@ -10,8 +10,7 @@
 > Pour les autres arguments aucun logs n'est affiché, a l'exception des logs de fin de partie qui sont affiche pour connaitre les résultats des parties.
 
 ### Un résumé de ce qui a été fait pour les statistiques en **CSV** (en quelques lignes max, quels choix ont été faits pour les réaliser)
-
-> Pour les statistiques nous récuperons quels est le resultat de la partie : nous affichons alors une fois que l'ensemble des parties ont été executé le % de victoire de defaire et d'égalite de nos bots. 
+> Tout d'abord, on récupère données si le fichier CSV exists pour créer un CSVStats.La classe CSVStats est utilisée pour stocker et mettre à jour les données avec les nouveaux données des parties. Les données consistent des informations sur les types de joueurs, les victoires, les défaites, les matchs nuls, le score moyen et le nombre moyen d'objectifs de chaque joueur.
 
 ### Un résumé de ce qui a été fait pour le bot spécifique demandé, et éventuellement une comparaison avec votre meilleur bot et une analyse de pourquoi celui qui gagne est le meilleur
 
