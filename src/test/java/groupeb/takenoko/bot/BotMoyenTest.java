@@ -98,12 +98,6 @@ class BotMoyenTest {
             assertEquals(pos[i],selected);
         }
     }
-
-    @Test
-    void placerIrrigationTests() {
-        //TODO quand le bot Moyen ne les posera plus au hasard
-    }
-
     @Test
     void deplacerPandaTests() {
         Parcelle green0 = new Parcelle(Couleur.VERT);
@@ -377,39 +371,6 @@ class BotMoyenTest {
         player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE, Couleur.JAUNE));
         player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJVIDE, Couleur.VERT));
 
-    }
-
-
-    @Test
-    void choisirPositionAmenagement(){
-        Position[] positions = new Position[]{
-                new Position(15,14),
-                new Position(16,15),
-                new Position(15,16),
-                new Position(14,16),
-                new Position(14,15),
-                new Position(14,14)
-        };
-        Couleur[] couleurs = new Couleur[]{
-                Couleur.ROSE,
-                Couleur.ROSE,
-                Couleur.JAUNE,
-                Couleur.ROSE,
-                Couleur.JAUNE,
-                Couleur.ROSE
-        };
-        for(int i=0;i<positions.length;i++)board.addParcelle(new Parcelle(couleurs[i]),positions[i]);
-        /*
-        player.addObjectif(new ObjectifPanda(1,Couleur.ROSE,1));
-        assertEquals(new ChoixAmenagement(new Amenagement(Amenagement)), player.choisirPositionAmenagement(posSet,));
-
-
-        player.addObjectif(new ObjectifJardinier(TypeObjJardinier.OBJBASSIN,Couleur.ROSE));
-        player.choisirPositionAmenagement(posSet,);
-
-        Set<Position> posSet = Set.of(positions);
-
-         */
     }
 
 }
