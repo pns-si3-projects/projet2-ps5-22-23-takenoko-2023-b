@@ -59,7 +59,7 @@ public class BotMVP extends BotMoyen
     }
     @Override
     public Position deplacerPanda(Set<Position> positionsPossibles) {
-        Class objectifPrincipale = objectifPrincipale();
+        Class<? extends Objectif> objectifPrincipale = objectifPrincipale();
         if(objectifPrincipale== ObjectifJardinier.class || objectifPrincipale()== ObjectifPanda.class){
             for(Position p: positionsPossibles){
                 if(!getPlateau().getParcelle(p).estParcelleOriginelle() && ((Parcelle)getPlateau().getParcelle(p)).getNbBamboo()>=3 && objectifPrincipale== ObjectifJardinier.class){
