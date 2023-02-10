@@ -2,11 +2,11 @@ package ps5.takenoko.plateau;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.bot.Bot;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.jeu.Jeu;
-import ps5.takenoko.Bot.BotRandom;
+import ps5.takenoko.bot.BotRandom;
 
 import java.util.ArrayList;
 import java.util.Set;

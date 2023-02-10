@@ -1,7 +1,7 @@
 package ps5.takenoko.objectif;
 
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.bot.Bot;
 import ps5.takenoko.plateau.Couleur;
 
 import static org.junit.jupiter.api.Assertions.*;

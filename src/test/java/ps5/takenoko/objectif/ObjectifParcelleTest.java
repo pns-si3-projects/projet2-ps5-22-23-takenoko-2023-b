@@ -2,8 +2,8 @@ package ps5.takenoko.objectif;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.Bot.Bot;
-import ps5.takenoko.Bot.BotRandom;
+import ps5.takenoko.bot.Bot;
+import ps5.takenoko.bot.BotRandom;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.plateau.Couleur;
 import ps5.takenoko.plateau.Parcelle;

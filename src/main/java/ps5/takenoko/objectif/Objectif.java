@@ -1,7 +1,7 @@
 package ps5.takenoko.objectif;
 
 
-import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.bot.Bot;
 import ps5.takenoko.plateau.Couleur;
 
 import java.util.Arrays;

@@ -3,17 +3,12 @@ package ps5.takenoko.lanceur;
 import com.beust.jcommander.JCommander;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import ps5.takenoko.Bot.Bot;
-import ps5.takenoko.Bot.BotMoyen;
-import ps5.takenoko.Bot.BotRandom;
 import ps5.takenoko.option.Args;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 class JeuLanceurTest {
     private static final Logger LOGGER = Logger.getLogger(JeuLanceur.class.getSimpleName());

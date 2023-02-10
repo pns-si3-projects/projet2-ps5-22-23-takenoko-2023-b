@@ -1,4 +1,4 @@
-package ps5.takenoko.Bot;
+package ps5.takenoko.bot;
 
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;

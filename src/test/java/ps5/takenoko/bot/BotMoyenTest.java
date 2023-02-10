@@ -1,4 +1,4 @@
-package ps5.takenoko.Bot;
+package ps5.takenoko.bot;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

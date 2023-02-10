@@ -1,10 +1,10 @@
 package ps5.takenoko.jeu;
 
-import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.bot.Bot;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.Bot.Action;
-import ps5.takenoko.Bot.ChoixAmenagement;
+import ps5.takenoko.bot.Action;
+import ps5.takenoko.bot.ChoixAmenagement;
 import ps5.takenoko.lanceur.CustomHandler;
 import ps5.takenoko.objectif.*;
 import ps5.takenoko.personnage.Jardinier;
@@ -54,7 +54,7 @@ public class Jeu {
             }
         }
         for (Bot j : bots) {
-            LOGGER.info("Bot " + j.getId() + " : " + j.getObjectifsObtenus().toString());
+            LOGGER.info("bot " + j.getId() + " : " + j.getObjectifsObtenus().toString());
         }
     }
 
@@ -66,12 +66,12 @@ public class Jeu {
             LOGGER.info("Tour " + compteurTour + " : Meteo " + meteoTour);
             if (meteoTour == Meteo.CHOIX_LIBRE){
                 meteoTour= choisirMeteo(j);
-                LOGGER.info("Le Bot a choisit la météo : " + meteoTour);
+                LOGGER.info("Le bot a choisit la météo : " + meteoTour);
             }
             if (meteoTour == Meteo.NUAGES){
                 if(amenagementList.isEmpty()){
                     meteoTour= choisirMeteo(j);
-                    LOGGER.info("Plus d'aménagements ! Le Bot choisit la météo : " + meteoTour);
+                    LOGGER.info("Plus d'aménagements ! Le bot choisit la météo : " + meteoTour);
                 }
                 else{
                     executerNuage(j);
@@ -97,7 +97,7 @@ public class Jeu {
             Action actionChoisi = j.jouer(actionsPossibles);
             actionChoisis.add(actionChoisi);
 
-            String msg = "Bot "+j.getId()+" a choisi action " + actionChoisi.toString();
+            String msg = "bot "+j.getId()+" a choisi action " + actionChoisi.toString();
 
             switch (actionChoisi) {
                 case PIOCHER_CANAL_DIRRIGATION -> j.ajouteIrrigation();
@@ -154,7 +154,7 @@ public class Jeu {
             nbActions--;
             List<Objectif> valide = j.validerObjectifs();
             for(Objectif o : valide){
-                LOGGER.info("Bot "+j.getId()+" a validé l'objectif "+o);
+                LOGGER.info("bot "+j.getId()+" a validé l'objectif "+o);
             }
         }
         return true;
@@ -162,7 +162,7 @@ public class Jeu {
     public void executerOrage(Bot j) {
         Position p = j.deplacerPanda(plateau.getParcellePosee());
         panda.deplacer(p,this.plateau);
-        LOGGER.info("Bot "+j.getId()+" a déplacé le panda en "+p);
+        LOGGER.info("bot "+j.getId()+" a déplacé le panda en "+p);
     }
 
     public Meteo choisirMeteo(Bot j){
@@ -184,7 +184,7 @@ public class Jeu {
             Position p = j.choisirParcelleAPousser(parcellesIrriguees);
             if(parcellesIrriguees.contains(p)){
                 ((Parcelle)plateau.getParcelle(p)).augmenteBamboo();
-                LOGGER.info("Bot "+j.getId()+" a augmenté le bambou en "+p);
+                LOGGER.info("bot "+j.getId()+" a augmenté le bambou en "+p);
             }
             else{
                 throw new IllegalArgumentException("La parcelle choisie n'est pas irriguée");
@@ -274,7 +274,7 @@ public class Jeu {
                     nbObjectifFin=7;
                     break;
                 default:
-                    throw new IllegalArgumentException("Le nombre de Bot doit etre entre 2 et 4");
+                    throw new IllegalArgumentException("Le nombre de bot doit etre entre 2 et 4");
             }
         }
 
@@ -292,7 +292,7 @@ public class Jeu {
             List<Class<?extends Objectif>> objectifs = objectifList.objectifTypeDisponible();
             Class<? extends Objectif> o = j.choisirObjectif(objectifs);
             if(!objectifs.contains(o)){
-                throw new IllegalArgumentException("Le Bot a choisi un objectif qui n'est pas disponible");
+                throw new IllegalArgumentException("Le bot a choisi un objectif qui n'est pas disponible");
             }
             j.addObjectif(objectifList.getList().get(o).remove(0));
         }

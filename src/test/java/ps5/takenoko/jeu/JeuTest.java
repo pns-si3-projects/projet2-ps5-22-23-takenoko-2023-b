@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
 import ps5.takenoko.element.Meteo;
-import ps5.takenoko.Bot.*;
+import ps5.takenoko.bot.*;
 import ps5.takenoko.objectif.Objectif;
 import ps5.takenoko.objectif.ObjectifJardinier;
 import ps5.takenoko.objectif.TypeObjJardinier;

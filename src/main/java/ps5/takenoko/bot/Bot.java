@@ -1,4 +1,4 @@
-package ps5.takenoko.Bot;
+package ps5.takenoko.bot;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.Meteo;
@@ -79,7 +79,7 @@ public abstract class Bot implements Comparable<Bot> {
     }
 
     /**
-     * En cas d’égalité, le Bot qui a le plus de points sur ses
+     * En cas d’égalité, le bot qui a le plus de points sur ses
      * cartes objectif « Panda » remporte la victoire
      */
     public int calculPointPanda() {
@@ -106,7 +106,7 @@ public abstract class Bot implements Comparable<Bot> {
             objectifsObtenus.add(obj);
         } else {
             if (!(objectifs.contains(o))) {
-                throw new IllegalArgumentException("Bot n'a pas de cet objectif");
+                throw new IllegalArgumentException("bot n'a pas de cet objectif");
             } else if (o instanceof ObjectifPanda obj) {
                 for (int i = 0; i < obj.getCouleurs().length; i++) {
                     enleverBambous(obj.getNbParcelles(), obj.getCouleurs()[i]);
@@ -195,7 +195,7 @@ public abstract class Bot implements Comparable<Bot> {
         if(this.nbIrrigations>0) {
             this.nbIrrigations--;
         }else{
-            throw new IllegalArgumentException("Le Bot n'a pas d'irrigations");
+            throw new IllegalArgumentException("Le bot n'a pas d'irrigations");
         }
     }
 

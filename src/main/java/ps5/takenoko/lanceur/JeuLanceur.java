@@ -4,7 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
-import ps5.takenoko.Bot.*;
+import ps5.takenoko.bot.*;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.option.Args;
 

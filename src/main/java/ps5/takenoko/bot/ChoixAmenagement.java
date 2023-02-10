@@ -1,4 +1,4 @@
-package ps5.takenoko.Bot;
+package ps5.takenoko.bot;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.plateau.Position;

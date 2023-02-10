@@ -1,4 +1,4 @@
-package ps5.takenoko.Bot;
+package ps5.takenoko.bot;
 
 import org.junit.jupiter.api.Test;
 import ps5.takenoko.element.Amenagement;

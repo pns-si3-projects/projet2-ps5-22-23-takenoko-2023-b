@@ -1,6 +1,6 @@
 package ps5.takenoko.lanceur;
 
-import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.bot.Bot;
 
 import java.util.ArrayList;
 

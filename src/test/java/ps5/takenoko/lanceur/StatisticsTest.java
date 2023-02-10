@@ -1,9 +1,9 @@
 package ps5.takenoko.lanceur;
 
 import org.junit.jupiter.api.Test;
-import ps5.takenoko.Bot.Bot;
-import ps5.takenoko.Bot.BotMoyen;
-import ps5.takenoko.Bot.BotRandom;
+import ps5.takenoko.bot.Bot;
+import ps5.takenoko.bot.BotMoyen;
+import ps5.takenoko.bot.BotRandom;
 
 import java.util.ArrayList;
 

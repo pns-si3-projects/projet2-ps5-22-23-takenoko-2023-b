@@ -1,6 +1,6 @@
 package ps5.takenoko.objectif;
 
-import ps5.takenoko.Bot.Bot;
+import ps5.takenoko.bot.Bot;
 
 public class Empereur extends Objectif {
     public Empereur() {

@@ -1,4 +1,4 @@
-package ps5.takenoko.Bot;
+package ps5.takenoko.bot;
 
 import ps5.takenoko.element.Amenagement;
 import ps5.takenoko.element.AmenagementType;
@@ -18,24 +18,20 @@ public class BotMVP extends BotMoyen
     public BotMVP clone(){
         return new BotMVP(this.getId());
     }
-    
+
     @Override
     public Action jouer(List<Action> actionsPossibles) {
-        if(actionsPossibles.contains(Action.OBJECTIFS)){
-            if(objectifs.size()<5){
-                return Action.OBJECTIFS;
-            }
+        if(actionsPossibles.contains(Action.OBJECTIFS) && objectifs.size() < 5) {
+            return Action.OBJECTIFS;
         }
         if(jeu.getCompteurTour()==1 && actionsPossibles.contains(Action.PIOCHER_CANAL_DIRRIGATION)){
             return Action.PIOCHER_CANAL_DIRRIGATION;
         }
-
-        if(actionsPossibles.contains(Action.PANDA)){
-            for(Position p: jeu.getPanda().posPossibles(getPlateau())){
-                if(!getPlateau().getParcelle(p).estParcelleOriginelle()){
-                    if(((Parcelle)getPlateau().getParcelle(p)).getNbBamboo()>0){
-                        return Action.PANDA;
-                    }
+        if(actionsPossibles.contains(Action.PANDA)) {
+            for(Position p : jeu.getPanda().posPossibles(getPlateau())) {
+                if(!getPlateau().getParcelle(p).estParcelleOriginelle() &&
+                        ((Parcelle)getPlateau().getParcelle(p)).getNbBamboo() > 0) {
+                    return Action.PANDA;
                 }
             }
         }
