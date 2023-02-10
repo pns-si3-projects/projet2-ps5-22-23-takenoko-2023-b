@@ -15,22 +15,7 @@ public class Main {
                 .build()
                 .parse(args);
 
-        ArrayList<Bot> bots = new ArrayList<>();
-        if(arguments.isDemo()){
-            bots.add(new BotMVP(1));
-            bots.add(new BotParcelle(2));
-            bots.add(new BotMoyen(3));
-            bots.add(new BotRandom(4));
-        } else if(arguments.isFocus()) {
-            bots.add(new BotJardinier(1));
-            bots.add(new BotParcelle(2));
-            bots.add(new BotPanda(3));
-        }
-        else{
-            bots.add(new BotMVP(1));
-            bots.add(new BotMoyen(2));
-        }
-        JeuLanceur jeuLanceur = new JeuLanceur(bots, arguments);
+        JeuLanceur jeuLanceur = new JeuLanceur(arguments);
         jeuLanceur.lancer();
     }
 }
