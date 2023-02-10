@@ -4,9 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
-import ps5.takenoko.Bot.Bot;
-import ps5.takenoko.Bot.BotMVP;
-import ps5.takenoko.Bot.BotMoyen;
+import ps5.takenoko.Bot.*;
 import ps5.takenoko.jeu.Jeu;
 import ps5.takenoko.option.Args;
 
@@ -26,15 +24,27 @@ public class JeuLanceur {
     private Statistics stats;
     public int getNbparties() {return nbparties;}
     public void setNbparties(int nbparties) {this.nbparties = nbparties;}
+    public void setBots(ArrayList<Bot> bots) {this.bots = bots; this.stats = new Statistics(bots);}
 
-    public JeuLanceur(ArrayList<Bot> bots, Args arguments) {
-        this.bots = bots;
+    public JeuLanceur(Args arguments) {
         this.arguments = arguments;
-        if(arguments.isCsv()||arguments.isTwoThousand()||arguments.isFocus()){
+        if(arguments.isCsv()||arguments.isTwoThousand()){
             nbparties = 1000;
+            bots.add(new BotMVP(1));
+            bots.add(new BotMoyen(2));
+        }
+        else if(arguments.isFocus()){
+            nbparties = 1000;
+            bots.add(new BotJardinier(1));
+            bots.add(new BotParcelle(2));
+            bots.add(new BotPanda(3));
         }
         else if(arguments.isDemo()){
             nbparties = 1;
+            bots.add(new BotMVP(1));
+            bots.add(new BotParcelle(2));
+            bots.add(new BotMoyen(3));
+            bots.add(new BotRandom(4));
         }
         this.stats = new Statistics(bots);
     }
@@ -58,20 +68,20 @@ public class JeuLanceur {
         }
         affichageStats();
         if(arguments.isTwoThousand()){
-            this.twoThousandPartTwo().lancer();
+            twoThousandPartTwo();
         }
     }
 
-    public JeuLanceur twoThousandPartTwo() {
+    public void twoThousandPartTwo() {
         LOGGER.log(Level.INFO, String.format("\n Second set de 1000 parties :"));
         ArrayList<Bot> bots = new ArrayList<>();
         bots.add(new BotMVP(1));
         bots.add(new BotMVP(2));
         bots.add(new BotMVP(1));
         bots.add(new BotMVP(2));
-        JeuLanceur jeuLanceur = new JeuLanceur(bots, new Args());
-        jeuLanceur.setNbparties(1000);
-        return jeuLanceur;
+        this.setBots(bots);
+        this.arguments=new Args();
+        this.lancer();
     }
 
     private ColumnPositionMappingStrategy setColumMapping(String[] data) {
@@ -166,5 +176,6 @@ public class JeuLanceur {
     public ArrayList<Bot> getJoueurs() {
         return bots;
     }
+
 }
 
