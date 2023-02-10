@@ -61,7 +61,7 @@ Cependant :
 
 > - **Timothée :** ce qui concerne le plateau et le positionnement des parcelles, les personnages. Il a développé les bases du `BotMoyen`. Il s'est occupé de la gestion des arguments grâce à `JCommandeur` ainsi que le `Main` et le `JeuLanceur`. Il s'est occupé de faire les tests manquants notamment ceux avec les `Mocks`.
 
- >- **Yael :** Amélioration du `BotMoyen` suite à implementation des nouveaux elements du jeu jusqu'à la version définitive du `botMoyen` à partir du model de Timothée. Il a travaillé sur le `BotMVP`. Ainsi que revoir les codes qui ont été produits.
+ >- **Yael :** Amélioration du `BotMoyen` suite à implementation des nouveaux elements du jeu jusqu'à la version définitive du `BotMoyen` à partir du model de Timothée. Il a travaillé sur le `BotMVP`. Ainsi que revoir les codes qui ont été produits.
 
 >- **Tu :** Création et évolution de la classe Jeu qui gère le déroulement de la partie. Elle a travaillé sur l'implémentation des bambous avec les objectifs associés, de la météo ainsi que des aménagements. Elle a mis à jour le `BotRandom` à chaque nouvel élément implémenté. Elle a créé un logger et à remplacer les affichages de la console par celui-ci. Elle s'est occupé de la création des Stats et de leur écriture dans un fichier `.csv`. Elle a participé à la réalisation du `BotMVP`.
 
