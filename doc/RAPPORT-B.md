@@ -19,12 +19,12 @@
 
 > Pour la fonctionnalité du choix de la météo, nous avons décidé de lui faire choisir la météo nuage afin qu'il puisse prendre un bassin dans les aménagements. Et ce tant que nous sommes avant le tour 5.
 
-> Pour nuire aux autres joueurs, le `bot ` va regarder quel type d'objectif est le plus présent parmi ceux que possède tous les autres joueurs et jouer en fonction :
+> Pour nuire aux autres joueurs, le `bot MVP` va regarder quel type d'objectif est le plus présent parmi ceux que possède tous les autres joueurs et jouer en fonction :
 > - S'il y a plus d'objectif panda : il va déplacer le panda sur une parcelle avec peu de bambou. Il va de plus ne pas déplacer le jardinier.
 > - S'il y a plus d'objectif jardinier, il va déplacer le jardinier sur des parcelles avec 3 bambous ou plus.
 > - S'il y a plus d'objectif parcelle : il va poser des parcelles qui vont lui permettre de valider ses objectifs plus rapidement. Comme les objectifs parcelles sont uniques, jouer pour lui va lui permettre d'empêcher les autres joueurs de valider leurs objectifs.
 
-> Le `bot ` est meilleur, car lorsqu'il doit prendre des décisions, il va éviter d'aider ses adversaires, contrairement au `bot Moyen` qui lui va seulement jouer pour réaliser ses objectifs sans prendre en compte les autres joueurs. De plus dans le pire des cas il va prendre les décisions que ferait le `bot Moyen`.
+> Le `bot MVP` est meilleur, car lorsqu'il doit prendre des décisions, il va éviter d'aider ses adversaires, contrairement au `bot Moyen` qui lui va seulement jouer pour réaliser ses objectifs sans prendre en compte les autres joueurs. De plus dans le pire des cas il va prendre les décisions que ferait le `bot Moyen`.
 
 > Nous avons par ailleurs réalisé 3 bots similaires au bot moyen dans l'exécution de leurs actions, mais qui vont cependant donner la priorité à un certain type d'objectif.
 
