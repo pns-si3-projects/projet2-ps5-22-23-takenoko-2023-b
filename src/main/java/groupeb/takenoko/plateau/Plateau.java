@@ -136,7 +136,7 @@ public class Plateau {
         int cpt = 0;
 
         for (Direction d : Direction.values()) {
-            if (!(this.getParcelle(p.getPositionByDirection(d)) == null)) {
+            if (this.getParcelle(p.getPositionByDirection(d)) != null) {
                 if (this.getParcelle(p.getPositionByDirection(d)) instanceof ParcelleOriginelle) {
                     return true;
                 }

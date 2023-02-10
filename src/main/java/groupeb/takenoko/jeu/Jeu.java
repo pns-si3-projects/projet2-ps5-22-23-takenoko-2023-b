@@ -4,7 +4,6 @@ import groupeb.takenoko.bot.Action;
 import groupeb.takenoko.bot.Bot;
 import groupeb.takenoko.bot.ChoixAmenagement;
 import groupeb.takenoko.element.Amenagement;
-import groupeb.takenoko.element.AmenagementType;
 import groupeb.takenoko.element.Meteo;
 import groupeb.takenoko.lanceur.CustomHandler;
 import groupeb.takenoko.objectif.Empereur;

@@ -35,7 +35,7 @@ class ObjectifTest {
         assertNotEquals(objectif1,objectif2);
         assertEquals(objectif1,objectif1);
         assertEquals(objectif1,objectif3);
-        assertNotEquals(objectif1,null);
+        assertNotEquals(null,objectif1);
     }
 
     @Test
