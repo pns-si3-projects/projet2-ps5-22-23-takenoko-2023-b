@@ -41,19 +41,18 @@ class PositionTest {
         for(Direction dir : Direction.values()){
             assertEquals(posPair.getPositionByDirection(dir),tabPair[dir.ordinal()]);
             assertEquals(posImpair.getPositionByDirection(dir),tabImpair[dir.ordinal()]);
-
         }
 
     }
 
     @Test
     void testEquals() {
-        assertTrue(posPair.equals(new Position(2,2)));
-        assertTrue(posPair.equals(posPair));
-        assertFalse(posPair.equals(posImpair));
-        assertFalse(posPair.equals(new Position(3,2)));
-        assertFalse(posPair.equals(new Position(2,3)));
-        assertFalse(posPair.equals(new Position(3,3)));
+        assertEquals(new Position(2,2),posPair);
+        assertEquals(posPair,posPair);
+        assertNotEquals(posPair,posImpair);
+        assertNotEquals(new Position(3,2),posPair);
+        assertNotEquals(new Position(2,3),posPair);
+        assertNotEquals(new Position(3,3),posPair);
     }
 
     @Test

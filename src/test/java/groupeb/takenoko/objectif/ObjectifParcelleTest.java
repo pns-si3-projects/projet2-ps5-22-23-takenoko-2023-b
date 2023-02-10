@@ -286,13 +286,13 @@ class ObjectifParcelleTest {
 
     @Test
     void equalsTest(){
-        assertTrue(new ObjectifParcelle(Shape.LIGNE,Couleur.VERT).equals(new ObjectifParcelle(Shape.LIGNE,Couleur.VERT)));
-        assertTrue(new ObjectifParcelle(Shape.TRIANGLE,Couleur.JAUNE).equals(new ObjectifParcelle(Shape.TRIANGLE,Couleur.JAUNE)));
-        assertTrue(new ObjectifParcelle(Shape.TRIANGLE,Couleur.ROSE).equals(new ObjectifParcelle(Shape.TRIANGLE,Couleur.ROSE)));
-        assertTrue(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT}).equals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT})));
-        assertFalse(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT}).equals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.VERT})));
-        assertFalse(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.VERT}).equals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE})));
-        assertTrue(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE}).equals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE})));
+        assertEquals(new ObjectifParcelle(Shape.LIGNE,Couleur.VERT),new ObjectifParcelle(Shape.LIGNE,Couleur.VERT));
+        assertEquals(new ObjectifParcelle(Shape.TRIANGLE,Couleur.JAUNE),new ObjectifParcelle(Shape.TRIANGLE,Couleur.JAUNE));
+        assertEquals(new ObjectifParcelle(Shape.TRIANGLE,Couleur.ROSE),new ObjectifParcelle(Shape.TRIANGLE,Couleur.ROSE));
+        assertEquals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT}),new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT}));
+        assertNotEquals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.VERT}),new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.VERT,Couleur.VERT}));
+        assertNotEquals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE}),new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.VERT}));
+        assertEquals(new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE}),new ObjectifParcelle(Shape.LOSANGE,new Couleur[]{Couleur.JAUNE,Couleur.ROSE}));
     }
 
 

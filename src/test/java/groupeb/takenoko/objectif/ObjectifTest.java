@@ -32,10 +32,10 @@ class ObjectifTest {
         ObjectifConcret objectif2 = new ObjectifConcret("objectif2", 2);
         ObjectifConcret objectif3 = new ObjectifConcret("objectif1", 1);
 
-        assertFalse(objectif1.equals(objectif2));
-        assertTrue(objectif1.equals(objectif1));
-        assertTrue(objectif1.equals(objectif3));
-        assertFalse(objectif1.equals(null));
+        assertNotEquals(objectif1,objectif2);
+        assertEquals(objectif1,objectif1);
+        assertEquals(objectif1,objectif3);
+        assertNotEquals(objectif1,null);
     }
 
     @Test
