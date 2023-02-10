@@ -17,11 +17,6 @@ public class BotRandom extends Bot {
     }
 
     @Override
-    public BotRandom clone(){
-        return new BotRandom(this.getId());
-    }
-
-    @Override
     public Position choisirParcelleAPousser(Set<Position> positions) {
         return getRandomPosition(positions);
     }

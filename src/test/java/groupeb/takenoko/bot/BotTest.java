@@ -42,23 +42,6 @@ class BotTest {
      */
 
     @Test
-    void testClone() {
-        BotRandom fake = player0.clone();
-        assertEquals(fake.getClass(),player0.getClass());
-        assertEquals(fake.getId(),player0.getId());
-        /* Element qui ne sont pas copie
-        assertEquals(fake.getPlateau(),player0.getPlateau());
-        assertEquals(fake.getParcelles(),player0.getParcelles());
-        assertEquals(fake.getNbIrrigations(),player0.getNbIrrigations());
-        assertEquals(fake.getAmenagements(),player0.getAmenagements());
-        assertEquals(fake.getObjectifs(),player0.getObjectifs());
-        assertEquals(fake.getObjectifsObtenus(),player0.getObjectifsObtenus());
-        assertEquals(fake.getBambousObtenus(),player0.getBambousObtenus());
-        */
-        assertNotEquals(fake,player0);
-    }
-
-    @Test
     void calculPoint() {
         assertEquals(0,player0.calculPoint());
     }

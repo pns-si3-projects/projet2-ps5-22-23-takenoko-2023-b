@@ -36,8 +36,6 @@ public abstract class Bot implements Comparable<Bot> {
         this.id = id;
     }
 
-    public abstract Bot clone();
-
     public int getNbIrrigations() {
         return nbIrrigations;
     }

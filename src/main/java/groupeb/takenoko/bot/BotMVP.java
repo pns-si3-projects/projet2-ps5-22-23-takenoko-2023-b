@@ -18,11 +18,6 @@ public class BotMVP extends BotMoyen
         super(id);
     }
     @Override
-    public BotMVP clone(){
-        return new BotMVP(this.getId());
-    }
-
-    @Override
     public Action jouer(List<Action> actionsPossibles) {
         if(actionsPossibles.contains(Action.OBJECTIFS) && objectifs.size() < 5) {
             return Action.OBJECTIFS;

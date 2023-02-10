@@ -12,11 +12,6 @@ public class BotMoyen extends BotRandom {
     }
 
     @Override
-    public BotMoyen clone(){
-        return new BotMoyen(this.getId());
-    }
-
-    @Override
     public Class<? extends Objectif> choisirObjectif(List<Class<? extends Objectif>> objectifsTypes) {
         int cptPan=0;
         int cptPar=0;
