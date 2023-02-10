@@ -15,12 +15,12 @@ class CSVStatsTest {
 
     @Test
     void calculateMoyenne() {
-        assertEquals(csvStats.calculateMoyenne("7", "5"), "6.0");
+        assertEquals("6.0",csvStats.calculateMoyenne("7", "5"));
     }
 
     @Test
     void calculateSum() {
-        assertEquals(csvStats.calculateSum("7", "5"), "12.0");
+        assertEquals("12.0",csvStats.calculateSum("7", "5"));
     }
 
     @Test

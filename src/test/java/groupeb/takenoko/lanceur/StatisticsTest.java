@@ -21,15 +21,15 @@ class StatisticsTest {
         winner.add(joueur1);
         Statistics stats = new Statistics(players);
 
-        assertEquals(stats.getScores()[0][0], 0);
+        assertEquals(0,stats.getScores()[0][0]);
         stats.updateStats(winner);
-        assertEquals(stats.getScores()[0][0], 1);
-        assertEquals(stats.getScores()[1][0], 0);
+        assertEquals(1,stats.getScores()[0][0]);
+        assertEquals(0,stats.getScores()[1][0]);
 
-        assertEquals(stats.getEgalite(),0);
+        assertEquals(0,stats.getEgalite());
         winner.add(new BotRandom(1));
         stats.updateStats(winner);
-        assertEquals(stats.getEgalite(),1);
+        assertEquals(1,stats.getEgalite());
     }
 
     @Test
@@ -47,14 +47,14 @@ class StatisticsTest {
         winner.add(new BotRandom(1));
         stats.updateStats(winner);
 
-        assertEquals(stats.getStats(joueur1,2)[0], (float)1);
-        assertEquals(stats.getStats(joueur1,2)[1], (float) 50);
-        assertEquals(stats.getStats(joueur1,2)[2], (float)0);
-        assertEquals(stats.getStats(joueur1,2)[3], (float)0);
-        assertEquals(stats.getStats(joueur1,2)[4], (float)1);
-        assertEquals(stats.getStats(joueur1,2)[5], (float)50);
-        assertEquals(stats.getStats(joueur1,2)[6], (float)0);
-        assertEquals(stats.getStats(joueur1,2)[7], (float)0);
+        assertEquals((float)1,stats.getStats(joueur1,2)[0]);
+        assertEquals((float) 50,stats.getStats(joueur1,2)[1]);
+        assertEquals((float)0,stats.getStats(joueur1,2)[2]);
+        assertEquals((float)0,stats.getStats(joueur1,2)[3]);
+        assertEquals((float)1,stats.getStats(joueur1,2)[4]);
+        assertEquals((float)50,stats.getStats(joueur1,2)[5]);
+        assertEquals((float)0,stats.getStats(joueur1,2)[6]);
+        assertEquals((float)0,stats.getStats(joueur1,2)[7]);
     }
 
 }

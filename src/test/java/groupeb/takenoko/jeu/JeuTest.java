@@ -57,7 +57,7 @@ class JeuTest {
 
     @Test
     void CalculGagnats(){
-        assertEquals(jeu.calculGagnants().size(), 2);
+        assertEquals(2,jeu.calculGagnants().size());
         Jeu jeu2;
         ArrayList<Bot> players = new ArrayList<Bot>();
         BotRandom joueur1 = new BotRandom(0);
@@ -69,7 +69,7 @@ class JeuTest {
         players.add(joueur1);
         players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
-        assertEquals(jeu2.calculGagnants().size(), 1);
+        assertEquals(1,jeu2.calculGagnants().size());
         assertTrue(jeu2.calculGagnants().contains(joueur1));
     }
 
@@ -82,9 +82,9 @@ class JeuTest {
         players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         jeu2.piocherObjectifs(joueur1);
-        assertEquals(joueur1.getObjectifs().size(), 1);
+        assertEquals(1,joueur1.getObjectifs().size());
         jeu2.piocherObjectifs(joueur1);
-        assertEquals(joueur1.getObjectifs().size(), 2);
+        assertEquals(2,joueur1.getObjectifs().size());
     }
 
     @Test
@@ -95,10 +95,10 @@ class JeuTest {
         players.add(joueur1);
         players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
-        assertEquals(jeu2.getParcellesList().size(),27);
+        assertEquals(27,jeu2.getParcellesList().size());
         Parcelle p = jeu2.piocherParcelles(joueur1);
         assertFalse(jeu2.getParcellesList().contains(p));
-        assertEquals(jeu2.getParcellesList().size(),26);
+        assertEquals(26,jeu2.getParcellesList().size());
     }
 
     @Test
@@ -125,7 +125,7 @@ class JeuTest {
         players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
         jeu2.tourJoueur(joueur1,false);
-        assertEquals(joueur1.getObjectifs().size(), 1);
+        assertEquals(1,joueur1.getObjectifs().size());
 
         Jeu jeuM = Mockito.spy(new Jeu(players));
         when(jeuM.getRandomMeteo()).thenReturn(Meteo.CHOIX_LIBRE);
@@ -151,7 +151,7 @@ class JeuTest {
         } catch (Exception e) {
             exeption = e.getMessage();
         }
-        assertEquals(exeption, "Il n'y a pas de parcelle amenageable");
+        assertEquals("Il n'y a pas de parcelle amenageable",exeption);
 
         Jeu jeuM3 = Mockito.spy(new Jeu(players));
         when(jeuM3.getRandomMeteo()).thenReturn(Meteo.NUAGES);
@@ -201,11 +201,11 @@ class JeuTest {
         players.add(joueur1);
         players.add(new BotRandom(1));
         jeu2 = new Jeu(players);
-        assertEquals(jeu2.getAmenagementList().size(), 9);
-        assertEquals(joueur1.getAmenagements().size(), 0);
+        assertEquals(9,jeu2.getAmenagementList().size());
+        assertEquals(0,joueur1.getAmenagements().size());
         jeu2.executerNuage(joueur1);
-        assertEquals(jeu2.getAmenagementList().size(), 8);
-        assertEquals(joueur1.getAmenagements().size(), 1);
+        assertEquals(8,jeu2.getAmenagementList().size());
+        assertEquals(1,joueur1.getAmenagements().size());
     }
 
     @Test

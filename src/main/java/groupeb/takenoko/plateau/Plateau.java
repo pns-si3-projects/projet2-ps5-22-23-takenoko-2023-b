@@ -228,8 +228,8 @@ public class Plateau {
     public Set<Position> getParcellesIrriguees() {
         Set<Position> res = new HashSet<>();
         for(Position p : parcellePosee){
-            if(!getParcelle(p).estParcelleOriginelle()) {
-                if (((Parcelle)getParcelle(p)).estIrrigue()) res.add(p);
+            if(!getParcelle(p).estParcelleOriginelle()&&((Parcelle)getParcelle(p)).estIrrigue()) {
+                res.add(p);
             }
         }
         return res;
@@ -238,10 +238,8 @@ public class Plateau {
     public Set<Position> getParcellesAugmentables(){
         Set<Position> res = new HashSet<>();
         for(Position p : parcellePosee){
-            if(!getParcelle(p).estParcelleOriginelle()){
-                if(((Parcelle) getParcelle(p)).pouvoirAugmenter()) {
-                    res.add(p);
-                }
+            if(!getParcelle(p).estParcelleOriginelle()&&((Parcelle) getParcelle(p)).pouvoirAugmenter()){
+                res.add(p);
             }
         }
         return res;
@@ -250,10 +248,8 @@ public class Plateau {
     public Set<Position> getParcellesAmenageables(){
         Set<Position> res = new HashSet<>();
         for(Position p : parcellePosee){
-            if(!getParcelle(p).estParcelleOriginelle()){
-                if(((Parcelle) getParcelle(p)).getNbBamboo()==0 && ((Parcelle) getParcelle(p)).getAmenagement().getType()== AmenagementType.EMPTY){
-                    res.add(p);
-                }
+            if(!getParcelle(p).estParcelleOriginelle()&&((Parcelle) getParcelle(p)).getNbBamboo()==0 && ((Parcelle) getParcelle(p)).getAmenagement().getType()== AmenagementType.EMPTY){
+                res.add(p);
             }
         }
         return res;

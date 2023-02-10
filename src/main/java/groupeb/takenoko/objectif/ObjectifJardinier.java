@@ -16,6 +16,7 @@ public class ObjectifJardinier extends Objectif {
             case OBJMULTROSE -> super.couleurs = new Couleur[]{Couleur.ROSE};
             case OBJMULTJAUNE -> super.couleurs = new Couleur[]{Couleur.JAUNE};
             case OBJMULTVERT -> super.couleurs = new Couleur[]{Couleur.VERT};
+            default -> {}
         }
         this.type = type;
 

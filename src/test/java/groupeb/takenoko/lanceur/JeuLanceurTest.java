@@ -23,7 +23,7 @@ class JeuLanceurTest {
                 .build()
                 .parse("--csv");
         JeuLanceur jeuLanceurCsv = new JeuLanceur(arguments);
-        assertTrue(jeuLanceurCsv.getNbparties() == 1000);
+        assertEquals(1000,jeuLanceurCsv.getNbparties());
 
         arguments = new Args();
         JCommander.newBuilder()
@@ -31,7 +31,7 @@ class JeuLanceurTest {
                 .build()
                 .parse("--demo");
         jeuLanceurCsv = new JeuLanceur(arguments);
-        assertTrue(jeuLanceurCsv.getNbparties() == 1);
+        assertEquals(1,jeuLanceurCsv.getNbparties());
 
     }
 
