@@ -30,7 +30,7 @@
 
 ## 2. Architecture et qualité
 ### Comment est faite l'architecture du projet ? Et quels choix nous ont amené à la réaliser ainsi ?
-> Notre classe `Jeu` distribue des ordres au plateau et aux joueurs. Elle s'occupe du déroulement de la partie
+> Notre classe `Jeu` distribue des ordres au plateau et aux joueurs. Elle s'occupe du déroulement de la partie.
 
 > Pour le positionnement des parcelles, on a décidé de leur donner des coordonnées sur 2 valeurs respectivement le numéro de ligne et de colonne. 
 > - Nous stockons les positions des parcelles présentes sur le plateau dans une `ArrayList`.
@@ -53,7 +53,7 @@ Il ne fait **aucun choix aléatoire** sauf s'il n'y a pas de bon choix.
 Cependant :
 > - Les bots ont trop de responsabilités, car ils choisissent et accomplissent les actions par eux-mêmes, ils gèrent aussi leur inventaire.
 > - Les classes qui ne sont pas bien développer sont les classes `Jeu` et `JeuLanceur` car c'est sur ces classes que nous manquons de tests. Cela est dû au fait que les fonctions sont trop complexes ce qui rend la creation de tests complique. La sortie Sonar nous montre bien que ce sont les classes avec le plus de lignes non-couverte par les tests. Pour remédier à cela nous devrions séparer les classes et diminue la complexité des fonctions.
-> - Nos méthodes n'ont pas des noms assez explicites
+> - Nos méthodes n'ont pas des noms assez explicites.
 
 
 ## 3. Processus
@@ -61,9 +61,9 @@ Cependant :
 
 > - **Timothée :** ce qui concerne le plateau et le positionnement des parcelles, les personnages. Il a développé les bases du `BotMoyen`. Il s'est occupé de la gestion des arguments grâce à `JCommandeur` ainsi que le `Main` et le `JeuLanceur`. Il s'est occupé de faire les tests manquants notamment ceux avec les `Mocks`.
 
- >- **Yael :** Amélioration du `BotMoyen` suite à implementation des nouveaux elements du jeu jusqu'à la version définitive du botMoyen à partir du model de Timothée. Il a travaillé sur le `BotMVP`. Ainsi que revoir les codes qui ont ete produis.
+ >- **Yael :** Amélioration du `BotMoyen` suite à implementation des nouveaux elements du jeu jusqu'à la version définitive du `BotMoyen` à partir du model de Timothée. Il a travaillé sur le `BotMVP`. Ainsi que revoir les codes qui ont été produits.
 
->- **Tu :** Création et évolution de la classe Jeu qui gère le déroulement de la partie. Elle a travaillé sur l'implémentation des bambous avec les objectifs associés, de la météo ainsi que des aménagements. Elle a mis à jour le `BotRandom` à chaque nouvel élément implémenté. Elle a créé un logger et à remplacer les affichages de la console par celui-ci. Elle s'est occupé de la création des Stats et de leur écriture dans un fichier `.csv`. Elle a participé à la réalisation du `BotMVP`
+>- **Tu :** Création et évolution de la classe Jeu qui gère le déroulement de la partie. Elle a travaillé sur l'implémentation des bambous avec les objectifs associés, de la météo ainsi que des aménagements. Elle a mis à jour le `BotRandom` à chaque nouvel élément implémenté. Elle a créé un logger et à remplacer les affichages de la console par celui-ci. Elle s'est occupé de la création des Stats et de leur écriture dans un fichier `.csv`. Elle a participé à la réalisation du `BotMVP`.
 
 >- **Marco :** S'est occupé de l'implementations des objectifs, notamment parcelles et Jardiniers. Ainsi que de l'implémentation des irrigations. Il a passé une grande partie du projet à réaliser des tests et à refactor des méthodes mal écrites.
 
